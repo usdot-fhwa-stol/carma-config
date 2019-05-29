@@ -45,24 +45,34 @@ If not using simulated drivers they are activated if the respective mock argumen
 
   <!-- DSRC OBU Driver Node -->
   <include unless="$(arg mock_comms)" file="$(find dsrc_driver)/launch/dsrc_node.launch"/>
-      
-  <!-- PinPoint Driver Node -->
-  <include unless="$(arg mock_gnss)" file="$(find pinpoint)/launch/pinpoint.launch"/>
 
-  <!-- Truck CAN Driver Node -->
-  <include unless="$(arg mock_can)" file="$(find truck_can_driver)/launch/truck_can_client_cav_socketcan.launch">
-    <arg name="truck_can_client_device" default="can1" />
+  <!-- PACMOD Controller Driver Node -->
+  <include unless="$(arg mock_controller)" file="$(find ssc_interface_wrapper)/launch/ssc_pacmod_driver.launch">
+    <arg name="pacmod_vehicle_type" default="LEXUS_RX_450H" />
+    <arg name="use_kvaser" default="true" />
+    <arg name="kvaser_hardware_id" default="10376" />
+    <arg name="kvaser_circuit_id" default="0" />
   </include>
 
-  <!-- Truck Controller Driver Node -->
-  <include unless="$(arg mock_controller)" file="$(find truck_dbw_controller)/launch/truck_dbw_controller_cav_socketcan.launch">
-    <arg name="truck_can_device" default="can2" />
+  <!-- Novatel GNSS/IMU Driver Nodes -->
+  <include unless="$(arg mock_lidar)" file="$(find novatel_gps_driver)/launch/novatel_gps_driver_eth.launch">
+    <arg name="ip" value="192.168.74.10" />
+    <arg name="port" value="2000" />
+    <arg name="imu_rate" value="100" />
   </include>
 
-  <!-- Truck Delphi Radar Driver Node -->
-  <include unless="$(arg mock_radar)" file="$(find delphi_esr_driver)/launch/delphi_esr_driver.launch">
-    <arg name="device_name" default="can0" />
-    <arg name="sensor_frame" default="f_lrr_frame"/>
+  <!-- Velodyne Lidar Driver Nodes -->
+  <include unless="$(arg mock_lidar)" file="$(find velodyne_lidar_wrapper)/launch/velodyne_lidar_driver.launch">
+    <arg name="frame_id" value="velodyne"/>
+    <arg name="device_ip" value="192.168.1.201"/>
   </include>
-	
+
+  <!-- TODO AVT Vimba Camera Left Driver Node -->
+  <!-- TODO AVT Vimba Camera Right Driver Node -->
+  <!-- TODO DelphiESR Front Driver Node -->
+  <!-- TODO Delphi Srr2 Front Left Driver Node -->
+  <!-- TODO Delphi Srr2 Front Right Driver Node -->
+  <!-- TODO Delphi Srr2 Rear Left Driver Node -->
+  <!-- TODO Delphi Srr2 Rear Right Driver Node -->
+
 </launch>
