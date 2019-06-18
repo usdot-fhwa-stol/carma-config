@@ -34,7 +34,7 @@ echo ""
 
 
 if [[ -z "$1" ]]; then
-    TAG="$("../../engineering_tools/get-carma-version.sh")-$CONFIG_NAME"
+    TAG="$("../docker/get-system-version.sh")-$CONFIG_NAME"
 else
     TAG="$1-$CONFIG_NAME"
 fi
