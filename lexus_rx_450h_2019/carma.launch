@@ -30,6 +30,9 @@
 <launch>
   <!-- Override Required Paths -->
   <arg name="arealist_path" default="$(find aw_platform)/map/arealist.txt" doc="The path of the package directory"/>
+   <arg name="load_type" value="noupdate"/>
+   <arg name="single_pcd_path" value="$(find aw_platform)/map/pcd_map.pcd"/>
+  <arg name="area" default="1x1"/>
 
   <!-- Startup Drivers With Main CARMA System -->
   <arg name="launch_drivers" default="true" doc="True if drivers are to be launched with the CARMA Platform, overrides mock_drivers arg if false"/>
