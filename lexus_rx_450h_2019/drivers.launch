@@ -59,10 +59,12 @@ If not using simulated drivers they are activated if the respective mock argumen
     <arg name="ip" value="192.168.74.10" />
     <arg name="port" value="2000" />
     <arg name="imu_rate" value="100" />
+    <arg name="frame_id" value="novatel_gnss" />
+    <arg name="imu_frame_id" value="novatel_imu" />
   </include>
 
   <!-- Velodyne Lidar Driver Nodes -->
-  <include unless="$(arg mock_lidar)" file="$(find velodyne_lidar_wrapper)/launch/velodyne_lidar_driver.launch">
+  <include unless="$(arg mock_lidar)" file="$(find velodyne_lidar_driver_wrapper)/launch/velodyne_lidar_driver.launch">
     <arg name="frame_id" value="velodyne"/>
     <arg name="device_ip" value="192.168.1.201"/>
   </include>
