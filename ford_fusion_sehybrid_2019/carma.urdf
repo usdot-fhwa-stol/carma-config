@@ -14,7 +14,7 @@
   License for the specific language governing permissions and limitations under
   the License.
 -->
-<!-- Pacifica Robot Description File
+<!-- Fusion Robot Description File
     This file defines the static transformations of the CARMA platform operating on a passanger car.
 -->
 <robot name="vehicle_platform">
