@@ -24,43 +24,6 @@ If not using simulated drivers they are activated if the respective mock argumen
 -->
 
 <launch>
-
-  <!-- Directory of Parameter Files -->
-  <arg name="CARMA_DIR" default="$(find carma)" doc="The path of the package directory"/>
-  <arg name="PARAM_DIR" default="$(arg CARMA_DIR)/launch/params" doc="Directory of yaml parameter files"/>
-
-  <!-- Simulation Usage -->
-  <arg name="mock_drivers"        default="" doc="List of driver node base names which will be launched as mock drivers"/>
-
-  <arg name="mock_can"            value="$(eval 'can' in arg('mock_drivers').split())"/>
-  <arg name="mock_comms"          value="$(eval 'comms' in arg('mock_drivers').split())"/>
-  <arg name="mock_controller"     value="$(eval 'controller' in arg('mock_drivers').split())"/>
-  <arg name="mock_gnss"           value="$(eval 'gnss' in arg('mock_drivers').split())"/>
-  <arg name="mock_radar"          value="$(eval 'radar' in arg('mock_drivers').split())"/>
-  <arg name="mock_imu"            value="$(eval 'imu' in arg('mock_drivers').split())"/>
-  <arg name="mock_lidar"          value="$(eval 'lidar' in arg('mock_drivers').split())"/>
-  <arg name="mock_camera"         value="$(eval 'camera' in arg('mock_drivers').split())"/>
-  <arg name="mock_roadway_sensor" value="$(eval 'roadway_sensor' in arg('mock_drivers').split())"/>
-
-  <!-- DSRC OBU Driver Node -->
-  <include unless="$(arg mock_comms)" file="$(find dsrc_driver)/launch/dsrc_node.launch"/>
-      
-  <!-- PinPoint Driver Node -->
-  <include unless="$(arg mock_gnss)" file="$(find pinpoint)/launch/pinpoint.launch"/>
-
-  <!-- SRX CAN Driver Node -->
-  <include unless="$(arg mock_can)" file="$(find srx_can_driver)/launch/srx_can_driver_socketcan.launch">
-    <arg name="srx_can_can_device" value="can2" />
-  </include>
-
-  <!--SRX Controller Driver Node-->
-  <include unless="$(arg mock_controller)" file="$(find srx_controller)/launch/srx_controller.launch">
-    <arg name="srx_controller_can_device" value="can1"/>
-  </include>
-      
-  <!-- SRX Radar Driver Node -->
-  <include unless="$(arg mock_radar)" file="$(find srx_objects)/launch/srx_objects_socketcan.launch">
-    <arg name="srx_objects_can_device" value="can0"/>
-  </include>
-	
+  <arg name="mock_drivers" default="controller can comms gnss radar lidar camera roadway_sensor" />
+  <!-- File not used in development environment where only mock drivers are used -->
 </launch>

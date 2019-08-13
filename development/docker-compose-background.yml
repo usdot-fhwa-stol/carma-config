@@ -17,7 +17,7 @@ version: '2'
 
 services:
   web-ui:
-    image: usdotfhwastol/carma-web-ui:latest
+    image: usdotfhwastol/carmawebui:latest
     network_mode: host
     container_name: web-ui
     environment:
