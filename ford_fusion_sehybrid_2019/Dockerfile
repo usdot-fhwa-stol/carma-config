@@ -33,7 +33,7 @@ LABEL org.label-schema.vcs-url="https://github.com/usdot-fhwa-stol/CARMAPlatform
 LABEL org.label-schema.vcs-ref=${VCS_REF}
 LABEL org.label-schema.build-date=${BUILD_DATE}
 
-ADD . /root/vehicle
-VOLUME /opt/carma/vehicle
+ADD . /root/vehicle/config
+VOLUME /opt/carma/vehicle/config
 
-CMD  cp /root/vehicle/* /opt/carma/vehicle
+CMD  cp /root/vehicle/config/* /opt/carma/vehicle/config
