@@ -46,7 +46,7 @@ services:
     command: wait-for-it.sh localhost:11311 -- roslaunch /opt/carma/vehicle/config/carma_docker.launch
 
   cohda_dsrc_driver:
-    image: usdotfhwastol/carma-cohda-dsrc-driver:latest
+    image: usdotfhwastol/carmacohdadsrcdriver:latest
     container_name: carma-cohda-dsrc-driver
     network_mode: host
     volumes_from:
@@ -96,7 +96,7 @@ services:
     volumes:
       - /opt/carma/logs:/opt/carma/logs
       - /home/autoware/.ros:/home/carma/.ros
-    command: bash -c 'export ROS_NAMESPACE=$${CARMA_INTR_NS} && wait-for-it.sh localhost:11311 -- roslaunch /opt/carma/vehicle/config/drivers.launch drivers:=velodyne_lidar_wrapper'
+    command: bash -c 'export ROS_NAMESPACE=$${CARMA_INTR_NS} && wait-for-it.sh localhost:11311 -- roslaunch /opt/carma/vehicle/config/drivers.launch drivers:=velodyne_lidar_driver_wrapper'
 
   # TODO AVT Vimba Camera Left Driver Node
   # TODO AVT Vimba Camera Right Driver Node
