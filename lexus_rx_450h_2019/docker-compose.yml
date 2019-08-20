@@ -71,7 +71,7 @@ services:
     volumes:
       - /opt/carma/logs:/opt/carma/logs
       - /opt/carma/.ros:/home/carma/.ros
-      - /opt/carma/vehicle/pacmod:/opt/carma/vehicle/pacmod #TODO file mapping
+      - /opt/carma/vehicle/calibration:/opt/carma/vehicle/calibration
     command: bash -c 'export ROS_NAMESPACE=$${CARMA_INTR_NS} && wait-for-it.sh localhost:11311 -- roslaunch drivers.launch drivers:=ssc_interface_wrapper'
 
   novatel_gnss_imu_driver:
