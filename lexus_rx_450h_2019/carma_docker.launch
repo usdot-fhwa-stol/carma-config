@@ -33,7 +33,7 @@
   <arg name="single_pcd_path" default="/opt/carma/maps/pcd_map.pcd"/>
   <arg name="arealist_path" default="/opt/carma/maps/arealist.txt"/>
   <arg name="area" default="1x1"/>
-  <arg name="route_file_folder" default="/opt/carma/routes"/>
+  <arg name="route_file_folder" default="/opt/carma/routes/"/>
 
   <!-- Launch without drivers as those will be launched as docker containers-->
   <arg name="launch_drivers" default="false"/>
