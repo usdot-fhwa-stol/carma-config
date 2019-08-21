@@ -46,7 +46,7 @@ services:
     command: wait-for-it.sh localhost:11311 -- roslaunch /opt/carma/vehicle/config/carma_docker.launch
 
   cohda_dsrc_driver:
-    image: usdotfhwastol/carmacohdadsrcdriver:latest
+    image: usdotfhwastol/carma-cohda-dsrc-driver:latest
     container_name: carma-cohda-dsrc-driver
     network_mode: host
     volumes_from:
