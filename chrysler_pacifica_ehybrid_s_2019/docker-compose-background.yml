@@ -17,11 +17,11 @@ version: '2'
 
 services:
   web-ui:
-    image: usdotfhwastol/carma-web-ui:2.9.0
+    image: usdotfhwastol/carma-web-ui:latest
     network_mode: host
     container_name: web-ui
     environment:
-      - ROS_IP=192.168.0.100
+      - ROS_IP=192.168.88.10
     volumes_from: 
       - container:carma-config:ro
     volumes: 

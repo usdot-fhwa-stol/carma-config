@@ -1,0 +1,43 @@
+# Defines the ros parameters which define the characteristics of this host vehicle configuration
+
+# String: Host vehicle make
+vehicle_make: 'Lexus'
+
+# String: Host vehicle model
+vehicle_model: 'RX-450'
+
+# Integer: Host vehicle year
+# Units: Year
+vehicle_year: 2019
+
+# Double: Host vehicle length
+# Units: Meters
+vehicle_length: 5.0
+
+# Double: Host vehicle width
+# Units: Meters
+vehicle_width: 2.5
+
+# Double: Host vehicle height
+# Units: Meters
+vehicle_height: 3.0
+
+# Double: Distance from front axel to rear axel
+# Units: Meters
+vehicle_wheel_base: 2.79
+
+# Double: Radius of the tires
+# Units: Meters
+vehicle_tire_radius: 0.39
+
+# Acceleration limit
+# Units: m/s^2
+vehicle_acceleration_limit: 3.0
+
+# Deceleration limit
+# Units: m/s^2
+vehicle_deceleration_limit: 6.0
+
+# Max curvature rate
+# Units: (m^-1) / s
+vehicle_max_curvature_rate: 0.75
