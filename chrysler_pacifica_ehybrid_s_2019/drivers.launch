@@ -64,7 +64,6 @@ If not using simulated drivers they are activated if the respective mock argumen
   <include if="$(arg novatel_gps_driver)" file="$(find novatel_gps_driver)/launch/novatel_gps_driver_eth.launch">
     <arg name="ip" value="192.168.74.10" />
     <arg name="port" value="2000" />
-    <arg name="imu_rate" value="100" />
     <arg name="frame_id" value="novatel_gnss" />
     <arg name="imu_frame_id" value="novatel_imu" />
   </include>
