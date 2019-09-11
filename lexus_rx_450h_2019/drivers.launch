@@ -57,7 +57,7 @@ If not using simulated drivers they are activated if the respective mock argumen
     <arg name="use_kvaser" default="true" />
     <arg name="kvaser_hardware_id" default="10376" />
     <arg name="kvaser_circuit_id" default="0" />
-    <arg name="ssc_param_dir" value="$(arg vehicle_calibration_dir)"/>
+    <arg name="ssc_param_dir" value="$(arg vehicle_calibration_dir)/ssc_pm_lexus"/>
   </include>
 
   <!-- Novatel GNSS/IMU Driver Nodes -->
