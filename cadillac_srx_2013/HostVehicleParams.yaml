@@ -30,5 +30,5 @@ vehicle_width: 3.0
 vehicle_year: 0
 
 # State machine type
-# type: lexus or cadilac
-vehicle_state_machine_type : cadilac
+# type: SoftwareOnlyEngagedStateMachine or HardwareEngagedAutomation
+vehicle_state_machine_type : HardwareEngagedAutomation
