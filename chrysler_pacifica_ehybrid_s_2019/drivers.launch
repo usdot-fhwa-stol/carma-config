@@ -53,16 +53,15 @@ If not using simulated drivers they are activated if the respective mock argumen
   <include if="$(arg dsrc_driver)" file="$(find dsrc_driver)/launch/dsrc_node.launch"/>
 
   <!-- PACMOD Controller Driver Node -->
-  <include if="$(arg ssc_interface_wrapper)" file="$(find ssc_interface_wrapper)/launch/ssc_pacmod_driver.launch">
-    <arg name="pacmod_vehicle_type" default="LEXUS_RX_450H" />
-    <arg name="use_kvaser" default="true" />
-    <arg name="kvaser_hardware_id" default="10376" />
-    <arg name="kvaser_circuit_id" default="0" />
+  <include if="$(arg ssc_interface_wrapper)" file="$(find ssc_interface_wrapper)/launch/ssc_ne_pacifica_driver.launch">
+    <arg name="use_socketcan" default="true" />
+    <arg name="socketcan_device" default="can0" />
+    <arg name="ssc_param_dir" value="$(arg vehicle_calibration_dir)/ssc_ne_pacifica"/>
   </include>
 
   <!-- Novatel GNSS/IMU Driver Nodes -->
   <include if="$(arg novatel_gps_driver)" file="$(find novatel_gps_driver)/launch/novatel_gps_driver_eth.launch">
-    <arg name="ip" value="192.168.74.10" />
+    <arg name="ip" value="192.168.88.29" />
     <arg name="port" value="2000" />
     <arg name="frame_id" value="novatel_gnss" />
     <arg name="imu_frame_id" value="novatel_imu" />
