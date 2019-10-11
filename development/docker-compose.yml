@@ -38,8 +38,11 @@ services:
       - /opt/carma/logs:/opt/carma/logs
       - /opt/carma/.ros:/home/carma/.ros
       - /opt/carma/vehicle/calibration:/opt/carma/vehicle/calibration
+      - /tmp/.X11-unix:/tmp/.X11-unix
     environment:
       - ROS_IP=127.0.0.1
+      - DISPLAY
+      - QT_X11_NO_MITSHM=1
     command: wait-for-it.sh localhost:11311 -- roslaunch /opt/carma/vehicle/config/carma_docker.launch
   mock-can-driver:
     image: usdotfhwastol/carma-platform:latest
