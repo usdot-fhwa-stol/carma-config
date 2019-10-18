@@ -17,7 +17,7 @@ version: '2'
 
 services:
   roscore:
-    image: usdotfhwastol/carma-base:3.1.0
+    image: usdotfhwastol/carma-base:3.2.0
     network_mode: host
     container_name: roscore
     volumes_from:
@@ -46,7 +46,7 @@ services:
     command: wait-for-it.sh localhost:11311 -- roslaunch /opt/carma/vehicle/config/carma_docker.launch
 
   cohda_dsrc_driver:
-    image: usdotfhwastol/carma-cohda-dsrc-driver:3.1.0
+    image: usdotfhwastol/carma-cohda-dsrc-driver:3.0.0
     container_name: carma-cohda-dsrc-driver
     network_mode: host
     volumes_from:
@@ -59,7 +59,7 @@ services:
     command: bash -c 'export ROS_NAMESPACE=$${CARMA_INTR_NS} && wait-for-it.sh localhost:11311 -- roslaunch /opt/carma/vehicle/config/drivers.launch drivers:=dsrc_driver'
 
   ssc_controller_driver:
-    image: usdotfhwastol/carma-ssc-interface-wrapper:3.1.0
+    image: usdotfhwastol/carma-ssc-interface-wrapper:1.0.0
     container_name: ssc_controller_driver
     network_mode: host
     privileged: true # Grant access to usb for can data
@@ -76,7 +76,7 @@ services:
     command: bash -c 'export ROS_NAMESPACE=$${CARMA_INTR_NS} && wait-for-it.sh localhost:11311 -- roslaunch /opt/carma/vehicle/config/drivers.launch drivers:=ssc_interface_wrapper'
 
   novatel_gnss_imu_driver:
-    image: usdotfhwastol/carma-novatel-gps-driver:3.1.0
+    image: usdotfhwastol/carma-novatel-gps-driver:1.0.0
     container_name: novatel-gnss-imu-driver
     network_mode: host
     volumes_from:
@@ -89,7 +89,7 @@ services:
     command: bash -c 'export ROS_NAMESPACE=$${CARMA_INTR_NS} && wait-for-it.sh localhost:11311 -- roslaunch /opt/carma/vehicle/config/drivers.launch drivers:=novatel_gps_driver'
 
   velodyne_lidar_driver:
-    image: usdotfhwastol/carma-velodyne-lidar-driver:3.1.0
+    image: usdotfhwastol/carma-velodyne-lidar-driver:1.0.0
     container_name: velodyne-lidar-driver
     network_mode: host
     volumes_from:
