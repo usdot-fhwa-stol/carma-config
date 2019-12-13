@@ -1,5 +1,11 @@
 # CARMAConfig
-The CARMAConfig repository stores the vehicle-specifc and vehicle-class specific configuration files (such as Docker Compose manifests, network configuration files, system parameters) for use with the different vehicles the CARMA Platform supports.
+The CARMAConfig repository stores the vehicle-specifc and vehicle-class specific configuration files (such as Docker Compose manifests, network configuration files, system parameters) for use with the different vehicles the CARMA Platform supports. A detailed breakdown of how CARMA treats vehicle configuration can be found on the confluence page: https://usdot-carma.atlassian.net/wiki/spaces/CAR/pages/196182019/CARMA3+Project+Documentation?preview=/196182019/198574135/CARMA%20Platform%20Detailed%20Design%20-%20Parameter%20and%20Launch%20Standards%20for%20Different%20Vehicle%20Configurations.docx
+
+## Vehicle Configuration Folders
+Folders containing the name of a specific vehicle class such as lexus_rx_450h_2019 contain vehicle configuration data that is specific to that class of vehicle and sensor suite. For example the launch file for the sensors used on that vehicle. These folders also contain the docker compose files that will launch CARMA with the appropriate configuration. These folders do not contain calibration information that is specific to the individual vehicles. 
+
+## Vehicle Calibration Folder
+Some parameters are unique to individual vehicles such as precise sensor orientations or controller tunings. These values are stored separately from parameters that apply to classes of vehicles. A special folder structure is used for this purpose, an example of this structure can be seen in the example_calibration_folder directory. Calibration folders should be installed on the vehicle such that their vehicle folders can be found at /opt/carma/vehicle. It is recommended that this be done as a sym-link to a git repository so your vehicle calibration data can be version controlled.
 
 # CARMAPlatform
 The primary CARMAPlatform repository can be found [here](https://github.com/usdot-fhwa-stol/CARMAPlatform) and is part of the [USDOT FHWA STOL](https://github.com/usdot-fhwa-stol/)
