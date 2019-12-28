@@ -17,7 +17,7 @@ version: '2'
 
 services:
   roscore:
-    image: usdotfhwastol/carma-base:3.4.0
+    image: usdotfhwastol/carma-base:CARMASystem_3.2.0
     network_mode: host
     container_name: roscore
     volumes_from:
@@ -30,7 +30,7 @@ services:
     command: roscore
 
   platform:
-    image: usdotfhwastol/carma-platform:3.2.0
+    image: usdotfhwastol/carma-platform:CARMASystem_3.2.0
     network_mode: host
     container_name: platform
     volumes_from:
@@ -46,7 +46,7 @@ services:
     command: wait-for-it.sh localhost:11311 -- roslaunch /opt/carma/vehicle/config/carma_docker.launch
 
   cohda_dsrc_driver:
-    image: usdotfhwastol/carma-cohda-dsrc-driver:3.1.0
+    image: usdotfhwastol/carma-cohda-dsrc-driver:CARMASystem_3.2.0
     container_name: carma-cohda-dsrc-driver
     network_mode: host
     volumes_from:
@@ -59,7 +59,7 @@ services:
     command: bash -c 'export ROS_NAMESPACE=$${CARMA_INTR_NS} && wait-for-it.sh localhost:11311 -- roslaunch /opt/carma/vehicle/config/drivers.launch drivers:=dsrc_driver'
 
   ssc_controller_driver:
-    image: usdotfhwastol/carma-ssc-interface-wrapper:2.1.0
+    image: usdotfhwastol/carma-ssc-interface-wrapper:2.1.0-5-g8154300-SNAPSHOT
     container_name: ssc_controller_driver
     network_mode: host
     volumes_from:
@@ -73,7 +73,7 @@ services:
     command: bash -c 'export ROS_NAMESPACE=$${CARMA_INTR_NS} && wait-for-it.sh localhost:11311 -- roslaunch /opt/carma/vehicle/config/drivers.launch drivers:=ssc_interface_wrapper'
 
   novatel_gnss_imu_driver:
-    image: usdotfhwastol/carma-novatel-gps-driver:1.1.0
+    image: usdotfhwastol/carma-novatel-gps-driver:CARMASystem_3.2.0
     container_name: novatel-gnss-imu-driver
     network_mode: host
     volumes_from:
@@ -86,7 +86,7 @@ services:
     command: bash -c 'export ROS_NAMESPACE=$${CARMA_INTR_NS} && wait-for-it.sh localhost:11311 -- roslaunch /opt/carma/vehicle/config/drivers.launch drivers:=novatel_gps_driver'
 
   velodyne_lidar_driver:
-    image: usdotfhwastol/carma-velodyne-lidar-driver:1.1.0
+    image: usdotfhwastol/carma-velodyne-lidar-driver:1.1.0-2-g45970d8-SNAPSHOT
     container_name: velodyne-lidar-driver
     network_mode: host
     volumes_from:
@@ -99,7 +99,7 @@ services:
     command: bash -c 'export ROS_NAMESPACE=$${CARMA_INTR_NS} && wait-for-it.sh localhost:11311 -- roslaunch /opt/carma/vehicle/config/drivers.launch drivers:=velodyne_lidar_driver_wrapper'
 
   lidar_lite_trailer_angle_driver:
-    image: usdotfhwastol/carma-lidar_lite_trailer_angle_driver:1.1.0
+    image: usdotfhwastol/carma-garmin-lidar-lite-v3-driver-wrapper:d9d77c1-SNAPSHOT
     container_name: lidar_lite_trailer_angle_driver
     network_mode: host
     volumes_from:
@@ -109,6 +109,7 @@ services:
     volumes:
       - /opt/carma/logs:/opt/carma/logs
       - /opt/carma/.ros:/home/carma/.ros
+      - /opt/carma/vehicle/calibration:/opt/carma/vehicle/calibration
     command: bash -c 'export ROS_NAMESPACE=$${CARMA_INTR_NS} && wait-for-it.sh localhost:11311 -- roslaunch /opt/carma/vehicle/config/drivers.launch drivers:=lidar_lite_trailer_angle_driver'
 
   # TODO AVT Vimba Camera Left Driver Node
