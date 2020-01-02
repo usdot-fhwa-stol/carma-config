@@ -23,7 +23,7 @@ services:
     volumes_from:
       - container:carma-config:ro
     environment:
-      - ROS_IP=192.168.0.100
+      - ROS_IP=192.168.88.10
     volumes:
       - /opt/carma/.ros:/home/carma/.ros
     restart: always
@@ -36,7 +36,7 @@ services:
     volumes_from:
       - container:carma-config:ro
     environment:
-      - ROS_IP=192.168.0.100
+      - ROS_IP=192.168.88.10
     volumes:
       - /opt/carma/logs:/opt/carma/logs
       - /opt/carma/.ros:/home/carma/.ros
@@ -52,20 +52,20 @@ services:
     volumes_from:
       - container:carma-config:ro
     environment:
-      - ROS_IP=192.168.0.100
+      - ROS_IP=192.168.88.10
     volumes:
       - /opt/carma/logs:/opt/carma/logs
       - /opt/carma/.ros:/home/carma/.ros
     command: bash -c 'export ROS_NAMESPACE=$${CARMA_INTR_NS} && wait-for-it.sh localhost:11311 -- roslaunch /opt/carma/vehicle/config/drivers.launch drivers:=dsrc_driver'
 
   ssc_controller_driver:
-    image: usdotfhwastol/carma-ssc-interface-wrapper:2.1.0-5-g8154300-SNAPSHOT
+    image: usdotfhwastol/carma-ssc-interface-wrapper:latest
     container_name: ssc_controller_driver
     network_mode: host
     volumes_from:
       - container:carma-config:ro
     environment:
-      - ROS_IP=192.168.0.100
+      - ROS_IP=192.168.88.10
     volumes:
       - /opt/carma/logs:/opt/carma/logs
       - /opt/carma/.ros:/home/carma/.ros
@@ -79,33 +79,33 @@ services:
     volumes_from:
       - container:carma-config:ro
     environment:
-      - ROS_IP=192.168.0.100
+      - ROS_IP=192.168.88.10
     volumes:
       - /opt/carma/logs:/opt/carma/logs
       - /opt/carma/.ros:/home/carma/.ros
     command: bash -c 'export ROS_NAMESPACE=$${CARMA_INTR_NS} && wait-for-it.sh localhost:11311 -- roslaunch /opt/carma/vehicle/config/drivers.launch drivers:=novatel_gps_driver'
 
   velodyne_lidar_driver:
-    image: usdotfhwastol/carma-velodyne-lidar-driver:1.1.0-2-g45970d8-SNAPSHOT
+    image: usdotfhwastol/carma-velodyne-lidar-driver:latest
     container_name: velodyne-lidar-driver
     network_mode: host
     volumes_from:
       - container:carma-config:ro
     environment:
-      - ROS_IP=192.168.0.100
+      - ROS_IP=192.168.88.10
     volumes:
       - /opt/carma/logs:/opt/carma/logs
       - /opt/carma/.ros:/home/carma/.ros
     command: bash -c 'export ROS_NAMESPACE=$${CARMA_INTR_NS} && wait-for-it.sh localhost:11311 -- roslaunch /opt/carma/vehicle/config/drivers.launch drivers:=velodyne_lidar_driver_wrapper'
 
   lidar_lite_trailer_angle_driver:
-    image: usdotfhwastol/carma-garmin-lidar-lite-v3-driver-wrapper:d9d77c1-SNAPSHOT
+    image: usdotfhwastol/carma-garmin-lidar-lite-v3-driver-wrapper:latest
     container_name: lidar_lite_trailer_angle_driver
     network_mode: host
     volumes_from:
       - container:carma-config:ro
     environment:
-      - ROS_IP=192.168.0.100
+      - ROS_IP=192.168.88.10
     volumes:
       - /opt/carma/logs:/opt/carma/logs
       - /opt/carma/.ros:/home/carma/.ros
