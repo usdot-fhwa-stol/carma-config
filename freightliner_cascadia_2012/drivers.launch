@@ -24,13 +24,9 @@ If not using simulated drivers they are activated if the respective mock argumen
 -->
 
 <launch>
+  <arg name="vehicle_calibration_dir" default="/opt/carma/vehicle/calibration" doc="Folder containing vehicle calibration directories"/>
 
-  <!-- Directory of Parameter Files -->
-  <arg name="CARMA_DIR" default="$(find carma)" doc="The path of the package directory"/>
-  <arg name="PARAM_DIR" default="$(arg CARMA_DIR)/launch/params" doc="Directory of yaml parameter files"/>
-
-  <!-- Simulation Usage -->
-  <!-- Simulation Usage -->
+  <!-- Mock Drivers -->
   <arg name="mock_drivers"        default="" doc="List of driver node base names which will be launched as mock drivers"/>
 
   <arg name="mock_can"            value="$(eval 'can' in arg('mock_drivers').split())"/>
@@ -42,27 +38,78 @@ If not using simulated drivers they are activated if the respective mock argumen
   <arg name="mock_lidar"          value="$(eval 'lidar' in arg('mock_drivers').split())"/>
   <arg name="mock_camera"         value="$(eval 'camera' in arg('mock_drivers').split())"/>
   <arg name="mock_roadway_sensor" value="$(eval 'roadway_sensor' in arg('mock_drivers').split())"/>
+  <arg name="mock_trailer_angle"  value="$(eval 'trailer_angle' in arg('mock_drivers').split())"/>
+
+  <!-- Specific Drivers -->
+  <arg name="drivers" default="dsrc_driver ssc_interface_wrapper novatel_gps_driver velodyne_lidar_driver_wrapper lidar_lite_trailer_angle_driver"
+    doc="Desired real drivers to launch specified by package name. Mock drivers will take precedence"/>
+
+  <arg name="dsrc_driver"                     value="$(eval ('dsrc_driver' in arg('drivers').split()) and not mock_comms)"/>
+  <arg name="ssc_interface_wrapper"           value="$(eval ('ssc_interface_wrapper' in arg('drivers').split()) and not mock_controller)"/>
+  <arg name="novatel_gps_driver"              value="$(eval ('novatel_gps_driver' in arg('drivers').split()) and not (mock_gnss or mock_imu))"/>
+  <arg name="velodyne_lidar_driver_wrapper"   value="$(eval ('velodyne_lidar_driver_wrapper' in arg('drivers').split()) and not mock_lidar)"/>
+  <arg name="lidar_lite_trailer_angle_driver" value="$(eval ('lidar_lite_trailer_angle_driver' in arg('drivers').split()) and not mock_trailer_angle)"/>
 
   <!-- DSRC OBU Driver Node -->
-  <include unless="$(arg mock_comms)" file="$(find dsrc_driver)/launch/dsrc_node.launch"/>
-      
-  <!-- PinPoint Driver Node -->
-  <include unless="$(arg mock_gnss)" file="$(find pinpoint)/launch/pinpoint.launch"/>
+  <include if="$(arg dsrc_driver)" file="$(find dsrc_driver)/launch/dsrc_node.launch"/>
 
-  <!-- Truck CAN Driver Node -->
-  <include unless="$(arg mock_can)" file="$(find truck_can_driver)/launch/truck_can_client_cav_socketcan.launch">
-    <arg name="truck_can_client_device" default="can1" />
+  <!-- PACMOD Controller Driver Node -->
+  <include if="$(arg ssc_interface_wrapper)" file="$(find ssc_interface_wrapper)/launch/ssc_pm_cascadia_driver.launch">
+    <arg name="pacmod_vehicle_type" default="LEXUS_RX_450H" />
+    <arg name="use_kvaser" default="false" />
+    <arg name="use_socketcan" default="true" />
+    <arg name="socketcan_device" default="can0" />
+    <arg name="ssc_param_dir" value="$(arg vehicle_calibration_dir)/ssc_pm_cascadia"/>
   </include>
 
-  <!-- Truck Controller Driver Node -->
-  <include unless="$(arg mock_controller)" file="$(find truck_dbw_controller)/launch/truck_dbw_controller_cav_socketcan.launch">
-    <arg name="truck_can_device" default="can2" />
+  <!-- Novatel GNSS/IMU Driver Nodes -->
+  <include if="$(arg novatel_gps_driver)" file="$(find novatel_gps_driver)/launch/novatel_gps_driver_eth.launch">
+    <arg name="ip" value="192.168.88.29" />
+    <arg name="port" value="2000" />
+    <arg name="frame_id" value="novatel_gnss" />
+    <arg name="imu_frame_id" value="novatel_imu" />
   </include>
 
-  <!-- Truck Delphi Radar Driver Node -->
-  <include unless="$(arg mock_radar)" file="$(find delphi_esr_driver)/launch/delphi_esr_driver.launch">
-    <arg name="device_name" default="can0" />
-    <arg name="sensor_frame" default="f_lrr_frame"/>
+  <!-- Velodyne Lidar Driver Nodes -->
+  <!-- Lidar 1 -->
+  <include if="$(arg velodyne_lidar_driver_wrapper)" ns="velodyne_1" file="$(find velodyne_lidar_driver_wrapper)/launch/velodyne_lidar_driver.launch">
+    <arg name="frame_id" value="velodyne"/>
+    <arg name="device_ip" value="192.168.1.201"/>
+    <arg name="max_range" value="200" />
+    <arg name="port" value="2368" />
   </include>
-	
+
+  <!-- Lidar 2 -->
+  <include if="$(arg velodyne_lidar_driver_wrapper)" ns="velodyne_2" file="$(find velodyne_lidar_driver_wrapper)/launch/velodyne_lidar_driver.launch">
+    <arg name="frame_id" value="velodyne"/>
+    <arg name="device_ip" value="192.168.2.201"/>
+    <arg name="max_range" value="200" />
+    <arg name="port" value="2369" />
+  </include>
+
+  <!-- Lidar Concat -->
+  <include if="$(arg velodyne_lidar_driver_wrapper)" file="$(find points_preprocessor)/launch/points_concat_filter.launch">
+    <arg name="input_topics" default="[velodyne_1/lidar/points_raw, velodyne_2/lidar/points_raw]" />
+    <arg name="output_topic" default="lidar/points_raw" />
+    <arg name="output_frame_id" default="concat_velodyne" />
+  </include>
+
+
+  <!-- Trailer Angle Sensor Driver -->
+  <include if="$(arg lidar_lite_trailer_angle_driver)" file="$(find lidar_lite_v3hp)/launch/lidar_litev3hp.launch">
+    <arg name="port0" default="/dev/ttyACM1" />
+    <arg name="baud0" default="57600" />
+    <arg name="port1" default="/dev/ttyACM0" />
+    <arg name="baud1" default="57600" />
+    <arg name="vehicle_calibration_params_file" default="$(arg vehicle_calibration_dir)/lidar_lite_v3hp/calibration.yaml"/>
+  </include>
+
+  <!-- TODO AVT Vimba Camera Left Driver Node -->
+  <!-- TODO AVT Vimba Camera Right Driver Node -->
+  <!-- TODO DelphiESR Front Driver Node -->
+  <!-- TODO Delphi Srr2 Front Left Driver Node -->
+  <!-- TODO Delphi Srr2 Front Right Driver Node -->
+  <!-- TODO Delphi Srr2 Rear Left Driver Node -->
+  <!-- TODO Delphi Srr2 Rear Right Driver Node -->
+
 </launch>

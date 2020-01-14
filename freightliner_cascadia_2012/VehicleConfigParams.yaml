@@ -1,0 +1,50 @@
+# Defines the ros parameters which define the characteristics of this host vehicle configuration
+
+# String: Host vehicle make
+vehicle_make: 'Freightliner'
+
+# String: Host vehicle model
+vehicle_model: 'Cascadia'
+
+# Integer: Host vehicle year
+# Units: Year
+vehicle_year: 2012
+
+# Double: Host vehicle length
+# Units: Meters
+# TODO update value based on measurements
+vehicle_length: 6.0
+
+# Double: Host vehicle width
+# Units: Meters
+# TODO update value based on measurements
+vehicle_width: 3.0
+
+# Double: Host vehicle height
+# Units: Meters
+# TODO update value based on measurements
+vehicle_height: 3.0
+
+# Double: Distance from front axel to rear axel
+# Units: Meters
+vehicle_wheel_base: 4.525
+
+# Double: Radius of the tires
+# Units: Meters
+vehicle_tire_radius: 0.5715
+
+# Acceleration limit
+# Units: m/s^2
+vehicle_acceleration_limit: 3.0
+
+# Deceleration limit
+# Units: m/s^2
+vehicle_deceleration_limit: 6.0
+
+# Max curvature rate
+# Units: (m^-1) / s
+vehicle_max_curvature_rate: 0.75
+
+# State machine type
+# type: SoftwareOnlyEngagedStateMachine or Hardware engaged state machine
+vehicle_state_machine_type : SoftwareOnlyEngagedStateMachine
