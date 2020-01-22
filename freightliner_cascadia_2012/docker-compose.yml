@@ -23,7 +23,7 @@ services:
     volumes_from:
       - container:carma-config:ro
     environment:
-      - ROS_IP=192.168.88.10
+      - ROS_IP=192.168.0.86
     volumes:
       - /opt/carma/.ros:/home/carma/.ros
     restart: always
@@ -36,7 +36,7 @@ services:
     volumes_from:
       - container:carma-config:ro
     environment:
-      - ROS_IP=192.168.88.10
+      - ROS_IP=192.168.0.86
     volumes:
       - /opt/carma/logs:/opt/carma/logs
       - /opt/carma/.ros:/home/carma/.ros
@@ -52,7 +52,7 @@ services:
     volumes_from:
       - container:carma-config:ro
     environment:
-      - ROS_IP=192.168.88.10
+      - ROS_IP=192.168.0.86
     volumes:
       - /opt/carma/logs:/opt/carma/logs
       - /opt/carma/.ros:/home/carma/.ros
@@ -65,7 +65,7 @@ services:
     volumes_from:
       - container:carma-config:ro
     environment:
-      - ROS_IP=192.168.88.10
+      - ROS_IP=192.168.0.86
     volumes:
       - /opt/carma/logs:/opt/carma/logs
       - /opt/carma/.ros:/home/carma/.ros
@@ -79,7 +79,7 @@ services:
     volumes_from:
       - container:carma-config:ro
     environment:
-      - ROS_IP=192.168.88.10
+      - ROS_IP=192.168.0.86
     volumes:
       - /opt/carma/logs:/opt/carma/logs
       - /opt/carma/.ros:/home/carma/.ros
@@ -92,7 +92,7 @@ services:
     volumes_from:
       - container:carma-config:ro
     environment:
-      - ROS_IP=192.168.88.10
+      - ROS_IP=192.168.0.86
     volumes:
       - /opt/carma/logs:/opt/carma/logs
       - /opt/carma/.ros:/home/carma/.ros
@@ -105,7 +105,7 @@ services:
     volumes_from:
       - container:carma-config:ro
     environment:
-      - ROS_IP=192.168.88.10
+      - ROS_IP=192.168.0.86
     volumes:
       - /opt/carma/logs:/opt/carma/logs
       - /opt/carma/.ros:/home/carma/.ros
