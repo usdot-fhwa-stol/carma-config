@@ -31,6 +31,7 @@
   <arg name="vehicle_calibration_dir" default="/opt/carma/vehicle/calibration"/>
   <arg name="load_type" value="noupdate"/>
   <arg name="single_pcd_path" value="/opt/carma/maps/pcd_map.pcd"/>
+  <arg name="vector_map_file" default="/opt/carma/maps/vector_map.osm"/>
   <arg name="route_file_folder" default="/opt/carma/routes/"/>
 
   <!-- Launch without drivers as those will be launched as docker containers-->
