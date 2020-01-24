@@ -103,8 +103,8 @@ services:
     container_name: lidar_lite_trailer_angle_driver
     network_mode: host
     privileged: true # Grant access to usb
-    devices: # Data speed arduino at bus 001 device 008 and bus 001 device 005
-      - /dev/bus/usb/001/008:/dev/bus/usb/001/008
+    devices: # Data speed arduino at bus 001 device 0010 and bus 001 device 005
+      - /dev/bus/usb/001/010:/dev/bus/usb/001/010
       - /dev/bus/usb/001/005:/dev/bus/usb/001/005
     volumes_from:
       - container:carma-config:ro

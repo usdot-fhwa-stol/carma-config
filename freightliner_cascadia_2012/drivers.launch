@@ -74,7 +74,7 @@ If not using simulated drivers they are activated if the respective mock argumen
   <!-- Lidar 1 -->
   <remap from="driver_discovery" to="$(optenv CARMA_INTR_NS)/driver_discovery"/>
   <include if="$(arg velodyne_lidar_driver_wrapper)" ns="velodyne_1" file="$(find velodyne_lidar_driver_wrapper)/launch/velodyne_lidar_driver.launch">
-    <arg name="frame_id" value="velodyne"/>
+    <arg name="frame_id" value="velodyne_1"/>
     <arg name="device_ip" value="192.168.1.201"/>
     <arg name="max_range" value="200" />
     <arg name="port" value="2368" />
@@ -82,7 +82,7 @@ If not using simulated drivers they are activated if the respective mock argumen
 
   <!-- Lidar 2 -->
   <include if="$(arg velodyne_lidar_driver_wrapper)" ns="velodyne_2" file="$(find velodyne_lidar_driver_wrapper)/launch/velodyne_lidar_driver.launch">
-    <arg name="frame_id" value="velodyne"/>
+    <arg name="frame_id" value="velodyne_2"/>
     <arg name="device_ip" value="192.168.2.201"/>
     <arg name="max_range" value="200" />
     <arg name="port" value="2369" />
@@ -94,7 +94,6 @@ If not using simulated drivers they are activated if the respective mock argumen
     <arg name="output_topic" default="lidar/points_raw" />
     <arg name="output_frame_id" default="concat_velodyne" />
   </include>
-
 
   <!-- Trailer Angle Sensor Driver -->
   <include if="$(arg lidar_lite_trailer_angle_driver)" file="$(find lidar_lite_v3hp)/launch/lidar_litev3hp.launch">
