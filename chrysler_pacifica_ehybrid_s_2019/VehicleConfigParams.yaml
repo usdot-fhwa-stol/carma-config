@@ -24,7 +24,7 @@ vehicle_height: 2.0
 
 # Double: Distance from front axel to rear axel
 # Units: Meters
-vehicle_wheel_base: 2.85
+vehicle_wheel_base: 3.09
 
 # Double: Radius of the tires
 # Units: Meters
