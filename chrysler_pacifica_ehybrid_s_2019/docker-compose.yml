@@ -76,7 +76,7 @@ services:
     command: bash -c 'export ROS_NAMESPACE=$${CARMA_INTR_NS} && wait-for-it.sh localhost:11311 -- roslaunch /opt/carma/vehicle/config/drivers.launch drivers:=ssc_interface_wrapper'
 
   novatel_gnss_imu_driver:
-    image: usdotfhwastol/carma-novatel-gps-driver:1.1.0
+    image: usdotfhwastol/carma-novatel-gps-driver:1.2.0
     container_name: novatel-gnss-imu-driver
     network_mode: host
     volumes_from:
