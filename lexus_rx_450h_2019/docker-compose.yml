@@ -59,7 +59,7 @@ services:
     command: bash -c 'export ROS_NAMESPACE=$${CARMA_INTR_NS} && wait-for-it.sh localhost:11311 -- roslaunch /opt/carma/vehicle/config/drivers.launch drivers:=dsrc_driver'
 
   ssc_controller_driver:
-    image: usdotfhwastol/carma-ssc-interface-wrapper:2.2.0
+    image: usdotfhwastol/carma-ssc-interface-wrapper:2.3.0
     container_name: ssc_controller_driver
     network_mode: host
     volumes_from:
@@ -86,7 +86,7 @@ services:
     command: bash -c 'export ROS_NAMESPACE=$${CARMA_INTR_NS} && wait-for-it.sh localhost:11311 -- roslaunch /opt/carma/vehicle/config/drivers.launch drivers:=novatel_gps_driver'
 
   velodyne_lidar_driver:
-    image: usdotfhwastol/carma-velodyne-lidar-driver:1.2.0
+    image: usdotfhwastol/carma-velodyne-lidar-driver:1.3.0
     container_name: velodyne-lidar-driver
     network_mode: host
     volumes_from:
