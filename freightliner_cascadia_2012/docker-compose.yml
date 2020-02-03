@@ -30,7 +30,7 @@ services:
     command: roscore
 
   platform:
-    image: usdotfhwastol/carma-platform:urus
+    image: usdotfhwastol/carma-platform:CARMASystem_3.3.0
     network_mode: host
     container_name: platform
     volumes_from:
