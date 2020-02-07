@@ -1,4 +1,4 @@
-#  Copyright (C) 2018-2019 LEIDOS.
+#  Copyright (C) 2018-2020 LEIDOS.
 # 
 #  Licensed under the Apache License, Version 2.0 (the "License"); you may not
 #  use this file except in compliance with the License. You may obtain a copy of
@@ -33,7 +33,7 @@ LABEL org.label-schema.vcs-url="https://github.com/usdot-fhwa-stol/CARMAPlatform
 LABEL org.label-schema.vcs-ref=${VCS_REF}
 LABEL org.label-schema.build-date=${BUILD_DATE}
 
-ADD . /root/vehicle
-VOLUME /opt/carma/vehicle
+ADD . /root/vehicle/config
+VOLUME /opt/carma/vehicle/config
 
-CMD  cp /root/vehicle/* /opt/carma/vehicle
+CMD  cp /root/vehicle/config/* /opt/carma/vehicle/config

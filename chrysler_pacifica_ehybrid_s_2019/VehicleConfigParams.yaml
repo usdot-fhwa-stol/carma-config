@@ -24,7 +24,7 @@ vehicle_height: 2.0
 
 # Double: Distance from front axel to rear axel
 # Units: Meters
-vehicle_wheel_base: 2.85
+vehicle_wheel_base: 3.09
 
 # Double: Radius of the tires
 # Units: Meters
@@ -42,6 +42,7 @@ vehicle_deceleration_limit: 6.0
 # Units: (m^-1) / s
 vehicle_max_curvature_rate: 0.75
 
-# State machine type
-# type: SoftwareOnlyEngagedStateMachine or HardwareEngagedAutomation
-vehicle_state_machine_type : SoftwareOnlyEngagedStateMachine
+# Required drivers for the vehicle to be functional
+required_drivers:
+  - /hardware_interface/ssc_interface_wrapper
+  - /hardware_interface/velodyne_lidar_driver_wrapper

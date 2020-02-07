@@ -1,6 +1,4 @@
-#!/bin/bash
-
-#  Copyright (C) 2018-2020 LEIDOS.
+#  Copyright (C) 2018-2019 LEIDOS.
 # 
 #  Licensed under the Apache License, Version 2.0 (the "License"); you may not
 #  use this file except in compliance with the License. You may obtain a copy of
@@ -14,7 +12,18 @@
 #  License for the specific language governing permissions and limitations under
 #  the License.
 
-SYSTEM_TAG_PREFIX="CARMASystem"
+# Docker Compose Spec Version
+version: '2'
 
-git describe --all --match="$SYSTEM_TAG_PREFIX*" --always --dirty="-SNAPSHOT" | awk -F "/" '{print $NF}'
-
+services:
+  web-ui:
+    image: usdotfhwastol/carma-web-ui:3.1.0
+    network_mode: host
+    container_name: web-ui
+    environment:
+      - ROS_IP=192.168.88.10
+    volumes_from: 
+      - container:carma-config:ro
+    volumes: 
+      - /var/run/docker.sock:/var/run/docker.sock 
+    restart: always

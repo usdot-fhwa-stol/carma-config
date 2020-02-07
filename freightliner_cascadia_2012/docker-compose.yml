@@ -1,4 +1,4 @@
-#  Copyright (C) 2018-2020 LEIDOS.
+#  Copyright (C) 2018-2019 LEIDOS.
 #
 #  Licensed under the Apache License, Version 2.0 (the "License"); you may not
 #  use this file except in compliance with the License. You may obtain a copy of
@@ -25,7 +25,7 @@ services:
     environment:
       - ROS_IP=192.168.88.10
     volumes:
-      - /home/autoware/.ros:/home/carma/.ros
+      - /opt/carma/.ros:/home/carma/.ros
     restart: always
     command: roscore
 
@@ -39,7 +39,7 @@ services:
       - ROS_IP=192.168.88.10
     volumes:
       - /opt/carma/logs:/opt/carma/logs
-      - /home/autoware/.ros:/home/carma/.ros
+      - /opt/carma/.ros:/home/carma/.ros
       - /opt/carma/vehicle/calibration:/opt/carma/vehicle/calibration
       - /opt/carma/maps:/opt/carma/maps
       - /opt/carma/routes:/opt/carma/routes
@@ -55,23 +55,20 @@ services:
       - ROS_IP=192.168.88.10
     volumes:
       - /opt/carma/logs:/opt/carma/logs
-      - /home/autoware/.ros:/home/carma/.ros
+      - /opt/carma/.ros:/home/carma/.ros
     command: bash -c 'export ROS_NAMESPACE=$${CARMA_INTR_NS} && wait-for-it.sh localhost:11311 -- roslaunch /opt/carma/vehicle/config/drivers.launch drivers:=dsrc_driver'
 
   ssc_controller_driver:
     image: usdotfhwastol/carma-ssc-interface-wrapper:CARMASystem_3.3.0
     container_name: ssc_controller_driver
     network_mode: host
-    privileged: true # Grant access to usb for can data
-    devices: # Data speed can tool at bus 1 device 6
-      - /dev/bus/usb/001/006:/dev/bus/usb/001/006
     volumes_from:
       - container:carma-config:ro
     environment:
       - ROS_IP=192.168.88.10
     volumes:
       - /opt/carma/logs:/opt/carma/logs
-      - /home/autoware/.ros:/home/carma/.ros
+      - /opt/carma/.ros:/home/carma/.ros
       - /opt/carma/vehicle/calibration:/opt/carma/vehicle/calibration
     command: bash -c 'export ROS_NAMESPACE=$${CARMA_INTR_NS} && wait-for-it.sh localhost:11311 -- roslaunch /opt/carma/vehicle/config/drivers.launch drivers:=ssc_interface_wrapper'
 
@@ -85,7 +82,7 @@ services:
       - ROS_IP=192.168.88.10
     volumes:
       - /opt/carma/logs:/opt/carma/logs
-      - /home/autoware/.ros:/home/carma/.ros
+      - /opt/carma/.ros:/home/carma/.ros
     command: bash -c 'export ROS_NAMESPACE=$${CARMA_INTR_NS} && wait-for-it.sh localhost:11311 -- roslaunch /opt/carma/vehicle/config/drivers.launch drivers:=novatel_gps_driver'
 
   velodyne_lidar_driver:
@@ -98,8 +95,26 @@ services:
       - ROS_IP=192.168.88.10
     volumes:
       - /opt/carma/logs:/opt/carma/logs
-      - /home/autoware/.ros:/home/carma/.ros
+      - /opt/carma/.ros:/home/carma/.ros
     command: bash -c 'export ROS_NAMESPACE=$${CARMA_INTR_NS} && wait-for-it.sh localhost:11311 -- roslaunch /opt/carma/vehicle/config/drivers.launch drivers:=velodyne_lidar_driver_wrapper'
+
+  lidar_lite_trailer_angle_driver:
+    image: usdotfhwastol/carma-garmin-lidar-lite-v3-driver-wrapper:CARMASystem_3.3.0
+    container_name: lidar_lite_trailer_angle_driver
+    network_mode: host
+    privileged: true # Grant access to usb
+    devices: # Data speed arduino at bus 001 device 0010 and bus 001 device 005
+      - /dev/bus/usb/001/010:/dev/bus/usb/001/010
+      - /dev/bus/usb/001/005:/dev/bus/usb/001/005
+    volumes_from:
+      - container:carma-config:ro
+    environment:
+      - ROS_IP=192.168.88.10
+    volumes:
+      - /opt/carma/logs:/opt/carma/logs
+      - /opt/carma/.ros:/home/carma/.ros
+      - /opt/carma/vehicle/calibration:/opt/carma/vehicle/calibration
+    command: bash -c 'export ROS_NAMESPACE=$${CARMA_INTR_NS} && wait-for-it.sh localhost:11311 -- roslaunch /opt/carma/vehicle/config/drivers.launch drivers:=lidar_lite_trailer_angle_driver'
 
   # TODO AVT Vimba Camera Left Driver Node
   # TODO AVT Vimba Camera Right Driver Node

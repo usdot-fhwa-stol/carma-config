@@ -1,34 +1,37 @@
 # Defines the ros parameters which define the characteristics of this host vehicle configuration
 
 # String: Host vehicle make
-vehicle_make: 'Lexus'
+vehicle_make: 'Freightliner'
 
 # String: Host vehicle model
-vehicle_model: 'RX-450'
+vehicle_model: 'Cascadia'
 
 # Integer: Host vehicle year
 # Units: Year
-vehicle_year: 2019
+vehicle_year: 2012
 
 # Double: Host vehicle length
 # Units: Meters
-vehicle_length: 5.0
+# TODO update value based on measurements
+vehicle_length: 6.0
 
 # Double: Host vehicle width
 # Units: Meters
-vehicle_width: 2.5
+# TODO update value based on measurements
+vehicle_width: 3.0
 
 # Double: Host vehicle height
 # Units: Meters
+# TODO update value based on measurements
 vehicle_height: 3.0
 
 # Double: Distance from front axel to rear axel
 # Units: Meters
-vehicle_wheel_base: 2.79
+vehicle_wheel_base: 4.525
 
 # Double: Radius of the tires
 # Units: Meters
-vehicle_tire_radius: 0.39
+vehicle_tire_radius: 0.5715
 
 # Acceleration limit
 # Units: m/s^2
@@ -45,4 +48,5 @@ vehicle_max_curvature_rate: 0.75
 # Required drivers for the vehicle to be functional
 required_drivers:
   - /hardware_interface/ssc_interface_wrapper
-  - /hardware_interface/velodyne_lidar_driver_wrapper
+  - /hardware_interface/velodyne_1/velodyne_lidar_driver_wrapper 
+  - /hardware_interface/velodyne_2/velodyne_lidar_driver_wrapper 

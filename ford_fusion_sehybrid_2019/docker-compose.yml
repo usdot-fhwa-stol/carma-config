@@ -1,4 +1,4 @@
-#  Copyright (C) 2018-2019 LEIDOS.
+#  Copyright (C) 2018-2020 LEIDOS.
 #
 #  Licensed under the Apache License, Version 2.0 (the "License"); you may not
 #  use this file except in compliance with the License. You may obtain a copy of
@@ -17,7 +17,7 @@ version: '2'
 
 services:
   roscore:
-    image: usdotfhwastol/carma-base:3.4.0
+    image: usdotfhwastol/carma-base:CARMASystem_3.3.0
     network_mode: host
     container_name: roscore
     volumes_from:
@@ -30,7 +30,7 @@ services:
     command: roscore
 
   platform:
-    image: usdotfhwastol/carma-platform:3.2.0
+    image: usdotfhwastol/carma-platform:CARMASystem_3.3.0
     network_mode: host
     container_name: platform
     volumes_from:
@@ -46,7 +46,7 @@ services:
     command: wait-for-it.sh localhost:11311 -- roslaunch /opt/carma/vehicle/config/carma_docker.launch
 
   cohda_dsrc_driver:
-    image: usdotfhwastol/carma-cohda-dsrc-driver:3.1.0
+    image: usdotfhwastol/carma-cohda-dsrc-driver:CARMASystem_3.3.0
     container_name: carma-cohda-dsrc-driver
     network_mode: host
     volumes_from:
@@ -59,7 +59,7 @@ services:
     command: bash -c 'export ROS_NAMESPACE=$${CARMA_INTR_NS} && wait-for-it.sh localhost:11311 -- roslaunch /opt/carma/vehicle/config/drivers.launch drivers:=dsrc_driver'
 
   ssc_controller_driver:
-    image: usdotfhwastol/carma-ssc-interface-wrapper:2.1.0
+    image: usdotfhwastol/carma-ssc-interface-wrapper:CARMASystem_3.3.0
     container_name: ssc_controller_driver
     network_mode: host
     privileged: true # Grant access to usb for can data
@@ -76,7 +76,7 @@ services:
     command: bash -c 'export ROS_NAMESPACE=$${CARMA_INTR_NS} && wait-for-it.sh localhost:11311 -- roslaunch /opt/carma/vehicle/config/drivers.launch drivers:=ssc_interface_wrapper'
 
   novatel_gnss_imu_driver:
-    image: usdotfhwastol/carma-novatel-gps-driver:1.1.0
+    image: usdotfhwastol/carma-novatel-gps-driver:CARMASystem_3.3.0
     container_name: novatel-gnss-imu-driver
     network_mode: host
     volumes_from:
@@ -89,7 +89,7 @@ services:
     command: bash -c 'export ROS_NAMESPACE=$${CARMA_INTR_NS} && wait-for-it.sh localhost:11311 -- roslaunch /opt/carma/vehicle/config/drivers.launch drivers:=novatel_gps_driver'
 
   velodyne_lidar_driver:
-    image: usdotfhwastol/carma-velodyne-lidar-driver:1.1.0
+    image: usdotfhwastol/carma-velodyne-lidar-driver:CARMASystem_3.3.0
     container_name: velodyne-lidar-driver
     network_mode: host
     volumes_from:

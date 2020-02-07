@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <!--
-  Copyright (C) 2018-2019 LEIDOS.
+  Copyright (C) 2018-2020 LEIDOS.
 
   Licensed under the Apache License, Version 2.0 (the "License"); you may not
   use this file except in compliance with the License. You may obtain a copy of
@@ -34,7 +34,7 @@
   <arg name="arealist_path" default="/opt/carma/maps/arealist.txt"/>
   <arg name="area" default="1x1"/>
   <arg name="route_file_folder" default="/opt/carma/routes/"/>
-
+  <arg name="vector_map_file" default="/opt/carma/maps/vector_map.osm"/>
   <!-- Launch without drivers as those will be launched as docker containers-->
   <arg name="launch_drivers" default="false"/>
 
