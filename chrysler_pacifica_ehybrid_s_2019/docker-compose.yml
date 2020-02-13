@@ -101,8 +101,18 @@ services:
       - /home/autoware/.ros:/home/carma/.ros
     command: bash -c 'export ROS_NAMESPACE=$${CARMA_INTR_NS} && wait-for-it.sh localhost:11311 -- roslaunch /opt/carma/vehicle/config/drivers.launch drivers:=velodyne_lidar_driver_wrapper'
 
-  # TODO AVT Vimba Camera Left Driver Node
-  # TODO AVT Vimba Camera Right Driver Node
+  avt_vimba_camera_driver:
+    image: change it
+    container_name: avt-vimba-camera-driver
+    network_mode: host
+    volumes_from:
+      - container:carma-config:ro
+    environment:
+      - ROS_IP=192.168.88.10
+    volumes:
+      - /opt/carma/logs:/opt/carma/logs
+      - /home/autoware/.ros:/home/carma/.ros
+    command: bash -c 'export ROS_NAMESPACE=$${CARMA_INTR_NS} && wait-for-it.sh localhost:11311 -- roslaunch /opt/carma/vehicle/config/drivers.launch drivers:=avt_vimba_camera'
   # TODO DelphiESR Front Driver Node
   # TODO Delphi Srr2 Front Left Driver Node
   # TODO Delphi Srr2 Front Right Driver Node

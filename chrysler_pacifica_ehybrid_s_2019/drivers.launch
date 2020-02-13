@@ -48,7 +48,7 @@ If not using simulated drivers they are activated if the respective mock argumen
   <arg name="ssc_interface_wrapper"         value="$(eval ('ssc_interface_wrapper' in arg('drivers').split()) and not mock_controller)"/>
   <arg name="novatel_gps_driver"            value="$(eval ('novatel_gps_driver' in arg('drivers').split()) and not (mock_gnss or mock_imu))"/>
   <arg name="velodyne_lidar_driver_wrapper" value="$(eval ('velodyne_lidar_driver_wrapper' in arg('drivers').split()) and not mock_lidar)"/>
-
+ <arg name="avt_vimba_camera" value="$(eval ('avt_vimba_camera' in arg('drivers').split()) and not arg('mock_camera'))"/>
   <!-- DSRC OBU Driver Node -->
   <include if="$(arg dsrc_driver)" file="$(find dsrc_driver)/launch/dsrc_node.launch"/>
 
