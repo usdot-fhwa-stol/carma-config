@@ -22,14 +22,14 @@ services:
     container_name: roscore
     volumes_from: 
       - container:carma-config:ro
-    volumes:
+    volumes:  
       - /opt/carma/.ros:/home/carma/.ros
     restart: always
     environment:
       - ROS_IP=127.0.0.1
     command: roscore
   platform:
-    image: usdotfhwastol/carma-platform:latest
+    image: usdotfhwastol/carma-platform:CARMASystem_3.3.0
     network_mode: host
     container_name: platform
     volumes_from: 
@@ -41,8 +41,20 @@ services:
     environment:
       - ROS_IP=127.0.0.1
     command: wait-for-it.sh localhost:11311 -- roslaunch /opt/carma/vehicle/config/carma_docker.launch
+  lightbar-driver:
+    image: usdotfhwastol/lightbar:latest
+    network_mode: host
+    container_name: lightbar-driver
+    volumes_from: 
+      - container:carma-config:ro
+    volumes:
+      - /opt/carma/logs:/opt/carma/logs
+      - /opt/carma/.ros:/home/carma/.ros
+    environment:
+      - ROS_IP=127.0.0.1
+    command: bash -c 'export ROS_NAMESPACE=$${CARMA_INTR_NS} && wait-for-it.sh localhost:11311 -- roslaunch lightbar_driver lightbar_driver_node.launch drivers:=lightbar_driver'
   mock-can-driver:
-    image: usdotfhwastol/carma-platform:latest
+    image: usdotfhwastol/carma-platform:CARMASystem_3.3.0
     network_mode: host
     container_name: carma-mock-can-driver
     volumes_from: 
@@ -52,9 +64,9 @@ services:
       - /opt/carma/.ros:/home/carma/.ros
     environment:
       - ROS_IP=127.0.0.1
-    command: bash -c 'export ROS_NAMESPACE=$${CARMA_INTR_NS} && wait-for-it.sh localhost:11311 -- roslaunch carma mock_drivers.launch mock_drivers:=can'
+    command: bash -c 'export ROS_NAMESPACE=$${CARMA_INTR_NS} && wait-for-it.sh localhost:11311 -- roslaunch /opt/carma/vehicle/config/drivers.launch mock_drivers:=can'
   mock-comms-driver:
-    image: usdotfhwastol/carma-platform:latest
+    image: usdotfhwastol/carma-platform:CARMASystem_3.3.0
     network_mode: host
     container_name: carma-mock-comms-driver
     volumes_from: 
@@ -64,9 +76,9 @@ services:
       - /opt/carma/.ros:/home/carma/.ros
     environment:
       - ROS_IP=127.0.0.1
-    command: bash -c 'export ROS_NAMESPACE=$${CARMA_INTR_NS} && wait-for-it.sh localhost:11311 -- roslaunch carma mock_drivers.launch mock_drivers:=comms'
+    command: bash -c 'export ROS_NAMESPACE=$${CARMA_INTR_NS} && wait-for-it.sh localhost:11311 -- roslaunch /opt/carma/vehicle/config/drivers.launch mock_drivers:=comms'
   mock-controller-driver:
-    image: usdotfhwastol/carma-platform:latest
+    image: usdotfhwastol/carma-platform:CARMASystem_3.3.0
     network_mode: host
     container_name: carma-srx-controller-driver
     volumes_from: 
@@ -76,9 +88,9 @@ services:
       - /opt/carma/.ros:/home/carma/.ros
     environment:
       - ROS_IP=127.0.0.1
-    command: bash -c 'export ROS_NAMESPACE=$${CARMA_INTR_NS} && wait-for-it.sh localhost:11311 -- roslaunch carma mock_drivers.launch mock_drivers:=controller'
+    command: bash -c 'export ROS_NAMESPACE=$${CARMA_INTR_NS} && wait-for-it.sh localhost:11311 -- roslaunch /opt/carma/vehicle/config/drivers.launch mock_drivers:=controller'
   mock-radar-driver:
-    image: usdotfhwastol/carma-platform:latest
+    image: usdotfhwastol/carma-platform:CARMASystem_3.3.0
     network_mode: host
     container_name: carma-mock-radar-driver
     volumes_from: 
@@ -88,9 +100,9 @@ services:
       - /opt/carma/.ros:/home/carma/.ros
     environment:
       - ROS_IP=127.0.0.1
-    command: bash -c 'export ROS_NAMESPACE=$${CARMA_INTR_NS} && wait-for-it.sh localhost:11311 -- roslaunch carma mock_drivers.launch mock_drivers:=radar'
+    command: bash -c 'export ROS_NAMESPACE=$${CARMA_INTR_NS} && wait-for-it.sh localhost:11311 -- roslaunch /opt/carma/vehicle/config/drivers.launch mock_drivers:=radar'
   mock-gnss-driver:
-    image: usdotfhwastol/carma-platform:latest
+    image: usdotfhwastol/carma-platform:CARMASystem_3.3.0
     network_mode: host
     container_name: carma-mock-gnss-driver
     volumes_from: 
@@ -100,9 +112,9 @@ services:
       - /opt/carma/.ros:/home/carma/.ros
     environment:
       - ROS_IP=127.0.0.1
-    command: bash -c 'export ROS_NAMESPACE=$${CARMA_INTR_NS} && wait-for-it.sh localhost:11311 -- roslaunch carma mock_drivers.launch mock_drivers:=gnss'
+    command: bash -c 'export ROS_NAMESPACE=$${CARMA_INTR_NS} && wait-for-it.sh localhost:11311 -- roslaunch /opt/carma/vehicle/config/drivers.launch mock_drivers:=gnss'
   mock-imu-driver:
-    image: usdotfhwastol/carma-platform:latest
+    image: usdotfhwastol/carma-platform:CARMASystem_3.3.0
     network_mode: host
     container_name: carma-mock-imu-driver
     volumes_from: 
@@ -112,9 +124,9 @@ services:
       - /opt/carma/.ros:/home/carma/.ros
     environment:
       - ROS_IP=127.0.0.1
-    command: bash -c 'export ROS_NAMESPACE=$${CARMA_INTR_NS} && wait-for-it.sh localhost:11311 -- roslaunch carma mock_drivers.launch mock_drivers:=imu'
+    command: bash -c 'export ROS_NAMESPACE=$${CARMA_INTR_NS} && wait-for-it.sh localhost:11311 -- roslaunch /opt/carma/vehicle/config/drivers.launch mock_drivers:=imu'
   mock-lidar-driver:
-    image: usdotfhwastol/carma-platform:latest
+    image: usdotfhwastol/carma-platform:CARMASystem_3.3.0
     network_mode: host
     container_name: carma-mock-lidar-driver
     volumes_from: 
@@ -124,9 +136,9 @@ services:
       - /opt/carma/.ros:/home/carma/.ros
     environment:
       - ROS_IP=127.0.0.1
-    command: bash -c 'export ROS_NAMESPACE=$${CARMA_INTR_NS} && wait-for-it.sh localhost:11311 -- roslaunch carma mock_drivers.launch mock_drivers:=lidar'
+    command: bash -c 'export ROS_NAMESPACE=$${CARMA_INTR_NS} && wait-for-it.sh localhost:11311 -- roslaunch /opt/carma/vehicle/config/drivers.launch mock_drivers:=lidar'
   mock-camera-driver:
-    image: usdotfhwastol/carma-platform:latest
+    image: usdotfhwastol/carma-platform:CARMASystem_3.3.0
     network_mode: host
     container_name: carma-mock-camera-driver
     volumes_from: 
@@ -136,9 +148,9 @@ services:
       - /opt/carma/.ros:/home/carma/.ros
     environment:
       - ROS_IP=127.0.0.1
-    command: bash -c 'export ROS_NAMESPACE=$${CARMA_INTR_NS} && wait-for-it.sh localhost:11311 -- roslaunch carma mock_drivers.launch mock_drivers:=camera'
+    command: bash -c 'export ROS_NAMESPACE=$${CARMA_INTR_NS} && wait-for-it.sh localhost:11311 -- roslaunch /opt/carma/vehicle/config/drivers.launch mock_drivers:=camera'
   mock-roadway-sensor-driver:
-    image: usdotfhwastol/carma-platform:latest
+    image: usdotfhwastol/carma-platform:CARMASystem_3.3.0
     network_mode: host
     container_name: carma-mock-roadway-sensor-driver
     volumes_from: 
@@ -148,4 +160,4 @@ services:
       - /opt/carma/.ros:/home/carma/.ros
     environment:
       - ROS_IP=127.0.0.1
-    command: bash -c 'export ROS_NAMESPACE=$${CARMA_INTR_NS} && wait-for-it.sh localhost:11311 -- roslaunch carma mock_drivers.launch mock_drivers:=roadway_sensor'
+    command: bash -c 'export ROS_NAMESPACE=$${CARMA_INTR_NS} && wait-for-it.sh localhost:11311 -- roslaunch /opt/carma/vehicle/config/drivers.launch mock_drivers:=roadway_sensor'

@@ -41,7 +41,7 @@ If not using simulated drivers they are activated if the respective mock argumen
   <arg name="mock_roadway_sensor" value="$(eval 'roadway_sensor' in arg('mock_drivers').split())"/>
 
   <!-- Specific Drivers -->
-  <arg name="drivers" default="dsrc_driver ssc_interface_wrapper novatel_gps_driver velodyne_lidar_driver_wrapper"
+  <arg name="drivers" default="dsrc_driver ssc_interface_wrapper novatel_gps_driver velodyne_lidar_driver_wrapper lightbar_driver"
     doc="Desired real drivers to launch specified by package name. Mock drivers will take precedence"/>
 
   <arg name="dsrc_driver"                   value="$(eval ('dsrc_driver' in arg('drivers').split()) and not arg('mock_comms'))"/>
@@ -70,6 +70,14 @@ If not using simulated drivers they are activated if the respective mock argumen
     <arg name="frame_id" value="velodyne"/>
     <arg name="device_ip" value="192.168.1.201"/>
   </include>
+
+    <!-- Lightbar Driver Node -->
+    <include if="$(arg lightbar_driver)" file="$(find lightbar_driver)/launch/lightbar_driver_node.launch">
+      <arg name="host_name" value="192.168.88.28" />
+      <arg name="port" value="80" />
+      <arg name="user" value="root" />
+      <arg name="password" value="00000000" />
+    </include>
 
   <!-- TODO AVT Vimba Camera Left Driver Node -->
   <!-- TODO AVT Vimba Camera Right Driver Node -->
