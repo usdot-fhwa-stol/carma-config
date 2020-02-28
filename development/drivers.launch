@@ -22,74 +22,8 @@ This file is used for vehicle configurations. The arguments from carma.launch sh
 If not using simulated drivers they are activated if the respective mock arguments being passed in are false. These lines below activate the respective actual driver if the respective mock argument being passed is false.
 
 -->
-
 <launch>
-  <arg name="vehicle_calibration_dir" default="/opt/carma/vehicle/calibration" doc="Folder containing vehicle calibration directories"/>
-
-  <!-- Mock Drivers -->
-  <arg name="mock_drivers"        default="" doc="List of driver node base names which will be launched as mock drivers"/>
-
-  <arg name="mock_can"            value="$(eval 'can' in arg('mock_drivers').split())"/>
-  <arg name="mock_comms"          value="$(eval 'comms' in arg('mock_drivers').split())"/>
-  <arg name="mock_controller"     value="$(eval 'controller' in arg('mock_drivers').split())"/>
-  <arg name="mock_gnss"           value="$(eval 'gnss' in arg('mock_drivers').split())"/>
-  <arg name="mock_radar"          value="$(eval 'radar' in arg('mock_drivers').split())"/>
-  <arg name="mock_imu"            value="$(eval 'imu' in arg('mock_drivers').split())"/>
-  <arg name="mock_lidar"          value="$(eval 'lidar' in arg('mock_drivers').split())"/>
-  <arg name="mock_camera"         value="$(eval 'camera' in arg('mock_drivers').split())"/>
-  <arg name="mock_roadway_sensor" value="$(eval 'roadway_sensor' in arg('mock_drivers').split())"/>
-  <arg name="lightbar_driver"     value="$(eval 'lightbar' in arg('mock_drivers').split())"/>
-
-  <!-- Specific Drivers -->
-  <arg name="drivers" default="lightbar_driver dsrc_driver ssc_interface_wrapper novatel_gps_driver velodyne_lidar_driver_wrapper"
-    doc="Desired real drivers to launch specified by package name. Mock drivers will take precedence"/>
-
-  <arg name="dsrc_driver"                   value="$(eval ('dsrc_driver' in arg('drivers').split()) and not mock_comms)"/>
-  <arg name="ssc_interface_wrapper"         value="$(eval ('ssc_interface_wrapper' in arg('drivers').split()) and not mock_controller)"/>
-  <arg name="novatel_gps_driver"            value="$(eval ('novatel_gps_driver' in arg('drivers').split()) and not (mock_gnss or mock_imu))"/>
-  <arg name="velodyne_lidar_driver_wrapper" value="$(eval ('velodyne_lidar_driver_wrapper' in arg('drivers').split()) and not mock_lidar)"/>
-  <arg name="lightbar_driver" value="$(eval ('lightbar_driver' in arg('drivers').split()) and not mock_lightbar)"/>
-
-  <!-- DSRC OBU Driver Node -->
-  <include if="$(arg dsrc_driver)" file="$(find dsrc_driver)/launch/dsrc_node.launch"/>
-
-  <!-- PACMOD Controller Driver Node -->
-  <include if="$(arg ssc_interface_wrapper)" file="$(find ssc_interface_wrapper)/launch/ssc_pacmod_driver.launch">
-    <arg name="pacmod_vehicle_type" default="LEXUS_RX_450H" />
-    <arg name="use_kvaser" default="false" />
-    <arg name="use_socketcan" default="true" />
-    <arg name="socketcan_device" default="can0" />
-    <arg name="ssc_param_dir" value="$(arg vehicle_calibration_dir)/ssc_pm_lexus"/>
-  </include>
-
-  <!-- Novatel GNSS/IMU Driver Nodes -->
-  <include if="$(arg novatel_gps_driver)" file="$(find novatel_gps_driver)/launch/novatel_gps_driver_eth.launch">
-    <arg name="ip" value="192.168.74.10" />
-    <arg name="port" value="2000" />
-    <arg name="frame_id" value="novatel_gnss" />
-    <arg name="imu_frame_id" value="novatel_imu" />
-  </include>
-
-  <!-- Velodyne Lidar Driver Nodes -->
-  <include if="$(arg velodyne_lidar_driver_wrapper)" file="$(find velodyne_lidar_driver_wrapper)/launch/velodyne_lidar_driver.launch">
-    <arg name="frame_id" value="velodyne"/>
-    <arg name="device_ip" value="192.168.1.201"/>
-  </include>
-
-    <!-- Lightbar Driver Node -->
-  <include if="$(arg lightbar_driver)" file="$(find lightbar_driver)/launch/lightbar_driver_node.launch">
-    <arg name="host_name" value="192.168.88.28" />
-    <arg name="port" value="80" />
-    <arg name="user" value="root" />
-    <arg name="password" value="00000000" />
-  </include>
-
-  <!-- TODO AVT Vimba Camera Left Driver Node -->
-  <!-- TODO AVT Vimba Camera Right Driver Node -->
-  <!-- TODO DelphiESR Front Driver Node -->
-  <!-- TODO Delphi Srr2 Front Left Driver Node -->
-  <!-- TODO Delphi Srr2 Front Right Driver Node -->
-  <!-- TODO Delphi Srr2 Rear Left Driver Node -->
-  <!-- TODO Delphi Srr2 Rear Right Driver Node -->
-
+  <arg name="mock_drivers" default="controller can comms gnss radar lidar camera roadway_sensor" />	
+  <arg name="vehicle_calibration_dir" default="$(arg vehicle_calibration_dir)"/>	
+  <!-- File not used in development environment where only mock drivers are used -->
 </launch>
