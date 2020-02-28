@@ -22,8 +22,9 @@ This file is used for vehicle configurations. The arguments from carma.launch sh
 If not using simulated drivers they are activated if the respective mock arguments being passed in are false. These lines below activate the respective actual driver if the respective mock argument being passed is false.
 
 -->
+
 <launch>
-  <arg name="mock_drivers" default="controller can comms gnss radar lidar camera roadway_sensor" />	
-  <arg name="vehicle_calibration_dir" default="$(arg vehicle_calibration_dir)"/>	
+  <arg name="mock_drivers" default="controller can comms gnss radar lidar camera roadway_sensor" />
+  <arg name="vehicle_calibration_dir" default="$(arg vehicle_calibration_dir)"/>
   <!-- File not used in development environment where only mock drivers are used -->
 </launch>
