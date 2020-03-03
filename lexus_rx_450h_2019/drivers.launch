@@ -38,18 +38,17 @@ If not using simulated drivers they are activated if the respective mock argumen
   <arg name="mock_lidar"          value="$(eval 'lidar' in arg('mock_drivers').split())"/>
   <arg name="mock_camera"         value="$(eval 'camera' in arg('mock_drivers').split())"/>
   <arg name="mock_roadway_sensor" value="$(eval 'roadway_sensor' in arg('mock_drivers').split())"/>
-  <arg name="mock_lightbar" 	  value="$(eval 'lightbar' in arg('mock_drivers').split())"/>
-
+  <arg name="mock_lightbar" 	    value="$(eval 'lightbar' in arg('mock_drivers').split())"/>
 
   <!-- Specific Drivers -->
   <arg name="drivers" default="dsrc_driver ssc_interface_wrapper novatel_gps_driver velodyne_lidar_driver_wrapper lightbar_driver"
     doc="Desired real drivers to launch specified by package name. Mock drivers will take precedence"/>
 
-  <arg name="dsrc_driver"                   value="$(eval ('dsrc_driver' in arg('drivers').split()) and not mock_comms)"/>
-  <arg name="ssc_interface_wrapper"         value="$(eval ('ssc_interface_wrapper' in arg('drivers').split()) and not mock_controller)"/>
-  <arg name="novatel_gps_driver"            value="$(eval ('novatel_gps_driver' in arg('drivers').split()) and not (mock_gnss or mock_imu))"/>
-  <arg name="velodyne_lidar_driver_wrapper" value="$(eval ('velodyne_lidar_driver_wrapper' in arg('drivers').split()) and not mock_lidar)"/>
-  <arg name="lightbar_driver"               value="$(eval ('lightbar_driver' in arg('drivers').split()) and not mock_lightbar)"/>
+  <arg name="dsrc_driver"                   value="$(eval ('dsrc_driver' in arg('drivers').split()) and not arg('mock_comms'))"/>
+  <arg name="ssc_interface_wrapper"         value="$(eval ('ssc_interface_wrapper' in arg('drivers').split()) and not arg('mock_controller'))"/>
+  <arg name="novatel_gps_driver"            value="$(eval ('novatel_gps_driver' in arg('drivers').split()) and not (arg('mock_gnss') or arg('mock_imu')))"/>
+  <arg name="velodyne_lidar_driver_wrapper" value="$(eval ('velodyne_lidar_driver_wrapper' in arg('drivers').split()) and not arg('mock_lidar'))"/>
+  <arg name="lightbar_driver"               value="$(eval ('lightbar_driver' in arg('drivers').split()) and not arg('mock_lightbar'))"/>
 
   <!-- DSRC OBU Driver Node -->
   <include if="$(arg dsrc_driver)" file="$(find dsrc_driver)/launch/dsrc_node.launch"/>

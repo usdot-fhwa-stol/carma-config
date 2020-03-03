@@ -77,7 +77,7 @@ If not using simulated drivers they are activated if the respective mock argumen
   <include if="$(arg lightbar_driver)" file="$(find lightbar_driver)/launch/lightbar_driver_node.launch">
     <arg name="host_name" value="192.168.88.28" />
     <arg name="port" value="80" />
-    <arg name="auth_config_dir" value= "$(arg vehicle_calibration_dir)/lightbar/auth_config.yaml"/>
+    <arg name="auth_config_file" value= "$(arg vehicle_calibration_dir)/lightbar/auth_config.yaml"/>
   </include>
 
   <!-- TODO AVT Vimba Camera Left Driver Node -->
