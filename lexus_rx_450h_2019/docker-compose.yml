@@ -46,7 +46,7 @@ services:
     command: wait-for-it.sh localhost:11311 -- roslaunch /opt/carma/vehicle/config/carma_docker.launch
 
   lightbar-driver:
-      image: usdotfhwastol/carma-lightbar-driver:latest
+      image: usdotfhwastol/carma-lightbar-driver:1.0.0
       network_mode: host
       container_name: lightbar-driver
       volumes_from: 
@@ -55,7 +55,7 @@ services:
         - /opt/carma/logs:/opt/carma/logs
         - /opt/carma/.ros:/home/carma/.ros
       environment:
-        - ROS_IP=127.0.0.1
+        - ROS_IP=192.168.0.100
       command: bash -c 'export ROS_NAMESPACE=$${CARMA_INTR_NS} && wait-for-it.sh localhost:11311 -- roslaunch /opt/carma/vehicle/config/drivers.launch drivers:=lightbar_driver'
 
   cohda_dsrc_driver:
