@@ -54,6 +54,7 @@ services:
     volumes:
       - /opt/carma/logs:/opt/carma/logs
       - /home/autoware/.ros:/home/carma/.ros
+      - /opt/carma/vehicle/calibration:/opt/carma/vehicle/calibration
     environment:
       - ROS_IP=192.168.88.10
     command: bash -c 'export ROS_NAMESPACE=$${CARMA_INTR_NS} && wait-for-it.sh localhost:11311 -- roslaunch /opt/carma/vehicle/config/drivers.launch drivers:=lightbar_driver'
