@@ -92,6 +92,7 @@ If not using simulated drivers they are activated if the respective mock argumen
  	<arg name="frame_id" default="left_optical"/>
 	<arg name="trig_timestamp_topic" default=""/>
 	<arg name="show_debug_prints" default="true"/>
+	<remap from="camera/camera_info" to="dummy_camera_info"/>
   </include>
   
   <!-- AVT Vimba Camera Right Driver Node 
