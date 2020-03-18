@@ -42,6 +42,18 @@ vehicle_deceleration_limit: 6.0
 # Units: (m^-1) / s
 vehicle_max_curvature_rate: 0.75
 
+#  (radians of a full steering wheel rotation) / (radians of tires with the longitudinal axis under full steer)
+vehicle_steering_gear_ratio: 14.8
+
+# Maximum steering angle
+# Unit: deg
+vehicle_steer_lim_deg: 32.9
+
+# steering dynamics time constant 
+# Unit: s
+vehicle_model_steer_tau : 0.3
+
+
 # Required drivers for the vehicle to be functional
 required_drivers:
   - /hardware_interface/ssc_interface_wrapper
