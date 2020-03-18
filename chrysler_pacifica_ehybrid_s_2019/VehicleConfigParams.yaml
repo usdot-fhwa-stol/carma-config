@@ -43,7 +43,7 @@ vehicle_deceleration_limit: 6.0
 vehicle_max_curvature_rate: 0.75
 
 #  (radians of a full steering wheel rotation) / (radians of tires with the longitudinal axis under full steer)
-vehicle_steering_gear_ratio: 16.863
+vehicle_steering_gear_ratio: 16.2
 
 # Maximum steering angle
 # Unit: deg
