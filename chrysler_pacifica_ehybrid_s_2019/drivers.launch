@@ -85,6 +85,7 @@ If not using simulated drivers they are activated if the respective mock argumen
   </include>
 
   <!-- AVT Vimba Camera Left Driver Node -->
+  <remap from="camera/camera_info" to="dummy_camera_info"/>
   <include if="$(arg avt_vimba_camera)" file="$(find avt_vimba_camera)/launch/mono_camera.launch">
 	<arg name="guid" default=""/>
  	<arg name="ip" default="192.168.30.10"/>
@@ -92,7 +93,6 @@ If not using simulated drivers they are activated if the respective mock argumen
  	<arg name="frame_id" default="left_optical"/>
 	<arg name="trig_timestamp_topic" default=""/>
 	<arg name="show_debug_prints" default="true"/>
-        <remap from="camera/camera_info" to="dummy_camera_info"/>
   </include>
   
   <!-- AVT Vimba Camera Right Driver Node 
