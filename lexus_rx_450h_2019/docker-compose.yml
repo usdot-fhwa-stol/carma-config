@@ -113,7 +113,7 @@ services:
     command: bash -c 'export ROS_NAMESPACE=$${CARMA_INTR_NS} && wait-for-it.sh localhost:11311 -- roslaunch /opt/carma/vehicle/config/drivers.launch drivers:=velodyne_lidar_driver_wrapper'
 
 avt_vimba_camera_driver:
-    image: usdotfhwastol/carma-avt-vimba-driver:latest
+    image: usdotfhwastol/carma-avt-vimba-driver:1.2.0
     container_name: avt-vimba-camera-driver
     network_mode: host
     volumes_from:
