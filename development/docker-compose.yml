@@ -17,7 +17,7 @@ version: '2'
 
 services:
   roscore:
-    image: usdotfhwastol/carma-base:latest
+    image: usdotfhwastol/carma-base:3.7.0
     network_mode: host
     container_name: roscore
     volumes_from: 
@@ -28,6 +28,7 @@ services:
     environment:
       - ROS_IP=127.0.0.1
     command: roscore
+
   platform:
     image: usdotfhwastol/carma-platform:latest
     network_mode: host
@@ -39,9 +40,26 @@ services:
       - /opt/carma/.ros:/home/carma/.ros
       - /opt/carma/vehicle/calibration:/opt/carma/vehicle/calibration
       - /opt/carma/yolo:/opt/carma/yolo
+      - /opt/carma/maps:/opt/carma/maps
+      - /opt/carma/routes:/opt/carma/routes
     environment:
       - ROS_IP=127.0.0.1
     command: wait-for-it.sh localhost:11311 -- roslaunch /opt/carma/vehicle/config/carma_docker.launch
+
+  mock-lightbar-driver:
+    image: usdotfhwastol/carma-platform:latest
+    network_mode: host
+    container_name: carma-mock-lightbar-driver
+    volumes_from: 
+      - container:carma-config:ro
+    volumes:
+      - /opt/carma/logs:/opt/carma/logs
+      - /opt/carma/.ros:/home/carma/.ros
+      - /opt/carma/vehicle/calibration:/opt/carma/vehicle/calibration
+    environment:
+      - ROS_IP=127.0.0.1
+    command: bash -c 'export ROS_NAMESPACE=$${CARMA_INTR_NS} && wait-for-it.sh localhost:11311 -- roslaunch carma mock_drivers.launch mock_drivers:=lightbar'
+
   mock-can-driver:
     image: usdotfhwastol/carma-platform:latest
     network_mode: host
@@ -54,6 +72,7 @@ services:
     environment:
       - ROS_IP=127.0.0.1
     command: bash -c 'export ROS_NAMESPACE=$${CARMA_INTR_NS} && wait-for-it.sh localhost:11311 -- roslaunch carma mock_drivers.launch mock_drivers:=can'
+
   mock-comms-driver:
     image: usdotfhwastol/carma-platform:latest
     network_mode: host
@@ -66,6 +85,7 @@ services:
     environment:
       - ROS_IP=127.0.0.1
     command: bash -c 'export ROS_NAMESPACE=$${CARMA_INTR_NS} && wait-for-it.sh localhost:11311 -- roslaunch carma mock_drivers.launch mock_drivers:=comms'
+
   mock-controller-driver:
     image: usdotfhwastol/carma-platform:latest
     network_mode: host
@@ -78,6 +98,7 @@ services:
     environment:
       - ROS_IP=127.0.0.1
     command: bash -c 'export ROS_NAMESPACE=$${CARMA_INTR_NS} && wait-for-it.sh localhost:11311 -- roslaunch carma mock_drivers.launch mock_drivers:=controller'
+
   mock-radar-driver:
     image: usdotfhwastol/carma-platform:latest
     network_mode: host
@@ -90,6 +111,7 @@ services:
     environment:
       - ROS_IP=127.0.0.1
     command: bash -c 'export ROS_NAMESPACE=$${CARMA_INTR_NS} && wait-for-it.sh localhost:11311 -- roslaunch carma mock_drivers.launch mock_drivers:=radar'
+
   mock-gnss-driver:
     image: usdotfhwastol/carma-platform:latest
     network_mode: host
@@ -102,6 +124,7 @@ services:
     environment:
       - ROS_IP=127.0.0.1
     command: bash -c 'export ROS_NAMESPACE=$${CARMA_INTR_NS} && wait-for-it.sh localhost:11311 -- roslaunch carma mock_drivers.launch mock_drivers:=gnss'
+
   mock-imu-driver:
     image: usdotfhwastol/carma-platform:latest
     network_mode: host
@@ -114,6 +137,7 @@ services:
     environment:
       - ROS_IP=127.0.0.1
     command: bash -c 'export ROS_NAMESPACE=$${CARMA_INTR_NS} && wait-for-it.sh localhost:11311 -- roslaunch carma mock_drivers.launch mock_drivers:=imu'
+
   mock-lidar-driver:
     image: usdotfhwastol/carma-platform:latest
     network_mode: host
@@ -126,6 +150,7 @@ services:
     environment:
       - ROS_IP=127.0.0.1
     command: bash -c 'export ROS_NAMESPACE=$${CARMA_INTR_NS} && wait-for-it.sh localhost:11311 -- roslaunch carma mock_drivers.launch mock_drivers:=lidar'
+
   mock-camera-driver:
     image: usdotfhwastol/carma-platform:latest
     network_mode: host
@@ -138,6 +163,7 @@ services:
     environment:
       - ROS_IP=127.0.0.1
     command: bash -c 'export ROS_NAMESPACE=$${CARMA_INTR_NS} && wait-for-it.sh localhost:11311 -- roslaunch carma mock_drivers.launch mock_drivers:=camera'
+    
   mock-roadway-sensor-driver:
     image: usdotfhwastol/carma-platform:latest
     network_mode: host

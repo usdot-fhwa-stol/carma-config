@@ -29,10 +29,14 @@
   <!-- Override Required Paths -->
   <arg name="vehicle_config_dir" default="/opt/carma/vehicle/config"/>
   <arg name="vehicle_calibration_dir" default="/opt/carma/vehicle/calibration"/>
-  <arg name="load_type" value="noupdate"/>
-  <arg name="single_pcd_path" value="$(find carma)/map/base_map.pcd"/>
   <arg name="yolo_dir" default="/opt/carma/yolo"/>
-
+  <arg name="load_type" default="noupdate"/>
+  <arg name="single_pcd_path" default="/opt/carma/maps/pcd_map.pcd"/>
+  <arg name="arealist_path" default="/opt/carma/maps/arealist.txt"/>
+  <arg name="area" default="1x1"/>
+  <arg name="route_file_folder" default="/opt/carma/routes/"/>
+  <arg name="vector_map_file" default="/opt/carma/maps/vector_map.osm"/>
+  
   <!-- Launch without drivers as those will be launched as docker containers-->
   <arg name="launch_drivers" default="false"/>
 
