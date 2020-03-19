@@ -31,9 +31,9 @@ CONFIG_NAME=`echo $DIR_NAME | sed 's/_/-/g'`
 while [[ $# -gt 0 ]]; do
     arg="$1"
     case $arg in
-        -t|--test)
-            USERNAME=usdotfhwastoltest
-            TAG=test
+        -d|--develop)
+            USERNAME=usdotfhwastoldev
+            TAG=develop
             shift
             ;;
     esac
@@ -53,8 +53,8 @@ fi
 echo "Building docker image for CARMA Configuration version: $TAG"
 echo "Final image name: $USERNAME/$IMAGE:$TAG"
 
-if [[ $TAG = "test-$CONFIG_NAME" ]]; then
-    sed "s|usdotfhwastol|usdotfhwastoltest|g; s|:CARMASystem_[0-9]*\.[0-9]*\.[0-9]*|:test|g; s|checkout.sh|checkout.sh -t|g" \
+if [[ $TAG = "develop-$CONFIG_NAME" ]]; then
+    sed "s|usdotfhwastol|$USERNAME|g; s|:CARMASystem_[0-9]*\.[0-9]*\.[0-9]*|:$TAG|g" \
         docker-compose.yml | docker build --no-cache -t $USERNAME/$IMAGE:$TAG \
     --build-arg VERSION="$TAG" \
     --build-arg VCS_REF=`git rev-parse --short HEAD` \
