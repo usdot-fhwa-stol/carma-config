@@ -56,4 +56,6 @@ vehicle_model_steer_tau : 0.3
 # Required drivers for the vehicle to be functional
 required_drivers:
   - /hardware_interface/ssc_interface_wrapper
+lidar_gps_drivers:
   - /hardware_interface/velodyne_lidar_driver_wrapper
+  - /hardware_interface/novatel_gps_node
