@@ -53,6 +53,10 @@ vehicle_steer_lim_deg: 35.3
 # Unit: s
 vehicle_model_steer_tau : 0.3
 
+#Parameter to switch between passeger car and truck
+truck: false
+car: true 
+
 # Required drivers for the vehicle to be functional
 required_drivers:
   - /hardware_interface/ssc_interface_wrapper
