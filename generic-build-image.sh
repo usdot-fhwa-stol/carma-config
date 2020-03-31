@@ -21,32 +21,52 @@
 # configuration folders below and invoke it there to build the appropriate config
 # image using docker build. Automatically acquires folder name and system version
 # and passes neessary data into the docker build process.
-
+set -x
 USERNAME=usdotfhwastol
 IMAGE=carma-config
 cd "$(dirname "$0")"
 DIR_NAME=${PWD##*/}
 CONFIG_NAME=`echo $DIR_NAME | sed 's/_/-/g'`
 
+while [[ $# -gt 0 ]]; do
+    arg="$1"
+    case $arg in
+        -d|--develop)
+            USERNAME=usdotfhwastoldev
+            TAG=develop
+            shift
+            ;;
+    esac
+done
+
 echo ""
 echo "##### CARMA $CONFIG_NAME Configuration Docker Image Build Script #####"
 echo ""
 
 
-if [[ -z "$1" ]]; then
+if [[ -z "$TAG" ]]; then
     TAG="$("../docker/get-system-version.sh")-$CONFIG_NAME"
 else
-    TAG="$1-$CONFIG_NAME"
+    TAG="$TAG-$CONFIG_NAME"
 fi
 
 echo "Building docker image for CARMA Configuration version: $TAG"
 echo "Final image name: $USERNAME/$IMAGE:$TAG"
 
-docker build --no-cache -t $USERNAME/$IMAGE:$TAG \
+if [[ $TAG = "develop-$CONFIG_NAME" ]]; then
+    sed  -i "s|=.*|=develop|g; s|ORGANIZATION=.*|ORGANIZATION=usdotfhwastoldev|g" .env
+    docker build --no-cache -t $USERNAME/$IMAGE:$TAG \
     --build-arg VERSION="$TAG" \
     --build-arg VCS_REF=`git rev-parse --short HEAD` \
     --build-arg CONFIG_NAME="carma-config:$CONFIG_NAME" \
     --build-arg BUILD_DATE=`date -u +”%Y-%m-%dT%H:%M:%SZ”` .
+else
+    docker build --no-cache -t $USERNAME/$IMAGE:$TAG \
+    --build-arg VERSION="$TAG" \
+    --build-arg VCS_REF=`git rev-parse --short HEAD` \
+    --build-arg CONFIG_NAME="carma-config:$CONFIG_NAME" \
+    --build-arg BUILD_DATE=`date -u +”%Y-%m-%dT%H:%M:%SZ”` .
+fi
 
 echo ""
 echo "##### CARMA $CONFIG_NAME Docker Image Build Done! #####"
