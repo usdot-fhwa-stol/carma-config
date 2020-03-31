@@ -1,7 +1,7 @@
 # Defines the ros parameters which define a unique vehicles specific traits
 
 # String: Host vehicle color
-vehicle_color: 'BLUE'
+vehicle_color: 'YELLOW'
 
 # String: Host vehicle’s Unique ID that will be used in mobility messages.
-vehicle_id: 'MY_VEH_ID'
+vehicle_id: 'DEV-VEH'

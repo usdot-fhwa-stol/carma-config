@@ -42,7 +42,24 @@ vehicle_deceleration_limit: 6.0
 # Units: (m^-1) / s
 vehicle_max_curvature_rate: 0.75
 
+#  (radians of a full steering wheel rotation) / (radians of tires with the longitudinal axis under full steer)
+vehicle_steering_gear_ratio: 16.2
+
+# Maximum steering angle
+# Unit: deg
+vehicle_steer_lim_deg: 35.3
+
+# steering dynamics time constant 
+# Unit: s
+vehicle_model_steer_tau : 0.3
+
+#Parameter to switch between passeger car and truck
+truck: false
+car: true 
+
 # Required drivers for the vehicle to be functional
 required_drivers:
   - /hardware_interface/ssc_interface_wrapper
+lidar_gps_drivers:
   - /hardware_interface/velodyne_lidar_driver_wrapper
+  - /hardware_interface/novatel_gps_node

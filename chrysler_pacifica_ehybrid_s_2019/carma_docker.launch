@@ -33,6 +33,7 @@
   <arg name="single_pcd_path" value="/opt/carma/maps/pcd_map.pcd"/>
   <arg name="vector_map_file" default="/opt/carma/maps/vector_map.osm"/>
   <arg name="route_file_folder" default="/opt/carma/routes/"/>
+  <arg name="yolo_dir" default="/opt/carma/yolo"/>
 
   <!-- Launch without drivers as those will be launched as docker containers-->
   <arg name="launch_drivers" default="false"/>
