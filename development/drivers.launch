@@ -24,8 +24,8 @@ If not using simulated drivers they are activated if the respective mock argumen
 -->
 
 <launch>
-  <node pkg="driver_shutdown" type="driver_shutdown" name="driver_shutdown" required="true"/>
   <arg name="mock_drivers" default="controller can comms gnss radar lidar camera roadway_sensor" />
   <arg name="vehicle_calibration_dir" default="$(arg vehicle_calibration_dir)"/>
   <!-- File not used in development environment where only mock drivers are used -->
+
 </launch>
