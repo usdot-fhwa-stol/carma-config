@@ -56,6 +56,7 @@ vehicle_model_steer_tau : 0.3
 #Parameter to switch between passeger car and truck
 truck: false
 car: true 
+dev: false
 
 # Required drivers for the vehicle to be functional
 required_drivers:
