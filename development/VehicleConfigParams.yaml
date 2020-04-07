@@ -53,3 +53,16 @@ vehicle_steer_lim_deg: 29.2
 # Unit: s
 vehicle_model_steer_tau : 0.3
 
+#Parameter to switch between passeger car and truck
+truck: false
+car: false
+dev: true
+
+# Required drivers for the vehicle to be functional
+required_drivers:
+  - /hardware_interface/mock_controller
+lidar_gps_drivers:
+  - /hardware_interface/mock_lidar
+  - /hardware_interface/mock_gnss
+
+
