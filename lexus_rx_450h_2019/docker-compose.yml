@@ -23,9 +23,9 @@ services:
     volumes_from:
       - container:carma-config:ro
     environment:
-      - ROS_IP=192.168.88.10
+      - ROS_IP=192.168.0.100
     volumes:
-      - /home/autoware/.ros:/home/carma/.ros
+      - /opt/carma/.ros:/home/carma/.ros
     restart: always
     command: roscore
 
@@ -77,9 +77,6 @@ services:
     image: usdotfhwastol/carma-ssc-interface-wrapper:CARMASystem_3.3.0
     container_name: ssc_controller_driver
     network_mode: host
-    privileged: true # Grant access to usb for can data
-    devices: # Data speed can tool at bus 1 device 6
-      - /dev/bus/usb/001/006:/dev/bus/usb/001/006
     volumes_from:
       - container:carma-config:ro
     environment:
