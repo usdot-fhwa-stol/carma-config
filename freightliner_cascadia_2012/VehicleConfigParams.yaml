@@ -66,7 +66,7 @@ required_drivers:
 lidar_gps_drivers:
   - /hardware_interface/velodyne_1/velodyne_lidar_driver_wrapper 
   - /hardware_interface/velodyne_2/velodyne_lidar_driver_wrapper 
-  - /hardware_interface/novatel_gps_node
+  - /hardware_interface/novatel_gps_nodelet_wrapper
 
 
 

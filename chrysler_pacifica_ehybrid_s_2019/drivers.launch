@@ -24,6 +24,10 @@ If not using simulated drivers they are activated if the respective mock argumen
 -->
 
 <launch>
+
+  <!-- Shutdown node to shutsdown driver node with fatal message -->
+  <node pkg="driver_shutdown" type="driver_shutdown" name="$(anon driver_shutdown)" required="true"/>
+
   <arg name="vehicle_calibration_dir" default="/opt/carma/vehicle/calibration" doc="Folder containing vehicle calibration directories"/>
   
   <!-- Simulation Usage -->
