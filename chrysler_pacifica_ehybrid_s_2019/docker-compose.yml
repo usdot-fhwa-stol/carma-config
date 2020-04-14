@@ -47,7 +47,7 @@ services:
     command: wait-for-it.sh localhost:11311 -- roslaunch /opt/carma/vehicle/config/carma_docker.launch
 
   lightbar-driver:
-    image: usdotfhwastol/carma-lightbar-driver:1.1.0
+    image: usdotfhwastol/carma-lightbar-driver:1.0.0
     network_mode: host
     container_name: lightbar-driver
     volumes_from: 
