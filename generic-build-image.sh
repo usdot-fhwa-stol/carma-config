@@ -21,7 +21,7 @@
 # configuration folders below and invoke it there to build the appropriate config
 # image using docker build. Automatically acquires folder name and system version
 # and passes neessary data into the docker build process.
-set -x
+
 USERNAME=usdotfhwastol
 IMAGE=carma-config
 cd "$(dirname "$0")"
@@ -54,13 +54,17 @@ echo "Building docker image for CARMA Configuration version: $TAG"
 echo "Final image name: $USERNAME/$IMAGE:$TAG"
 
 if [[ $TAG = "develop-$CONFIG_NAME" ]]; then
-    sed  -i "s|=.*|=develop|g; s|ORGANIZATION=.*|ORGANIZATION=usdotfhwastoldev|g" .env
+    git checkout -- docker-compose.yml
+    sed -i "s|usdotfhwastol|$USERNAME|g; s|:[0-9]*\.[0-9]*\.[0-9]*|:develop|g; s|:CARMASystem_[0-9]*\.[0-9]*\.[0-9]*|:develop|g;" \
+        docker-compose.yml
     docker build --no-cache -t $USERNAME/$IMAGE:$TAG \
     --build-arg VERSION="$TAG" \
     --build-arg VCS_REF=`git rev-parse --short HEAD` \
     --build-arg CONFIG_NAME="carma-config:$CONFIG_NAME" \
     --build-arg BUILD_DATE=`date -u +”%Y-%m-%dT%H:%M:%SZ”` .
+    git checkout -- docker-compose.yml
 else
+    git checkout -- docker-compose.yml
     docker build --no-cache -t $USERNAME/$IMAGE:$TAG \
     --build-arg VERSION="$TAG" \
     --build-arg VCS_REF=`git rev-parse --short HEAD` \
