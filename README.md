@@ -9,7 +9,7 @@ Some parameters are unique to individual vehicles such as precise sensor orienta
 
 ## Example Opt Folder
 
-The CARMA Platform requires that some files be located in the /opt/carma directory so they can be found at runtime. The example_opt_carma folder in this repository contains an example of this folders structure though some files cannot be included in this repo due to size or license restrictions. Therefore the installation instructions should be consulted for proper setup. The file is presented here as a supporting reference and used by development setup scripts. 
+The CARMA Platform requires that some files be located in the /opt/carma directory so they can be found at runtime. The example_opt_carma folder in this repository contains an example of this folder's structure though some files cannot be included in this repo due to size or license restrictions. Therefore, the installation instructions should be consulted for proper setup. The folder is presented here as a supporting reference and used by development setup scripts. 
 
 # CARMAPlatform
 The primary CARMAPlatform repository can be found [here](https://github.com/usdot-fhwa-stol/CARMAPlatform) and is part of the [USDOT FHWA STOL](https://github.com/usdot-fhwa-stol/)
