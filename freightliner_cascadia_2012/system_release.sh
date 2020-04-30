@@ -52,7 +52,7 @@ if git ls-remote -q | grep $RELEASE_BRANCH; then
     sed -i "s|:CARMASystem_[0-9]*\.[0-9]*\.[0-9]*|:$SYSTEM_RELEASE|g; s|:carma-system-[0-9]*\.[0-9]*\.[0-9]*|:$SYSTEM_RELEASE|g; s|:[0-9]*\.[0-9]*\.[0-9]*|:$SYSTEM_RELEASE|g" docker-compose.yml
     sed -i "s|:CARMASystem_[0-9]*\.[0-9]*\.[0-9]*|:$SYSTEM_RELEASE|g; s|:carma-system-[0-9]*\.[0-9]*\.[0-9]*|:$SYSTEM_RELEASE|g; s|:[0-9]*\.[0-9]*\.[0-9]*|:$SYSTEM_RELEASE|g" docker-compose-background.yml
 
-    git add .
+    git add docker-compose.yml docker-compose-background.yml 
 
     git commit -m "Updated dependencies for $SYSTEM_RELEASE"
 
