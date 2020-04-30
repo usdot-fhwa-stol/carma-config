@@ -16,7 +16,7 @@
 
 # This script takes a system release name and version number as arguments, and 
 # updates version dependencies in docker-compose.yml and docker-compose-background.yml
-# files accordingly.
+# accordingly.
 
 # The -u | --unprompted option can be used to skip the interactive prompts, and
 # provide arguments directly from the commandline.
@@ -41,8 +41,25 @@ else
 done
 fi
 
-./chrysler_pacifica_ehybrid_s_2019/system_release.sh -u $RELEASE_NAME $RELEASE_VERSION
-./ford_fusion_sehybrid_2019/system_release.sh -u $RELEASE_NAME $RELEASE_VERSION
-./freightliner_cascadia_2012/system_release.sh -u $RELEASE_NAME $RELEASE_VERSION
-./lexus_rx_450h_2019/system_release.sh -u $RELEASE_NAME $RELEASE_VERSION
-./development/system_release.sh -u $RELEASE_NAME $RELEASE_VERSION
+SYSTEM_RELEASE=carma-system-$RELEASE_VERSION
+RELEASE_BRANCH=release/$RELEASE_NAME
+
+if git ls-remote -q | grep $RELEASE_BRANCH; then
+    echo "Checking out $RELEASE_BRANCH branch."
+    git checkout $RELEASE_BRANCH
+
+    echo "Updating docker-compose.yml and docker-compose-background.yml to point to system release version."
+    sed -i "s|:CARMASystem_[0-9]*\.[0-9]*\.[0-9]*|:$SYSTEM_RELEASE|g; s|:carma-system-[0-9]*\.[0-9]*\.[0-9]*|:$SYSTEM_RELEASE|g; s|:[0-9]*\.[0-9]*\.[0-9]*|:$SYSTEM_RELEASE|g" docker-compose.yml
+    sed -i "s|:CARMASystem_[0-9]*\.[0-9]*\.[0-9]*|:$SYSTEM_RELEASE|g; s|:carma-system-[0-9]*\.[0-9]*\.[0-9]*|:$SYSTEM_RELEASE|g; s|:[0-9]*\.[0-9]*\.[0-9]*|:$SYSTEM_RELEASE|g" docker-compose-background.yml
+
+    git add docker-compose.yml docker-compose-background.yml
+
+    git commit -m "Updated dependencies for $SYSTEM_RELEASE"
+
+    git tag -a $SYSTEM_RELEASE -m "$SYSTEM_RELEASE version tag."
+
+    echo "docker-compose.yml and docker-compose-background.yml updated, committed, and tagged."
+else
+    echo "$RELEASE_BRANCH does not exist. Exiting script."
+    exit 0
+fi
