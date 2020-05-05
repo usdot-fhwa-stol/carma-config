@@ -1,0 +1,69 @@
+# Defines the ros parameters which define the characteristics of this host vehicle configuration
+
+# String: Host vehicle make
+vehicle_make: 'Ford'
+
+# String: Host vehicle model
+vehicle_model: 'Escape'
+
+# Integer: Host vehicle year
+# Units: Year
+vehicle_year: 2010
+
+# Double: Host vehicle length
+# Units: Meters
+vehicle_length: 15.0
+
+# Double: Host vehicle width
+# Units: Meters
+vehicle_width: 5.0
+
+# Double: Host vehicle height
+# Units: Meters
+vehicle_height: 5.0
+
+# Double: Distance from front axel to rear axel
+# Units: Meters
+vehicle_wheel_base: 2.79
+
+# Double: Radius of the tires
+# Units: Meters
+# TODO: Properly calibrate for Ford Escape
+vehicle_tire_radius: 0.39
+
+# Acceleration limit
+# Units: m/s^2
+# TODO: Properly calibrate for Ford Escape
+vehicle_acceleration_limit: 3.0
+
+# Deceleration limit
+# Units: m/s^2
+# TODO: Properly calibrate for Ford Escape
+vehicle_deceleration_limit: 6.0
+
+# Max curvature rate
+# Units: (m^-1) / s
+# TODO: Properly calibrate for Ford Escape
+vehicle_max_curvature_rate: 0.75
+
+#  (radians of a full steering wheel rotation) / (radians of tires with the longitudinal axis under full steer)
+# TODO: Properly calibrate for Ford Escape
+vehicle_steering_gear_ratio: 16.863
+
+# Maximum steering angle
+# Unit: deg
+# TODO: Properly calibrate for Ford Escape
+vehicle_steer_lim_deg: 29.2
+
+# steering dynamics time constant 
+# Unit: s
+# TODO: Properly calibrate for Ford Escape
+vehicle_model_steer_tau : 0.3
+
+#Parameter to switch between passeger car and truck
+truck: false
+car: true 
+
+# Required drivers for the vehicle to be functional
+required_drivers:
+lidar_gps_drivers:
