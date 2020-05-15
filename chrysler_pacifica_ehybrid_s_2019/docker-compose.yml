@@ -37,6 +37,7 @@ services:
       - container:carma-config:ro
     environment:
       - ROS_IP=192.168.88.10
+      - NVIDIA_VISIBLE_DEVICES=all
     volumes:
       - /opt/carma/logs:/opt/carma/logs
       - /home/autoware/.ros:/home/carma/.ros
