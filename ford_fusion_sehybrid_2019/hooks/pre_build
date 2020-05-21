@@ -6,4 +6,10 @@ if [[ "$SOURCE_BRANCH" = "develop" ]]; then
      docker-compose.yml
     sed -i "s|usdotfhwastol|usdotfhwastoldev|g; s|:[0-9]*\.[0-9]*\.[0-9]*|:develop|g; s|:CARMASystem_[0-9]*\.[0-9]*\.[0-9]*|:develop|g; s|:carma-system_[0-9]*\.[0-9]*\.[0-9]*|:develop|g;" \
      docker-compose-background.yml
+elif [[ "$SOURCE_BRANCH" =~ ^release/.*$ ]]; then
+    # swap checkout branch in checkout.bash to release branch
+    sed -i "s|usdotfhwastol|usdotfhwastolcandidate|g; s|:[0-9]*\.[0-9]*\.[0-9]*|:candidate|g; s|:CARMASystem_[0-9]*\.[0-9]*\.[0-9]*|:candidate|g; s|:carma-system_[0-9]*\.[0-9]*\.[0-9]*|:candidate|g;" \
+     docker-compose.yml
+    sed -i "s|usdotfhwastol|usdotfhwastolcandidate|g; s|:[0-9]*\.[0-9]*\.[0-9]*|:candidate|g; s|:CARMASystem_[0-9]*\.[0-9]*\.[0-9]*|:candidate|g; s|:carma-system_[0-9]*\.[0-9]*\.[0-9]*|:candidate|g;" \
+     docker-compose-background.yml
 fi
