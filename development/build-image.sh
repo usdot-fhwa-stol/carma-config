@@ -57,20 +57,18 @@ if [[ $TAG = "develop-$CONFIG_NAME" ]]; then
     git checkout -- docker-compose.yml
     sed -i "s|usdotfhwastol/|$USERNAME/|g; s|:[0-9]*\.[0-9]*\.[0-9]*|:develop|g; s|:CARMASystem_[0-9]*\.[0-9]*\.[0-9]*|:develop|g;" \
         docker-compose.yml
-    docker build --no-cache -t $USERNAME/$IMAGE:$TAG \
-    --build-arg VERSION="$TAG" \
-    --build-arg VCS_REF=`git rev-parse --short HEAD` \
-    --build-arg CONFIG_NAME="carma-config:$CONFIG_NAME" \
-    --build-arg BUILD_DATE=`date -u +”%Y-%m-%dT%H:%M:%SZ”` .
-    git checkout -- docker-compose.yml
 else
     git checkout -- docker-compose.yml
-    docker build --no-cache -t $USERNAME/$IMAGE:$TAG \
+fi
+
+docker build --no-cache -t $USERNAME/$IMAGE:$TAG \
     --build-arg VERSION="$TAG" \
     --build-arg VCS_REF=`git rev-parse --short HEAD` \
     --build-arg CONFIG_NAME="carma-config:$CONFIG_NAME" \
     --build-arg BUILD_DATE=`date -u +”%Y-%m-%dT%H:%M:%SZ”` .
-fi
+
+# restore docker-compose.yml in case edited by if statement
+git checkout -- docker-compose.yml
 
 echo ""
 echo "##### CARMA $CONFIG_NAME Docker Image Build Done! #####"
