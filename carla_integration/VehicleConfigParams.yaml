@@ -1,5 +1,11 @@
 # Defines the ros parameters which define the characteristics of this host vehicle configuration
 
+# String: Host vehicle make
+vehicle_make: 'Lexus'
+
+# String: Host vehicle model
+vehicle_model: 'RX-450'
+
 # Double: Host vehicle length
 # Units: Meters
 vehicle_length: 5.0
