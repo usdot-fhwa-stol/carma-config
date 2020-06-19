@@ -46,3 +46,16 @@ services:
       - /opt/carma/routes:/opt/carma/routes
       - /opt/carma/yolo:/opt/carma/yolo
     command: wait-for-it.sh localhost:11311 -- roslaunch /opt/carma/vehicle/config/carma_docker.launch
+
+  carla_ackermann_control:
+    image: usdotfhwastol/carma-simulation:CARMASystem_3.3.0
+    container_name: carla-ackermann-control-driver
+    network_mode: host
+    volumes_from:
+      - container:carma-config:ro
+    environment:
+      - ROS_IP=127.0.0.1
+    volumes:
+      - /opt/carma/logs:/opt/carma/logs
+      - /opt/carma/.ros:/home/carma/.ros
+    command: bash -c 'export ROS_NAMESPACE=$${CARMA_INTR_NS} && wait-for-it.sh localhost:11311 -- roslaunch /opt/carma/vehicle/config/drivers.launch drivers:=carla_ackermann_control_wrapper'
