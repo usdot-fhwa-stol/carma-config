@@ -41,7 +41,7 @@ CarmaJS.registerNamespace("CarmaJS.Config");
 
 CarmaJS.Config = (function () {
         //Private variables
-        var ip = '192.168.0.100';
+        var ip = '127.0.0.1';
 
         //Private methods
         //Creating functions to prevent access by reference to private variables
