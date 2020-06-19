@@ -6,6 +6,10 @@ vehicle_make: 'Lexus'
 # String: Host vehicle model
 vehicle_model: 'RX-450'
 
+# Integer: Host vehicle year
+# Units: Year
+vehicle_year: 2019
+
 # Double: Host vehicle length
 # Units: Meters
 vehicle_length: 5.0
