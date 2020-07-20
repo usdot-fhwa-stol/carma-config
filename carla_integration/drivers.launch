@@ -32,7 +32,7 @@ If not using simulated drivers they are activated if the respective mock argumen
   <remap from="~vehicle_deceleration_limit" to="/vehicle_deceleration_limit"/>
   <remap from="~vehicle_steer_lim_deg" to="/vehicle_steer_lim_deg"/> 
 
-  <include file="$(find carla_ackermann_control_wrapper)/launch/carla_ackermann_control_wrapper.launch">
+  <include file="$(find carla_ackermann_control_wrapper)/launch/carla_ackermann_control_wrapper.launch"/>
 
   <include file="$(find carla_ackermann_control)/launch/carla_ackermann_control.launch">
     <arg name='role_name' value='$(arg role_name)'/>
