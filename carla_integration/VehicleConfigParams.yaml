@@ -1,3 +1,5 @@
+use_sim_time: true
+
 # Defines the ros parameters which define the characteristics of this host vehicle configuration
 
 # String: Host vehicle make
@@ -59,6 +61,6 @@ car: true
 
 # Required drivers for the vehicle to be functional
 required_drivers:
-  - /hardware_interface/mock_controller
+  - /hardware_interface/carla_ackermann_control_wrapper
 lidar_gps_drivers:
   - /hardware_interface/mock_lidar
