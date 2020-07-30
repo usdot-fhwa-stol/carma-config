@@ -143,7 +143,8 @@ services:
       - ROS_IP=192.168.88.10
     volumes:
       - /opt/carma/logs:/opt/carma/logs
-      - /home/autoware/.ros:/home/carma/.ros
+      - /opt/carma/.ros:/home/carma/.ros
+      - /opt/carma/vehicle/calibration:/opt/carma/vehicle/calibration
     command: bash -c 'export ROS_NAMESPACE=$${CARMA_INTR_NS} && wait-for-it.sh localhost:11311 -- roslaunch /opt/carma/vehicle/config/drivers.launch drivers:=avt_vimba_camera'
 
   # TODO DelphiESR Front Driver Node
