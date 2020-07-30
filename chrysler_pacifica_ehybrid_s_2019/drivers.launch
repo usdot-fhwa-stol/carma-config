@@ -47,7 +47,7 @@ If not using simulated drivers they are activated if the respective mock argumen
 
 
   <!-- Specific Drivers -->
-  <arg name="drivers" default="dsrc_driver ssc_interface_wrapper novatel_gps_driver velodyne_lidar_driver_wrapper lightbar_driver"
+  <arg name="drivers" default="dsrc_driver ssc_interface_wrapper novatel_gps_driver velodyne_lidar_driver_wrapper lightbar_driver avt_vimba_camera"
     doc="Desired real drivers to launch specified by package name. Mock drivers will take precedence"/>
 
   <arg name="dsrc_driver"                   value="$(eval ('dsrc_driver' in arg('drivers').split()) and not arg('mock_comms'))"/>
@@ -94,7 +94,7 @@ If not using simulated drivers they are activated if the respective mock argumen
     <arg name="camera_info_url" value="$(arg vehicle_calibration_dir)/avt_vimba_camera/camera_fl_intrinsics.yaml"/>
  	<arg name="frame_id" default="left_optical"/>
 	<arg name="trig_timestamp_topic" default=""/>
-	<arg name="show_debug_prints" default="true"/>
+	<arg name="show_debug_prints" default="false"/>
   </include>
   
   <!-- AVT Vimba Camera Right Driver Node 
