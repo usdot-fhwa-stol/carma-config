@@ -60,10 +60,6 @@ If not using simulated drivers they are activated if the respective mock argumen
 
   <!-- PACMOD Controller Driver Node -->
   <include if="$(arg ssc_interface_wrapper)" file="$(find ssc_interface_wrapper)/launch/ssc_pacmod_driver.launch">
-    <arg name="pacmod_vehicle_type" default="LEXUS_RX_450H" />
-    <arg name="use_kvaser" default="false" />
-    <arg name="use_socketcan" default="true" />
-    <arg name="socketcan_device" default="can0" />
     <arg name="ssc_param_dir" value="$(arg vehicle_calibration_dir)/ssc_pm_lexus"/>
   </include>
 

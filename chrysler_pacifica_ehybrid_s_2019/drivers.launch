@@ -62,8 +62,6 @@ If not using simulated drivers they are activated if the respective mock argumen
 
   <!-- PACMOD Controller Driver Node -->
   <include if="$(arg ssc_interface_wrapper)" file="$(find ssc_interface_wrapper)/launch/ssc_ne_pacifica_driver.launch">
-    <arg name="use_socketcan" default="true" />
-    <arg name="socketcan_device" default="can0" />
     <arg name="ssc_param_dir" value="$(arg vehicle_calibration_dir)/ssc_ne_pacifica"/>
   </include>
 
