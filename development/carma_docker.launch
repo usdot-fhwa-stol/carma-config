@@ -43,6 +43,11 @@
   <!-- Rosbag Flag -->
   <arg name="use_rosbag" default="true"/>
 
+<!-- DriverStatus Publisher to publish fake driver status messages -->
+  <node pkg="rostopic" type="rostopic" name="mock_drivers_rostopic_pub"
+        args="pub -r 20 /hardware_interface/driver_discovery cav_msgs/DriverStatus '{ name: MockDriver, status: 1, can: true, radar: true, gnss: true, lidar: true, roadway_sensor: true, comms: true, controller: true, camera: true, imu: true, trailer_angle_sensor: true, lightbar: true }'"
+  />
+
   <!-- Include the detailed launch file and pass in new arguments -->
   <include file="$(find carma)/launch/carma_src.launch" pass_all_args="true"/>
 </launch>
