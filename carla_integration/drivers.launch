@@ -24,9 +24,20 @@ If not using simulated drivers they are activated if the respective mock argumen
 -->
 
 <launch>
- 
-  <!-- launch carla_ackermann_control and carla_ackermann_control_wrapper -->
-  <include file="$(find carla_ackermann_control_wrapper)/launch/calra_ackermann_control_wrapper.launch"/>
-  <include file="$(find calra_ackermann_control)/launch/carla_ackermann_control.launch"/>
+  <arg name='role_name' default='ego_vehicle'/>
+
+  <!-- handling global prameters -->
+  <remap from="~vehicle_wheel_base" to="/vehicle_wheel_base"/> 
+  <remap from="~vehicle_acceleration_limit" to="/vehicle_acceleration_limit"/>
+  <remap from="~vehicle_deceleration_limit" to="/vehicle_deceleration_limit"/>
+  <remap from="~vehicle_steer_lim_deg" to="/vehicle_steer_lim_deg"/> 
+
+  <include file="$(find carla_ackermann_control_wrapper)/launch/carla_ackermann_control_wrapper.launch"/>
+
+  <include file="$(find carla_ackermann_control)/launch/carla_ackermann_control.launch">
+    <arg name='role_name' value='$(arg role_name)'/>
+  </include>
+  
+  <include file="$(find carla_carma)/launch/carma_comm.launch"/>
 
 </launch>
