@@ -64,3 +64,4 @@ required_drivers:
   - /hardware_interface/carla_ackermann_control_wrapper
 lidar_gps_drivers:
   - /hardware_interface/mock_lidar
+  - /hardware_interface/mock_gnss
