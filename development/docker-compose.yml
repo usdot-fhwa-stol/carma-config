@@ -55,7 +55,7 @@ services:
       - container:carma-config:ro
     volumes:
       - /opt/carma/logs:/opt/carma/logs
-      - /opt/carma/.ros:/opt/carma/.ros
+      - /opt/carma/.ros:/home/carma/.ros
       - /opt/carma/vehicle/calibration:/opt/carma/vehicle/calibration
       - /opt/carma/data:/opt/carma/data
     environment:
@@ -70,7 +70,7 @@ services:
       - container:carma-config:ro
     volumes:
       - /opt/carma/logs:/opt/carma/logs
-      - /opt/carma/.ros:/opt/carma/.ros
+      - /opt/carma/.ros:/home/carma/.ros
       - /opt/carma/data:/opt/carma/data
     environment:
       - ROS_IP=127.0.0.1
@@ -84,7 +84,7 @@ services:
       - container:carma-config:ro
     volumes:
       - /opt/carma/logs:/opt/carma/logs
-      - /opt/carma/.ros:/opt/carma/.ros
+      - /opt/carma/.ros:/home/carma/.ros
       - /opt/carma/data:/opt/carma/data
     environment:
       - ROS_IP=127.0.0.1
@@ -98,7 +98,7 @@ services:
       - container:carma-config:ro
     volumes:
       - /opt/carma/logs:/opt/carma/logs
-      - /opt/carma/.ros:/opt/carma/.ros
+      - /opt/carma/.ros:/home/carma/.ros
       - /opt/carma/data:/opt/carma/data
     environment:
       - ROS_IP=127.0.0.1
@@ -112,7 +112,7 @@ services:
       - container:carma-config:ro
     volumes:
       - /opt/carma/logs:/opt/carma/logs
-      - /opt/carma/.ros:/opt/carma/.ros
+      - /opt/carma/.ros:/home/carma/.ros
       - /opt/carma/data:/opt/carma/data
     environment:
       - ROS_IP=127.0.0.1
@@ -126,7 +126,7 @@ services:
       - container:carma-config:ro
     volumes:
       - /opt/carma/logs:/opt/carma/logs
-      - /opt/carma/.ros:/opt/carma/.ros
+      - /opt/carma/.ros:/home/carma/.ros
       - /opt/carma/data:/opt/carma/data
     environment:
       - ROS_IP=127.0.0.1
@@ -140,7 +140,7 @@ services:
       - container:carma-config:ro
     volumes:
       - /opt/carma/logs:/opt/carma/logs
-      - /opt/carma/.ros:/opt/carma/.ros
+      - /opt/carma/.ros:/home/carma/.ros
       - /opt/carma/data:/opt/carma/data
     environment:
       - ROS_IP=127.0.0.1
@@ -154,7 +154,7 @@ services:
       - container:carma-config:ro
     volumes:
       - /opt/carma/logs:/opt/carma/logs
-      - /opt/carma/.ros:/opt/carma/.ros
+      - /opt/carma/.ros:/home/carma/.ros
       - /opt/carma/data:/opt/carma/data
     environment:
       - ROS_IP=127.0.0.1
@@ -168,7 +168,7 @@ services:
       - container:carma-config:ro
     volumes:
       - /opt/carma/logs:/opt/carma/logs
-      - /opt/carma/.ros:/opt/carma/.ros
+      - /opt/carma/.ros:/home/carma/.ros
       - /opt/carma/data:/opt/carma/data
     environment:
       - ROS_IP=127.0.0.1
@@ -182,7 +182,7 @@ services:
       - container:carma-config:ro
     volumes:
       - /opt/carma/logs:/opt/carma/logs
-      - /opt/carma/.ros:/opt/carma/.ros
+      - /opt/carma/.ros:/home/carma/.ros
       - /opt/carma/data:/opt/carma/data
     environment:
       - ROS_IP=127.0.0.1
