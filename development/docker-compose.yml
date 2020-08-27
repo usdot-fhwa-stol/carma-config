@@ -60,7 +60,7 @@ services:
       - /opt/carma/data:/opt/carma/data
     environment:
       - ROS_IP=127.0.0.1
-    command: bash -c 'export ROS_NAMESPACE=$${CARMA_INTR_NS} && wait-for-it.sh localhost:11311 -- roslaunch carma mock_drivers.launch mock_drivers:=lightbar bag_parser'
+    command: bash -c 'export ROS_NAMESPACE=$${CARMA_INTR_NS} && wait-for-it.sh localhost:11311 -- roslaunch carma mock_drivers.launch mock_drivers:="lightbar bag_parser"'
 
   mock-can-driver:
     image: usdotfhwastoldev/carma-platform:develop
