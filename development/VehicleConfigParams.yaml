@@ -59,9 +59,9 @@ car: true
 
 # Required drivers for the vehicle to be functional
 required_drivers:
-  - /hardware_interface/mock_controller
+  - /hardware_interface/controller
 lidar_gps_drivers:
-  - /hardware_interface/mock_lidar
-  - /hardware_interface/mock_gnss
+  - /hardware_interface/lidar
+  - /hardware_interface/gnss
 
 
