@@ -41,6 +41,14 @@ vehicle_acceleration_limit: 3.0
 # Units: m/s^2
 vehicle_deceleration_limit: 6.0
 
+# Lateral Acceleration Limit
+# Units: m/s^2
+vehicle_lateral_accel_limit: 2.5
+
+# Lateral Jerk Limit
+# Units: m/s^3
+vehicle_lateral_jerk_limit: 2.0
+
 # Max curvature rate
 # Units: (m^-1) / s
 vehicle_max_curvature_rate: 0.75
