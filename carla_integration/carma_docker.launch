@@ -39,6 +39,9 @@
   <!-- Launch without drivers as those will be launched as docker containers-->
   <arg name="launch_drivers" default="false"/>
 
+  <!-- Launch the CARMA-CARLA simulation -->
+  <arg name="simulation_mode" default="true"/>
+
   <!-- Rosbag Flag -->
   <arg name="use_rosbag" default="true"/>
 
