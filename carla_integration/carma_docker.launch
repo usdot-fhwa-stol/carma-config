@@ -40,7 +40,7 @@
   <arg name="launch_drivers" default="false"/>
 
   <!-- Launch the CARMA-CARLA simulation -->
-  <arg name="non_simulation_mode" default="false"/>
+  <arg name="simulation_mode" default="true"/>
 
   <!-- Rosbag Flag -->
   <arg name="use_rosbag" default="true"/>
