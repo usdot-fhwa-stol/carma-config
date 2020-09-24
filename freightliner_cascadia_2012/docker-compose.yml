@@ -48,7 +48,7 @@ services:
     command: wait-for-it.sh localhost:11311 -- roslaunch /opt/carma/vehicle/config/carma_docker.launch
 
   truck-inspection:
-    image: usdotfhwastoldev/carma-platform:develop
+    image: usdotfhwastol/carma-platform:latest
     network_mode: host
     container_name: carma-truck-inspection
     volumes_from: 
