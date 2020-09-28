@@ -47,6 +47,23 @@ services:
       - /opt/carma/yolo:/opt/carma/yolo
     command: wait-for-it.sh localhost:11311 -- roslaunch /opt/carma/vehicle/config/carma_docker.launch
 
+  truck-inspection:
+    image: usdotfhwastol/carma-platform:latest
+    network_mode: host
+    container_name: carma-truck-inspection
+    volumes_from: 
+      - container:carma-config:ro
+    volumes:
+      - /opt/carma/logs:/opt/carma/logs
+      - /opt/carma/.ros:/home/carma/.ros
+      - /opt/carma/vehicle/calibration:/opt/carma/vehicle/calibration
+      - /opt/carma/yolo:/opt/carma/yolo
+      - /opt/carma/maps:/opt/carma/maps
+      - /opt/carma/routes:/opt/carma/routes
+    environment:
+      - ROS_IP=192.168.88.10
+    command: wait-for-it.sh localhost:11311 -- roslaunch truck_inspection_client truck_inspection_client.launch
+
   lightbar-driver:
     image: usdotfhwastol/carma-lightbar-driver:1.0.0
     network_mode: host
