@@ -44,10 +44,6 @@
   <arg name="use_rosbag" default="true"/>
   <arg name="rosbag_exclusions" default="/bag/(.*)|/hardware_interface/(.*)"/>
 
-  <!-- Set Logging Configuration -->
-  <env name="ROSCONSOLE_CONFIG_FILE"
-       value="carma_rosconsole.conf"/>
-
   <!-- Include the detailed launch file and pass in new arguments -->
   <include file="$(find carma)/launch/carma_src.launch" pass_all_args="true"/>
 </launch>
