@@ -25,6 +25,8 @@ If not using simulated drivers they are activated if the respective mock argumen
 
 <launch>
   <arg name='role_name' default='ego_vehicle'/>
+  <arg name="socket_ip" default="127.0.0.1" />
+  <arg name="socket_port" default="8080" />
 
   <!-- handling global prameters -->
   <remap from="~vehicle_wheel_base" to="/vehicle_wheel_base"/> 
@@ -38,6 +40,9 @@ If not using simulated drivers they are activated if the respective mock argumen
     <arg name='role_name' value='$(arg role_name)'/>
   </include>
   
-  <include file="$(find carla_carma)/launch/carma_comm.launch"/>
+  <include file="$(find carla_carma)/launch/carma_comm.launch">
+    <arg name="socket_ip" value='$(arg socket_ip)'/>
+    <arg name="socket_port" value='$(arg socket_port)'/>
+  </include>
 
 </launch>
