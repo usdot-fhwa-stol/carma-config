@@ -65,3 +65,6 @@ required_drivers:
 lidar_gps_drivers:
   - /hardware_interface/mock_lidar
   - /hardware_interface/mock_gnss
+
+# Parameter to enable configurable speed limit
+config_speed_limit: 45.0
