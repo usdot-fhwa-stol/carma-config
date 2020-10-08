@@ -73,4 +73,4 @@ lidar_gps_drivers:
   - /hardware_interface/novatel_gps_nodelet_wrapper
 
 # Parameter to enable configurable speed limit
-config_speed_limit: 0.0
+config_speed_limit: 45.0
