@@ -61,7 +61,7 @@ If not using simulated drivers they are activated if the respective mock argumen
   <include if="$(arg dsrc_driver)" file="$(find dsrc_driver)/launch/dsrc_node.launch"/>
 
   <!-- PACMOD Controller Driver Node -->
-  <include if="$(arg ssc_interface_wrapper)" file="$(find ssc_interface_wrapper)/launch/ssc_pm_cascadia_driver.launch">
+  <include if="$(arg ssc_interface_wrapper)" file="$(find ssc_interface_wrapper)/launch/ssc_pm_cascadia_dot_10002_driver.launch">
     <arg name="ssc_param_dir" value="$(arg vehicle_calibration_dir)/ssc_pm_cascadia"/>
   </include>
 

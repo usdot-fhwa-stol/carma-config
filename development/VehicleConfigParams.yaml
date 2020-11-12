@@ -72,4 +72,5 @@ lidar_gps_drivers:
   - /hardware_interface/lidar
   - /hardware_interface/gnss
 
-
+#Parameter to enable configurable speed limit
+config_speed_limit: 0.0
