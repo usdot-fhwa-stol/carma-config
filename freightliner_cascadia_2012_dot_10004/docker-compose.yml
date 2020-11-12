@@ -62,7 +62,7 @@ services:
       - /opt/carma/routes:/opt/carma/routes
     environment:
       - ROS_IP=192.168.88.10
-    command: wait-for-it.sh localhost:11311 -- roslaunch truck_inspection_client truck_inspection_client.launch truck_inspection_client_param_file:=/opt/carma/vehicle/calibration/truck_inspection/parameters.yaml
+    command: wait-for-it.sh localhost:11311 -- roslaunch truck_inspection_client truck_inspection_client.launch truck_inspection_client_param_file:=/opt/carma/vehicle/calibration/truck_inspection_client/parameters.yaml
 
   lightbar-driver:
     image: usdotfhwastol/carma-lightbar-driver:1.0.0
