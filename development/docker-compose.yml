@@ -24,6 +24,7 @@ services:
       - container:carma-config:ro
     volumes:
       - /opt/carma/.ros:/home/carma/.ros
+      - /opt/carma/logs:/opt/carma/logs
     restart: always
     environment:
       - ROS_IP=127.0.0.1
