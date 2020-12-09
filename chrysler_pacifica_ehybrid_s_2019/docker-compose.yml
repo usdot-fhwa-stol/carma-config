@@ -17,7 +17,7 @@ version: '2'
 
 services:
   roscore:
-    image: usdotfhwastol/carma-base:CARMASystem_3.3.0
+    image: usdotfhwastolcandidate/carma-base:candidate
     network_mode: host
     container_name: roscore
     volumes_from:
@@ -30,7 +30,7 @@ services:
     command: roscore
 
   platform:
-    image: usdotfhwastol/carma-platform:CARMASystem_3.3.0
+    image: usdotfhwastolcandidate/carma-platform:candidate
     network_mode: host
     container_name: platform
     volumes_from:
@@ -45,10 +45,10 @@ services:
       - /opt/carma/maps:/opt/carma/maps
       - /opt/carma/routes:/opt/carma/routes
       - /opt/carma/yolo:/opt/carma/yolo
-    command: wait-for-it.sh localhost:11311 -- roslaunch /opt/carma/vehicle/config/carma_docker.launch
+    command: bash -c 'export LD_LIBRARY_PATH=$${LD_LIBRARY_PATH}:/usr/local/lib/ && wait-for-it.sh localhost:11311 -- roslaunch /opt/carma/vehicle/config/carma_docker.launch'
 
   lightbar-driver:
-    image: usdotfhwastol/carma-lightbar-driver:1.0.0
+    image: usdotfhwastolcandidate/carma-lightbar-driver:candidate
     network_mode: host
     container_name: lightbar-driver
     volumes_from: 
@@ -62,7 +62,7 @@ services:
     command: bash -c 'export ROS_NAMESPACE=$${CARMA_INTR_NS} && wait-for-it.sh localhost:11311 -- roslaunch /opt/carma/vehicle/config/drivers.launch drivers:=lightbar_driver'
 
   cohda_dsrc_driver:
-    image: usdotfhwastol/carma-cohda-dsrc-driver:CARMASystem_3.3.0
+    image: usdotfhwastolcandidate/carma-cohda-dsrc-driver:candidate
     container_name: carma-cohda-dsrc-driver
     network_mode: host
     volumes_from:
@@ -75,7 +75,7 @@ services:
     command: bash -c 'export ROS_NAMESPACE=$${CARMA_INTR_NS} && wait-for-it.sh localhost:11311 -- roslaunch /opt/carma/vehicle/config/drivers.launch drivers:=dsrc_driver'
 
   ssc_controller_driver:
-    image: usdotfhwastol/carma-ssc-interface-wrapper:CARMASystem_3.3.0
+    image: usdotfhwastolcandidate/carma-ssc-interface-wrapper:candidate
     container_name: ssc_controller_driver
     network_mode: host
     privileged: true # Grant access to usb for can data
@@ -90,7 +90,7 @@ services:
     command: bash -c 'export ROS_NAMESPACE=$${CARMA_INTR_NS} && wait-for-it.sh localhost:11311 -- roslaunch /opt/carma/vehicle/config/drivers.launch drivers:=ssc_interface_wrapper'
 
   novatel_gnss_imu_driver:
-    image: usdotfhwastol/carma-novatel-gps-driver:CARMASystem_3.3.0
+    image: usdotfhwastolcandidate/carma-novatel-gps-driver:candidate
     container_name: novatel-gnss-imu-driver
     network_mode: host
     volumes_from:
@@ -103,7 +103,7 @@ services:
     command: bash -c 'export ROS_NAMESPACE=$${CARMA_INTR_NS} && wait-for-it.sh localhost:11311 -- roslaunch /opt/carma/vehicle/config/drivers.launch drivers:=novatel_gps_driver'
 
   velodyne_lidar_driver:
-    image: usdotfhwastol/carma-velodyne-lidar-driver:CARMASystem_3.3.0
+    image: usdotfhwastolcandidate/carma-velodyne-lidar-driver:candidate
     container_name: velodyne-lidar-driver
     network_mode: host
     volumes_from:
@@ -116,7 +116,7 @@ services:
     command: bash -c 'export ROS_NAMESPACE=$${CARMA_INTR_NS} && wait-for-it.sh localhost:11311 -- roslaunch /opt/carma/vehicle/config/drivers.launch drivers:=velodyne_lidar_driver_wrapper'
   
   avt_vimba_camera_driver:
-    image: usdotfhwastol/carma-avt-vimba-driver:1.2.0
+    image: usdotfhwastolcandidate/carma-avt-vimba-driver:candidate
     container_name: avt-vimba-camera-driver
     network_mode: host
     volumes_from:
