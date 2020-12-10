@@ -17,7 +17,7 @@ version: '2'
 
 services:
   roscore:
-    image: usdotfhwastol/carma-base:CARMASystem_3.3.0
+    image: usdotfhwastol/carma-base:carma-system-3.4.0
     network_mode: host
     container_name: roscore
     volumes_from:
@@ -25,28 +25,44 @@ services:
     environment:
       - ROS_IP=192.168.88.10
     volumes:
-      - /home/autoware/.ros:/home/carma/.ros
+      - /opt/carma/.ros:/home/carma/.ros
     restart: always
     command: roscore
 
   platform:
-    image: usdotfhwastol/carma-platform:CARMASystem_3.3.0
+    image: usdotfhwastol/carma-platform:carma-system-3.4.0
     network_mode: host
     container_name: platform
     volumes_from:
       - container:carma-config:ro
     environment:
       - ROS_IP=192.168.88.10
+      - NVIDIA_VISIBLE_DEVICES=all
     volumes:
       - /opt/carma/logs:/opt/carma/logs
-      - /home/autoware/.ros:/home/carma/.ros
+      - /opt/carma/.ros:/home/carma/.ros
       - /opt/carma/vehicle/calibration:/opt/carma/vehicle/calibration
       - /opt/carma/maps:/opt/carma/maps
       - /opt/carma/routes:/opt/carma/routes
-    command: wait-for-it.sh localhost:11311 -- roslaunch /opt/carma/vehicle/config/carma_docker.launch
+      - /opt/carma/yolo:/opt/carma/yolo
+    command: bash -c 'export LD_LIBRARY_PATH=$${LD_LIBRARY_PATH}:/usr/local/lib/ && wait-for-it.sh localhost:11311 -- roslaunch /opt/carma/vehicle/config/carma_docker.launch'
+
+  lightbar-driver:
+    image: usdotfhwastol/carma-lightbar-driver:carma-system-3.4.0
+    network_mode: host
+    container_name: lightbar-driver
+    volumes_from: 
+      - container:carma-config:ro
+    volumes:
+      - /opt/carma/logs:/opt/carma/logs
+      - /opt/carma/.ros:/home/carma/.ros
+      - /opt/carma/vehicle/calibration:/opt/carma/vehicle/calibration
+    environment:
+      - ROS_IP=192.168.88.10
+    command: bash -c 'export ROS_NAMESPACE=$${CARMA_INTR_NS} && wait-for-it.sh localhost:11311 -- roslaunch /opt/carma/vehicle/config/drivers.launch drivers:=lightbar_driver'
 
   cohda_dsrc_driver:
-    image: usdotfhwastol/carma-cohda-dsrc-driver:CARMASystem_3.3.0
+    image: usdotfhwastol/carma-cohda-dsrc-driver:carma-system-3.4.0
     container_name: carma-cohda-dsrc-driver
     network_mode: host
     volumes_from:
@@ -55,11 +71,11 @@ services:
       - ROS_IP=192.168.88.10
     volumes:
       - /opt/carma/logs:/opt/carma/logs
-      - /home/autoware/.ros:/home/carma/.ros
+      - /opt/carma/.ros:/home/carma/.ros
     command: bash -c 'export ROS_NAMESPACE=$${CARMA_INTR_NS} && wait-for-it.sh localhost:11311 -- roslaunch /opt/carma/vehicle/config/drivers.launch drivers:=dsrc_driver'
 
   ssc_controller_driver:
-    image: usdotfhwastol/carma-ssc-interface-wrapper:CARMASystem_3.3.0
+    image: usdotfhwastol/carma-ssc-interface-wrapper:carma-system-3.4.0
     container_name: ssc_controller_driver
     network_mode: host
     privileged: true # Grant access to usb for can data
@@ -71,12 +87,12 @@ services:
       - ROS_IP=192.168.88.10
     volumes:
       - /opt/carma/logs:/opt/carma/logs
-      - /home/autoware/.ros:/home/carma/.ros
+      - /opt/carma/.ros:/home/carma/.ros
       - /opt/carma/vehicle/calibration:/opt/carma/vehicle/calibration
     command: bash -c 'export ROS_NAMESPACE=$${CARMA_INTR_NS} && wait-for-it.sh localhost:11311 -- roslaunch /opt/carma/vehicle/config/drivers.launch drivers:=ssc_interface_wrapper'
 
   novatel_gnss_imu_driver:
-    image: usdotfhwastol/carma-novatel-gps-driver:CARMASystem_3.3.0
+    image: usdotfhwastol/carma-novatel-gps-driver:carma-system-3.4.0
     container_name: novatel-gnss-imu-driver
     network_mode: host
     volumes_from:
@@ -85,11 +101,11 @@ services:
       - ROS_IP=192.168.88.10
     volumes:
       - /opt/carma/logs:/opt/carma/logs
-      - /home/autoware/.ros:/home/carma/.ros
+      - /opt/carma/.ros:/home/carma/.ros
     command: bash -c 'export ROS_NAMESPACE=$${CARMA_INTR_NS} && wait-for-it.sh localhost:11311 -- roslaunch /opt/carma/vehicle/config/drivers.launch drivers:=novatel_gps_driver'
 
   velodyne_lidar_driver:
-    image: usdotfhwastol/carma-velodyne-lidar-driver:CARMASystem_3.3.0
+    image: usdotfhwastol/carma-velodyne-lidar-driver:carma-system-3.4.0
     container_name: velodyne-lidar-driver
     network_mode: host
     volumes_from:
@@ -98,11 +114,23 @@ services:
       - ROS_IP=192.168.88.10
     volumes:
       - /opt/carma/logs:/opt/carma/logs
-      - /home/autoware/.ros:/home/carma/.ros
+      - /opt/carma/.ros:/home/carma/.ros
     command: bash -c 'export ROS_NAMESPACE=$${CARMA_INTR_NS} && wait-for-it.sh localhost:11311 -- roslaunch /opt/carma/vehicle/config/drivers.launch drivers:=velodyne_lidar_driver_wrapper'
+  
+  avt_vimba_camera_driver:
+    image: usdotfhwastol/carma-avt-vimba-driver:carma-system-3.4.0
+    container_name: avt-vimba-camera-driver
+    network_mode: host
+    volumes_from:
+      - container:carma-config:ro
+    environment:
+      - ROS_IP=192.168.88.10
+    volumes:
+      - /opt/carma/logs:/opt/carma/logs
+      - /opt/carma/.ros:/home/carma/.ros
+      - /opt/carma/vehicle/calibration:/opt/carma/vehicle/calibration
+    command: bash -c 'export ROS_NAMESPACE=$${CARMA_INTR_NS} && wait-for-it.sh localhost:11311 -- roslaunch /opt/carma/vehicle/config/drivers.launch drivers:=avt_vimba_camera'
 
-  # TODO AVT Vimba Camera Left Driver Node
-  # TODO AVT Vimba Camera Right Driver Node
   # TODO DelphiESR Front Driver Node
   # TODO Delphi Srr2 Front Left Driver Node
   # TODO Delphi Srr2 Front Right Driver Node
