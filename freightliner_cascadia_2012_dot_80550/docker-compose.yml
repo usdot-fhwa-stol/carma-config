@@ -30,7 +30,7 @@ services:
     command: roscore
 
   platform:
-    image: usdotfhwastol/carma-platform:3.4.1
+    image: usdotfhwastol/carma-platform:3.4.2
     network_mode: host
     container_name: platform
     volumes_from:
@@ -48,7 +48,7 @@ services:
     command: bash -c 'export LD_LIBRARY_PATH=$${LD_LIBRARY_PATH}:/usr/local/lib/ && wait-for-it.sh localhost:11311 -- roslaunch /opt/carma/vehicle/config/carma_docker.launch'
 
   truck-inspection:
-    image: usdotfhwastol/carma-platform:3.4.1
+    image: usdotfhwastol/carma-platform:3.4.2
     network_mode: host
     container_name: carma-truck-inspection
     volumes_from:
