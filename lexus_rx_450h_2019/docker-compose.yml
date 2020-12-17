@@ -26,6 +26,7 @@ services:
       - ROS_IP=192.168.0.100
     volumes:
       - /opt/carma/.ros:/home/carma/.ros
+      - /opt/carma/logs:/opt/carma/logs
     restart: always
     command: roscore
 

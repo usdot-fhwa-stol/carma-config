@@ -79,7 +79,7 @@ services:
     image: usdotfhwastol/carma-ssc-interface-wrapper:CARMASystem_3.3.0
     container_name: ssc_controller_driver
     network_mode: host
-    privileged: true # Grant access to usb for can data
+    privileged: true # Grant access to kvaser
     volumes_from:
       - container:carma-config:ro
     environment:
@@ -116,6 +116,24 @@ services:
       - /opt/carma/.ros:/home/carma/.ros
     command: bash -c 'export ROS_NAMESPACE=$${CARMA_INTR_NS} && wait-for-it.sh localhost:11311 -- roslaunch /opt/carma/vehicle/config/drivers.launch drivers:=velodyne_lidar_driver_wrapper'
   
+  lidar_lite_trailer_angle_driver:
+    image: usdotfhwastol/carma-garmin-lidar-lite-v3-driver-wrapper:CARMASystem_3.3.0
+    container_name: lidar_lite_trailer_angle_driver
+    network_mode: host
+    privileged: true # Grant access to usb
+    devices: # Data speed arduino at bus 001 device 0010 and bus 001 device 005
+      - /dev/bus/usb/001/010:/dev/bus/usb/001/010
+      - /dev/bus/usb/001/005:/dev/bus/usb/001/005
+    volumes_from:
+      - container:carma-config:ro
+    environment:
+      - ROS_IP=192.168.88.10
+    volumes:
+      - /opt/carma/logs:/opt/carma/logs
+      - /opt/carma/.ros:/home/carma/.ros
+      - /opt/carma/vehicle/calibration:/opt/carma/vehicle/calibration
+    command: bash -c 'export ROS_NAMESPACE=$${CARMA_INTR_NS} && wait-for-it.sh localhost:11311 -- roslaunch /opt/carma/vehicle/config/drivers.launch drivers:=lidar_lite_trailer_angle_driver'
+
   avt_vimba_camera_driver:
     image: usdotfhwastol/carma-avt-vimba-driver:1.2.0
     container_name: avt-vimba-camera-driver

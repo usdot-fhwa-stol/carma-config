@@ -4,41 +4,44 @@
 
 # String: Host vehicle make
 # Value type: Measured
-vehicle_make: 'Chrysler'
+vehicle_make: 'Freightliner'
 
 # String: Host vehicle model
 # Value type: Measured
-vehicle_model: 'Pacifica'
+vehicle_model: 'Cascadia'
 
 # Integer: Host vehicle year
 # Value type: Measured
 # Units: Year
-vehicle_year: 2019
+vehicle_year: 2012
 
 # Double: Host vehicle length
 # Value type: Measured
 # Units: Meters
-vehicle_length: 5.0
+# TODO update value based on measurements
+vehicle_length: 6.0
 
 # Double: Host vehicle width
 # Value type: Measured
 # Units: Meters
-vehicle_width: 2.5
+# TODO update value based on measurements
+vehicle_width: 3.0
 
 # Double: Host vehicle height
 # Value type: Measured
 # Units: Meters
-vehicle_height: 2.0
+# TODO update value based on measurements
+vehicle_height: 3.0
 
 # Double: Distance from front axel to rear axel
 # Value type: Measured
 # Units: Meters
-vehicle_wheel_base: 3.09
+vehicle_wheel_base: 5.334
 
 # Double: Radius of the tires
 # Value type: Measured
 # Units: Meters
-vehicle_tire_radius: 0.39
+vehicle_tire_radius: 0.5715
 
 # Acceleration limit
 # Value type: Desired
@@ -68,12 +71,12 @@ vehicle_max_curvature_rate: 0.75
 # Ratio relating the steering wheel angle and the tire position on the road
 # Value type: Measured
 # (radians of a full steering wheel rotation) / (radians of tires with the longitudinal axis under full steer)
-vehicle_steering_gear_ratio: 16.2
+vehicle_steering_gear_ratio: 20.689
 
 # Maximum steering angle of the wheel relative to the vehicle centerline.
 # Value type: Measured
 # Unit: deg
-vehicle_steer_lim_deg: 35.3
+vehicle_steer_lim_deg: 41.5
 
 # steering dynamics time constant 
 # Value type: Measured 
@@ -81,15 +84,19 @@ vehicle_steer_lim_deg: 35.3
 vehicle_model_steer_tau : 0.3
 
 # Parameter to switch between passenger car and truck
-truck: false
-car: true 
+truck: true
+car: false
 
 # Required drivers for the vehicle to be functional
 required_drivers:
   - /hardware_interface/ssc_interface_wrapper
 lidar_gps_drivers:
-  - /hardware_interface/velodyne_lidar_driver_wrapper
+  - /hardware_interface/velodyne_1/velodyne_lidar_driver_wrapper 
+  - /hardware_interface/velodyne_2/velodyne_lidar_driver_wrapper 
   - /hardware_interface/novatel_gps_nodelet_wrapper
 
 # Parameter to enable configurable speed limit
 config_speed_limit: 45.0
+
+
+
