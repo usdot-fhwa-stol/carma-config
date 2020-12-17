@@ -81,6 +81,7 @@ vehicle_steer_lim_deg: 29.2
 vehicle_model_steer_tau : 0.3
 
 # Parameter to switch between passenger car and truck
+# Value type: Measured
 truck: false
 car: true 
 
@@ -92,4 +93,5 @@ lidar_gps_drivers:
   - /hardware_interface/novatel_gps_nodelet_wrapper
 
 # Parameter to enable configurable speed limit
+# Value type: Desired
 config_speed_limit: 45.0
