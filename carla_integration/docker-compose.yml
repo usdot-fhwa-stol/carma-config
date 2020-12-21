@@ -49,7 +49,7 @@ services:
     command: bash -c 'export LD_LIBRARY_PATH=$${LD_LIBRARY_PATH}:/usr/local/lib/ && wait-for-it.sh localhost:11311 -- roslaunch /opt/carma/vehicle/config/carma_docker.launch'
 
   carla_ackermann_control:
-    image: usdotfhwastol/carma-simulation:latest
+    image: usdotfhwastoldev/carma-simulation:develop
     container_name: carla-ackermann-control-driver
     network_mode: host
     volumes_from:
