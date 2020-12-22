@@ -46,7 +46,7 @@ services:
       - /opt/carma/data:/opt/carma/data
     environment:
       - ROS_IP=127.0.0.1
-    command: wait-for-it.sh localhost:11311 -- roslaunch /opt/carma/vehicle/config/carma_docker.launch
+    command: bash -c 'export LD_LIBRARY_PATH=$${LD_LIBRARY_PATH}:/usr/local/lib/ && wait-for-it.sh localhost:11311 -- roslaunch /opt/carma/vehicle/config/carma_docker.launch'
 
   mock-lightbar-driver:
     image: usdotfhwastoldev/carma-platform:develop
