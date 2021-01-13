@@ -121,6 +121,8 @@ excluded_lidar_topics:
   - /environment/detection/object_tracker/objects
   - /environment/detection/object_tracker/objects_markers
   - /environment/detection/objects
+  - /hardware_interface/velodyne_1/lidar/points_raw
+  - /hardware_interface/velodyne_2/lidar/points_raw
   
 exclude_camera: true
 excluded_camera_topics:
