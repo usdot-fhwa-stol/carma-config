@@ -100,5 +100,50 @@ lidar_gps_drivers:
 # Value type: Desired
 config_speed_limit: 45.0
 
+# Topics to exclude from rosbag recording
+exclude_default: true
+excluded_default_topics:
+  - /rosout(.*)
+  - (.*)/received_messages
+  - (.*)/sent_messages
+  - (.*)/scan
 
+exclude_lidar: true
+excluded_lidar_topics:
+  - /detection/lidar_detector/objects
+  - /detection/lidar_detector/objects_markers
+  - /hardware_interface/lidar/points_raw/hardware_interface/can/brake_position
+  - /hardware_interface/camera/projection_matrix/detection/lidar_detector/cloud_clusters
+  - /environment/range_vision_fusion_01/detection/lidar_detector/objects
+  - /environment/detection/fusion_tools/objects
+  - /environment/detection/fusion_tools/objects_markers
+  - /environment/detection/object_tracker/objects
+  - /environment/detection/object_tracker/objects_markers
+  - /environment/detection/objects
+  - /environment/external_object_predictions
+  - /environment/external_objects
+  - /environment/roadway_objects
+  
+exclude_camera: true
+excluded_camera_topics:
+  - /hardware_interface/camera/camera_info
+  - /hardware_interface/camera/image_raw
+  - /hardware_interface/camera/image_rect
+  - /hardware_interface/camera/image_rects
+  - /hardware_interface/camera/projection_matrix/detection/lidar_detector/cloud_clusters
+  - /environment/range_vision_fusion_01/detection/image_detector/objects
+  - /environment/vision_beyond_track_01/detection/image_detector/objects
+  - /environment/detection/fusion_tools/objects
+  - /environment/detection/fusion_tools/objects_markers
+  - /environment/detection/object_tracker/objects
+  - /environment/detection/object_tracker/objects_markers
+  - /environment/detection/objects
+  - /environment/external_object_predictions
+  - /environment/external_objects
+  - /environment/roadway_objects
+
+exclude_can: true
+excluded_can_topics:
+  - /hardware_interface/can/steering_wheel_angle
+  - /hardware_interface/can/transmission_state/environment/detected_objects
 
