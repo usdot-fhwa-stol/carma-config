@@ -104,11 +104,11 @@ excluded_default_topics:
   - (.*)/sent_messages
   - (.*)/scan
 
-exclude_lidar: true
+exclude_lidar: false
 excluded_lidar_topics:
   - /detection/lidar_detector/objects
   - /detection/lidar_detector/objects_markers
-  - /hardware_interface/lidar/points_raw/hardware_interface/can/brake_position
+  - /hardware_interface/lidar/points_raw
   - /hardware_interface/camera/projection_matrix/detection/lidar_detector/cloud_clusters
   - /environment/range_vision_fusion_01/detection/lidar_detector/objects
   - /environment/detection/fusion_tools/objects
@@ -116,11 +116,8 @@ excluded_lidar_topics:
   - /environment/detection/object_tracker/objects
   - /environment/detection/object_tracker/objects_markers
   - /environment/detection/objects
-  - /environment/external_object_predictions
-  - /environment/external_objects
-  - /environment/roadway_objects
   
-exclude_camera: true
+exclude_camera: false
 excluded_camera_topics:
   - /hardware_interface/camera/camera_info
   - /hardware_interface/camera/image_raw
@@ -134,11 +131,8 @@ excluded_camera_topics:
   - /environment/detection/object_tracker/objects
   - /environment/detection/object_tracker/objects_markers
   - /environment/detection/objects
-  - /environment/external_object_predictions
-  - /environment/external_objects
-  - /environment/roadway_objects
 
-exclude_can: true
+exclude_can: false
 excluded_can_topics:
-  - /hardware_interface/can/steering_wheel_angle
-  - /hardware_interface/can/transmission_state/environment/detected_objects
+  - /hardware_interface/ds_fusion/can_bus_dbw/can_rx 
+  - /hardware_interface/ds_fusion/can_bus_dbw/can_tx
