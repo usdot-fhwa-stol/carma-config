@@ -34,6 +34,7 @@ services:
     image: usdotfhwastoldev/carma-platform:develop
     network_mode: host
     container_name: platform
+    runtime: nvidia
     volumes_from:
       - container:carma-config:ro
     environment:
