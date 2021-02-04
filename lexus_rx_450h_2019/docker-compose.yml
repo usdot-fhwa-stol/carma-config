@@ -39,6 +39,7 @@ services:
     environment:
       - ROS_IP=192.168.0.100
       - NVIDIA_VISIBLE_DEVICES=all
+    runtime: nvidia
     volumes:
       - /opt/carma/logs:/opt/carma/logs
       - /opt/carma/.ros:/home/carma/.ros
