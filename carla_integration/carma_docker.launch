@@ -35,7 +35,9 @@
   <arg name="area" default="1x1"/>
   <arg name="route_file_folder" default="/opt/carma/routes/"/>
   <arg name="vector_map_file" default="/opt/carma/maps/vector_map.osm"/>
-  
+  <arg name="yolo_dir" default="/opt/carma/yolo"/>
+  <arg name="cuda" value="true"/>
+
   <!-- Launch without drivers as those will be launched as docker containers-->
   <arg name="launch_drivers" default="false"/>
 
