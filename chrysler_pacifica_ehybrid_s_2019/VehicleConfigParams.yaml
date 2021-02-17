@@ -103,6 +103,7 @@ excluded_default_topics:
   - (.*)/received_messages
   - (.*)/sent_messages
   - (.*)/scan
+  - (.*)/compressed(.*)
 
 exclude_lidar: false
 excluded_lidar_topics:
