@@ -5,3 +5,6 @@ vehicle_color: 'YELLOW'
 
 # String: Host vehicle’s Unique ID that will be used in mobility messages.
 vehicle_id: 'DEV-VEH'
+
+# Double: Approximation of delay in vehicle acceleration response to changes in speed command
+vehicle_response_lag: 0.2

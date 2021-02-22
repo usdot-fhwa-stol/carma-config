@@ -43,12 +43,12 @@ vehicle_tire_radius: 0.39
 # Acceleration limit
 # Value type: Desired
 # Units: m/s^2
-vehicle_acceleration_limit: 3.0
+vehicle_acceleration_limit: 2.0
 
 # Deceleration limit
 # Value type: Desired
 # Units: m/s^2
-vehicle_deceleration_limit: 6.0
+vehicle_deceleration_limit: 2.0
 
 # Lateral Acceleration Limit
 # Value type: Desired
