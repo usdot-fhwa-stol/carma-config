@@ -17,7 +17,7 @@ version: '2'
 
 services:
   roscore:
-    image: usdotfhwastolcandidate/carma-base:vanden-plas
+    image: usdotfhwastolcandidate/carma-base:3.4.0-test
     network_mode: host
     container_name: roscore
     volumes_from:
@@ -31,7 +31,7 @@ services:
     command: roscore
 
   platform:
-    image: usdotfhwastolcandidate/carma-platform:vanden-plas
+    image: usdotfhwastolcandidate/carma-platform:3.4.0-test
     network_mode: host
     container_name: platform
     volumes_from:
@@ -49,7 +49,7 @@ services:
     command: bash -c 'wait-for-it.sh localhost:11311 -- roslaunch /opt/carma/vehicle/config/carma_docker.launch'
 
   truck-inspection:
-    image: usdotfhwastolcandidate/carma-platform:vanden-plas
+    image: usdotfhwastolcandidate/carma-platform:3.4.0-test
     network_mode: host
     container_name: carma-truck-inspection
     volumes_from: 
@@ -66,7 +66,7 @@ services:
     command: wait-for-it.sh localhost:11311 -- roslaunch truck_inspection_client truck_inspection_client.launch truck_inspection_client_param_file:=/opt/carma/vehicle/calibration/truck_inspection_client/parameters.yaml
 
   lightbar-driver:
-    image: usdotfhwastolcandidate/carma-lightbar-driver:vanden-plas
+    image: usdotfhwastolcandidate/carma-lightbar-driver:3.4.0-test
     network_mode: host
     container_name: lightbar-driver
     volumes_from: 
@@ -80,7 +80,7 @@ services:
     command: bash -c 'export ROS_NAMESPACE=$${CARMA_INTR_NS} && wait-for-it.sh localhost:11311 -- roslaunch /opt/carma/vehicle/config/drivers.launch drivers:=lightbar_driver'
 
   cohda_dsrc_driver:
-    image: usdotfhwastolcandidate/carma-cohda-dsrc-driver:vanden-plas
+    image: usdotfhwastolcandidate/carma-cohda-dsrc-driver:3.4.0-test
     container_name: carma-cohda-dsrc-driver
     network_mode: host
     volumes_from:
@@ -93,7 +93,7 @@ services:
     command: bash -c 'export ROS_NAMESPACE=$${CARMA_INTR_NS} && wait-for-it.sh localhost:11311 -- roslaunch /opt/carma/vehicle/config/drivers.launch drivers:=dsrc_driver'
 
   ssc_controller_driver:
-    image: usdotfhwastolcandidate/carma-ssc-interface-wrapper:vanden-plas
+    image: usdotfhwastolcandidate/carma-ssc-interface-wrapper:3.4.0-test
     container_name: ssc_controller_driver
     network_mode: host
     privileged: true # Grant access to kvaser
@@ -108,7 +108,7 @@ services:
     command: bash -c 'export ROS_NAMESPACE=$${CARMA_INTR_NS} && wait-for-it.sh localhost:11311 -- roslaunch /opt/carma/vehicle/config/drivers.launch drivers:=ssc_interface_wrapper'
 
   novatel_gnss_imu_driver:
-    image: usdotfhwastolcandidate/carma-novatel-gps-driver:vanden-plas
+    image: usdotfhwastolcandidate/carma-novatel-gps-driver:3.4.0-test
     container_name: novatel-gnss-imu-driver
     network_mode: host
     volumes_from:
@@ -121,7 +121,7 @@ services:
     command: bash -c 'export ROS_NAMESPACE=$${CARMA_INTR_NS} && wait-for-it.sh localhost:11311 -- roslaunch /opt/carma/vehicle/config/drivers.launch drivers:=novatel_gps_driver'
 
   velodyne_lidar_driver:
-    image: usdotfhwastolcandidate/carma-velodyne-lidar-driver:vanden-plas
+    image: usdotfhwastolcandidate/carma-velodyne-lidar-driver:3.4.0-test
     container_name: velodyne-lidar-driver
     network_mode: host
     volumes_from:
@@ -134,7 +134,7 @@ services:
     command: bash -c 'export ROS_NAMESPACE=$${CARMA_INTR_NS} && wait-for-it.sh localhost:11311 -- roslaunch /opt/carma/vehicle/config/drivers.launch drivers:=velodyne_lidar_driver_wrapper'
   
   lidar_lite_trailer_angle_driver:
-    image: usdotfhwastolcandidate/carma-garmin-lidar-lite-v3-driver-wrapper:vanden-plas
+    image: usdotfhwastolcandidate/carma-garmin-lidar-lite-v3-driver-wrapper:3.4.0-test
     container_name: lidar_lite_trailer_angle_driver
     network_mode: host
     privileged: true # Grant access to usb
@@ -152,7 +152,7 @@ services:
     command: bash -c 'export ROS_NAMESPACE=$${CARMA_INTR_NS} && wait-for-it.sh localhost:11311 -- roslaunch /opt/carma/vehicle/config/drivers.launch drivers:=lidar_lite_trailer_angle_driver'
 
   avt_vimba_camera_driver:
-    image: usdotfhwastolcandidate/carma-avt-vimba-driver:vanden-plas
+    image: usdotfhwastolcandidate/carma-avt-vimba-driver:3.4.0-test
     container_name: avt-vimba-camera-driver
     network_mode: host
     volumes_from:
