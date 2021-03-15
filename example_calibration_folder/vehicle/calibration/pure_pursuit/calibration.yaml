@@ -1,0 +1,6 @@
+# Pure pursuit lookahead calibration params
+
+const_lookahead_distance: 4.0
+lookahead_ratio: 2.0
+minimum_lookahead_distance: 6.0
+vehicle_wheel_base: 2.7 # This is intentionally set independent of the carma-config value to allow it to be used as a tuning parameter

@@ -1,0 +1,15 @@
+#MPC Follower Weights and Parameters
+#TODO: The parameters are tuned on Blue Lexus and may needadditional ajustments on other vehicles.
+
+qp_solver_type: "unconstraint_fast"
+mpc_prediction_horizon: 0.0
+mpc_prediction_sampling_time: 0.0
+mpc_weight_lat_jerk: 0.0
+mpc_weight_lat_error: 0.0
+mpc_weight_terminal_lat_error: 0.0
+mpc_weight_terminal_heading_error: 0.0
+mpc_weight_heading_error: 0.0
+mpc_weight_heading_error_squared_vel_coeff: 0.0
+mpc_weight_steering_input: 0.0
+mpc_weight_steering_input_squared_vel_coeff: 0.0
+steering_lpf_cutoff_hz" value: 0.0

@@ -1,4 +1,4 @@
-#  Copyright (C) 2018-2020 LEIDOS.
+#  Copyright (C) 2018-2021 LEIDOS.
 #
 #  Licensed under the Apache License, Version 2.0 (the "License"); you may not
 #  use this file except in compliance with the License. You may obtain a copy of
@@ -17,7 +17,7 @@ version: '2'
 
 services:
   roscore:
-    image: usdotfhwastoldev/carma-base:develop
+    image: usdotfhwastol/carma-base:carma-system-3.5.0
     network_mode: host
     container_name: roscore
     volumes_from:
@@ -26,11 +26,12 @@ services:
       - ROS_IP=127.0.0.1
     volumes:
       - /opt/carma/.ros:/home/carma/.ros
+      - /opt/carma/logs:/opt/carma/logs
     restart: always
     command: roscore
 
   platform:
-    image: usdotfhwastoldev/carma-platform:develop
+    image: usdotfhwastol/carma-platform:carma-system-3.5.0
     network_mode: host
     container_name: platform
     volumes_from:
@@ -45,10 +46,10 @@ services:
       - /opt/carma/maps:/opt/carma/maps
       - /opt/carma/routes:/opt/carma/routes
       - /opt/carma/yolo:/opt/carma/yolo
-    command: bash -c 'export LD_LIBRARY_PATH=$${LD_LIBRARY_PATH}:/usr/local/lib/ && wait-for-it.sh localhost:11311 -- roslaunch /opt/carma/vehicle/config/carma_docker.launch'
+    command: bash -c 'wait-for-it.sh localhost:11311 -- roslaunch /opt/carma/vehicle/config/carma_docker.launch'
 
   carla_ackermann_control:
-    image: usdotfhwastol/carma-simulation:latest
+    image: usdotfhwastol/carma-simulation:carma-system-3.5.0
     container_name: carla-ackermann-control-driver
     network_mode: host
     volumes_from:
@@ -61,7 +62,7 @@ services:
     command: bash -c 'export ROS_NAMESPACE=$${CARMA_INTR_NS} && wait-for-it.sh localhost:11311 -- roslaunch /opt/carma/vehicle/config/drivers.launch'
 
   mock-gnss-driver:
-    image: usdotfhwastoldev/carma-platform:develop
+    image: usdotfhwastol/carma-platform:carma-system-3.5.0
     network_mode: host
     container_name: carma-mock-gnss-driver
     volumes_from: 
@@ -74,7 +75,7 @@ services:
     command: bash -c 'export ROS_NAMESPACE=$${CARMA_INTR_NS} && wait-for-it.sh localhost:11311 -- roslaunch carma mock_drivers.launch mock_drivers:=gnss'
 
   mock-lidar-driver:
-    image: usdotfhwastoldev/carma-platform:develop
+    image: usdotfhwastol/carma-platform:carma-system-3.5.0
     network_mode: host
     container_name: carma-mock-lidar-driver
     volumes_from: 
