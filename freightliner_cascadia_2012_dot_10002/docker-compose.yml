@@ -93,7 +93,7 @@ services:
     command: bash -c 'export ROS_NAMESPACE=$${CARMA_INTR_NS} && wait-for-it.sh localhost:11311 -- roslaunch /opt/carma/vehicle/config/drivers.launch drivers:=dsrc_driver'
 
   ssc_controller_driver:
-    image: usdotfhwastol/carma-ssc-interface-wrapper:carma-system-3.5.0
+    image: usdotfhwastol/carma-ssc-interface-wrapper:carma-system-3.5.1
     container_name: ssc_controller_driver
     network_mode: host
     privileged: true # Grant access to kvaser
