@@ -31,7 +31,7 @@ services:
     command: roscore
 
   platform:
-    image: usdotfhwastol/carma-platform:carma-system-3.5.0
+    image: usdotfhwastol/carma-platform:carma-system-3.5.2
     network_mode: host
     container_name: platform
     volumes_from:
@@ -49,7 +49,7 @@ services:
     command: bash -c 'wait-for-it.sh localhost:11311 -- roslaunch /opt/carma/vehicle/config/carma_docker.launch'
 
   truck-inspection:
-    image: usdotfhwastol/carma-platform:carma-system-3.5.0
+    image: usdotfhwastol/carma-platform:carma-system-3.5.2
     network_mode: host
     container_name: carma-truck-inspection
     volumes_from: 
