@@ -17,7 +17,7 @@ version: '2'
 
 services:
   roscore:
-    image: usdotfhwastol/carma-base:carma-system-3.5.0
+    image: usdotfhwastoldev/carma-base:develop
     network_mode: host
     container_name: roscore
     volumes_from:
@@ -31,7 +31,7 @@ services:
     command: roscore
 
   platform:
-    image: usdotfhwastol/carma-platform:carma-system-3.5.2
+    image: usdotfhwastoldev/carma-platform:develop
     network_mode: host
     container_name: platform
     volumes_from:
@@ -49,7 +49,7 @@ services:
     command: bash -c 'wait-for-it.sh localhost:11311 -- roslaunch /opt/carma/vehicle/config/carma_docker.launch'
 
   carla_ackermann_control:
-    image: usdotfhwastol/carma-simulation:carma-system-3.5.0
+    image: usdotfhwastoldev/carma-simulation:develop
     container_name: carla-ackermann-control-driver
     network_mode: host
     volumes_from:
@@ -62,7 +62,7 @@ services:
     command: bash -c 'export ROS_NAMESPACE=$${CARMA_INTR_NS} && wait-for-it.sh localhost:11311 -- roslaunch /opt/carma/vehicle/config/drivers.launch'
 
   mock-gnss-driver:
-    image: usdotfhwastol/carma-platform:carma-system-3.5.2
+    image: usdotfhwastoldev/carma-platform:develop
     network_mode: host
     container_name: carma-mock-gnss-driver
     volumes_from: 
@@ -75,7 +75,7 @@ services:
     command: bash -c 'export ROS_NAMESPACE=$${CARMA_INTR_NS} && wait-for-it.sh localhost:11311 -- roslaunch carma mock_drivers.launch mock_drivers:=gnss'
 
   mock-lidar-driver:
-    image: usdotfhwastol/carma-platform:carma-system-3.5.2
+    image: usdotfhwastoldev/carma-platform:develop
     network_mode: host
     container_name: carma-mock-lidar-driver
     volumes_from: 
