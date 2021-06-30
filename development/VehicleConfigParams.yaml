@@ -91,6 +91,8 @@ required_drivers:
 lidar_gps_drivers:
   - /hardware_interface/lidar
   - /hardware_interface/gnss
+camera_drivers:
+  - /hardware_interface/camera
 
 # Parameter to enable configurable speed limit
 # Value type: Desired
