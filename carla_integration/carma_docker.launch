@@ -43,7 +43,7 @@
   <arg name="simulation_mode" default="true"/>
 
   <!-- Rosbag Flag -->
-  <arg name="use_rosbag" default="true"/>
+  <arg name="use_rosbag" default="false"/>
 
   <!-- Include the detailed launch file and pass in new arguments -->
   <include file="$(find carma)/launch/carma_src.launch" pass_all_args="true"/>
