@@ -91,6 +91,8 @@ required_drivers:
 lidar_gps_drivers:
   - /hardware_interface/velodyne_lidar_driver_wrapper
   - /hardware_interface/novatel_gps_nodelet_wrapper
+camera_drivers:
+  - /hardware_interface/camera
 
 
 # Parameter to enable configurable speed limit
