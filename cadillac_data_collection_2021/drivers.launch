@@ -1,0 +1,161 @@
+<?xml version="1.0"?>
+<!--
+  Copyright (C) 2018-2021 LEIDOS.
+
+  Licensed under the Apache License, Version 2.0 (the "License"); you may not
+  use this file except in compliance with the License. You may obtain a copy of
+  the License at
+
+  http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+  WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+  License for the specific language governing permissions and limitations under
+  the License.
+-->
+<!--
+	drivers.launch
+
+This file is used for vehicle configurations. The arguments from carma.launch should pass on to carma_src.launch, which should then pass those arguments to this file. The arguments in the carma.launch file will override all of the default values of the arguments being passed, so you should be making changes to the carma.launch to configure it to your vehicle. 
+
+If not using simulated drivers they are activated if the respective mock arguments being passed in are false. These lines below activate the respective actual driver if the respective mock argument being passed is false.
+
+-->
+
+<launch>
+  
+  <!-- Shutdown node to shutsdown driver node with fatal message -->
+  <node pkg="driver_shutdown" type="driver_shutdown" name="$(anon driver_shutdown)" required="true"/>
+
+  <arg name="vehicle_calibration_dir" default="/opt/carma/vehicle/calibration" doc="Folder containing vehicle calibration directories"/>
+
+  <!-- Mock Drivers -->
+  <arg name="mock_drivers"        default="" doc="List of driver node base names which will be launched as mock drivers"/>
+
+  <arg name="mock_can"            value="$(eval 'can' in arg('mock_drivers').split())"/>
+  <arg name="mock_comms"          value="$(eval 'comms' in arg('mock_drivers').split())"/>
+  <arg name="mock_controller"     value="$(eval 'controller' in arg('mock_drivers').split())"/>
+  <arg name="mock_gnss"           value="$(eval 'gnss' in arg('mock_drivers').split())"/>
+  <arg name="mock_radar"          value="$(eval 'radar' in arg('mock_drivers').split())"/>
+  <arg name="mock_imu"            value="$(eval 'imu' in arg('mock_drivers').split())"/>
+  <arg name="mock_lidar"          value="$(eval 'lidar' in arg('mock_drivers').split())"/>
+  <arg name="mock_camera"         value="$(eval 'camera' in arg('mock_drivers').split())"/>
+  <arg name="mock_roadway_sensor" value="$(eval 'roadway_sensor' in arg('mock_drivers').split())"/>
+  <arg name="mock_lightbar" 	  value="$(eval 'lightbar' in arg('mock_drivers').split())"/>
+
+  <!-- Specific Drivers -->
+  <arg name="drivers" default="dsrc_driver ssc_interface_wrapper novatel_gps_driver velodyne_lidar_driver_wrapper lightbar_driver avt_vimba_camera"
+    doc="Desired real drivers to launch specified by package name. Mock drivers will take precedence"/>
+
+  <arg name="dsrc_driver"                   value="$(eval ('dsrc_driver' in arg('drivers').split()) and not arg('mock_comms'))"/>
+  <arg name="ssc_interface_wrapper"         value="$(eval ('ssc_interface_wrapper' in arg('drivers').split()) and not arg('mock_controller'))"/>
+  <arg name="novatel_gps_driver"            value="$(eval ('novatel_gps_driver' in arg('drivers').split()) and not (arg('mock_gnss') or arg('mock_imu')))"/>
+  <arg name="velodyne_lidar_driver_wrapper" value="$(eval ('velodyne_lidar_driver_wrapper' in arg('drivers').split()) and not arg('mock_lidar'))"/>
+  <arg name="lightbar_driver"               value="$(eval ('lightbar_driver' in arg('drivers').split()) and not arg('mock_lightbar'))"/>
+  <arg name="avt_vimba_camera"               value="$(eval ('avt_vimba_camera' in arg('drivers').split()) and not arg('mock_camera'))"/>
+
+  <!-- DSRC OBU Driver Node -->
+  <include if="$(arg dsrc_driver)" file="$(find dsrc_driver)/launch/dsrc_node.launch"/>
+
+  <!-- PACMOD Controller Driver Node -->
+  <include if="$(arg ssc_interface_wrapper)" file="$(find ssc_interface_wrapper)/launch/ssc_pacmod_driver.launch">
+    <arg name="ssc_param_dir" value="$(arg vehicle_calibration_dir)/ssc_pm_lexus"/>
+  </include>
+
+  <!-- Novatel GNSS/IMU Driver Nodes -->
+  <include if="$(arg novatel_gps_driver)" file="$(find novatel_gps_driver)/launch/novatel_gps_driver_eth.launch">
+    <arg name="ip" value="192.168.74.10" />
+    <arg name="port" value="2000" />
+    <arg name="frame_id" value="novatel_gnss" />
+    <arg name="imu_frame_id" value="novatel_imu" />
+  </include>
+
+  <!-- Velodyne Lidar Driver Nodes -->
+  <!-- Lidar 1 -->
+  <remap from="driver_discovery" to="$(optenv CARMA_INTR_NS)/driver_discovery"/>
+  <include if="$(arg velodyne_lidar_driver_wrapper)" ns="velodyne_1" file="$(find velodyne_lidar_driver_wrapper)/launch/velodyne_lidar_driver.launch">
+    <arg name="frame_id" value="velodyne_1"/>
+    <arg name="device_ip" value="192.168.89.202"/>
+    <arg name="max_range" value="200" />
+    <arg name="port" value="2368" />
+  </include>
+
+  <!-- Lidar 2 -->
+  <include if="$(arg velodyne_lidar_driver_wrapper)" ns="velodyne_2" file="$(find velodyne_lidar_driver_wrapper)/launch/velodyne_lidar_driver.launch">
+    <arg name="frame_id" value="velodyne_2"/>
+    <arg name="device_ip" value="192.168.89.203"/>
+    <arg name="max_range" value="200" />
+    <arg name="port" value="2369" />
+  </include>
+
+  <!-- Lidar 3 -->
+  <include if="$(arg velodyne_lidar_driver_wrapper)" ns="velodyne_2" file="$(find velodyne_lidar_driver_wrapper)/launch/velodyne_lidar_driver.launch">
+    <arg name="frame_id" value="velodyne_3"/>
+    <arg name="device_ip" value="192.168.89.204"/>
+    <arg name="max_range" value="200" />
+    <arg name="port" value="2370" />
+  </include>
+
+  <!-- Lidar 4 -->
+  <include if="$(arg velodyne_lidar_driver_wrapper)" ns="velodyne_2" file="$(find velodyne_lidar_driver_wrapper)/launch/velodyne_lidar_driver.launch">
+    <arg name="frame_id" value="velodyne_4"/>
+    <arg name="device_ip" value="192.168.89.205"/>
+    <arg name="max_range" value="200" />
+    <arg name="port" value="2371" />
+  </include>
+
+  <!-- Lidar Concat -->
+  <include if="$(arg velodyne_lidar_driver_wrapper)" file="$(find points_preprocessor)/launch/points_concat_filter.launch">
+    <arg name="input_topics" default="[velodyne_1/lidar/points_raw, velodyne_2/lidar/points_raw, velodyne_3/lidar/points_raw, velodyne_4/lidar/points_raw]" />
+    <arg name="output_topic" default="lidar/points_raw" />
+    <arg name="output_frame_id" default="concat_velodyne" />
+  </include>
+
+  <!-- AVT Vimba Camera Left Driver Node -->
+  <remap from="camera/camera_info" to="dummy_camera_info"/>
+  <include if="$(arg avt_vimba_camera)" file="$(find avt_vimba_camera)/launch/mono_camera.launch">
+	<arg name="guid" default=""/>
+ 	<arg name="ip" default="192.168.40.10"/>
+    <arg name="camera_info_url" value="file://$(arg vehicle_calibration_dir)/avt_vimba_camera/camera_fl_intrinsics.yaml"/>
+ 	<arg name="frame_id" default="left_optical"/>
+	<arg name="trig_timestamp_topic" default=""/>
+	<arg name="show_debug_prints" default="false"/>
+  </include>
+  
+  <!-- AVT Vimba Camera Right Driver Node 
+    <include if="$(arg avt_vimba_camera)" file="$(find avt_vimba_camera)/launch/mono_camera.launch">
+	<arg name="guid" default=""/>
+ 	<arg name="ip" default="192.168.40.10"/>
+  <arg name="camera_info_url" default="file://$(find vehicle_calibration_dir)/avt_vimba_camera/calibration_50-0536911040.yaml"/>
+ 	<arg name="frame_id" default="right_optical"/>
+	<arg name="trig_timestamp_topic" default=""/>
+	<arg name="show_debug_prints" default="true"/>
+  </include>-->
+
+  <!-- DelphiESR Front Driver Node -->
+  <!-- Delphi Srr2 Front Driver Node -->
+  <include if="$(arg velodyne_lidar_driver_wrapper)" ns="velodyne_2" file="$(find velodyne_lidar_driver_wrapper)/launch/velodyne_lidar_driver.launch">
+    <arg name="frame_id" value="srr_1"/>
+    <arg name="socketcan_device" value="can0?"/>
+  </include>
+  
+  <!-- Delphi Srr2 Rear Driver Node -->
+  <include if="$(arg velodyne_lidar_driver_wrapper)" ns="velodyne_2" file="$(find velodyne_lidar_driver_wrapper)/launch/velodyne_lidar_driver.launch">
+    <arg name="frame_id" value="srr_2"/>
+    <arg name="socketcan_device" value="can1?"/>
+  </include>
+  
+  
+  <!-- Lidar Concat -->
+  <include if="$(arg srr_radar_driver_wrapper)" file="$(find points_preprocessor)/launch/points_concat_filter.launch">
+    <arg name="input_topics" default="[velodyne_1/lidar/points_raw, velodyne_2/lidar/points_raw, velodyne_3/lidar/points_raw, velodyne_4/lidar/points_raw]" />
+    <arg name="output_topic" default="lidar/points_raw" />
+    <arg name="output_frame_id" default="concat_velodyne" />
+  </include>
+
+  <!-- TODO Delphi Srr2 Front Right Driver Node -->
+  <!-- TODO Delphi Srr2 Rear Left Driver Node -->
+  <!-- TODO Delphi Srr2 Rear Right Driver Node -->
+
+</launch>
