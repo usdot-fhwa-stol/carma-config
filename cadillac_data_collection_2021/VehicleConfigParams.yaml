@@ -8,12 +8,12 @@ vehicle_make: 'Cadillac'
 
 # String: Host vehicle model
 # Value type: Measured
-vehicle_model: 'RX-450'
+vehicle_model: 'SRX'
 
 # Integer: Host vehicle year
 # Value type: Measured
 # Units: Year
-vehicle_year: 2019
+vehicle_year: 2013
 
 # Double: Host vehicle length
 # Value type: Measured
@@ -33,12 +33,12 @@ vehicle_height: 3.0
 # Double: Distance from front axel to rear axel
 # Value type: Measured
 # Units: Meters
-vehicle_wheel_base: 2.79
+vehicle_wheel_base: 2.80
 
 # Double: Radius of the tires
 # Value type: Measured
 # Units: Meters
-vehicle_tire_radius: 0.39
+vehicle_tire_radius: 0.38
 
 # Acceleration limit
 # Value type: Desired
@@ -86,8 +86,6 @@ truck: false
 car: true 
 
 # Required drivers for the vehicle to be functional
-required_drivers:
-  - /hardware_interface/ssc_interface_wrapper
 lidar_gps_drivers:
   - /hardware_interface/velodyne_lidar_driver_wrapper
   - /hardware_interface/novatel_gps_nodelet_wrapper
