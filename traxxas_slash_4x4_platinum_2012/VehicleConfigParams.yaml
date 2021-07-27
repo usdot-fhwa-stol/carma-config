@@ -43,42 +43,42 @@ vehicle_tire_radius: 0.055
 # Acceleration limit
 # Value type: Desired
 # Units: m/s^2
-# vehicle_acceleration_limit: 
+vehicle_acceleration_limit: 0.0
 
 # Deceleration limit
 # Value type: Desired
 # Units: m/s^2
-# vehicle_deceleration_limit: 
+vehicle_deceleration_limit: 0.0
 
 # Lateral Acceleration Limit
 # Value type: Desired
 # Units: m/s^2
-# vehicle_lateral_accel_limit: 
+vehicle_lateral_accel_limit: 0.0
 
 # Lateral Jerk Limit
 # Value type: Desired
 # Units: m/s^3
-# vehicle_lateral_jerk_limit: 
+vehicle_lateral_jerk_limit: 0.0
 
 # Max curvature rate
 # Value type: Desired
 # Units: (m^-1) / s
-# vehicle_max_curvature_rate: 
+vehicle_max_curvature_rate: 0.0
 
 # Ratio relating the steering wheel angle and the tire position on the road
 # Value type: Measured
 # (radians of a full steering wheel rotation) / (radians of tires with the longitudinal axis under full steer)
-# vehicle_steering_gear_ratio: 
+vehicle_steering_gear_ratio: 0.0
 
 # Maximum steering angle of the wheel relative to the vehicle centerline.
 # Value type: Measured
 # Unit: deg
-# vehicle_steer_lim_deg: 
+vehicle_steer_lim_deg: 0.0
 
 # steering dynamics time constant 
 # Value type: Measured 
 # Unit: s
-# vehicle_model_steer_tau : 
+vehicle_model_steer_tau : 0.0
 
 # Parameter to switch between passenger car and truck
 # Value type: Measured
