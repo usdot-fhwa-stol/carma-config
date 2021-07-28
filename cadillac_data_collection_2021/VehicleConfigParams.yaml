@@ -90,7 +90,9 @@ lidar_gps_drivers:
   - /hardware_interface/velodyne_lidar_driver_wrapper
   - /hardware_interface/novatel_gps_nodelet_wrapper
 camera_drivers:
-  - /hardware_interface/camera
+  - /hardware_interface/arena_camera
+radar_drivers:
+  - /hardware_interface/delphi_esr
 
 # Parameter to enable configurable speed limit
 # Value type: Desired

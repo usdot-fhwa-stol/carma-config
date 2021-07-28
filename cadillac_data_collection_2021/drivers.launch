@@ -42,10 +42,10 @@ If not using simulated drivers they are activated if the respective mock argumen
   <arg name="mock_lidar"          value="$(eval 'lidar' in arg('mock_drivers').split())"/>
   <arg name="mock_camera"         value="$(eval 'camera' in arg('mock_drivers').split())"/>
   <arg name="mock_roadway_sensor" value="$(eval 'roadway_sensor' in arg('mock_drivers').split())"/>
-  <arg name="mock_lightbar" 	  value="$(eval 'lightbar' in arg('mock_drivers').split())"/>
+  <arg name="mock_lightbar" 	    value="$(eval 'lightbar' in arg('mock_drivers').split())"/>
 
   <!-- Specific Drivers -->
-  <arg name="drivers" default="novatel_gps_driver velodyne_lidar_driver_wrapper arena_camera"
+  <arg name="drivers" default="novatel_gps_driver velodyne_lidar_driver_wrapper arena_camera delphi_esr"
     doc="Desired real drivers to launch specified by package name. Mock drivers will take precedence"/>
 
   <arg name="dsrc_driver"                   value="$(eval ('dsrc_driver' in arg('drivers').split()) and not arg('mock_comms'))"/>
@@ -53,7 +53,8 @@ If not using simulated drivers they are activated if the respective mock argumen
   <arg name="novatel_gps_driver"            value="$(eval ('novatel_gps_driver' in arg('drivers').split()) and not (arg('mock_gnss') or arg('mock_imu')))"/>
   <arg name="velodyne_lidar_driver_wrapper" value="$(eval ('velodyne_lidar_driver_wrapper' in arg('drivers').split()) and not arg('mock_lidar'))"/>
   <arg name="lightbar_driver"               value="$(eval ('lightbar_driver' in arg('drivers').split()) and not arg('mock_lightbar'))"/>
-  <arg name="arena_camera"               value="$(eval ('arena_camera' in arg('drivers').split()) and not arg('mock_camera'))"/>
+  <arg name="arena_camera"                  value="$(eval ('arena_camera' in arg('drivers').split()) and not arg('mock_camera'))"/>
+  <arg name="delphi_esr_driver"              value="$(eval ('delphi_esr' in arg('drivers').split()) and not arg('mock_radar'))"/>
 
   <!-- Novatel GNSS/IMU Driver Nodes -->
   <!-- <include if="$(arg novatel_gps_driver)" file="$(find novatel_gps_driver)/launch/novatel_gps_driver_eth.launch">
@@ -105,14 +106,30 @@ If not using simulated drivers they are activated if the respective mock argumen
   </include> -->
 
   <!-- Front Left Camera Driver Node -->
-  <!--<remap from="camera/camera_info" to="dummy_camera_info"/>
+  <!-- <remap from="camera/camera_info" to="dummy_camera_info"/>
   <include if="$(arg arena_camera)" file="$(find arena_camera)/launch/mono_camera.launch">
-	<arg name="guid" default=""/>
- 	<arg name="ip" default="192.168.40.10"/>
-  <arg name="camera_info_url" value="file://$(arg vehicle_calibration_dir)/arena_camera/camera_fl_intrinsics.yaml"/>
- 	<arg name="frame_id" default="camera_fl"/>
-	<arg name="trig_timestamp_topic" default=""/>
-	<arg name="show_debug_prints" default="false"/>
-  </include>-->
+    <arg name="guid" default=""/>
+    <arg name="ip" default="192.168.89.50"/>
+    <arg name="camera_info_url" value="file://$(arg vehicle_calibration_dir)/arena_camera/camera_fl_intrinsics.yaml"/>
+    <arg name="frame_id" default="camera_fl"/>
+    <arg name="trig_timestamp_topic" default=""/>
+    <arg name="show_debug_prints" default="false"/>
+  </include> -->
   
+  <!-- DelphiESR Front Driver Node -->
+  <!-- <include if="$(arg delphi_esr)" file="$(find carma-delphi-esr-driver)/launch/delphi_esr_driver.launch">
+    <arg name="device_name" default="can0" />
+    <arg name="velocity_topic" default="velocity_fc" />
+    <arg name="sensor_frame" default="radar_fc" />
+    <arg name="remap_ns" default="radar_fc"/>
+  </include> -->
+  
+  <!-- DelphiESR Rear Driver Node -->
+  <!-- <include if="$(arg delphi_esr)" file="$(find carma-delphi-esr-driver)/launch/delphi_esr_driver.launch">
+    <arg name="device_name" default="can1" />
+    <arg name="velocity_topic" default="velocity_rc" />
+    <arg name="sensor_frame" default="radar_rc" />
+    <arg name="remap_ns" default="radar_rc"/>
+  </include> -->
+
 </launch>
