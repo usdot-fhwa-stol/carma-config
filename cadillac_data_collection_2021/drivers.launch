@@ -57,12 +57,12 @@ If not using simulated drivers they are activated if the respective mock argumen
   <arg name="delphi_esr_driver"              value="$(eval ('delphi_esr' in arg('drivers').split()) and not arg('mock_radar'))"/>
 
   <!-- Novatel GNSS/IMU Driver Nodes -->
-  <!-- <include if="$(arg novatel_gps_driver)" file="$(find novatel_gps_driver)/launch/novatel_gps_driver_eth.launch">
+  <include if="$(arg novatel_gps_driver)" file="$(find novatel_gps_driver)/launch/novatel_gps_driver_eth.launch">
     <arg name="ip" value="192.168.74.10" />
     <arg name="port" value="2000" />
     <arg name="frame_id" value="novatel_gnss" />
     <arg name="imu_frame_id" value="novatel_imu" />
-  </include> -->
+  </include>
 
   <!-- Velodyne Lidar Driver Nodes -->
   <!-- Lidar 1 -->
@@ -75,28 +75,28 @@ If not using simulated drivers they are activated if the respective mock argumen
   </include>
 
   <!-- Lidar 2 -->
-  <!-- <include if="$(arg velodyne_lidar_driver_wrapper)" ns="velodyne_rr" file="$(find velodyne_lidar_driver_wrapper)/launch/velodyne_lidar_driver.launch">
+  <include if="$(arg velodyne_lidar_driver_wrapper)" ns="velodyne_rr" file="$(find velodyne_lidar_driver_wrapper)/launch/velodyne_lidar_driver.launch">
     <arg name="frame_id" value="velodyne_rr"/>
     <arg name="device_ip" value="192.168.89.203"/>
     <arg name="max_range" value="200" />
     <arg name="port" value="2369" />
-  </include> -->
+  </include>
 
   <!-- Lidar 3 -->
-  <!-- <include if="$(arg velodyne_lidar_driver_wrapper)" ns="velodyne_rl" file="$(find velodyne_lidar_driver_wrapper)/launch/velodyne_lidar_driver.launch">
+  <include if="$(arg velodyne_lidar_driver_wrapper)" ns="velodyne_rl" file="$(find velodyne_lidar_driver_wrapper)/launch/velodyne_lidar_driver.launch">
     <arg name="frame_id" value="velodyne_rl"/>
     <arg name="device_ip" value="192.168.89.204"/>
     <arg name="max_range" value="200" />
     <arg name="port" value="2370" />
-  </include> -->
+  </include>
 
   <!-- Lidar 4 -->
-  <!-- <include if="$(arg velodyne_lidar_driver_wrapper)" ns="velodyne_fr" file="$(find velodyne_lidar_driver_wrapper)/launch/velodyne_lidar_driver.launch">
+  <include if="$(arg velodyne_lidar_driver_wrapper)" ns="velodyne_fr" file="$(find velodyne_lidar_driver_wrapper)/launch/velodyne_lidar_driver.launch">
     <arg name="frame_id" value="velodyne_fr"/>
     <arg name="device_ip" value="192.168.89.205"/>
     <arg name="max_range" value="200" />
     <arg name="port" value="2371" />
-  </include> -->
+  </include>
 
   <!-- Lidar Concat -->
   <!-- <include if="$(arg velodyne_lidar_driver_wrapper)" file="$(find points_preprocessor)/launch/points_concat_filter.launch">
@@ -106,30 +106,91 @@ If not using simulated drivers they are activated if the respective mock argumen
   </include> -->
 
   <!-- Front Left Camera Driver Node -->
-  <!-- <remap from="camera/camera_info" to="dummy_camera_info"/>
-  <include if="$(arg arena_camera)" file="$(find arena_camera)/launch/mono_camera.launch">
-    <arg name="guid" default=""/>
-    <arg name="ip" default="192.168.89.50"/>
-    <arg name="camera_info_url" value="file://$(arg vehicle_calibration_dir)/arena_camera/camera_fl_intrinsics.yaml"/>
-    <arg name="frame_id" default="camera_fl"/>
-    <arg name="trig_timestamp_topic" default=""/>
-    <arg name="show_debug_prints" default="false"/>
-  </include> -->
-  
+  <include if="$(arg arena_camera)" ns="camera_fl" file="$(find arena_camera)/launch/mono_camera.launch">
+    <arg name="respawn" value="true"/>
+    <arg name="node_name" value="arena_camera_fl"/>
+    <arg name="device_user_id" value="front_left"/>
+    <arg name="camera_frame" value="camera_fl"/>
+    <arg name="binning_x" value="2"/>
+    <arg name="binning_y" value="2"/>
+    <arg name="frame_rate" value="10"/>
+    <arg name="camera_info_url" value="file://$(find arena_camera)/calibrations/camera_default_intrinsics.yaml"/>
+  </include>
+
+  <!-- Rear Left Camera Driver Node -->
+  <include if="$(arg arena_camera)" ns="camera_rl" file="$(find arena_camera)/launch/mono_camera.launch">
+    <arg name="respawn" value="true"/>
+    <arg name="node_name" value="arena_camera_rl"/>
+    <arg name="device_user_id" value="rear_left"/>
+    <arg name="camera_frame" value="camera_rl"/>
+    <arg name="binning_x" value="2"/>
+    <arg name="binning_y" value="2"/>
+    <arg name="frame_rate" value="10"/>
+    <arg name="camera_info_url" value="file://$(find arena_camera)/calibrations/camera_default_intrinsics.yaml"/>
+  </include>
+
+  <!-- Rear Center Camera Driver Node -->
+  <include if="$(arg arena_camera)" ns="camera_rc" file="$(find arena_camera)/launch/mono_camera.launch">
+    <arg name="respawn" value="true"/>
+    <arg name="node_name" value="arena_camera_rc"/>
+    <arg name="device_user_id" value="rear_center"/>
+    <arg name="camera_frame" value="camera_rc"/>
+    <arg name="binning_x" value="1"/>
+    <arg name="binning_y" value="1"/>
+    <arg name="frame_rate" value="10"/>
+    <arg name="camera_info_url" value="file://$(find arena_camera)/calibrations/camera_default_intrinsics.yaml"/>
+  </include>
+
+  <!-- Rear Right Camera Driver Node -->
+  <include if="$(arg arena_camera)" ns="camera_rr" file="$(find arena_camera)/launch/mono_camera.launch">
+    <arg name="respawn" value="true"/>
+    <arg name="node_name" value="arena_camera_rr"/>
+    <arg name="device_user_id" value="rear_right"/>
+    <arg name="camera_frame" value="camera_rr"/>
+    <arg name="binning_x" value="2"/>
+    <arg name="binning_y" value="2"/>
+    <arg name="frame_rate" value="10"/>
+    <arg name="camera_info_url" value="file://$(find arena_camera)/calibrations/camera_default_intrinsics.yaml"/>
+  </include>
+
+  <!-- Front Right Camera Driver Node -->
+  <include if="$(arg arena_camera)" ns="camera_fr" file="$(find arena_camera)/launch/mono_camera.launch">
+    <arg name="respawn" value="true"/>
+    <arg name="node_name" value="arena_camera_fr"/>
+    <arg name="device_user_id" value="front_right"/>
+    <arg name="camera_frame" value="$amera_fr"/>
+    <arg name="binning_x" value="2"/>
+    <arg name="binning_y" value="2"/>
+    <arg name="frame_rate" value="10"/>
+    <arg name="camera_info_url" value="file://$(find arena_camera)/calibrations/camera_default_intrinsics.yaml"/>
+  </include>
+
+  <!-- Front Center Camera Driver Node -->
+  <include if="$(arg arena_camera)" ns="camera_fc" file="$(find arena_camera)/launch/mono_camera.launch">
+    <arg name="respawn" value="true"/>
+    <arg name="node_name" value="arena_camera_fc"/>
+    <arg name="device_user_id" value="front_center"/>
+    <arg name="camera_frame" value="camera_fc"/>
+    <arg name="binning_x" value="1"/>
+    <arg name="binning_y" value="1"/>
+    <arg name="frame_rate" value="10"/>
+    <arg name="camera_info_url" value="file://$(find arena_camera)/calibrations/camera_default_intrinsics.yaml"/>
+  </include>
+
   <!-- DelphiESR Front Driver Node -->
-  <!-- <include if="$(arg delphi_esr)" file="$(find carma-delphi-esr-driver)/launch/delphi_esr_driver.launch">
+  <include if="$(arg delphi_esr)" file="$(find carma-delphi-esr-driver)/launch/delphi_esr_driver.launch">
     <arg name="device_name" default="can0" />
     <arg name="velocity_topic" default="velocity_fc" />
     <arg name="sensor_frame" default="radar_fc" />
     <arg name="remap_ns" default="radar_fc"/>
-  </include> -->
+  </include>
   
   <!-- DelphiESR Rear Driver Node -->
-  <!-- <include if="$(arg delphi_esr)" file="$(find carma-delphi-esr-driver)/launch/delphi_esr_driver.launch">
+  <include if="$(arg delphi_esr)" file="$(find carma-delphi-esr-driver)/launch/delphi_esr_driver.launch">
     <arg name="device_name" default="can1" />
     <arg name="velocity_topic" default="velocity_rc" />
     <arg name="sensor_frame" default="radar_rc" />
     <arg name="remap_ns" default="radar_rc"/>
-  </include> -->
+  </include>
 
 </launch>

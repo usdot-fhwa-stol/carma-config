@@ -62,46 +62,46 @@ services:
       - /opt/carma/.ros:/home/carma/.ros
     command: bash -c 'export ROS_NAMESPACE=$${CARMA_INTR_NS} && wait-for-it.sh localhost:11311 -- roslaunch /opt/carma/vehicle/config/drivers.launch drivers:=novatel_gps_driver'
 
-  velodyne_lidar_driver:
-    image: usdotfhwastoldev/carma-velodyne-lidar-driver:develop
-    container_name: velodyne-lidar-driver
-    network_mode: host
-    volumes_from:
-      - container:carma-config:ro
-    environment:
-      - ROS_IP=192.168.89.1
-    volumes:
-      - /opt/carma/logs:/opt/carma/logs
-      - /opt/carma/.ros:/home/carma/.ros
-    command: bash -c 'export ROS_NAMESPACE=$${CARMA_INTR_NS} && wait-for-it.sh localhost:11311 -- roslaunch /opt/carma/vehicle/config/drivers.launch drivers:=velodyne_lidar_driver_wrapper'
+  # velodyne_lidar_driver:
+  #   image: usdotfhwastoldev/carma-velodyne-lidar-driver:develop
+  #   container_name: velodyne-lidar-driver
+  #   network_mode: host
+  #   volumes_from:
+  #     - container:carma-config:ro
+  #   environment:
+  #     - ROS_IP=192.168.89.1
+  #   volumes:
+  #     - /opt/carma/logs:/opt/carma/logs
+  #     - /opt/carma/.ros:/home/carma/.ros
+  #   command: bash -c 'export ROS_NAMESPACE=$${CARMA_INTR_NS} && wait-for-it.sh localhost:11311 -- roslaunch /opt/carma/vehicle/config/drivers.launch drivers:=velodyne_lidar_driver_wrapper'
   
-  arena_camera_driver:
-    image: usdotfhwastoldev/carma-arena-camera-driver:develop
-    container_name: arena-camera-driver
-    network_mode: host
-    volumes_from:
-      - container:carma-config:ro
-    environment:
-      - ROS_IP=192.168.89.1
-    volumes:
-      - /opt/carma/logs:/opt/carma/logs
-      - /opt/carma/.ros:/home/carma/.ros
-      - /opt/carma/vehicle/calibration:/opt/carma/vehicle/calibration
-    command: bash -c 'export ROS_NAMESPACE=$${CARMA_INTR_NS} && wait-for-it.sh localhost:11311 -- roslaunch /opt/carma/vehicle/config/drivers.launch drivers:=arena_camera'
+  # arena_camera_driver:
+  #   image: usdotfhwastoldev/carma-arena-camera-driver:develop
+  #   container_name: arena-camera-driver
+  #   network_mode: host
+  #   volumes_from:
+  #     - container:carma-config:ro
+  #   environment:
+  #     - ROS_IP=192.168.89.1
+  #   volumes:
+  #     - /opt/carma/logs:/opt/carma/logs
+  #     - /opt/carma/.ros:/home/carma/.ros
+  #     - /opt/carma/vehicle/calibration:/opt/carma/vehicle/calibration
+  #   command: bash -c 'export ROS_NAMESPACE=$${CARMA_INTR_NS} && wait-for-it.sh localhost:11311 -- roslaunch /opt/carma/vehicle/config/drivers.launch drivers:=arena_camera'
 
-  delphi_esr_driver:
-    image: usdotfhwastoldev/carma-delphi-esr-driver:develop
-    container_name: delphi-esr-driver
-    network_mode: host
-    volumes_from:
-      - container:carma-config:ro
-    environment:
-      - ROS_IP=192.168.89.1
-    volumes:
-      - /opt/carma/logs:/opt/carma/logs
-      - /opt/carma/.ros:/home/carma/.ros
-      - /opt/carma/vehicle/calibration:/opt/carma/vehicle/calibration
-    command: bash -c 'export ROS_NAMESPACE=$${CARMA_INTR_NS} && wait-for-it.sh localhost:11311 -- roslaunch /opt/carma/vehicle/config/drivers.launch drivers:=delphi_esr'
+  # delphi_esr_driver:
+  #   image: usdotfhwastol/carma-delphi-esr-driver:latest
+  #   container_name: delphi-esr-driver
+  #   network_mode: host
+  #   volumes_from:
+  #     - container:carma-config:ro
+  #   environment:
+  #     - ROS_IP=192.168.89.1
+  #   volumes:
+  #     - /opt/carma/logs:/opt/carma/logs
+  #     - /opt/carma/.ros:/home/carma/.ros
+  #     - /opt/carma/vehicle/calibration:/opt/carma/vehicle/calibration
+  #   command: bash -c 'export ROS_NAMESPACE=$${CARMA_INTR_NS} && wait-for-it.sh localhost:11311 -- roslaunch /opt/carma/vehicle/config/drivers.launch drivers:=delphi_esr'
   
   # TODO DelphiESR Front Driver Node
   # TODO Delphi Srr2 Front Left Driver Node
