@@ -94,6 +94,8 @@ lidar_gps_drivers:
 camera_drivers:
   - /hardware_interface/camera
 
+# Vehicle Participation Type
+participation_type: "VehicleCar"
 
 # Parameter to enable configurable speed limit
 # Value type: Desired
