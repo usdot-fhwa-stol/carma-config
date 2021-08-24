@@ -42,11 +42,23 @@ CarmaJS.registerNamespace("CarmaJS.Config");
 CarmaJS.Config = (function () {
         //Private variables
         var ip = '192.168.88.10';
+        var refresh_interval = 30; //30 seconds 
+        var ros_connect_wait = 5000; //5 miliseconds to wait for platform to launch and ros to connect.
+        var ros_connect_retry = 24; //# of times to wait. Total 2 minutes
         var speed_limit = 30; //Default Speed Limit
         //Private methods
         //Creating functions to prevent access by reference to private variables
         var getIP = function() {
             return ip;
+        };
+        var getRefreshInterval = function(){
+            return refresh_interval; 
+        };
+        var getRosConnectionWaitTime = function() {
+            return ros_connect_wait;
+        };
+        var getRosConnectionRetry = function() {
+            return ros_connect_retry;
         };
         var getSPEEDLIMIT = function() {
             return speed_limit;
@@ -54,6 +66,9 @@ CarmaJS.Config = (function () {
         //Public API
         return {
             getIP: getIP,
+            getRefreshInterval: getRefreshInterval,
+            getRosConnectionWaitTime:getRosConnectionWaitTime,
+            getRosConnectionRetry:getRosConnectionRetry,
             getSPEEDLIMIT: getSPEEDLIMIT
         };
 })();
