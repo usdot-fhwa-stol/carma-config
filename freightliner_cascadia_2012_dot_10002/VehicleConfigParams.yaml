@@ -99,7 +99,7 @@ camera_drivers:
   - /hardware_interface/camera
 
 # Vehicle Participation Type
-participation_type: "vehicle:truck"
+vehicle_participant_type: "vehicle:truck"
 
 # Parameter to enable configurable speed limit
 # Value type: Desired

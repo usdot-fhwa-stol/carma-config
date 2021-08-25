@@ -95,7 +95,7 @@ camera_drivers:
   - /hardware_interface/camera
 
 # Vehicle Participation Type
-participation_type: "vehicle:car"
+vehicle_participant_type: "vehicle:car"
 
 
 
