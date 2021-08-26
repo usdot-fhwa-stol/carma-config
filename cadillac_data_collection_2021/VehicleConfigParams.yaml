@@ -105,35 +105,49 @@ excluded_default_topics:
   - (.*)/received_messages
   - (.*)/sent_messages
   - (.*)/scan
-  - (.*)/compressed(.*)
+#  - (.*)/compressed(.*)
 
-exclude_lidar: false
+# /hardware_interface/velodyne_fl/lidar/points_raw
+# /hardware_interface/velodyne_fl/scan
+# /hardware_interface/velodyne_fl/velodyne_fl_nodelet_manager/bond
+# /hardware_interface/velodyne_fl/velodyne_fl_nodelet_manager_cloud/parameter_descriptions
+# /hardware_interface/velodyne_fl/velodyne_fl_nodelet_manager_cloud/parameter_updates
+# /hardware_interface/velodyne_fl/velodyne_fl_nodelet_manager_driver/parameter_descriptions
+# /hardware_interface/velodyne_fl/velodyne_fl_nodelet_manager_driver/parameter_updates
+# /hardware_interface/velodyne_fl/velodyne_fl_nodelet_manager_laserscan/parameter_descriptions
+# /hardware_interface/velodyne_fl/velodyne_fl_nodelet_manager_laserscan/parameter_updates
+# /hardware_interface/velodyne_fl/velodyne_packets
+exclude_lidar: true
 excluded_lidar_topics:
-  - /detection/lidar_detector/objects
-  - /detection/lidar_detector/objects_markers
-  - /hardware_interface/lidar/points_raw
-  - /hardware_interface/camera/projection_matrix/detection/lidar_detector/cloud_clusters
-  - /environment/range_vision_fusion_01/detection/lidar_detector/objects
-  - /environment/detection/fusion_tools/objects
-  - /environment/detection/fusion_tools/objects_markers
-  - /environment/detection/object_tracker/objects
-  - /environment/detection/object_tracker/objects_markers
-  - /environment/detection/objects
-  
-exclude_camera: false
+  - (.*)velodyne_(.*)
+
+# /hardware_interface/camera_fl/front_left/arena_camera_fl/camera_info
+# /hardware_interface/camera_fl/front_left/arena_camera_fl/grab_images_raw/cancel
+# /hardware_interface/camera_fl/front_left/arena_camera_fl/grab_images_raw/feedback
+# /hardware_interface/camera_fl/front_left/arena_camera_fl/grab_images_raw/goal
+# /hardware_interface/camera_fl/front_left/arena_camera_fl/grab_images_raw/result
+# /hardware_interface/camera_fl/front_left/arena_camera_fl/grab_images_raw/status
+# /hardware_interface/camera_fl/front_left/arena_camera_fl/image_raw
+# /hardware_interface/camera_fl/front_left/arena_camera_fl/image_raw/compressed
+# /hardware_interface/camera_fl/front_left/arena_camera_fl/image_raw/compressed/parameter_descriptions
+# /hardware_interface/camera_fl/front_left/arena_camera_fl/image_raw/compressed/parameter_updates
+# /hardware_interface/camera_fl/front_left/arena_camera_fl/image_raw/compressedDepth
+# /hardware_interface/camera_fl/front_left/arena_camera_fl/image_raw/compressedDepth/parameter_descriptions
+# /hardware_interface/camera_fl/front_left/arena_camera_fl/image_raw/compressedDepth/parameter_updates
+# /hardware_interface/camera_fl/front_left/arena_camera_fl/image_raw/theora
+# /hardware_interface/camera_fl/front_left/arena_camera_fl/image_raw/theora/parameter_descriptions
+# /hardware_interface/camera_fl/front_left/arena_camera_fl/image_raw/theora/parameter_updates
+exclude_camera: true
 excluded_camera_topics:
-  - /hardware_interface/camera/camera_info
-  - /hardware_interface/camera/image_raw
-  - /hardware_interface/camera/image_rect
-  - /hardware_interface/camera/image_rects
-  - /hardware_interface/camera/projection_matrix/detection/lidar_detector/cloud_clusters
-  - /environment/range_vision_fusion_01/detection/image_detector/objects
-  - /environment/vision_beyond_track_01/detection/image_detector/objects
-  - /environment/detection/fusion_tools/objects
-  - /environment/detection/fusion_tools/objects_markers
-  - /environment/detection/object_tracker/objects
-  - /environment/detection/object_tracker/objects_markers
-  - /environment/detection/objects
+  - (.*)/grab_images_raw/(.*)
+  # - (.*)/image_raw
+  - (.*)/image_raw/(.*)
+  # - (.*)/image_raw/compressed
+  # - (.*)/image_raw/compressed/(.*)
+  # - (.*)/image_raw/compressedDepth
+  # - (.*)/image_raw/compressedDepth/(.*)
+  # - (.*)/image_raw/theora
+  # - (.*)/image_raw/theora/(.*)
 
 exclude_can: false
 excluded_can_topics:
