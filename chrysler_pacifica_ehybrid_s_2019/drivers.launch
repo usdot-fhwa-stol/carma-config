@@ -76,7 +76,7 @@ If not using simulated drivers they are activated if the respective mock argumen
   <!-- Velodyne Lidar Driver Nodes -->
   <include if="$(arg velodyne_lidar_driver_wrapper)" file="$(find velodyne_lidar_driver_wrapper)/launch/velodyne_lidar_driver.launch">
     <arg name="frame_id" value="velodyne"/>
-    <arg name="device_ip" value="192.168.1.201"/>
+    <arg name="device_ip" value="192.168.89.201"/>
   </include>
 
   <!-- Lightbar Driver Node -->
@@ -90,7 +90,7 @@ If not using simulated drivers they are activated if the respective mock argumen
   <remap from="camera/camera_info" to="dummy_camera_info"/>
   <include if="$(arg avt_vimba_camera)" file="$(find avt_vimba_camera)/launch/mono_camera.launch">
 	<arg name="guid" default=""/>
- 	<arg name="ip" default="192.168.30.10"/>
+ 	<arg name="ip" default="192.168.89.30"/>
     <arg name="camera_info_url" value="file://$(arg vehicle_calibration_dir)/avt_vimba_camera/camera_fl_intrinsics.yaml"/>
  	<arg name="frame_id" default="left_optical"/>
 	<arg name="trig_timestamp_topic" default=""/>
@@ -100,7 +100,7 @@ If not using simulated drivers they are activated if the respective mock argumen
   <!-- AVT Vimba Camera Right Driver Node 
     <include if="$(arg avt_vimba_camera)" ns="camera_right" file="$(find avt_vimba_camera)/launch/mono_camera.launch">
 	<arg name="guid" default=""/>
- 	<arg name="ip" default="192.168.40.10"/>
+ 	<arg name="ip" default="192.168.89.40"/>
   <arg name="camera_info_url" default="file://$(find vehicle_calibration_dir)/avt_vimba_camera/calibration_50-0536911040.yaml"/>
  	<arg name="frame_id" default="right_optical"/>
 	<arg name="trig_timestamp_topic" default=""/>

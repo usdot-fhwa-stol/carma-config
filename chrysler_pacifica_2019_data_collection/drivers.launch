@@ -1,0 +1,172 @@
+<?xml version="1.0"?>
+<!--
+  Copyright (C) 2018-2021 LEIDOS.
+
+  Licensed under the Apache License, Version 2.0 (the "License"); you may not
+  use this file except in compliance with the License. You may obtain a copy of
+  the License at
+
+  http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+  WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+  License for the specific language governing permissions and limitations under
+  the License.
+-->
+<!--
+	drivers.launch
+
+This file is used for vehicle configurations. The arguments from carma.launch should pass on to carma_src.launch, which should then pass those arguments to this file. The arguments in the carma.launch file will override all of the default values of the arguments being passed, so you should be making changes to the carma.launch to configure it to your vehicle. 
+
+If not using simulated drivers they are activated if the respective mock arguments being passed in are false. These lines below activate the respective actual driver if the respective mock argument being passed is false.
+
+-->
+
+<launch>
+  
+  <!-- Shutdown node to shutsdown driver node with fatal message -->
+  <node pkg="driver_shutdown" type="driver_shutdown" name="$(anon driver_shutdown)" required="true"/>
+
+  <arg name="vehicle_calibration_dir" default="/opt/carma/vehicle/calibration" doc="Folder containing vehicle calibration directories"/>
+
+  <!-- Mock Drivers -->
+  <arg name="mock_drivers"        default="" doc="List of driver node base names which will be launched as mock drivers"/>
+
+  <arg name="mock_can"            value="$(eval 'can' in arg('mock_drivers').split())"/>
+  <arg name="mock_comms"          value="$(eval 'comms' in arg('mock_drivers').split())"/>
+  <arg name="mock_controller"     value="$(eval 'controller' in arg('mock_drivers').split())"/>
+  <arg name="mock_gnss"           value="$(eval 'gnss' in arg('mock_drivers').split())"/>
+  <arg name="mock_radar"          value="$(eval 'radar' in arg('mock_drivers').split())"/>
+  <arg name="mock_imu"            value="$(eval 'imu' in arg('mock_drivers').split())"/>
+  <arg name="mock_lidar"          value="$(eval 'lidar' in arg('mock_drivers').split())"/>
+  <arg name="mock_camera"         value="$(eval 'camera' in arg('mock_drivers').split())"/>
+  <arg name="mock_roadway_sensor" value="$(eval 'roadway_sensor' in arg('mock_drivers').split())"/>
+  <arg name="mock_lightbar" 	    value="$(eval 'lightbar' in arg('mock_drivers').split())"/>
+
+  <!-- Specific Drivers -->
+  <arg name="drivers" default="novatel_gps_driver velodyne_lidar_driver_wrapper arena_camera_fl arena_camera_rl arena_camera_rc arena_camera_rr arena_camera_fr arena_camera_fc delphi_esr"
+    doc="Desired real drivers to launch specified by package name. Mock drivers will take precedence"/>
+
+  <arg name="novatel_gps_driver"            value="$(eval ('novatel_gps_driver' in arg('drivers').split()) and not (arg('mock_gnss') or arg('mock_imu')))"/>
+  <arg name="velodyne_lidar_driver_wrapper" value="$(eval ('velodyne_lidar_driver_wrapper' in arg('drivers').split()) and not arg('mock_lidar'))"/>
+  <arg name="arena_camera_fl"               value="$(eval ('arena_camera_fl' in arg('drivers').split()) and not arg('mock_camera'))"/>
+  <arg name="arena_camera_rl"               value="$(eval ('arena_camera_rl' in arg('drivers').split()) and not arg('mock_camera'))"/>
+  <arg name="arena_camera_rc"               value="$(eval ('arena_camera_rl' in arg('drivers').split()) and not arg('mock_camera'))"/>
+  <arg name="arena_camera_rr"               value="$(eval ('arena_camera_rl' in arg('drivers').split()) and not arg('mock_camera'))"/>
+  <arg name="arena_camera_fr"               value="$(eval ('arena_camera_rl' in arg('drivers').split()) and not arg('mock_camera'))"/>
+  <arg name="arena_camera_fc"               value="$(eval ('arena_camera_rl' in arg('drivers').split()) and not arg('mock_camera'))"/>
+  <arg name="delphi_esr_driver"             value="$(eval ('delphi_esr' in arg('drivers').split()) and not arg('mock_radar'))"/>
+ 
+  <!-- Camera parameters -->
+  <arg name="respawn" value="true" />
+  <arg name="front_binning" value="1"/>
+  <arg name="rear_binning" value="1"/>
+  <arg name="side_binning" value="1"/>
+  <arg name="front_encoding" default="rgb8" />
+  <arg name="rear_encoding" default="rgb8" />
+  <arg name="side_encoding" default="mono8" />
+  <arg name="front_framerate" value="10"/>
+  <arg name="rear_framerate" value="10"/>
+  <arg name="side_framerate" value="10"/>
+
+  <!-- Novatel GNSS/IMU Driver Nodes -->
+  <include if="$(arg novatel_gps_driver)" file="$(find novatel_gps_driver)/launch/novatel_gps_driver_eth.launch">
+    <arg name="ip" value="192.168.88.29" />
+    <arg name="port" value="2000" />
+    <arg name="frame_id" value="novatel_gnss" />
+    <arg name="imu_frame_id" value="novatel_imu" />
+  </include>
+
+  <!-- Velodyne Lidar Driver Nodes -->
+  <include if="$(arg velodyne_lidar_driver_wrapper)" file="$(find velodyne_lidar_driver_wrapper)/launch/velodyne_lidar_driver.launch">
+    <arg name="frame_id" value="velodyne"/>
+    <arg name="device_ip" value="192.168.89.201"/>
+  </include>
+
+  <!-- Front Left Camera Driver Node -->
+  <include if="$(arg arena_camera_fl)" ns="camera_fl" file="$(find arena_camera)/launch/mono_camera.launch">
+    <arg name="respawn" value="$(arg respawn)"/>
+    <arg name="node_name" value="arena_camera_fl"/>
+    <arg name="device_user_id" value="front_left"/>
+    <arg name="camera_frame" value="camera_fl"/>
+    <arg name="binning_x" value="$(arg side_binning)"/>
+    <arg name="binning_y" value="$(arg side_binning)"/>
+    <arg name="frame_rate" value="$(arg side_framerate)"/>
+    <arg name="image_encoding" value="$(arg side_encoding)"/>
+    <arg name="camera_info_url" value="$(arg vehicle_calibration_dir)/arena_camera/camera_intrinsic_front_left_x1_y1.yaml"/>
+  </include>
+
+  <!-- Rear Left Camera Driver Node -->
+  <include if="$(arg arena_camera_rl)" ns="camera_rl" file="$(find arena_camera)/launch/mono_camera.launch">
+    <arg name="respawn" value="$(arg respawn)"/>
+    <arg name="node_name" value="arena_camera_rl"/>
+    <arg name="device_user_id" value="rear_left"/>
+    <arg name="camera_frame" value="camera_rl"/>
+    <arg name="binning_x" value="$(arg side_binning)"/>
+    <arg name="binning_y" value="$(arg side_binning)"/>
+    <arg name="frame_rate" value="$(arg side_framerate)"/>
+    <arg name="image_encoding" value="$(arg side_encoding)"/>
+    <arg name="camera_info_url" value="$(arg vehicle_calibration_dir)/arena_camera/camera_intrinsic_rear_left_x1_y1.yaml"/>
+  </include>
+
+  <!-- Rear Center Camera Driver Node -->
+  <include if="$(arg arena_camera_rc)" ns="camera_rc" file="$(find arena_camera)/launch/mono_camera.launch">
+    <arg name="respawn" value="$(arg respawn)"/>
+    <arg name="node_name" value="arena_camera_rc"/>
+    <arg name="device_user_id" value="rear_center"/>
+    <arg name="camera_frame" value="camera_rc"/>
+    <arg name="binning_x" value="$(arg rear_binning)"/>
+    <arg name="binning_y" value="$(arg rear_binning)"/>
+    <arg name="frame_rate" value="$(arg rear_framerate)"/>
+    <arg name="image_encoding" value="$(arg rear_encoding)"/>
+    <arg name="camera_info_url" value="$(arg vehicle_calibration_dir)/arena_camera/camera_intrinsic_rear_center_x1_y1.yaml"/>
+  </include>
+
+  <!-- Rear Right Camera Driver Node -->
+  <include if="$(arg arena_camera_rr)" ns="camera_rr" file="$(find arena_camera)/launch/mono_camera.launch">
+    <arg name="respawn" value="$(arg respawn)"/>
+    <arg name="node_name" value="arena_camera_rr"/>
+    <arg name="device_user_id" value="rear_right"/>
+    <arg name="camera_frame" value="camera_rr"/>
+    <arg name="binning_x" value="$(arg side_binning)"/>
+    <arg name="binning_y" value="$(arg side_binning)"/>
+    <arg name="frame_rate" value="$(arg side_framerate)"/>
+    <arg name="image_encoding" value="$(arg side_encoding)"/>
+    <arg name="camera_info_url" value="$(arg vehicle_calibration_dir)/arena_camera/camera_intrinsic_rear_right_x1_y1.yaml"/>
+  </include>
+
+  <!-- Front Right Camera Driver Node -->
+  <include if="$(arg arena_camera_fr)" ns="camera_fr" file="$(find arena_camera)/launch/mono_camera.launch">
+    <arg name="respawn" value="$(arg respawn)"/>
+    <arg name="node_name" value="arena_camera_fr"/>
+    <arg name="device_user_id" value="front_right"/>
+    <arg name="camera_frame" value="camera_fr"/>
+    <arg name="binning_x" value="$(arg side_binning)"/>
+    <arg name="binning_y" value="$(arg side_binning)"/>
+    <arg name="frame_rate" value="$(arg side_framerate)"/>
+    <arg name="image_encoding" value="$(arg side_encoding)"/>
+    <arg name="camera_info_url" value="$(arg vehicle_calibration_dir)/arena_camera/camera_intrinsic_front_right_x1_y1.yaml"/>
+  </include>
+
+  <!-- Front Center Camera Driver Node -->
+  <include if="$(arg arena_camera_fc)" ns="camera_fc" file="$(find arena_camera)/launch/mono_camera.launch">
+    <arg name="respawn" value="$(arg respawn)"/>
+    <arg name="node_name" value="arena_camera_fc"/>
+    <arg name="device_user_id" value="front_center"/>
+    <arg name="camera_frame" value="camera_fc"/>
+    <arg name="binning_x" value="$(arg front_binning)"/>
+    <arg name="binning_y" value="$(arg front_binning)"/>
+    <arg name="frame_rate" value="$(arg front_framerate)"/>
+    <arg name="image_encoding" value="$(arg front_encoding)"/>
+    <arg name="camera_info_url" value="$(arg vehicle_calibration_dir)/arena_camera/camera_intrinsic_front_center_x1_y1.yaml"/>
+  </include>
+
+  <!-- DelphiESR Front Driver Node -->
+  <include if="$(arg delphi_esr_driver)" file="$(find delphi_esr_driver)/launch/delphi_esr_driver.launch">
+    <arg name="device_name" default="can0" />
+    <arg name="velocity_topic" default="velocity_fc" />
+    <arg name="sensor_frame" default="radar_fc" />
+    <arg name="remap_ns" default="radar_fc"/>
+  </include>
+</launch>
