@@ -31,7 +31,7 @@ services:
     command: roscore
 
   platform:
-    image: usdotfhwastoldev/carma-platform:develop
+    image: usdotfhwastol/carma-platform:carma-system-3.7.2
     network_mode: host
     container_name: platform
     runtime: nvidia
