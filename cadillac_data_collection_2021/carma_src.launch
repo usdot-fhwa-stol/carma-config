@@ -49,7 +49,7 @@
 
   <!-- Logging -->
   <!-- ROS Bag -->
-  <arg name="use_rosbag" default="true" doc="Record a rosbag"/>
+  <arg name="use_rosbag" default="false" doc="Record a rosbag"/>
   <arg name="rosbag_exclusions" default="/fake_exclusion" doc="Additonal regex pattern to match for identifying what topics to exclude from rosbag recordings"/>
   
   <!-- Map files to load -->

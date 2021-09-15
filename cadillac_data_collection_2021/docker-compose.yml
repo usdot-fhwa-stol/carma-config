@@ -49,6 +49,33 @@ services:
       - /opt/carma/yolo:/opt/carma/yolo
     command: bash -c 'wait-for-it.sh localhost:11311 -- roslaunch /opt/carma/vehicle/config/carma_docker.launch'
 
+  cohda_dsrc_driver:
+    image: usdotfhwastoldev/carma-cohda-dsrc-driver:develop
+    container_name: carma-cohda-dsrc-driver
+    network_mode: host
+    volumes_from:
+      - container:carma-config:ro
+    environment:
+      - ROS_IP=192.168.89.1
+    volumes:
+      - /opt/carma/logs:/opt/carma/logs
+      - /opt/carma/.ros:/home/carma/.ros
+    command: bash -c 'export ROS_NAMESPACE=$${CARMA_INTR_NS} && wait-for-it.sh localhost:11311 -- roslaunch /opt/carma/vehicle/config/drivers.launch drivers:=dsrc_driver'
+
+  can_driver:
+    image: usdotfhwastoldev/carma-cadillac-srx-2013-can-driver:latest
+    container_name: can-driver
+    network_mode: host
+    volumes_from:
+      - container:carma-config:ro
+    environment:
+      - ROS_IP=192.168.89.1
+    volumes:
+      - /opt/carma/logs:/opt/carma/logs
+      - /opt/carma/.ros:/home/carma/.ros
+      - /opt/carma/vehicle/calibration:/opt/carma/vehicle/calibration
+    command: bash -c 'export ROS_NAMESPACE=$${CARMA_INTR_NS} && wait-for-it.sh localhost:11311 -- roslaunch /opt/carma/vehicle/config/drivers.launch drivers:=can'
+  
   torc_pinpoint_driver:
     image: usdotfhwastoldev/carma-torc-pinpoint-driver:develop
     container_name: torc-pinpoint-driver
