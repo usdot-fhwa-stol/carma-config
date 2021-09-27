@@ -45,9 +45,11 @@ If not using simulated drivers they are activated if the respective mock argumen
   <arg name="mock_lightbar" 	    value="$(eval 'lightbar' in arg('mock_drivers').split())"/>
 
   <!-- Specific Drivers -->
-  <arg name="drivers" default="novatel_gps_driver velodyne_lidar_driver_wrapper arena_camera_fl arena_camera_rl arena_camera_rc arena_camera_rr arena_camera_fr arena_camera_fc delphi_esr"
+  <arg name="drivers" default="dsrc_driver ssc_interface_wrapper novatel_gps_driver velodyne_lidar_driver_wrapper arena_camera_fl arena_camera_rl arena_camera_rc arena_camera_rr arena_camera_fr arena_camera_fc avt_vimba_camera delphi_esr delphi_srr"
     doc="Desired real drivers to launch specified by package name. Mock drivers will take precedence"/>
 
+  <arg name="dsrc_driver"                   value="$(eval ('dsrc_driver' in arg('drivers').split()) and not arg('mock_comms'))"/>
+  <arg name="ssc_interface_wrapper"         value="$(eval ('ssc_interface_wrapper' in arg('drivers').split()) and not arg('mock_controller'))"/>
   <arg name="novatel_gps_driver"            value="$(eval ('novatel_gps_driver' in arg('drivers').split()) and not (arg('mock_gnss') or arg('mock_imu')))"/>
   <arg name="velodyne_lidar_driver_wrapper" value="$(eval ('velodyne_lidar_driver_wrapper' in arg('drivers').split()) and not arg('mock_lidar'))"/>
   <arg name="arena_camera_fl"               value="$(eval ('arena_camera_fl' in arg('drivers').split()) and not arg('mock_camera'))"/>
@@ -56,19 +58,17 @@ If not using simulated drivers they are activated if the respective mock argumen
   <arg name="arena_camera_rr"               value="$(eval ('arena_camera_rl' in arg('drivers').split()) and not arg('mock_camera'))"/>
   <arg name="arena_camera_fr"               value="$(eval ('arena_camera_rl' in arg('drivers').split()) and not arg('mock_camera'))"/>
   <arg name="arena_camera_fc"               value="$(eval ('arena_camera_rl' in arg('drivers').split()) and not arg('mock_camera'))"/>
+  <arg name="avt_vimba_camera"              value="$(eval ('avt_vimba_camera' in arg('drivers').split()) and not arg('mock_camera'))"/>
   <arg name="delphi_esr_driver"             value="$(eval ('delphi_esr' in arg('drivers').split()) and not arg('mock_radar'))"/>
+  <arg name="delphi_srr_driver"             value="$(eval ('delphi_srr' in arg('drivers').split()) and not arg('mock_radar'))"/>
  
-  <!-- Camera parameters -->
-  <arg name="respawn" value="true" />
-  <arg name="front_binning" value="1"/>
-  <arg name="rear_binning" value="1"/>
-  <arg name="side_binning" value="1"/>
-  <arg name="front_encoding" default="rgb8" />
-  <arg name="rear_encoding" default="rgb8" />
-  <arg name="side_encoding" default="mono8" />
-  <arg name="front_framerate" value="10"/>
-  <arg name="rear_framerate" value="10"/>
-  <arg name="side_framerate" value="10"/>
+  <!-- DSRC OBU Driver Node -->
+  <include if="$(arg dsrc_driver)" file="$(find dsrc_driver)/launch/dsrc_node.launch"/>
+
+  <!-- PACMOD Controller Driver Node -->
+  <include if="$(arg ssc_interface_wrapper)" file="$(find ssc_interface_wrapper)/launch/ssc_ne_pacifica_driver.launch">
+    <arg name="ssc_param_dir" value="$(arg vehicle_calibration_dir)/ssc_ne_pacifica"/>
+  </include>
 
   <!-- Novatel GNSS/IMU Driver Nodes -->
   <include if="$(arg novatel_gps_driver)" file="$(find novatel_gps_driver)/launch/novatel_gps_driver_eth.launch">
@@ -84,12 +84,31 @@ If not using simulated drivers they are activated if the respective mock argumen
     <arg name="device_ip" value="192.168.89.201"/>
   </include>
 
+  <!-- Camera parameters -->
+  <arg name="respawn" value="true" />
+  <arg name="front_decimation" value="2"/>
+  <arg name="rear_decimation" value="2"/>
+  <arg name="side_decimation" value="2"/>
+  <arg name="front_binning" value="1"/>
+  <arg name="rear_binning" value="1"/>
+  <arg name="side_binning" value="1"/>
+  <arg name="front_encoding" default="rgb8" />
+  <arg name="rear_encoding" default="rgb8" />
+  <arg name="side_encoding" default="mono8" />
+  <arg name="front_framerate" value="40"/>
+  <arg name="rear_framerate" value="30"/>
+  <arg name="side_framerate" value="20"/>
+  <arg name="compression_params" default="{format: jpeg, jpeg_quality: 90, png_level: 9}" />
+
   <!-- Front Left Camera Driver Node -->
   <include if="$(arg arena_camera_fl)" ns="camera_fl" file="$(find arena_camera)/launch/mono_camera.launch">
     <arg name="respawn" value="$(arg respawn)"/>
+    <arg name="compression_params" default="$(arg compression_params)" />
     <arg name="node_name" value="arena_camera_fl"/>
     <arg name="device_user_id" value="front_left"/>
     <arg name="camera_frame" value="camera_fl"/>
+    <arg name="decimation_x" value="$(arg side_decimation)" />
+    <arg name="decimation_y" value="$(arg side_decimation)" />
     <arg name="binning_x" value="$(arg side_binning)"/>
     <arg name="binning_y" value="$(arg side_binning)"/>
     <arg name="frame_rate" value="$(arg side_framerate)"/>
@@ -100,9 +119,12 @@ If not using simulated drivers they are activated if the respective mock argumen
   <!-- Rear Left Camera Driver Node -->
   <include if="$(arg arena_camera_rl)" ns="camera_rl" file="$(find arena_camera)/launch/mono_camera.launch">
     <arg name="respawn" value="$(arg respawn)"/>
+    <arg name="compression_params" default="$(arg compression_params)" />
     <arg name="node_name" value="arena_camera_rl"/>
     <arg name="device_user_id" value="rear_left"/>
     <arg name="camera_frame" value="camera_rl"/>
+    <arg name="decimation_x" value="$(arg side_decimation)" />
+    <arg name="decimation_y" value="$(arg side_decimation)" />
     <arg name="binning_x" value="$(arg side_binning)"/>
     <arg name="binning_y" value="$(arg side_binning)"/>
     <arg name="frame_rate" value="$(arg side_framerate)"/>
@@ -113,9 +135,12 @@ If not using simulated drivers they are activated if the respective mock argumen
   <!-- Rear Center Camera Driver Node -->
   <include if="$(arg arena_camera_rc)" ns="camera_rc" file="$(find arena_camera)/launch/mono_camera.launch">
     <arg name="respawn" value="$(arg respawn)"/>
+    <arg name="compression_params" default="$(arg compression_params)" />
     <arg name="node_name" value="arena_camera_rc"/>
     <arg name="device_user_id" value="rear_center"/>
     <arg name="camera_frame" value="camera_rc"/>
+    <arg name="decimation_x" value="$(arg rear_decimation)" />
+    <arg name="decimation_y" value="$(arg rear_decimation)" />
     <arg name="binning_x" value="$(arg rear_binning)"/>
     <arg name="binning_y" value="$(arg rear_binning)"/>
     <arg name="frame_rate" value="$(arg rear_framerate)"/>
@@ -126,9 +151,12 @@ If not using simulated drivers they are activated if the respective mock argumen
   <!-- Rear Right Camera Driver Node -->
   <include if="$(arg arena_camera_rr)" ns="camera_rr" file="$(find arena_camera)/launch/mono_camera.launch">
     <arg name="respawn" value="$(arg respawn)"/>
+    <arg name="compression_params" default="$(arg compression_params)" />
     <arg name="node_name" value="arena_camera_rr"/>
     <arg name="device_user_id" value="rear_right"/>
     <arg name="camera_frame" value="camera_rr"/>
+    <arg name="decimation_x" value="$(arg side_decimation)" />
+    <arg name="decimation_y" value="$(arg side_decimation)" />
     <arg name="binning_x" value="$(arg side_binning)"/>
     <arg name="binning_y" value="$(arg side_binning)"/>
     <arg name="frame_rate" value="$(arg side_framerate)"/>
@@ -139,9 +167,12 @@ If not using simulated drivers they are activated if the respective mock argumen
   <!-- Front Right Camera Driver Node -->
   <include if="$(arg arena_camera_fr)" ns="camera_fr" file="$(find arena_camera)/launch/mono_camera.launch">
     <arg name="respawn" value="$(arg respawn)"/>
+    <arg name="compression_params" default="$(arg compression_params)" />
     <arg name="node_name" value="arena_camera_fr"/>
     <arg name="device_user_id" value="front_right"/>
     <arg name="camera_frame" value="camera_fr"/>
+    <arg name="decimation_x" value="$(arg side_decimation)" />
+    <arg name="decimation_y" value="$(arg side_decimation)" />
     <arg name="binning_x" value="$(arg side_binning)"/>
     <arg name="binning_y" value="$(arg side_binning)"/>
     <arg name="frame_rate" value="$(arg side_framerate)"/>
@@ -152,9 +183,12 @@ If not using simulated drivers they are activated if the respective mock argumen
   <!-- Front Center Camera Driver Node -->
   <include if="$(arg arena_camera_fc)" ns="camera_fc" file="$(find arena_camera)/launch/mono_camera.launch">
     <arg name="respawn" value="$(arg respawn)"/>
+    <arg name="compression_params" default="$(arg compression_params)" />
     <arg name="node_name" value="arena_camera_fc"/>
     <arg name="device_user_id" value="front_center"/>
     <arg name="camera_frame" value="camera_fc"/>
+    <arg name="decimation_x" value="$(arg front_decimation)" />
+    <arg name="decimation_y" value="$(arg front_decimation)" />
     <arg name="binning_x" value="$(arg front_binning)"/>
     <arg name="binning_y" value="$(arg front_binning)"/>
     <arg name="frame_rate" value="$(arg front_framerate)"/>
@@ -162,11 +196,60 @@ If not using simulated drivers they are activated if the respective mock argumen
     <arg name="camera_info_url" value="$(arg vehicle_calibration_dir)/arena_camera/camera_intrinsic_front_center_x1_y1.yaml"/>
   </include>
 
+  <!-- AVT Vimba Camera Left Driver Node -->
+  <remap from="camera/camera_info" to="dummy_camera_info"/>
+  <include if="$(arg avt_vimba_camera)" file="$(find avt_vimba_camera)/launch/mono_camera.launch">
+	<arg name="guid" default=""/>
+ 	<arg name="ip" default="192.168.89.30"/>
+    <arg name="camera_info_url" value="file://$(arg vehicle_calibration_dir)/avt_vimba_camera/camera_fl_intrinsics.yaml"/>
+ 	<arg name="frame_id" default="left_optical"/>
+	<arg name="trig_timestamp_topic" default=""/>
+	<arg name="show_debug_prints" default="false"/>
+  </include>
+  
   <!-- DelphiESR Front Driver Node -->
   <include if="$(arg delphi_esr_driver)" file="$(find delphi_esr_driver)/launch/delphi_esr_driver.launch">
-    <arg name="device_name" default="can0" />
+    <!-- <arg name="use_kvaser" default="true" />
+    <arg name="kvaser_hardware_id" default="11211" />
+    <arg name="kvaser_circuit_id" default="3" /> -->
+    <arg name="device_name" default="can4" />
     <arg name="velocity_topic" default="velocity_fc" />
     <arg name="sensor_frame" default="radar_fc" />
     <arg name="remap_ns" default="radar_fc"/>
+  </include>
+
+  <!-- DelphiSRR2 Front Left Driver Node -->
+  <include if="$(arg delphi_srr_driver)" file="$(find delphi_srr2_radar_driver_wrapper)/launch/delphi_srr2_radar_driver_wrapper.launch">
+    <arg name="use_socketcan" default="true" />
+    <arg name="socketcan_device" default="can1" />
+    <!-- <arg name="use_kvaser" default="true" />
+    <arg name="kvaser_hardware_id" default="11511" />
+    <arg name="kvaser_circuit_id" default="0" /> -->
+    <arg name="srr_frame_id" default="radar_fl" />
+    <arg name="srr_side" default="Left" />
+  </include>
+
+  <!-- DelphiSRR2 Rear Left Driver Node -->
+  <include if="$(arg delphi_srr_driver)" file="$(find delphi_srr2_radar_driver_wrapper)/launch/delphi_srr2_radar_driver_wrapper.launch">
+    <arg name="use_socketcan" default="true" />
+    <arg name="socketcan_device" default="can2" />
+    <arg name="srr_frame_id" default="radar_rl" />
+    <arg name="srr_side" default="Left" />
+  </include>
+
+  <!-- DelphiSRR2 Rear Right Driver Node -->
+  <include if="$(arg delphi_srr_driver)" file="$(find delphi_srr2_radar_driver_wrapper)/launch/delphi_srr2_radar_driver_wrapper.launch">
+    <arg name="use_socketcan" default="true" />
+    <arg name="socketcan_device" default="can2" />
+    <arg name="srr_frame_id" default="radar_rr" />
+    <arg name="srr_side" default="Right" />
+  </include>
+
+  <!-- DelphiSRR2 Front Right Driver Node -->
+  <include if="$(arg delphi_srr_driver)" file="$(find delphi_srr2_radar_driver_wrapper)/launch/delphi_srr2_radar_driver_wrapper.launch">
+    <arg name="use_socketcan" default="true" />
+    <arg name="socketcan_device" default="can1" />
+    <arg name="srr_frame_id" default="radar_fr" />
+    <arg name="srr_side" default="Right" />
   </include>
 </launch>
