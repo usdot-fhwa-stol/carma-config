@@ -98,6 +98,10 @@ lidar_gps_drivers:
 camera_drivers:
   - /hardware_interface/camera
 
+# Vehicle Participation Type corresponding to the Lanelet2 participant type standards. 
+# Used for interpreting traffic rules in world model instances
+vehicle_participant_type: "vehicle:truck"
+
 # Parameter to enable configurable speed limit
 # Value type: Desired
 config_speed_limit: 45.0
