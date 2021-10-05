@@ -117,7 +117,7 @@ excluded_default_topics:
 # /hardware_interface/velodyne_fl/velodyne_fl_nodelet_manager_laserscan/parameter_descriptions
 # /hardware_interface/velodyne_fl/velodyne_fl_nodelet_manager_laserscan/parameter_updates
 # /hardware_interface/velodyne_fl/velodyne_packets
-exclude_lidar: true
+exclude_lidar: false
 excluded_lidar_topics:
   - (.*)velodyne_(.*)
 
@@ -140,8 +140,12 @@ excluded_lidar_topics:
 exclude_camera: true
 excluded_camera_topics:
   - (.*)/grab_images_raw/(.*)
+  - (.*)image_raw
+  # - (.*)/image_raw/comp/(.*)
+  - (.*)/image_raw/compressedDept(.*)
+  - (.*)/image_raw/theor(.*)
   # - (.*)/image_raw
-  - (.*)/image_raw/(.*)
+  # - (.*)/image_raw/comp/(.*)
   # - (.*)/image_raw/compressed
   # - (.*)/image_raw/compressed/(.*)
   # - (.*)/image_raw/compressedDepth

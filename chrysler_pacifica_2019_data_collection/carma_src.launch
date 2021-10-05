@@ -139,9 +139,9 @@
   </group> -->
 
   <!-- Set up the rosbag record node that will exclude sensitive topics -->
-  <group ns="carma_record">
+  <!-- <group ns="carma_record">
     <include file="$(find carma_record)/launch/carma_record.launch" if="$(arg use_rosbag)" />
-  </group>
+  </group> -->
 
   <!-- Dump all ros parameters to a file -->
   <node name="param_dump" pkg="carma_record" type="param_dump.sh"/>
