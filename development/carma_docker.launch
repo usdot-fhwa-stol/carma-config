@@ -38,6 +38,9 @@
   <arg name="vector_map_file" default="/opt/carma/maps/vector_map.osm"/>
   <arg name="cuda" value="false"/>
 
+  <!-- Set Velodyne Frame -->
+  <arg name="combined_lidar_frame" value="velodyne"/>
+
   <!-- Launch with Guidance Plugin Validator Node enabled -->
   <arg name="enable_guidance_plugin_validator" value="true"/>
   <!-- List of String: Guidance Strategic Plugins that will be validated by the Guidance Plugin Validator Node if enabled -->
