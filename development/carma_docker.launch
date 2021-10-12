@@ -38,7 +38,7 @@
   <arg name="vector_map_file" default="/opt/carma/maps/vector_map.osm"/>
   <arg name="cuda" value="false"/>
 
-  <!-- Set Velodyne Frame -->
+  <!-- Set the Frame of the Lidar(s) -->
   <arg name="combined_lidar_frame" value="velodyne"/>
 
   <!-- Launch with Guidance Plugin Validator Node enabled -->

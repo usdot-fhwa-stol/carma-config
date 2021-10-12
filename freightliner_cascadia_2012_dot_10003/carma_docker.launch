@@ -38,7 +38,7 @@
   <arg name="yolo_dir" default="/opt/carma/yolo"/>
   <arg name="cuda" value="true"/>
 
-  <!-- Set Velodyne Frame -->
+  <!-- Set the Frame of the Lidar(s) -->
   <arg name="combined_lidar_frame" value="concat_velodyne"/>
 
   <!-- Launch without Guidance Plugin Validator Node enabled -->
