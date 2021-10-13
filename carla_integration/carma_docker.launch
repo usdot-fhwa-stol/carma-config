@@ -38,6 +38,9 @@
   <arg name="yolo_dir" default="/opt/carma/yolo"/>
   <arg name="cuda" value="false"/>
 
+  <!-- Set the Frame of the Lidar(s) -->
+  <arg name="combined_lidar_frame" value="velodyne"/>
+
   <!-- Launch without drivers as those will be launched as docker containers-->
   <arg name="launch_drivers" default="false"/>
 
