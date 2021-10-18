@@ -124,6 +124,7 @@ If not using simulated drivers they are activated if the respective mock argumen
 
   <!-- Camera parameters -->
   <arg name="respawn" value="true" />
+  <arg name="brightness" value="50" />
   <arg name="front_decimation" value="2"/>
   <arg name="rear_decimation" value="2"/>
   <arg name="side_decimation" value="2"/>
@@ -134,13 +135,14 @@ If not using simulated drivers they are activated if the respective mock argumen
   <arg name="rear_encoding" default="rgb8" />
   <arg name="side_encoding" default="mono8" />
   <arg name="front_framerate" value="40"/>
-  <arg name="rear_framerate" value="40"/>
-  <arg name="side_framerate" value="30"/>
+  <arg name="rear_framerate" value="20"/>
+  <arg name="side_framerate" value="20"/>
   <arg name="compression_params" default="{format: jpeg, jpeg_quality: 90, png_level: 9}" />
 
   <!-- Front Left Camera Driver Node -->
   <include if="$(arg arena_camera_fl)" ns="camera_fl" file="$(find arena_camera)/launch/mono_camera.launch">
     <arg name="respawn" value="$(arg respawn)"/>
+    <arg name="brightness" value="$(arg brightness)" />
     <arg name="compression_params" default="$(arg compression_params)" />
     <arg name="node_name" value="arena_camera_fl"/>
     <arg name="device_user_id" value="front_left"/>
@@ -157,6 +159,7 @@ If not using simulated drivers they are activated if the respective mock argumen
   <!-- Rear Left Camera Driver Node -->
   <include if="$(arg arena_camera_rl)" ns="camera_rl" file="$(find arena_camera)/launch/mono_camera.launch">
     <arg name="respawn" value="$(arg respawn)"/>
+    <arg name="brightness" value="$(arg brightness)" />
     <arg name="compression_params" default="$(arg compression_params)" />
     <arg name="node_name" value="arena_camera_rl"/>
     <arg name="device_user_id" value="rear_left"/>
@@ -173,6 +176,7 @@ If not using simulated drivers they are activated if the respective mock argumen
   <!-- Rear Center Camera Driver Node -->
   <include if="$(arg arena_camera_rc)" ns="camera_rc" file="$(find arena_camera)/launch/mono_camera.launch">
     <arg name="respawn" value="$(arg respawn)"/>
+    <arg name="brightness" value="$(arg brightness)" />
     <arg name="compression_params" default="$(arg compression_params)" />
     <arg name="node_name" value="arena_camera_rc"/>
     <arg name="device_user_id" value="rear_center"/>
@@ -189,6 +193,7 @@ If not using simulated drivers they are activated if the respective mock argumen
   <!-- Rear Right Camera Driver Node -->
   <include if="$(arg arena_camera_rr)" ns="camera_rr" file="$(find arena_camera)/launch/mono_camera.launch">
     <arg name="respawn" value="$(arg respawn)"/>
+    <arg name="brightness" value="$(arg brightness)" />
     <arg name="compression_params" default="$(arg compression_params)" />
     <arg name="node_name" value="arena_camera_rr"/>
     <arg name="device_user_id" value="rear_right"/>
@@ -205,6 +210,7 @@ If not using simulated drivers they are activated if the respective mock argumen
   <!-- Front Right Camera Driver Node -->
   <include if="$(arg arena_camera_fr)" ns="camera_fr" file="$(find arena_camera)/launch/mono_camera.launch">
     <arg name="respawn" value="$(arg respawn)"/>
+    <arg name="brightness" value="$(arg brightness)" />
     <arg name="compression_params" default="$(arg compression_params)" />
     <arg name="node_name" value="arena_camera_fr"/>
     <arg name="device_user_id" value="front_right"/>
@@ -221,6 +227,7 @@ If not using simulated drivers they are activated if the respective mock argumen
   <!-- Front Center Camera Driver Node -->
   <include if="$(arg arena_camera_fc)" ns="camera_fc" file="$(find arena_camera)/launch/mono_camera.launch">
     <arg name="respawn" value="$(arg respawn)"/>
+    <arg name="brightness" value="$(arg brightness)" />
     <arg name="compression_params" default="$(arg compression_params)" />
     <arg name="node_name" value="arena_camera_fc"/>
     <arg name="device_user_id" value="front_center"/>
@@ -250,4 +257,21 @@ If not using simulated drivers they are activated if the respective mock argumen
     <arg name="remap_ns" default="radar_rc"/>
   </include>
 
+  <!-- DelphiESR Front Driver Node -->
+  <!-- <include if="$(arg delphi_esr_driver)" ns="radar_fc" file="$(find delphi_esr)/launch/delphi_esr.launch">
+    <arg name="use_socketcan" default="true" />
+    <arg name="socketcan_device" default="can1" />
+    <arg name="esr_frame_id" default="radar_fc" />
+    <arg name="esr_upside_down" default="false" />
+    <arg name="viz_mature_tracks_only" default="false" />
+  </include> -->
+
+  <!-- DelphiESR Front Driver Node -->
+  <!-- <include if="$(arg delphi_esr_driver)" ns="radar_rc" file="$(find delphi_esr)/launch/delphi_esr.launch">
+    <arg name="use_socketcan" default="true" />
+    <arg name="socketcan_device" default="can2" />
+    <arg name="esr_frame_id" default="radar_rc" />
+    <arg name="esr_upside_down" default="false" />
+    <arg name="viz_mature_tracks_only" default="false" />
+  </include> -->
 </launch>
