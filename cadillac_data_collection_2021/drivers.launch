@@ -69,6 +69,7 @@ If not using simulated drivers they are activated if the respective mock argumen
   </include>
   
   <!-- Torc pinpoint GNSS/IMU Driver Node -->
+  <remap from="/position/gps_common_fix" to="/hardware_interface/gnss_fix_fused"/>
   <include if="$(arg torc_pinpoint_driver)" file="$(find pinpoint)/launch/pinpoint.launch">
     <param name="address" value="192.168.88.29"/>
     <param name="loc_port" value="9501"/>
@@ -118,13 +119,13 @@ If not using simulated drivers they are activated if the respective mock argumen
   <!-- Lidar Concat -->
   <include if="$(arg velodyne_lidar_driver_wrapper)" file="$(find points_preprocessor)/launch/points_concat_filter.launch">
     <arg name="input_topics" default="[velodyne_fl/lidar/points_raw, velodyne_rl/lidar/points_raw, velodyne_rr/lidar/points_raw, velodyne_fr/lidar/points_raw]" />
-    <arg name="output_topic" default="velodyne/lidar/points_raw" />
+    <arg name="output_topic" default="lidar/points_raw" />
     <arg name="output_frame_id" default="base_link" />
   </include>
 
   <!-- Camera parameters -->
   <arg name="respawn" value="true" />
-  <arg name="brightness" value="50" />
+  <arg name="brightness" value="35" />
   <arg name="front_decimation" value="2"/>
   <arg name="rear_decimation" value="2"/>
   <arg name="side_decimation" value="2"/>
