@@ -117,7 +117,7 @@ If not using simulated drivers they are activated if the respective mock argumen
     <arg name="binning_y" value="$(arg side_binning)"/>
     <arg name="frame_rate" value="$(arg side_framerate)"/>
     <arg name="image_encoding" value="$(arg side_encoding)"/>
-    <arg name="camera_info_url" value="$(arg vehicle_calibration_dir)/arena_camera/camera_intrinsic_front_left_x1_y1.yaml"/>
+    <arg name="camera_info_url" value="$(arg vehicle_calibration_dir)/arena_camera/camera_intrinsic_front_left_x2_y2.yaml"/>
   </include>
 
   <!-- Rear Left Camera Driver Node -->
@@ -134,7 +134,7 @@ If not using simulated drivers they are activated if the respective mock argumen
     <arg name="binning_y" value="$(arg side_binning)"/>
     <arg name="frame_rate" value="$(arg side_framerate)"/>
     <arg name="image_encoding" value="$(arg side_encoding)"/>
-    <arg name="camera_info_url" value="$(arg vehicle_calibration_dir)/arena_camera/camera_intrinsic_rear_left_x1_y1.yaml"/>
+    <arg name="camera_info_url" value="$(arg vehicle_calibration_dir)/arena_camera/camera_intrinsic_rear_left_x2_y2.yaml"/>
   </include>
 
   <!-- Rear Center Camera Driver Node -->
@@ -151,7 +151,7 @@ If not using simulated drivers they are activated if the respective mock argumen
     <arg name="binning_y" value="$(arg rear_binning)"/>
     <arg name="frame_rate" value="$(arg rear_framerate)"/>
     <arg name="image_encoding" value="$(arg rear_encoding)"/>
-    <arg name="camera_info_url" value="$(arg vehicle_calibration_dir)/arena_camera/camera_intrinsic_rear_center_x1_y1.yaml"/>
+    <arg name="camera_info_url" value="$(arg vehicle_calibration_dir)/arena_camera/camera_intrinsic_rear_center_x2_y2.yaml"/>
   </include>
 
   <!-- Rear Right Camera Driver Node -->
@@ -168,7 +168,7 @@ If not using simulated drivers they are activated if the respective mock argumen
     <arg name="binning_y" value="$(arg side_binning)"/>
     <arg name="frame_rate" value="$(arg side_framerate)"/>
     <arg name="image_encoding" value="$(arg side_encoding)"/>
-    <arg name="camera_info_url" value="$(arg vehicle_calibration_dir)/arena_camera/camera_intrinsic_rear_right_x1_y1.yaml"/>
+    <arg name="camera_info_url" value="$(arg vehicle_calibration_dir)/arena_camera/camera_intrinsic_rear_right_x2_y2.yaml"/>
   </include>
 
   <!-- Front Right Camera Driver Node -->
@@ -185,7 +185,7 @@ If not using simulated drivers they are activated if the respective mock argumen
     <arg name="binning_y" value="$(arg side_binning)"/>
     <arg name="frame_rate" value="$(arg side_framerate)"/>
     <arg name="image_encoding" value="$(arg side_encoding)"/>
-    <arg name="camera_info_url" value="$(arg vehicle_calibration_dir)/arena_camera/camera_intrinsic_front_right_x1_y1.yaml"/>
+    <arg name="camera_info_url" value="$(arg vehicle_calibration_dir)/arena_camera/camera_intrinsic_front_right_x2_y2.yaml"/>
   </include>
 
   <!-- Front Center Camera Driver Node -->
@@ -202,11 +202,11 @@ If not using simulated drivers they are activated if the respective mock argumen
     <arg name="binning_y" value="$(arg front_binning)"/>
     <arg name="frame_rate" value="$(arg front_framerate)"/>
     <arg name="image_encoding" value="$(arg front_encoding)"/>
-    <arg name="camera_info_url" value="$(arg vehicle_calibration_dir)/arena_camera/camera_intrinsic_front_center_x1_y1.yaml"/>
+    <arg name="camera_info_url" value="$(arg vehicle_calibration_dir)/arena_camera/camera_intrinsic_front_center_x2_y2.yaml"/>
   </include>
 
   <!-- AVT Vimba Camera Left Driver Node -->
-  <remap from="camera/camera_info" to="dummy_camera_info"/>
+  <!-- <remap from="camera/camera_info" to="dummy_camera_info"/>
   <include if="$(arg avt_vimba_camera)" file="$(find avt_vimba_camera)/launch/mono_camera.launch">
 	  <arg name="guid" default=""/>
  	  <arg name="ip" default="192.168.30.10"/>
@@ -214,10 +214,10 @@ If not using simulated drivers they are activated if the respective mock argumen
  	  <arg name="frame_id" default="left_optical"/>
 	  <arg name="trig_timestamp_topic" default=""/>
 	  <arg name="show_debug_prints" default="false"/>
-  </include>
+  </include> -->
   
   <!-- AVT Vimba Camera Right Driver Node -->
-  <remap from="camera/camera_info" to="dummy_camera_info"/>
+  <!-- <remap from="camera/camera_info" to="dummy_camera_info"/>
   <include if="$(arg avt_vimba_camera)" file="$(find avt_vimba_camera)/launch/mono_camera.launch">
 	  <arg name="guid" default=""/>
  	  <arg name="ip" default="192.168.40.10"/>
@@ -225,7 +225,7 @@ If not using simulated drivers they are activated if the respective mock argumen
  	  <arg name="frame_id" default="right_optical"/>
 	  <arg name="trig_timestamp_topic" default=""/>
 	  <arg name="show_debug_prints" default="false"/>
-  </include>
+  </include> -->
   
   <!-- DelphiESR Front Driver Node -->
   <include if="$(arg delphi_esr_driver)" ns="radar_fc" file="$(find delphi_esr)/launch/delphi_esr.launch">
