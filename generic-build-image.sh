@@ -55,7 +55,7 @@ echo "Final image name: $USERNAME/$IMAGE:$TAG"
 
 if [[ $TAG = "develop-$CONFIG_NAME" ]]; then
     git checkout -- docker-compose.yml
-    sed -i "s|usdotfhwastoldev|$USERNAME|g; s|usdotfhwastol|$USERNAME|g; s|:[0-9]*\.[0-9]*\.[0-9]*|:develop|g; s|:CARMASystem_[0-9]*\.[0-9]*\.[0-9]*|:develop|g;" \
+    sed -i "s|usdotfhwastoldev|$USERNAME|g; s|usdotfhwastol|$USERNAME|g; s|:[0-9]*\.[0-9]*\.[0-9]*|:foxy-develop|g; s|:CARMASystem_[0-9]*\.[0-9]*\.[0-9]*|:foxy-develop|g;" \
         docker-compose.yml
     docker build --no-cache -t $USERNAME/$IMAGE:$TAG \
     --build-arg VERSION="$TAG" \
