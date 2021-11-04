@@ -98,6 +98,9 @@ camera_drivers:
 # Used for interpreting traffic rules in world model instances
 vehicle_participant_type: "vehicle:car"
 
+#BSM Message ID for Simulation Testing (Will be converted to uint8_t in bsm_generator)
+bsm_message_id: 1
+
 #Enable/disable rotation of BSM ID during vehicle operations
 bsm_id_rotation_enabled: true
 
