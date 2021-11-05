@@ -102,7 +102,8 @@ camera_drivers:
 # Used for interpreting traffic rules in world model instances
 vehicle_participant_type: "vehicle:truck"
 
-#BSM Message ID for Simulation Testing (Will be converted to uint8_t in bsm_generator)
+#BSM Message ID for Simulation Testing 
+#The value will be converted to a 4 element array of uint8_t where each byte of the parameter becomes one element of the array.
 bsm_message_id: 6
 
 #Enable/disable rotation of BSM ID during vehicle operations
