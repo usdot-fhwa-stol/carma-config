@@ -49,6 +49,21 @@ services:
       - /opt/carma/yolo:/opt/carma/yolo
     command: bash -c 'wait-for-it.sh localhost:11311 -- roslaunch /opt/carma/vehicle/config/carma_docker.launch'
 
+ mock-controller-driver:
+    image: usdotfhwastoldev/carma-platform:develop
+    network_mode: host
+    container_name: carma-srx-controller-driver
+    volumes_from: 
+      - container:carma-config:ro
+    environment:
+      - ROS_IP=192.168.89.1
+    volumes:
+      - /opt/carma/logs:/opt/carma/logs
+      - /opt/carma/.ros:/home/carma/.ros
+      - /opt/carma/data:/opt/carma/data
+      - /home/carma/configs/localization_manager:/opt/carma/install/localization_manager/share/localization_manager/config
+    command: bash -c 'export ROS_NAMESPACE=$${CARMA_INTR_NS} && wait-for-it.sh localhost:11311 -- roslaunch carma mock_drivers.launch mock_drivers:=controller'
+
   cohda_dsrc_driver:
     image: usdotfhwastoldev/carma-cohda-dsrc-driver:develop
     container_name: carma-cohda-dsrc-driver
