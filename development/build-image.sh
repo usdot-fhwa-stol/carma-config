@@ -33,7 +33,7 @@ while [[ $# -gt 0 ]]; do
     case $arg in
         -d|--develop)
             USERNAME=usdotfhwastoldev
-            TAG=noetic-develop
+            TAG=develop
             shift
             ;;
     esac
@@ -53,11 +53,11 @@ fi
 echo "Building docker image for CARMA Configuration version: $TAG"
 echo "Final image name: $USERNAME/$IMAGE:$TAG"
 
-if [[ $TAG = "noetic-develop-$CONFIG_NAME" ]]; then
+if [[ $TAG = "develop-$CONFIG_NAME" ]]; then
     git checkout -- docker-compose.yml
-    sed -i "s|usdotfhwastoldev/|$USERNAME/|g; s|usdotfhwastolcandidate/|$USERNAME/|g; s|usdotfhwastol/|$USERNAME/|g; s|:[0-9]*\.[0-9]*\.[0-9]*|:noetic-develop|g; s|:CARMASystem_[0-9]*\.[0-9]*\.[0-9]*|:noetic-develop|g;" \
+    sed -i "s|usdotfhwastoldev/|$USERNAME/|g; s|usdotfhwastolcandidate/|$USERNAME/|g; s|usdotfhwastol/|$USERNAME/|g; s|:[0-9]*\.[0-9]*\.[0-9]*|:develop|g; s|:CARMASystem_[0-9]*\.[0-9]*\.[0-9]*|:develop|g;" \
         docker-compose.yml
-    sed -i "s|usdotfhwastoldev/|$USERNAME/|g; s|usdotfhwastolcandidate/|$USERNAME/|g; s|usdotfhwastol/|$USERNAME/|g; s|:[0-9]*\.[0-9]*\.[0-9]*|:noetic-develop|g; s|:CARMASystem_[0-9]*\.[0-9]*\.[0-9]*|:noetic-develop|g;" \
+    sed -i "s|usdotfhwastoldev/|$USERNAME/|g; s|usdotfhwastolcandidate/|$USERNAME/|g; s|usdotfhwastol/|$USERNAME/|g; s|:[0-9]*\.[0-9]*\.[0-9]*|:develop|g; s|:CARMASystem_[0-9]*\.[0-9]*\.[0-9]*|:develop|g;" \
         docker-compose-background.yml
 else
     git checkout -- docker-compose.yml docker-compose-background.yml
