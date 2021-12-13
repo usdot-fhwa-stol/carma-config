@@ -83,7 +83,7 @@
   </group>
 
   <!-- Localization Stack -->
-  <!-- <group ns="$(env CARMA_LOCZ_NS)">
+  <group ns="$(env CARMA_LOCZ_NS)">
     <include file="$(find carma)/launch/localization.launch">
       <arg name="arealist_path" value="$(arg arealist_path)"/>
       <arg name="area" value="$(arg area)"/>
@@ -93,15 +93,15 @@
       <arg name="vector_map_file" value="$(arg vector_map_file)" />
       <arg name="simulation_mode" value="$(arg simulation_mode)" />
     </include>
-  </group> -->
+  </group>
 
   <!-- Comms Messaging Stack -->
-  <!-- <group ns="$(env CARMA_MSG_NS)">
+  <group ns="$(env CARMA_MSG_NS)">
     <include file="$(find carma)/launch/message.launch"/>
-  </group> -->
+  </group>
 
   <!-- Environment Perception Stack -->
-  <!-- <group ns="$(env CARMA_ENV_NS)">
+  <group ns="$(env CARMA_ENV_NS)">
     <include file="$(find carma)/launch/environment.launch">
       <arg name="cuda" value="$(arg cuda)"/>
       <arg name="vector_map_file" value="$(arg vector_map_file)" />
@@ -109,7 +109,7 @@
       <arg name="yolo_dir" value="$(arg yolo_dir)"/>
       <arg name="simulation_mode" value="$(arg simulation_mode)" />
     </include>
-  </group> -->
+  </group>
 
   <!-- Guidance Stack -->
   <!-- <group ns="$(env CARMA_GUIDE_NS)"> -->
@@ -134,9 +134,9 @@
   </group> -->
 
   <!-- UI Stack -->
-  <!-- <group ns="$(env CARMA_UI_NS)">
+  <group ns="$(env CARMA_UI_NS)">
     <include file="$(find carma)/launch/ui.launch"/>
-  </group> -->
+  </group>
 
   <!-- Set up the rosbag record node that will exclude sensitive topics -->
   <!-- <group ns="carma_record">
