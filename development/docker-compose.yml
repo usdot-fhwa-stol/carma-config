@@ -48,6 +48,39 @@ services:
       - ROS_IP=127.0.0.1
     command: bash -c 'wait-for-it.sh localhost:11311 -- roslaunch /opt/carma/vehicle/config/carma_docker.launch'
 
+  platform_ros2:
+    image: usdotfhwastoldev/carma-platform:foxy-develop
+    network_mode: host
+    container_name: platform_ros2
+    volumes_from:
+      - container:carma-config:ro
+    volumes:
+      - /opt/carma/logs:/opt/carma/logs
+      - /opt/carma/.ros:/home/carma/.ros
+      - /opt/carma/vehicle/calibration:/opt/carma/vehicle/calibration
+      - /opt/carma/maps:/opt/carma/maps
+      - /opt/carma/routes:/opt/carma/routes
+      - /opt/carma/yolo:/opt/carma/yolo
+    command: bash -c 'source /opt/carma/install_ros2/setup.bash && ros2 launch /opt/carma/vehicle/config/carma_docker.launch.py'
+
+  ros1_bridge:
+    image: usdotfhwastoldev/carma-msgs:foxy-develop
+    network_mode: host
+    container_name: ros1_bridge
+    volumes_from:
+      - container:carma-config:ro
+    environment:
+      - ROS_IP=127.0.0.1
+      - ROS_MASTER_URI=http://localhost:11311
+    volumes:
+      - /opt/carma/logs:/opt/carma/logs
+      - /opt/carma/.ros:/home/carma/.ros
+      - /opt/carma/vehicle/calibration:/opt/carma/vehicle/calibration
+      - /opt/carma/maps:/opt/carma/maps
+      - /opt/carma/routes:/opt/carma/routes
+      - /opt/carma/yolo:/opt/carma/yolo
+    command: bash -c 'source ~/.base-image/workspace/install/setup.bash && ros2 run ros1_bridge dynamic-bridge'
+
   mock-lightbar-driver:
     image: usdotfhwastoldev/carma-platform:foxy-develop
     network_mode: host
