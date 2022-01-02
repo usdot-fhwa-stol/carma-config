@@ -50,7 +50,10 @@
   <!-- List of String: Guidance Control Plugins that will be validated by the Guidance Plugin Validator Node if enabled -->
   <arg name="control_plugins_to_validate" value="[]"/>
   
+<<<<<<< HEAD
 
+=======
+>>>>>>> master
   <!-- Launch without drivers as those will be launched as docker containers-->
   <arg name="launch_drivers" default="false"/>
 
