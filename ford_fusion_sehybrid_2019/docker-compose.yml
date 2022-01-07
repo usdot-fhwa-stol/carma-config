@@ -108,7 +108,6 @@ services:
 
   velodyne_lidar_driver:
     image: usdotfhwastoldev/carma-velodyne-lidar-driver:develop
-    image: usdotfhwastol/carma-velodyne-lidar-driver:develop
     container_name: velodyne-lidar-driver
     network_mode: host
     volumes_from:
