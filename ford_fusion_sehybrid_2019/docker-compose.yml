@@ -81,8 +81,8 @@ services:
     container_name: ssc_controller_driver
     network_mode: host
     privileged: true # Grant access to usb for can data
-    devices: # Data speed can tool at bus 1 device 6
-      - /dev/bus/usb/001/006:/dev/bus/usb/001/006
+    devices: # Data speed can tool at bus 1 device 3
+      - /dev/bus/usb/001/003:/dev/bus/usb/001/003
     volumes_from:
       - container:carma-config:ro
     environment:
