@@ -79,7 +79,7 @@ services:
       - /opt/carma/maps:/opt/carma/maps
       - /opt/carma/routes:/opt/carma/routes
       - /opt/carma/yolo:/opt/carma/yolo
-    command: bash -c 'source ~/.base-image/workspace/install/setup.bash && ros2 run ros1_bridge dynamic_bridge'
+    command: bash -c 'wait-for-it.sh localhost:11311 -- rosparam load /opt/carma/vehicle/config/bridge.yml && source ~/.base-image/workspace/install/setup.bash && ros2 run ros1_bridge parameter_bridge'
     
   carla_ackermann_control:
     image: usdotfhwastoldev/carma-simulation:foxy-develop
