@@ -17,6 +17,8 @@ from launch import LaunchDescription
 from launch.actions import IncludeLaunchDescription
 from launch.launch_description_sources import PythonLaunchDescriptionSource
 from launch.actions import SetEnvironmentVariable
+from launch.actions import DeclareLaunchArgument
+from launch.substitutions import LaunchConfiguration
 
 from carma_ros2_utils.launch.generate_log_levels import generate_log_levels
 import os
@@ -30,12 +32,20 @@ def generate_launch_description():
     config_file_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'carma_rosconsole.conf') 
     logging_env_var = SetEnvironmentVariable('CARMA_ROS_LOGGING_CONFIG', generate_log_levels(config_file_path))
 
+    # Declare the vehicle_calibration_dir launch argument
+    vehicle_calibration_dir = LaunchConfiguration('vehicle_calibration_dir')
+    declare_vehicle_calibration_dir_arg = DeclareLaunchArgument(
+        name = 'vehicle_calibration_dir', default_value = '/opt/carma/vehicle/calibration', description = "Path to vehicle calibration directory"
+    )
+
     # Launch the core carma launch file
     carma_src_launch = IncludeLaunchDescription(
-        PythonLaunchDescriptionSource([ get_package_share_directory('carma'), '/launch/carma_src.launch.py'])
+        PythonLaunchDescriptionSource([ get_package_share_directory('carma'), '/launch/carma_src.launch.py']),
+        launch_arguments = { 'vehicle_calibration_dir' : vehicle_calibration_dir }.items()
     )
 
     return LaunchDescription([
         logging_env_var, # Environment variables must be placed before included files
+        declare_vehicle_calibration_dir_arg,
         carma_src_launch
     ])
