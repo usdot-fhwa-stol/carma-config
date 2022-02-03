@@ -17,7 +17,7 @@ version: '2'
 
 services:
   web-ui:
-    image: usdotfhwastolcandidate/carma-web-ui:fiesta
+    image: usdotfhwastol/carma-web-ui:carma-system-3.11.0
     network_mode: host
     container_name: web-ui
     environment:
