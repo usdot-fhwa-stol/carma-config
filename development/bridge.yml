@@ -17,8 +17,27 @@ topics:
     topic: /tf
     type: tf2_msgs/msg/TFMessage
     queue_size: 100
--    
+  -    
     topic: /environment/semantic_map
     type: autoware_lanelet2_msgs/msg/MapBin
+    queue_size: 1
+    qos:
+      history: keep_all
+      durability: transient_local
+  -
+    topic: /message/mobility_path_msg
+    type: carma_v2x_msgs/msg/MobilityPath
+    queue_size: 1
+  -
+    topic: /message/bsm_outbound
+    type: carma_v2x_msgs/msg/BSM
+    queue_size: 1
+  -
+    topic: /guidance/plan_trajectory
+    type: carma_planning_msgs/msg/TrajectoryPlan
+    queue_size: 1
+  -
+    topic: /localization/map_param_loader/georeference
+    type: std_msgs/msg/String
     queue_size: 1
 services_1_to_2: []
