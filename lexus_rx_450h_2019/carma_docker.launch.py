@@ -38,14 +38,24 @@ def generate_launch_description():
         name = 'vehicle_calibration_dir', default_value = '/opt/carma/vehicle/calibration', description = "Path to vehicle calibration directory"
     )
 
+    # Declare the vehicle_config_dir launch argument
+    vehicle_config_dir = LaunchConfiguration('vehicle_config_dir')
+    declare_vehicle_config_dir_arg = DeclareLaunchArgument(
+        name = 'vehicle_config_dir', default_value = '/opt/carma/vehicle/config', description = "Path to vehicle configuration directory"
+    )
+
     # Launch the core carma launch file
     carma_src_launch = IncludeLaunchDescription(
         PythonLaunchDescriptionSource([ get_package_share_directory('carma'), '/launch/carma_src.launch.py']),
-        launch_arguments = { 'vehicle_calibration_dir' : vehicle_calibration_dir }.items()
+        launch_arguments = {
+            'vehicle_calibration_dir' : vehicle_calibration_dir,
+            'vehicle_config_dir' : vehicle_config_dir
+            }.items()
     )
 
     return LaunchDescription([
         logging_env_var, # Environment variables must be placed before included files
         declare_vehicle_calibration_dir_arg,
+        declare_vehicle_config_dir_arg,
         carma_src_launch
     ])
