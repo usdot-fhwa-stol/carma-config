@@ -41,4 +41,40 @@ topics:
     topic: /localization/map_param_loader/georeference
     type: std_msgs/msg/String
     queue_size: 1
+  -
+    topic: /hardware_interface/velocity_accel_cov
+    type: automotive_platform_msgs/msg/VelocityAccelCov
+    queue_size: 1
+  -
+    topic: /hardware_interface/imu_raw
+    type: sensor_msgs/msg/Imu
+    queue_size: 1
+  -
+    topic: /hardware_interface/can/transmission_state
+    type: j2735_v2x_msgs/msg/TransmissionState
+    queue_size: 1
+  -
+    topic: /hardware_interface/can/steering_wheel_angle
+    type: std_msgs/msg/Float64
+    queue_size: 1
+  -
+    topic: /hardware_interface/gnss_fix_fused
+    type: gps_msgs/msg/GPSFix
+    queue_size: 1
+  -
+    topic: /localization/current_pose
+    type: geometry_msgs/msg/PoseStamped
+    queue_size: 1
+  -
+    topic: /message/bsm_outbound
+    type: carma_v2x_msgs/msg/BSM
+    queue_size: 1
+  -
+    topic: /hardware_interface/can/brake_position
+    type: std_msgs/msg/Float64
+    queue_size: 1
+  -
+    topic: /hardware_interface/vehicle/twist
+    type: geometry_msgs/msg/TwistStamped
+    queue_size: 1
 services_1_to_2: []
