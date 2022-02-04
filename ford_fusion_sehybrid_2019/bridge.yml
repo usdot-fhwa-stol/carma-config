@@ -25,6 +25,13 @@ topics:
     topic: /environment/roadway_obstacles_viz
     type: visualization_msgs/msg/MarkerArray
     queue_size: 1
+  -    
+    topic: /environment/semantic_map
+    type: autoware_lanelet2_msgs/msg/MapBin
+    queue_size: 1
+    qos:
+      history: keep_all
+      durability: transient_local
   -
     topic: /message/mobility_path_msg
     type: carma_v2x_msgs/msg/MobilityPath
