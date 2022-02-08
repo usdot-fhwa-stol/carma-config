@@ -17,7 +17,7 @@ version: '2'
 
 services:
   web-ui:
-    image: usdotfhwastolcandidate/carma-web-ui:elise # TODO change this to foxy-develop
+    image: usdotfhwastolcandidate/carma-web-ui:elise # TODO change this to develop
     network_mode: host
     container_name: carma-web-ui
     environment:

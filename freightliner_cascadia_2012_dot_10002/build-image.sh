@@ -33,7 +33,7 @@ while [[ $# -gt 0 ]]; do
     case $arg in
         -d|--develop)
             USERNAME=usdotfhwastoldev
-            TAG=foxy-develop
+            TAG=develop
             shift
             ;;
     esac
@@ -55,9 +55,9 @@ echo "Final image name: $USERNAME/$IMAGE:$TAG"
 
 if [[ $TAG = "develop-$CONFIG_NAME" ]]; then
     git checkout -- docker-compose.yml
-    sed -i "s|usdotfhwastoldev/|$USERNAME/|g; s|usdotfhwastol/|$USERNAME/|g; s|:[0-9]*\.[0-9]*\.[0-9]*|:foxy-develop|g; s|:CARMASystem_[0-9]*\.[0-9]*\.[0-9]*|:foxy-develop|g;" \
+    sed -i "s|usdotfhwastoldev/|$USERNAME/|g; s|usdotfhwastol/|$USERNAME/|g; s|:[0-9]*\.[0-9]*\.[0-9]*|:develop|g; s|:CARMASystem_[0-9]*\.[0-9]*\.[0-9]*|:develop|g;" \
         docker-compose.yml
-    sed -i "s|usdotfhwastoldev/|$USERNAME/|g; s|usdotfhwastol/|$USERNAME/|g; s|:[0-9]*\.[0-9]*\.[0-9]*|:foxy-develop|g; s|:CARMASystem_[0-9]*\.[0-9]*\.[0-9]*|:foxy-develop|g;" \
+    sed -i "s|usdotfhwastoldev/|$USERNAME/|g; s|usdotfhwastol/|$USERNAME/|g; s|:[0-9]*\.[0-9]*\.[0-9]*|:develop|g; s|:CARMASystem_[0-9]*\.[0-9]*\.[0-9]*|:develop|g;" \
         docker-compose-background.yml
     docker build --no-cache -t $USERNAME/$IMAGE:$TAG \
     --build-arg VERSION="$TAG" \
