@@ -1,16 +1,16 @@
 use_sim_time: true
 
 # Defines the ros parameters which define the characteristics of this host vehicle configuration
-# The value type field is used to indicate how the field should be set. 
+# The value type field is used to indicate how the field should be set.
 # Should it be treated as a measured value (Measured) or a desired behavior constraint (Desired)
 
 # String: Host vehicle make
 # Value type: Measured
-vehicle_make: 'Lexus'
+vehicle_make: 'greased'
 
 # String: Host vehicle model
 # Value type: Measured
-vehicle_model: 'RX-450'
+vehicle_model: 'lightning'
 
 # Integer: Host vehicle year
 # Value type: Measured
@@ -25,12 +25,12 @@ vehicle_length: 5.0
 # Double: Host vehicle width
 # Value type: Measured
 # Units: Meters
-vehicle_width: 2.5
+vehicle_width: 3.0
 
 # Double: Host vehicle height
 # Value type: Measured
 # Units: Meters
-vehicle_height: 3.0
+vehicle_height: 2.0
 
 # Double: Distance from front axel to rear axel
 # Value type: Measured
@@ -52,6 +52,16 @@ vehicle_acceleration_limit: 2.0
 # Units: m/s^2
 vehicle_deceleration_limit: 2.0
 
+# Lateral Acceleration Limit
+# Value type: Desired
+# Units: m/s^2
+vehicle_lateral_accel_limit: 1.3
+
+# Lateral Jerk Limit
+# Value type: Desired
+# Units: m/s^3
+vehicle_lateral_jerk_limit: 2.0
+
 # Max curvature rate
 # Value type: Desired
 # Units: (m^-1) / s
@@ -67,27 +77,30 @@ vehicle_steering_gear_ratio: 16.863
 # Unit: deg
 vehicle_steer_lim_deg: 29.2
 
-# steering dynamics time constant 
-# Value type: Measured 
+# steering dynamics time constant
+# Value type: Measured
 # Unit: s
 vehicle_model_steer_tau : 0.3
 
 # Parameter to switch between passenger car and truck
 # Value type: Measured
 truck: false
-car: true 
+car: true
 
 # Required drivers for the vehicle to be functional
 required_drivers:
-  - /hardware_interface/carla_ackermann_control_wrapper
+  - /hardware_interface/controller
 lidar_gps_drivers:
-  - /hardware_interface/mock_lidar
-  - /hardware_interface/mock_gnss
+  - /hardware_interface/lidar
+  - /hardware_interface/gnss
+camera_drivers:
+  - /hardware_interface/camera
 
 # Parameter to enable configurable speed limit
 # Value type: Desired
-config_speed_limit: 45.0
+config_speed_limit: 20.0
 
+# Topics to exclude from rosbag recording
 exclude_default: true
 excluded_default_topics:
   - /rosout(.*)
@@ -95,7 +108,6 @@ excluded_default_topics:
   - (.*)/sent_messages
   - (.*)/scan
 
-# Topics to exclude from rosbag recording
 exclude_lidar: false
 excluded_lidar_topics:
   - /detection/lidar_detector/objects
@@ -108,7 +120,7 @@ excluded_lidar_topics:
   - /environment/detection/object_tracker/objects
   - /environment/detection/object_tracker/objects_markers
   - /environment/detection/objects
-  
+
 exclude_camera: false
 excluded_camera_topics:
   - /hardware_interface/camera/camera_info
@@ -126,5 +138,5 @@ excluded_camera_topics:
 
 exclude_can: false
 excluded_can_topics:
-  - /hardware_interface/ds_fusion/can_bus_dbw/can_rx 
+  - /hardware_interface/ds_fusion/can_bus_dbw/can_rx
   - /hardware_interface/ds_fusion/can_bus_dbw/can_tx
