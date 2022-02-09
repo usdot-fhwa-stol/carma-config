@@ -55,7 +55,7 @@ vehicle_deceleration_limit: 2.0
 # Lateral Acceleration Limit
 # Value type: Desired
 # Units: m/s^2
-vehicle_lateral_accel_limit: 1.3
+vehicle_lateral_accel_limit: 2.3
 
 # Lateral Jerk Limit
 # Value type: Desired
@@ -89,7 +89,7 @@ car: true
 
 # Required drivers for the vehicle to be functional
 required_drivers:
-  - /hardware_interface/controller
+  - /hardware_inteface/carla_driver
 lidar_gps_drivers:
   - /hardware_interface/lidar
   - /hardware_interface/gnss
