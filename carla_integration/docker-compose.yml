@@ -17,7 +17,7 @@ version: '2'
 
 services:
   roscore:
-    image: usdotfhwastoldev/carma-base:develop
+    image: usdotfhwastol/carma-base:carma-system-3.8.0
     network_mode: host
     container_name: roscore
     volumes_from:
@@ -31,7 +31,7 @@ services:
     command: roscore
 
   platform:
-    image: usdotfhwastoldev/carma-platform:develop
+    image: usdotfhwastol/carma-platform:carma-system-3.8.0
     network_mode: host
     container_name: platform
     volumes_from:
@@ -48,41 +48,44 @@ services:
       - /opt/carma/yolo:/opt/carma/yolo
     command: bash -c 'wait-for-it.sh localhost:11311 -- roslaunch /opt/carma/vehicle/config/carma_docker.launch'
 
-  carla_ackermann_control:
-    image: usdotfhwastoldev/carma-simulation:develop
-    container_name: carla-ackermann-control-driver
-    network_mode: host
-    volumes_from:
-      - container:carma-config:ro
-    environment:
-      - ROS_IP=127.0.0.1
-    volumes:
-      - /opt/carma/logs:/opt/carma/logs
-      - /opt/carma/.ros:/home/carma/.ros
-    command: bash -c 'export ROS_NAMESPACE=$${CARMA_INTR_NS} && wait-for-it.sh localhost:11311 -- roslaunch /opt/carma/vehicle/config/drivers.launch'
-
   mock-gnss-driver:
-    image: usdotfhwastoldev/carma-platform:develop
+    image: usdotfhwastol/carma-platform:carma-system-3.8.0
     network_mode: host
     container_name: carma-mock-gnss-driver
-    volumes_from: 
+    volumes_from:
       - container:carma-config:ro
     volumes:
       - /opt/carma/logs:/opt/carma/logs
       - /opt/carma/.ros:/home/carma/.ros
+      - /opt/carma/data:/opt/carma/data
     environment:
       - ROS_IP=127.0.0.1
     command: bash -c 'export ROS_NAMESPACE=$${CARMA_INTR_NS} && wait-for-it.sh localhost:11311 -- roslaunch carma mock_drivers.launch mock_drivers:=gnss'
 
   mock-lidar-driver:
-    image: usdotfhwastoldev/carma-platform:develop
+    image: usdotfhwastol/carma-platform:carma-system-3.8.0
     network_mode: host
     container_name: carma-mock-lidar-driver
-    volumes_from: 
+    volumes_from:
       - container:carma-config:ro
     volumes:
       - /opt/carma/logs:/opt/carma/logs
       - /opt/carma/.ros:/home/carma/.ros
+      - /opt/carma/data:/opt/carma/data
     environment:
       - ROS_IP=127.0.0.1
     command: bash -c 'export ROS_NAMESPACE=$${CARMA_INTR_NS} && wait-for-it.sh localhost:11311 -- roslaunch carma mock_drivers.launch mock_drivers:=lidar'
+
+  mock-camera-driver:
+    image: usdotfhwastol/carma-platform:carma-system-3.8.0
+    network_mode: host
+    container_name: carma-mock-camera-driver
+    volumes_from:
+      - container:carma-config:ro
+    volumes:
+      - /opt/carma/logs:/opt/carma/logs
+      - /opt/carma/.ros:/home/carma/.ros
+      - /opt/carma/data:/opt/carma/data
+    environment:
+      - ROS_IP=127.0.0.1
+    command: bash -c 'export ROS_NAMESPACE=$${CARMA_INTR_NS} && wait-for-it.sh localhost:11311 -- roslaunch carma mock_drivers.launch mock_drivers:=camera'
