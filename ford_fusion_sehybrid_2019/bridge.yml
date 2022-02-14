@@ -73,10 +73,6 @@ topics:
     type: geometry_msgs/msg/PoseStamped
     queue_size: 1
   -
-    topic: /message/bsm_outbound
-    type: carma_v2x_msgs/msg/BSM
-    queue_size: 1
-  -
     topic: /hardware_interface/can/brake_position
     type: std_msgs/msg/Float64
     queue_size: 1
@@ -84,4 +80,72 @@ topics:
     topic: /hardware_interface/vehicle/twist
     type: geometry_msgs/msg/TwistStamped
     queue_size: 1
+  -
+    topic: /hardware_interface/comms/inbound_binary_msg
+    type: carma_driver_msgs/msg/ByteArray
+    queue_size: 50
+  -
+    topic: /hardware_interface/comms/outbound_binary_msg
+    type: carma_driver_msgs/msg/ByteArray
+    queue_size: 50
+  -
+    topic: /message/incoming_bsm
+    type: carma_v2x_msgs/msg/BSM
+    queue_size: 50
+  -
+    topic: /message/incoming_spat
+    type: carma_v2x_msgs/msg/SPAT
+    queue_size: 50
+  -
+    topic: /message/incoming_map
+    type: carma_v2x_msgs/msg/MapData
+    queue_size: 50
+  -
+    topic: /message/incoming_geofence_control
+    type: carma_v2x_msgs/msg/TrafficControlMessage
+    queue_size: 10
+  -
+    topic: /message/incoming_geofence_request
+    type: carma_v2x_msgs/msg/TrafficControlRequest
+    queue_size: 1
+  -
+    topic: /message/outgoing_geofence_control
+    type: carma_v2x_msgs/msg/TrafficControlMessage
+    queue_size: 1
+  -
+    topic: /message/outgoing_geofence_request
+    type: carma_v2x_msgs/msg/TrafficControlRequest
+    queue_size: 1
+  -
+    topic: /message/incoming_mobility_operation
+    type: carma_v2x_msgs/msg/MobilityOperation
+    queue_size: 50
+  -
+    topic: /message/outgoing_mobility_operation
+    type: carma_v2x_msgs/msg/MobilityOperation
+    queue_size: 50
+  -
+    topic: /message/incoming_mobility_response
+    type: carma_v2x_msgs/msg/MobilityResponse
+    queue_size: 50
+  -
+    topic: /message/outgoing_mobility_response
+    type: carma_v2x_msgs/msg/MobilityResponse
+    queue_size: 50
+  -
+    topic: /message/incoming_mobility_path
+    type: carma_v2x_msgs/msg/MobilityPath
+    queue_size: 50
+  -
+    topic: /message/outgoing_mobility_path
+    type: carma_v2x_msgs/msg/MobilityPath
+    queue_size: 50
+  -
+    topic: /message/incoming_mobility_request
+    type: carma_v2x_msgs/msg/MobilityRequest
+    queue_size: 50
+  -
+    topic: /message/outgoing_mobility_request
+    type: carma_v2x_msgs/msg/MobilityRequest
+    queue_size: 50
 services_1_to_2: []
