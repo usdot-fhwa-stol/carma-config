@@ -130,7 +130,7 @@ If not using simulated drivers they are activated if the respective mock argumen
   <!-- AVT Vimba Camera Right Driver Node 
     <include if="$(arg avt_vimba_camera)" ns="camera_right" file="$(find avt_vimba_camera)/launch/mono_camera.launch">
 	<arg name="guid" default=""/>
- 	<arg name="ip" default="192.168.40.10"/>
+ 	<arg name="ip" default="192.168.20.1"/>
   <arg name="camera_info_url" default="file://$(find vehicle_calibration_dir)/avt_vimba_camera/calibration_50-0536911040.yaml"/>
  	<arg name="frame_id" default="right_optical"/>
 	<arg name="trig_timestamp_topic" default=""/>
