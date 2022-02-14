@@ -76,7 +76,7 @@ def generate_launch_description():
         description='List of String: Guidance Tactical Plugins that will be validated by the Guidance Plugin Validator Node if enabled'
     )
 
-    # Declare strategic_plugins_to_validate
+    # Declare control_plugins_to_validate
     control_plugins_to_validate = LaunchConfiguration('control_plugins_to_validate')
     declare_control_plugins_to_validate = DeclareLaunchArgument(
         name = 'control_plugins_to_validate',
