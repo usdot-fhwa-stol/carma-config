@@ -46,8 +46,9 @@ def generate_launch_description():
     # Pacmod driver
     pacmod_node = IncludeLaunchDescription(
         PythonLaunchDescriptionSource([ssc_interface_wrapper_pkg, '/ssc_pacmod_driver.launch.py']),
+        launch_arguments={'param_dir': vehicle_ssc_param_dir}.items(),
     )
 
     return LaunchDescription([        
-
+        pacmod_node
     ])
