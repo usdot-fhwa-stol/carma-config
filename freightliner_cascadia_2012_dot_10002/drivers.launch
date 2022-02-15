@@ -69,23 +69,6 @@ If not using simulated drivers they are activated if the respective mock argumen
   </include>
 
   <!-- Velodyne Lidar Driver Nodes -->
-  <!-- Lidar 1 -->
-  <remap from="driver_discovery" to="$(optenv CARMA_INTR_NS)/driver_discovery"/>
-  <include if="$(arg velodyne_lidar_driver_wrapper)" ns="velodyne_1" file="$(find velodyne_lidar_driver_wrapper)/launch/velodyne_lidar_driver.launch">
-    <arg name="frame_id" value="velodyne_1"/>
-    <arg name="device_ip" value="192.168.1.201"/>
-    <arg name="max_range" value="200" />
-    <arg name="port" value="2368" />
-  </include>
-
-  <!-- Lidar 2 -->
-  <include if="$(arg velodyne_lidar_driver_wrapper)" ns="velodyne_2" file="$(find velodyne_lidar_driver_wrapper)/launch/velodyne_lidar_driver.launch">
-    <arg name="frame_id" value="velodyne_2"/>
-    <arg name="device_ip" value="192.168.2.201"/>
-    <arg name="max_range" value="200" />
-    <arg name="port" value="2369" />
-  </include>
-
   <!-- Lidar Concat -->
   <include if="$(arg velodyne_lidar_driver_wrapper)" file="$(find points_preprocessor)/launch/points_concat_filter.launch">
     <arg name="input_topics" default="[velodyne_1/lidar/points_raw, velodyne_2/lidar/points_raw]" />

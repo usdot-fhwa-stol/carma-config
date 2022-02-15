@@ -46,7 +46,7 @@ def generate_launch_description():
 
     drivers = LaunchConfiguration('drivers')
     declare_drivers_arg = DeclareLaunchArgument(
-        name = 'drivers', default_value = 'dsrc_driver', description = "Desired drivers to launch specified by package name."
+        name = 'drivers', default_value = 'dsrc_driver velodyne_lidar_driver_wrapper', description = "Desired drivers to launch specified by package name."
     )
 
     dsrc_group = GroupAction(
@@ -62,9 +62,25 @@ def generate_launch_description():
         ]
     )
 
+    lidar_group = GroupAction(
+        condition=IfCondition(PythonExpression(["'velodyne_lidar_driver_wrapper' in '", drivers, "'.split()"])),
+        actions=[
+            PushRosNamespace(EnvironmentVariable('CARMA_INTR_NS', default_value='hardware_interface')),
+            IncludeLaunchDescription(
+                PythonLaunchDescriptionSource([ get_package_share_directory('velodyne_lidar_driver_wrapper'), '/launch/velodyne_lidar_driver_wrapper_launch.py']),
+                launch_arguments = { 
+                    'log_level' : GetLogLevel('velodyne_lidar_driver_wrapper', env_log_levels),
+                    'device_ip' : '192.168.1.201',
+                    'port' : '2368'
+                    }.items()
+            ),
+        ]
+    )
+
     return LaunchDescription([
         declare_drivers_arg,
         declare_vehicle_calibration_dir_arg,
         declare_vehicle_config_dir_arg,
-        dsrc_group
+        dsrc_group,
+        lidar_group
     ])

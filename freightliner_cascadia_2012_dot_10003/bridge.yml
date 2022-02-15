@@ -10,6 +10,14 @@ topics:
     type: sensor_msgs/msg/PointCloud2
     queue_size: 1
   -
+    topic: /hardware_interface/velodyne_1/lidar/points_raw
+    type: sensor_msgs/msg/PointCloud2
+    queue_size: 3
+  -
+    topic: /hardware_interface/velodyne_2/lidar/points_raw
+    type: sensor_msgs/msg/PointCloud2
+    queue_size: 3
+  -
     topic: /environment/external_objects
     type: carma_perception_msgs/msg/ExternalObjectList
     queue_size: 1
