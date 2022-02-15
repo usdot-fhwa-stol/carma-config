@@ -34,7 +34,6 @@ If not using simulated drivers they are activated if the respective mock argumen
   <arg name="mock_drivers"        default="" doc="List of driver node base names which will be launched as mock drivers"/>
 
   <arg name="mock_can"            value="$(eval 'can' in arg('mock_drivers').split())"/>
-  <arg name="mock_comms"          value="$(eval 'comms' in arg('mock_drivers').split())"/>
   <arg name="mock_controller"     value="$(eval 'controller' in arg('mock_drivers').split())"/>
   <arg name="mock_gnss"           value="$(eval 'gnss' in arg('mock_drivers').split())"/>
   <arg name="mock_radar"          value="$(eval 'radar' in arg('mock_drivers').split())"/>
@@ -46,19 +45,15 @@ If not using simulated drivers they are activated if the respective mock argumen
   <arg name="mock_lightbar" 	    value="$(eval 'lightbar' in arg('mock_drivers').split())"/>
 
   <!-- Specific Drivers -->
-  <arg name="drivers" default="dsrc_driver ssc_interface_wrapper novatel_gps_driver velodyne_lidar_driver_wrapper lidar_lite_trailer_angle_driver lightbar_driver avt_vimba_camera"
+  <arg name="drivers" default="ssc_interface_wrapper novatel_gps_driver velodyne_lidar_driver_wrapper lidar_lite_trailer_angle_driver lightbar_driver avt_vimba_camera"
     doc="Desired real drivers to launch specified by package name. Mock drivers will take precedence"/>
 
-  <arg name="dsrc_driver"                     value="$(eval ('dsrc_driver' in arg('drivers').split()) and not arg('mock_comms'))"/>
   <arg name="ssc_interface_wrapper"           value="$(eval ('ssc_interface_wrapper' in arg('drivers').split()) and not arg('mock_controller'))"/>
   <arg name="novatel_gps_driver"              value="$(eval ('novatel_gps_driver' in arg('drivers').split()) and not (arg('mock_gnss') or arg('mock_imu')))"/>
   <arg name="velodyne_lidar_driver_wrapper"   value="$(eval ('velodyne_lidar_driver_wrapper' in arg('drivers').split()) and not arg('mock_lidar'))"/>
   <arg name="lidar_lite_trailer_angle_driver" value="$(eval ('lidar_lite_trailer_angle_driver' in arg('drivers').split()) and not arg('mock_trailer_angle'))"/>
   <arg name="lightbar_driver"                 value="$(eval ('lightbar_driver' in arg('drivers').split()) and not arg('mock_lightbar'))"/>
   <arg name="avt_vimba_camera"               value="$(eval ('avt_vimba_camera' in arg('drivers').split()) and not arg('mock_camera'))"/>
-
-  <!-- DSRC OBU Driver Node -->
-  <include if="$(arg dsrc_driver)" file="$(find dsrc_driver)/launch/dsrc_node.launch"/>
 
   <!-- PACMOD Controller Driver Node -->
   <include if="$(arg ssc_interface_wrapper)" file="$(find ssc_interface_wrapper)/launch/ssc_pm_cascadia_dot_10002_driver.launch">
