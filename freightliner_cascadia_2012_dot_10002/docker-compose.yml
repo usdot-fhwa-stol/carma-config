@@ -113,7 +113,7 @@ services:
       - ROS_IP=192.168.88.10
     command: bash -c 'export ROS_NAMESPACE=$${CARMA_INTR_NS} && wait-for-it.sh localhost:11311 -- roslaunch /opt/carma/vehicle/config/drivers.launch drivers:=lightbar_driver'
 
- cohda_dsrc_driver:
+  cohda_dsrc_driver:
     image: usdotfhwastoldev/carma-cohda-dsrc-driver:develop
     container_name: carma-cohda-dsrc-driver
     network_mode: host
