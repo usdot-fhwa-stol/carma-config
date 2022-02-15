@@ -17,7 +17,7 @@ version: '2'
 
 services:
   roscore:
-    image: usdotfhwastoldev/carma-base:foxy-develop
+    image: usdotfhwastoldev/carma-base:develop
     network_mode: host
     container_name: roscore
     volumes_from:
@@ -31,7 +31,7 @@ services:
     command: roscore
 
   platform:
-    image: usdotfhwastoldev/carma-platform:foxy-develop
+    image: usdotfhwastoldev/carma-platform:develop
     network_mode: host
     container_name: platform
     volumes_from:
@@ -50,7 +50,7 @@ services:
     command: bash -c 'wait-for-it.sh localhost:11311 -- roslaunch /opt/carma/vehicle/config/carma_docker.launch'
 
   platform_ros2:
-    image: usdotfhwastoldev/carma-platform:foxy-develop
+    image: usdotfhwastoldev/carma-platform:develop
     network_mode: host
     container_name: platform_ros2
     volumes_from:
@@ -65,7 +65,7 @@ services:
     command: bash -c 'source /opt/carma/install_ros2/setup.bash && ros2 launch /opt/carma/vehicle/config/carma_docker.launch.py'
 
   ros1_bridge:
-    image: usdotfhwastoldev/carma-msgs:foxy-develop
+    image: usdotfhwastoldev/carma-msgs:develop
     network_mode: host
     container_name: ros1_bridge
     volumes_from:
@@ -83,7 +83,7 @@ services:
     command: bash -c 'wait-for-it.sh localhost:11311 -- rosparam load /opt/carma/vehicle/config/bridge.yml && source ~/.base-image/workspace/install/setup.bash && ros2 run ros1_bridge parameter_bridge'
     
   lightbar-driver:
-    image: usdotfhwastoldev/carma-lightbar-driver:foxy-develop
+    image: usdotfhwastoldev/carma-lightbar-driver:develop
     network_mode: host
     container_name: lightbar-driver
     volumes_from: 
@@ -97,7 +97,7 @@ services:
     command: bash -c 'export ROS_NAMESPACE=$${CARMA_INTR_NS} && wait-for-it.sh localhost:11311 -- roslaunch /opt/carma/vehicle/config/drivers.launch drivers:=lightbar_driver'
 
   cohda_dsrc_driver:
-    image: usdotfhwastoldev/carma-cohda-dsrc-driver:foxy-develop
+    image: usdotfhwastoldev/carma-cohda-dsrc-driver:develop
     container_name: carma-cohda-dsrc-driver
     network_mode: host
     volumes_from:
@@ -110,12 +110,12 @@ services:
     command: bash -c 'export ROS_NAMESPACE=$${CARMA_INTR_NS} && wait-for-it.sh localhost:11311 -- roslaunch /opt/carma/vehicle/config/drivers.launch drivers:=dsrc_driver'
 
   ssc_controller_driver:
-    image: usdotfhwastoldev/carma-ssc-interface-wrapper:foxy-develop
+    image: usdotfhwastoldev/carma-ssc-interface-wrapper:develop
     container_name: ssc_controller_driver
     network_mode: host
     privileged: true # Grant access to usb for can data
-    devices: # Data speed can tool at bus 1 device 6
-      - /dev/bus/usb/001/006:/dev/bus/usb/001/006
+    devices: # Data speed can tool at bus 1 device 3
+      - /dev/bus/usb/001/003:/dev/bus/usb/001/003
     volumes_from:
       - container:carma-config:ro
     environment:
@@ -127,7 +127,7 @@ services:
     command: bash -c 'export ROS_NAMESPACE=$${CARMA_INTR_NS} && wait-for-it.sh localhost:11311 -- roslaunch /opt/carma/vehicle/config/drivers.launch drivers:=ssc_interface_wrapper'
 
   novatel_gnss_imu_driver:
-    image: usdotfhwastoldev/carma-novatel-gps-driver:foxy-develop
+    image: usdotfhwastoldev/carma-novatel-gps-driver:develop
     container_name: novatel-gnss-imu-driver
     network_mode: host
     volumes_from:
@@ -140,7 +140,7 @@ services:
     command: bash -c 'export ROS_NAMESPACE=$${CARMA_INTR_NS} && wait-for-it.sh localhost:11311 -- roslaunch /opt/carma/vehicle/config/drivers.launch drivers:=novatel_gps_driver'
 
   velodyne_lidar_driver:
-    image: usdotfhwastoldev/carma-velodyne-lidar-driver:foxy-develop
+    image: usdotfhwastoldev/carma-velodyne-lidar-driver:develop
     container_name: velodyne-lidar-driver
     network_mode: host
     volumes_from:
@@ -153,7 +153,7 @@ services:
     command: bash -c 'export ROS_NAMESPACE=$${CARMA_INTR_NS} && wait-for-it.sh localhost:11311 -- roslaunch /opt/carma/vehicle/config/drivers.launch drivers:=velodyne_lidar_driver_wrapper'
   
   avt_vimba_camera_driver:
-    image: usdotfhwastoldev/carma-avt-vimba-driver:foxy-develop
+    image: usdotfhwastoldev/carma-avt-vimba-driver:develop
     container_name: avt-vimba-camera-driver
     network_mode: host
     volumes_from:
