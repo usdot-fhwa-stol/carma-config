@@ -53,6 +53,7 @@ def generate_launch_description():
         launch_arguments = {
             'vehicle_calibration_dir' : vehicle_calibration_dir,
             'vehicle_config_dir' : vehicle_config_dir
+            'launch_drivers'  : launch_drivers
         }.items()
     )
 

@@ -41,11 +41,12 @@ def generate_launch_description():
     vehicle_ssc_param_dir = LaunchConfiguration('vehicle_ssc_param_dir')
 
     # Specific Drivers
-    # ssc_interface_wrapper
+    ssc_interface_wrapper_pkg = get_package_share_directory(ssc_interface_wrapper)
+
     # Pacmod driver
-    # pacmod_node = IncludeLaunchDescription(
-    #     PythonLaunchDescriptionSource([ThisLaunchFileDir(), '/drivers.launch.py']),
-    # )
+    pacmod_node = IncludeLaunchDescription(
+        PythonLaunchDescriptionSource([ssc_interface_wrapper_pkg, '/ssc_pacmod_driver.launch.py']),
+    )
 
     return LaunchDescription([        
 
