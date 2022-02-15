@@ -81,11 +81,6 @@ topics:
     type: geometry_msgs/msg/TwistStamped
     queue_size: 1
   -
-<<<<<<< HEAD
-    topic: /message/incoming_mobility_path
-    type: carma_v2x_msgs/msg/MobilityPath
-    queue_size: 1
-=======
     topic: /hardware_interface/comms/inbound_binary_msg
     type: carma_driver_msgs/msg/ByteArray
     queue_size: 50
@@ -153,5 +148,4 @@ topics:
     topic: /message/outgoing_mobility_request
     type: carma_v2x_msgs/msg/MobilityRequest
     queue_size: 50
->>>>>>> develop
 services_1_to_2: []
