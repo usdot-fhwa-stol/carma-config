@@ -48,10 +48,6 @@ def generate_launch_description():
     declare_drivers_arg = DeclareLaunchArgument(
         name = 'drivers', default_value = 'dsrc_driver', description = "Desired drivers to launch specified by package name."
     )
-    ssc_package_name = LaunchConfiguration('ssc_package_name')
-    declare_ssc_package_name = DeclareLaunchArgument(
-        name = 'ssc_package_name', default_value = 'ssc_pm_lexus', description = "Third party ssc package to launch" 
-    )
 
     dsrc_group = GroupAction(
         condition=IfCondition(PythonExpression(["'dsrc_driver' in '", drivers, "'.split()"])),
@@ -66,27 +62,9 @@ def generate_launch_description():
         ]
     )
 
-    ssc_group = GroupAction(
-        # Launch ssc
-        condition=IfCondition(PythonExpression(["'ssc_interface_wrapper' in '", drivers, "'.split()"])),
-        actions=[
-            PushRosNamespace(EnvironmentVariable('CARMA_INTR_NS', default_value='hardware_interface')),
-            IncludeLaunchDescription(
-                PythonLaunchDescriptionSource([ get_package_share_directory('ssc_interface_wrapper'), '/launch/ssc_pacmod_driver.launch.py']),
-                launch_arguments = { 
-                    'log_level' : GetLogLevel('ssc_interface_wrapper', env_log_levels),
-                    'vehicle_calibration_dir' : vehicle_calibration_dir,
-                    'ssc_package_name' : ssc_package_name
-                    }.items()
-            ),
-        ]
-    )
-
     return LaunchDescription([
         declare_drivers_arg,
         declare_vehicle_calibration_dir_arg,
         declare_vehicle_config_dir_arg,
-        declare_ssc_package_name,
-        dsrc_group,
-        ssc_group
+        dsrc_group
     ])
