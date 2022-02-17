@@ -68,13 +68,13 @@ def generate_launch_description():
 
     ssc_group = GroupAction(
         # Launch ssc
-        condition=IfCondition(PythonExpression(["'ssc_interface_wrapper' in '", drivers, "'.split()"])),
+        condition=IfCondition(PythonExpression(["'ssc_interface_wrapper_ros2' in '", drivers, "'.split()"])),
         actions=[
             PushRosNamespace(EnvironmentVariable('CARMA_INTR_NS', default_value='hardware_interface')),
             IncludeLaunchDescription(
-                PythonLaunchDescriptionSource([ get_package_share_directory('ssc_interface_wrapper'), '/launch/ssc_pacmod_driver.launch.py']),
+                PythonLaunchDescriptionSource([ get_package_share_directory('ssc_interface_wrapper_ros2'), '/launch/ssc_pacmod_driver.launch.py']),
                 launch_arguments = { 
-                    'log_level' : GetLogLevel('ssc_interface_wrapper', env_log_levels),
+                    'log_level' : GetLogLevel('ssc_interface_wrapper_ros2', env_log_levels),
                     'vehicle_calibration_dir' : vehicle_calibration_dir,
                     'ssc_package_name' : ssc_package_name
                     }.items()
