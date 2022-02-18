@@ -31,8 +31,6 @@ CONFIG_PATH=$1
 
 CONFIG_PATH=$(realpath ${CONFIG_PATH})
 
-echo "CONFIG_PATH: ${CONFIG_PATH}"
-
 if [[ ! -d "${CONFIG_PATH}" ]] ; then 
     echo "Specified config folder ${CONFIG_PATH} does not exist."
     exit 1
@@ -45,14 +43,12 @@ current_files=()
 
 for entry in "$CONFIG_PATH"/*
 do
-    echo "entry: ${entry}"
     current_files+=( $(basename -- ${entry}) )
 done
 
 TEMPLATE_PATH=template_config/template_config
 TEMPLATE_PATH=$(realpath ${TEMPLATE_PATH})
 
-echo "TEMPLATE_PATH: ${TEMPLATE_PATH}"
 
 if [[ ! -d "${TEMPLATE_PATH}" ]] ; then 
     echo "Could not fine template_config. You must run this script from the same folder."
@@ -63,12 +59,10 @@ added_files=()
 for template_file in "$TEMPLATE_PATH"/*
 do
     template_file=$(basename -- ${template_file})
-    echo "template_file: ${template_file}"
     file_exists=false
     for existing_file in ${current_files[@]}; do
         
         if [[ ${existing_file} == ${template_file} ]] ; then
-            echo "existing_file: ${existing_file}"
             file_exists=true
             break
         fi
