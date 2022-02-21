@@ -49,10 +49,6 @@ def generate_launch_description():
     declare_drivers_arg = DeclareLaunchArgument(
         name = 'drivers', default_value = 'dsrc_driver', description = "Desired drivers to launch specified by package name."
     )
-    ssc_package_name = LaunchConfiguration('ssc_package_name')
-    declare_ssc_package_name = DeclareLaunchArgument(
-        name = 'ssc_package_name', default_value = 'ssc_pm_lexus', description = "Third party ssc package to launch" 
-    )
 
     dsrc_group = GroupAction(
         condition=IfCondition(PythonExpression(["'dsrc_driver' in '", drivers, "'.split()"])),
@@ -77,7 +73,7 @@ def generate_launch_description():
                 launch_arguments = { 
                     'log_level' : GetLogLevel('ssc_interface_wrapper_ros2', env_log_levels),
                     'vehicle_calibration_dir' : vehicle_calibration_dir,
-                    'ssc_package_name' : ssc_package_name
+                    'ssc_package_name' : 'ssc_pm_lexus'
                     }.items()
             ),
         ]
@@ -87,7 +83,6 @@ def generate_launch_description():
         declare_drivers_arg,
         declare_vehicle_calibration_dir_arg,
         declare_vehicle_config_dir_arg,
-        declare_ssc_package_name,
         dsrc_group,
         ssc_group
     ])
