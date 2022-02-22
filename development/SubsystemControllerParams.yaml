@@ -2,39 +2,45 @@
 # For brevity the parameter descriptions are not provided here. The descriptions can be found in the default parameter files located 
 # in the subsystem_controllers parameter directory here: https://github.com/usdot-fhwa-stol/carma-platform/tree/develop/subsystem_controllers/config
 # The parameters specified in this file override the parameters in the default parameter files.
+# NOTE: Due to a limitation in ROS2 empty arrays in this file should be denoted with ['']
 environment:
   environment_perception_controller:
-    subsystem_namespace: /environment
-    required_subsystem_nodes: []
-    unmanaged_required_nodes: [] # TODO add mock once ported
-    full_subsystem_required: true
+    ros__parameters:
+      subsystem_namespace: /environment
+      required_subsystem_nodes: ['']
+      unmanaged_required_nodes: [''] # TODO add mock once ported
+      full_subsystem_required: true
 
 hardware_interface:
   drivers_controller:
-    subsystem_namespace: /hardware_interface
-    required_subsystem_nodes: []
-    unmanaged_required_nodes: []
-    full_subsystem_required: false
+    ros__parameters:
+      subsystem_namespace: /hardware_interface
+      required_subsystem_nodes: ['']
+      unmanaged_required_nodes: ['']
+      full_subsystem_required: false
 
 message:
   v2x_controller:
-    subsystem_namespace: /message
-    required_subsystem_nodes: []
-    unmanaged_required_nodes: [] # TODO add mock once ported
-    full_subsystem_required: true
+    ros__parameters:
+      subsystem_namespace: /message
+      required_subsystem_nodes: ['']
+      unmanaged_required_nodes: [''] # TODO add mock once ported
+      full_subsystem_required: true
 
 guidance:
   guidance_controller:
-    subsystem_namespace: /guidance
-    required_subsystem_nodes: []
-    unmanaged_required_nodes: [] # TODO add mock once ported
-    full_subsystem_required: true
+    ros__parameters:
+      subsystem_namespace: /guidance
+      required_subsystem_nodes: ['']
+      unmanaged_required_nodes: [''] # TODO add mock once ported
+      full_subsystem_required: true
 
 localization:
   localization_controller:
-    subsystem_namespace: /localization
-    required_subsystem_nodes: []
-    unmanaged_required_nodes: []
-    full_subsystem_required: true
-    sensor_nodes: []
-    sensor_fault_map: '' # TODO add mock once ported
+    ros__parameters:
+      subsystem_namespace: /localization
+      required_subsystem_nodes: ['']
+      unmanaged_required_nodes: ['']
+      full_subsystem_required: true
+      sensor_nodes: ['']
+      sensor_fault_map: '' # TODO add mock once ported
