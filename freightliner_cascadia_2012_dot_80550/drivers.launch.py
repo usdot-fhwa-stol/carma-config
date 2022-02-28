@@ -86,7 +86,7 @@ def generate_launch_description():
                 actions=[
                     PushRosNamespace('velodyne_2'),
                     IncludeLaunchDescription(
-                        PythonLaunchDescriptionSource([ get_package_share_directory('velodyne_lidar_driver_wrapper'), '/launch/velodyne_lidar_driver_wrapper_launch.py']),
+                        PythonLaunchDescriptionSource([ FindPackageShare('velodyne_lidar_driver_wrapper'), '/launch/velodyne_lidar_driver_wrapper_launch.py']),
                         launch_arguments = { 
                             'log_level' : GetLogLevel('velodyne_lidar_driver_wrapper', env_log_levels),
                             'frame_id' : 'velodyne_2',
