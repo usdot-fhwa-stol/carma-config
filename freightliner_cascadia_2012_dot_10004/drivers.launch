@@ -45,11 +45,10 @@ If not using simulated drivers they are activated if the respective mock argumen
   <arg name="mock_lightbar" 	    value="$(eval 'lightbar' in arg('mock_drivers').split())"/>
 
   <!-- Specific Drivers -->
-  <arg name="drivers" default="ssc_interface_wrapper novatel_gps_driver velodyne_lidar_driver_wrapper lidar_lite_trailer_angle_driver lightbar_driver avt_vimba_camera"
+  <arg name="drivers" default="ssc_interface_wrapper velodyne_lidar_driver_wrapper lidar_lite_trailer_angle_driver lightbar_driver avt_vimba_camera"
     doc="Desired real drivers to launch specified by package name. Mock drivers will take precedence"/>
 
   <arg name="ssc_interface_wrapper"           value="$(eval ('ssc_interface_wrapper' in arg('drivers').split()) and not arg('mock_controller'))"/>
-  <arg name="novatel_gps_driver"              value="$(eval ('novatel_gps_driver' in arg('drivers').split()) and not (arg('mock_gnss') or arg('mock_imu')))"/>
   <arg name="velodyne_lidar_driver_wrapper"   value="$(eval ('velodyne_lidar_driver_wrapper' in arg('drivers').split()) and not arg('mock_lidar'))"/>
   <arg name="lidar_lite_trailer_angle_driver" value="$(eval ('lidar_lite_trailer_angle_driver' in arg('drivers').split()) and not arg('mock_trailer_angle'))"/>
   <arg name="lightbar_driver"                 value="$(eval ('lightbar_driver' in arg('drivers').split()) and not arg('mock_lightbar'))"/>
@@ -58,14 +57,6 @@ If not using simulated drivers they are activated if the respective mock argumen
   <!-- PACMOD Controller Driver Node -->
   <include if="$(arg ssc_interface_wrapper)" file="$(find ssc_interface_wrapper)/launch/ssc_pm_cascadia_dot_10004_driver.launch">
     <arg name="ssc_param_dir" value="$(arg vehicle_calibration_dir)/ssc_pm_cascadia"/>
-  </include>
-
-  <!-- Novatel GNSS/IMU Driver Nodes -->
-  <include if="$(arg novatel_gps_driver)" file="$(find novatel_gps_driver)/launch/novatel_gps_driver_eth.launch">
-    <arg name="ip" value="192.168.88.29" />
-    <arg name="port" value="2000" />
-    <arg name="frame_id" value="novatel_gnss" />
-    <arg name="imu_frame_id" value="novatel_imu" />
   </include>
 
   <!-- Velodyne Lidar Driver Nodes -->
