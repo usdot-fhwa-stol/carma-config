@@ -124,16 +124,14 @@ services:
 
   novatel_gnss_imu_driver:
     image: usdotfhwastoldev/carma-novatel-gps-driver:develop
-    container_name: novatel-gnss-imu-driver
+    container_name: carma-cohda-dsrc-driver
     network_mode: host
     volumes_from:
       - container:carma-config:ro
-    environment:
-      - ROS_IP=192.168.88.10
     volumes:
       - /opt/carma/logs:/opt/carma/logs
       - /opt/carma/.ros:/home/carma/.ros
-    command: bash -c 'export ROS_NAMESPACE=$${CARMA_INTR_NS} && wait-for-it.sh localhost:11311 -- roslaunch /opt/carma/vehicle/config/drivers.launch drivers:=novatel_gps_driver'
+    command: bash -c 'source /opt/carma/install/setup.bash && ros2 launch /opt/carma/vehicle/config/drivers.launch.py drivers:=carma_novatel_driver_wrapper'
 
   velodyne_lidar_driver:
     image: usdotfhwastoldev/carma-velodyne-lidar-driver:develop
