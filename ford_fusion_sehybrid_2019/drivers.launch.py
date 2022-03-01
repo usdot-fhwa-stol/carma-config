@@ -78,10 +78,26 @@ def generate_launch_description():
         ]
     )
 
+    gnss_ins_group = GroupAction(
+        condition=IfCondition(PythonExpression(["'carma_novatel_driver_wrapper' in '", drivers, "'.split()"])),
+        actions=[
+            PushRosNamespace(EnvironmentVariable('CARMA_INTR_NS', default_value='hardware_interface')),
+            IncludeLaunchDescription(
+                PythonLaunchDescriptionSource([ FindPackageShare('carma_novatel_driver_wrapper'), '/launch/carma-novatel-driver-wrapper-launch.py']),
+                launch_arguments = { 
+                    'log_level' : GetLogLevel('carma_novatel_driver_wrapper', env_log_levels),
+                    'ip_addr' : '192.168.88.29',
+                    'port' : '2000'
+                    }.items()
+            ),
+        ]
+    )
+
     return LaunchDescription([
         declare_drivers_arg,
         declare_vehicle_calibration_dir_arg,
         declare_vehicle_config_dir_arg,
         dsrc_group,
-        lidar_group
+        lidar_group,
+        gnss_ins_group
     ])
