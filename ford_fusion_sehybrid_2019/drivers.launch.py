@@ -87,7 +87,8 @@ def generate_launch_description():
                 launch_arguments = { 
                     'log_level' : GetLogLevel('carma_novatel_driver_wrapper', env_log_levels),
                     'ip_addr' : '192.168.88.29',
-                    'port' : '2000'
+                    'port' : '2000',
+                    'vehicle_calibration_dir' : vehicle_calibration_dir,
                     }.items()
             ),
         ]

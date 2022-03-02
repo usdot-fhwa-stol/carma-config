@@ -148,6 +148,7 @@ services:
     volumes:
       - /opt/carma/logs:/opt/carma/logs
       - /opt/carma/.ros:/home/carma/.ros
+      - /opt/carma/vehicle/calibration:/opt/carma/vehicle/calibration
     command: bash -c 'source /opt/carma/install/setup.bash && ros2 launch /opt/carma/vehicle/config/drivers.launch.py drivers:=carma_novatel_driver_wrapper'
 
   velodyne_lidar_driver:
