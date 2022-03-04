@@ -1,3 +1,9 @@
+##########
+# THIS FILE IS DEPRECATED IN FAVOR OF USING THE MULTI-THREADED VERSION OF THE DYNAMIC BRIDGE
+# THIS FILE WILL BE REMOVED ONCE SYSTEM HAS PROVEN STABILITY WITH THAT BRIDGE
+##########
+
+
 # This file contains explicit topic mappings between ROS1 and ROS2 portions of CARMA Platform while the 
 # ROS2 migration is underway.
 topics:
