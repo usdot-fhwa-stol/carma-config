@@ -9,7 +9,7 @@ environment:
       subsystem_namespace: /environment
       required_subsystem_nodes: ['']
       unmanaged_required_nodes: 
-        - /hardware_interface/velodyne_lidar_driver_wrapper_node
+        - /hardware_interface/dsrc_driver_node
       full_subsystem_required: true
 
 hardware_interface:
