@@ -102,6 +102,17 @@ camera_drivers:
 # Used for interpreting traffic rules in world model instances
 vehicle_participant_type: "vehicle:truck"
 
+# Time that a guidance control plugin will continue to run after its input trajectory stops
+# Value type: Desired
+# Units: ms
+control_plugin_shutdown_timeout: 200
+
+# Num trajectory inputs that a control plugin will ignore upon first being requested
+# (a positive value helps to enforce that it won't overwrite the previous control plugin's
+# output before its shutdown timeout expires)
+# Value type: Desired
+control_plugin_ignore_initial_inputs: 0
+
 # Parameter to enable configurable speed limit
 # Value type: Desired
 config_speed_limit: 45.0
