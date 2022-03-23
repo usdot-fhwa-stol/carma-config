@@ -46,14 +46,9 @@ If not using simulated drivers they are activated if the respective mock argumen
   <arg name="drivers" default="ssc_interface_wrapper lightbar_driver avt_vimba_camera"
     doc="Desired real drivers to launch specified by package name. Mock drivers will take precedence"/>
 
-  <arg name="ssc_interface_wrapper"         value="$(eval ('ssc_interface_wrapper' in arg('drivers').split()) and not arg('mock_controller'))"/>
   <arg name="lightbar_driver"               value="$(eval ('lightbar_driver' in arg('drivers').split()) and not arg('mock_lightbar'))"/>
   <arg name="avt_vimba_camera"               value="$(eval ('avt_vimba_camera' in arg('drivers').split()) and not arg('mock_camera'))"/>
 
-  <!-- PACMOD Controller Driver Node -->
-  <include if="$(arg ssc_interface_wrapper)" file="$(find ssc_interface_wrapper)/launch/ssc_pacmod_driver.launch">
-    <arg name="ssc_param_dir" value="$(arg vehicle_calibration_dir)/ssc_pm_lexus"/>
-  </include>
 
   <!-- Lightbar Driver Node -->
   <include if="$(arg lightbar_driver)" file="$(find lightbar_driver)/launch/lightbar_driver_node.launch">
@@ -63,6 +58,7 @@ If not using simulated drivers they are activated if the respective mock argumen
   </include>
 
 <!-- AVT Vimba Camera Left Driver Node -->
+<group>
     <remap from="camera/camera_info" to="dummy_camera_info"/>
     <include if="$(arg avt_vimba_camera)" file="$(find avt_vimba_camera)/launch/mono_camera.launch">
 	<arg name="guid" default=""/>
@@ -72,6 +68,10 @@ If not using simulated drivers they are activated if the respective mock argumen
 	<arg name="trig_timestamp_topic" default=""/>
 	<arg name="show_debug_prints" default="false"/>
   </include>
+
+ <node pkg="rostopic" type="rostopic" name="controller_mock_status_pub"
+        args="pub -r 2 /hardware_interface/driver_discovery cav_msgs/DriverStatus '{ name: '/hardware_interface/ssc_interface_wrapper', status: 1, can: false, radar: false, gnss: false, lidar: false, roadway_sensor: false, comms: false, controller: true, camera: false, imu: false, trailer_angle_sensor: false, lightbar: false}'"/>
+</group>
   
   <!-- AVT Vimba Camera Right Driver Node 
     <include if="$(arg avt_vimba_camera)" file="$(find avt_vimba_camera)/launch/mono_camera.launch">
