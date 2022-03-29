@@ -24,6 +24,7 @@ from launch_ros.substitutions import FindPackageShare
 from launch.conditions import IfCondition
 from launch.actions import GroupAction
 from launch_ros.actions import PushRosNamespace
+from launch_ros.substitutions import FindPackageShare
 from carma_ros2_utils.launch.get_log_level import GetLogLevel
 
 def generate_launch_description():
@@ -63,6 +64,23 @@ def generate_launch_description():
         ]
     )
 
+    ssc_group = GroupAction(
+        # Launch ssc
+        condition=IfCondition(PythonExpression(["'ssc_interface_wrapper_ros2' in '", drivers, "'.split()"])),
+        actions=[
+            PushRosNamespace(EnvironmentVariable('CARMA_INTR_NS', default_value='hardware_interface')),
+            IncludeLaunchDescription(
+                PythonLaunchDescriptionSource([ FindPackageShare('ssc_interface_wrapper_ros2'), '/launch/ssc_pacmod_driver.launch.py']),
+                launch_arguments = { 
+                    'log_level' : GetLogLevel('ssc_interface_wrapper_ros2', env_log_levels),
+                    'vehicle_calibration_dir' : vehicle_calibration_dir,
+                    'ssc_package_name' : 'ssc_pm_lexus',
+                    'vehicle_config_dir' : vehicle_config_dir
+                }.items()
+            ),
+        ]
+    )
+    
     lidar_group = GroupAction(
         condition=IfCondition(PythonExpression(["'velodyne_lidar_driver_wrapper' in '", drivers, "'.split()"])),
         actions=[
@@ -100,6 +118,7 @@ def generate_launch_description():
         declare_vehicle_calibration_dir_arg,
         declare_vehicle_config_dir_arg,
         dsrc_group,
+        ssc_group,
         lidar_group,
         gnss_ins_group
     ])
