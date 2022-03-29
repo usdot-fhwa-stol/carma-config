@@ -74,7 +74,8 @@ def generate_launch_description():
                 launch_arguments = { 
                     'log_level' : GetLogLevel('ssc_interface_wrapper_ros2', env_log_levels),
                     'vehicle_calibration_dir' : vehicle_calibration_dir,
-                    'ssc_package_name' : 'ssc_pm_lexus'
+                    'ssc_package_name' : 'ssc_pm_lexus',
+                    'vehicle_config_dir' : vehicle_config_dir
                 }.items()
             ),
         ]
