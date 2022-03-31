@@ -89,7 +89,7 @@ car: true
 
 # Required drivers for the vehicle to be functional
 required_drivers:
-  - /hardware_inteface/carla_driver
+  - /hardware_interface/carla_driver
 lidar_gps_drivers:
   - /hardware_interface/lidar
   - /hardware_interface/gnss
@@ -99,6 +99,10 @@ camera_drivers:
 # Parameter to enable configurable speed limit
 # Value type: Desired
 config_speed_limit: 20.0
+
+# Vehicle Participation Type corresponding to the Lanelet2 participant type standards.
+# Used for interpreting traffic rules in world model instances
+vehicle_participant_type: "vehicle:car"
 
 # Topics to exclude from rosbag recording
 exclude_default: true
