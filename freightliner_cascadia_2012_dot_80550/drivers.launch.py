@@ -20,7 +20,6 @@ from launch.actions import DeclareLaunchArgument
 from launch.substitutions import LaunchConfiguration
 from launch.substitutions import EnvironmentVariable
 from launch.substitutions import PythonExpression
-from launch.substitutions import Text
 from launch_ros.substitutions import FindPackageShare
 from launch.conditions import IfCondition
 from launch.actions import GroupAction
