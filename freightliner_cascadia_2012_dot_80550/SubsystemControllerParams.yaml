@@ -1,0 +1,64 @@
+# This file contains configurations for the subsystem_controllers which manage the lifecycle of each individual subsystem
+# For brevity the parameter descriptions are not provided here. The descriptions can be found in the default parameter files located 
+# in the subsystem_controllers parameter directory here: https://github.com/usdot-fhwa-stol/carma-platform/tree/develop/subsystem_controllers/config
+# The parameters specified in this file override the parameters in the default parameter files.
+# NOTE: Due to a limitation in ROS2 empty arrays in this file should be denoted with ['']
+environment:
+  environment_perception_controller:
+    ros__parameters:
+      subsystem_namespace: /environment
+      required_subsystem_nodes: ['']
+      unmanaged_required_nodes: 
+        - /hardware_interface/dsrc_driver_node
+      full_subsystem_required: true
+
+hardware_interface:
+  drivers_controller:
+    ros__parameters:
+      subsystem_namespace: /hardware_interface
+      required_subsystem_nodes: ['']
+      unmanaged_required_nodes: ['']
+      full_subsystem_required: false
+
+message:
+  v2x_controller:
+    ros__parameters:
+      subsystem_namespace: /message
+      required_subsystem_nodes: ['']
+      unmanaged_required_nodes: 
+        - /hardware_interface/dsrc_driver_node
+      full_subsystem_required: true
+
+guidance:
+  guidance_controller:
+    ros__parameters:
+      subsystem_namespace: /guidance
+      required_subsystem_nodes: ['']
+      unmanaged_required_nodes: [''] # TODO add the controller driver once it is integrated with ROS2
+      full_subsystem_required: true
+
+localization:
+  localization_controller:
+    ros__parameters:
+      subsystem_namespace: /localization
+      required_subsystem_nodes: ['']
+      unmanaged_required_nodes: ['']
+      full_subsystem_required: true
+      sensor_nodes:
+        - /hardware_interface/velodyne_1/velodyne_lidar_driver_wrapper_node
+        - /hardware_interface/velodyne_2/velodyne_lidar_driver_wrapper_node
+        - /hardware_interface/carma_novatel_driver_wrapper_node
+      sensor_fault_map: '
+        {
+          "sensor_fault_map": 
+          [
+            [0,1,1,2],
+            [1,0,1,2],
+            [1,1,0,2],
+            [1,0,0,2],
+            [0,1,0,2],
+            [0,0,1,3],
+            [0,0,0,0]
+          ],
+        }
+        '
