@@ -95,8 +95,7 @@ lidar_gps_drivers:
   - /hardware_interface/velodyne_1/velodyne_lidar_driver_wrapper 
   - /hardware_interface/velodyne_2/velodyne_lidar_driver_wrapper 
   - /hardware_interface/novatel_gps_nodelet_wrapper
-camera_drivers:
-  - /hardware_interface/camera
+camera_drivers: []
 
 # Vehicle Participation Type corresponding to the Lanelet2 participant type standards. 
 # Used for interpreting traffic rules in world model instances
