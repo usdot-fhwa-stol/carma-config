@@ -243,7 +243,6 @@ excluded_default_topics:
   - /localization/selected_pose 
   - /localization/time_ndt_matching  
   - /localization/vehicle/odom 
-  - /system_alert  
   - /tf
   - /tf_static 
   - /ui/client_count
