@@ -31,7 +31,7 @@ services:
     command: roscore
 
   platform:
-    image: usdotfhwastol/carma-platform:carma-system-4.0.0
+    image: usdotfhwastol/carma-platform:carma-system-4.0.3
     network_mode: host
     container_name: platform
     runtime: nvidia
@@ -50,7 +50,7 @@ services:
     command: bash -c 'wait-for-it.sh localhost:11311 -- roslaunch /opt/carma/vehicle/config/carma_docker.launch'
 
   platform_ros2:
-    image: usdotfhwastol/carma-platform:carma-system-4.0.0
+    image: usdotfhwastol/carma-platform:carma-system-4.0.3
     network_mode: host
     container_name: platform_ros2
     volumes_from:
@@ -145,20 +145,23 @@ services:
       - /opt/carma/.ros:/home/carma/.ros
     command: bash -c 'source /opt/carma/install/setup.bash && ros2 launch /opt/carma/vehicle/config/drivers.launch.py drivers:=velodyne_lidar_driver_wrapper'
   
-  avt_vimba_camera_driver:
-    image: usdotfhwastol/carma-avt-vimba-driver:carma-system-4.0.0
-    container_name: avt-vimba-camera-driver
+  # NOTE: This is a mock driver and not an actual camera
+  # It is being used instead as camera input is currently not supported in the Autoware.Auto
+  # system integrated in release carma-system-4.0
+  mock-camera-driver:
+    image: usdotfhwastol/carma-platform:carma-system-4.0.3
     network_mode: host
-    volumes_from:
+    container_name: carma-mock-camera-driver
+    volumes_from: 
       - container:carma-config:ro
-    environment:
-      - ROS_IP=192.168.88.10
     volumes:
       - /opt/carma/logs:/opt/carma/logs
       - /opt/carma/.ros:/home/carma/.ros
-      - /opt/carma/vehicle/calibration:/opt/carma/vehicle/calibration
-    command: bash -c 'export ROS_NAMESPACE=$${CARMA_INTR_NS} && wait-for-it.sh localhost:11311 -- roslaunch /opt/carma/vehicle/config/drivers.launch drivers:=avt_vimba_camera'
-
+      - /opt/carma/data:/opt/carma/data
+    environment:
+      - ROS_IP=192.168.88.10
+    command: bash -c 'export ROS_NAMESPACE=$${CARMA_INTR_NS} && wait-for-it.sh localhost:11311 -- roslaunch carma mock_drivers.launch mock_drivers:=camera'
+  
   # TODO DelphiESR Front Driver Node
   # TODO Delphi Srr2 Front Left Driver Node
   # TODO Delphi Srr2 Front Right Driver Node
