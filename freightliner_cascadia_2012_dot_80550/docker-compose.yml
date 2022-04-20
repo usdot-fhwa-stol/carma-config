@@ -47,6 +47,8 @@ services:
       - /opt/carma/maps:/opt/carma/maps
       - /opt/carma/routes:/opt/carma/routes
       - /opt/carma/yolo:/opt/carma/yolo
+      - /home/dev/carma_ws/src/carma-platform/localization_manager/config/parameters.yaml:/opt/carma/install/localization_manager/share/localization_manager/config/parameters.yaml
+      - /home/dev/carma_ws/src/carma-platform/inlanecruising_plugin/config/parameters.yaml:/opt/carma/install/inlanecruising_plugin/share/inlanecruising_plugin/config/parameters.yaml
     command: bash -c 'wait-for-it.sh localhost:11311 -- roslaunch /opt/carma/vehicle/config/carma_docker.launch'
 
   platform_ros2:
