@@ -125,7 +125,7 @@ services:
     command: bash -c 'source /opt/carma/install/setup.bash && ros2 launch /opt/carma/vehicle/config/drivers.launch.py drivers:=dsrc_driver'
 
   ssc_controller_driver:
-    image: usdotfhwastol/carma-ssc-interface-wrapper:carma-system-4.0.0
+    image: usdotfhwastol/carma-ssc-interface-wrapper:carma-system-4.0.4
     container_name: ssc_controller_driver
     network_mode: host
     privileged: true # Grant access to kvaser
