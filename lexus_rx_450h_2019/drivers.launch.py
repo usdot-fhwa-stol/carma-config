@@ -23,8 +23,12 @@ from launch.substitutions import PythonExpression
 from launch_ros.substitutions import FindPackageShare
 from launch.conditions import IfCondition
 from launch.actions import GroupAction
+from launch.actions import Shutdown
 from launch_ros.actions import PushRosNamespace
+from launch_ros.actions import Node
+from launch_ros.substitutions import FindPackageShare
 from carma_ros2_utils.launch.get_log_level import GetLogLevel
+import uuid
 
 def generate_launch_description():
     """
@@ -50,6 +54,20 @@ def generate_launch_description():
         name = 'drivers', default_value = 'dsrc_driver velodyne_lidar_driver_wrapper carma_novatel_driver_wrapper', description = "Desired drivers to launch specified by package name."
     )
 
+    # Launch shutdown node which will ensure the launch file gets closed on system shutdown even if in a separate container
+    driver_shutdown_group = GroupAction(
+        actions=[
+            PushRosNamespace(EnvironmentVariable('CARMA_INTR_NS', default_value='hardware_interface')),
+            Node (
+                package='driver_shutdown_ros2',
+                executable='driver_shutdown_ros2_node_exec',
+                name=[ 'driver_shutdown_', uuid.uuid4().hex ], # No clear way to make anonymous nodes in ros2, so for now we will generate a uuid for now
+                on_exit=Shutdown(),
+                arguments=['--ros-args', '--log-level', GetLogLevel('driver_shutdown_ros2', env_log_levels)]
+            )
+        ]
+    )
+
     dsrc_group = GroupAction(
         condition=IfCondition(PythonExpression(["'dsrc_driver' in '", drivers, "'.split()"])),
         actions=[
@@ -63,6 +81,23 @@ def generate_launch_description():
         ]
     )
 
+    ssc_group = GroupAction(
+        # Launch ssc
+        condition=IfCondition(PythonExpression(["'ssc_interface_wrapper_ros2' in '", drivers, "'.split()"])),
+        actions=[
+            PushRosNamespace(EnvironmentVariable('CARMA_INTR_NS', default_value='hardware_interface')),
+            IncludeLaunchDescription(
+                PythonLaunchDescriptionSource([ FindPackageShare('ssc_interface_wrapper_ros2'), '/launch/ssc_pacmod_driver.launch.py']),
+                launch_arguments = { 
+                    'log_level' : GetLogLevel('ssc_interface_wrapper_ros2', env_log_levels),
+                    'vehicle_calibration_dir' : vehicle_calibration_dir,
+                    'ssc_package_name' : 'ssc_pm_lexus',
+                    'vehicle_config_dir' : vehicle_config_dir
+                }.items()
+            ),
+        ]
+    )
+    
     lidar_group = GroupAction(
         condition=IfCondition(PythonExpression(["'velodyne_lidar_driver_wrapper' in '", drivers, "'.split()"])),
         actions=[
@@ -99,7 +134,9 @@ def generate_launch_description():
         declare_drivers_arg,
         declare_vehicle_calibration_dir_arg,
         declare_vehicle_config_dir_arg,
+        driver_shutdown_group,
         dsrc_group,
+        ssc_group,
         lidar_group,
         gnss_ins_group
     ])
