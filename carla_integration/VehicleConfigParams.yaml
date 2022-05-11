@@ -91,10 +91,10 @@ car: true
 required_drivers:
   - /hardware_interface/carla_driver
 lidar_gps_drivers:
-  - /hardware_interface/lidar
-  - /hardware_interface/gnss
+  - /hardware_interface/carla_lidar_driver
+  - /hardware_interface/carla_gnss_driver
 camera_drivers:
-  - /hardware_interface/camera
+  - /hardware_interface/carla_camera_driver
 
 # Parameter to enable configurable speed limit
 # Value type: Desired
