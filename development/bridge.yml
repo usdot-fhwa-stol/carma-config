@@ -3,29 +3,41 @@
 # NOTE: A custom dynamic_bridge is used in CARMA Platform which will automatically connect topics and services, but 
 #       this file allows for certain topics to be pre-configured with specified QoS settings. 
 topics:
-  -    
+  -
+    topic: /environment/external_objects
+    type: carma_perception_msgs/msg/ExternalObjectList
+    queue_size: 1
+  -
+    topic: /environment/external_objects_viz
+    type: visualization_msgs/msg/MarkerArray
+    queue_size: 1
+  -
+    topic: /environment/roadway_obstacles_viz
+    type: visualization_msgs/msg/MarkerArray
+    queue_size: 1
+  -
     topic: /environment/semantic_map
     type: autoware_lanelet2_msgs/msg/MapBin
     queue_size: 1
+    direction: 1to2
     qos:
       history: keep_last
       depth: 1
       durability: transient_local
-    direction: 1to2 # 1to2, 2to1, bi-directional
-  -    
+  -
     topic: /environment/map_update
     type: autoware_lanelet2_msgs/msg/MapBin
     queue_size: 200
+    direction: 1to2
     qos:
       history: keep_all
       durability: transient_local
-    direction: 1to2
+-
+    topic: /environment/external_object_predictions
+    type: carma_perception_msgs/msg/ExternalObjectList
+    queue_size: 1
   -
     topic: /system_alert
     type: carma_msgs/msg/SystemAlert
     queue_size: 5
-    qos:
-      history: keep_last
-      depth: 5
-      durability: transient_local
-# services_1_to_2: [] # Uncomment to enable service mappings
+services_1_to_2: []
