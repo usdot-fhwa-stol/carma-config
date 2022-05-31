@@ -16,7 +16,7 @@ version: '2'
 
 services: 
     roscore:
-        image: usdotfhwastoldev/carma-base:noetic-f1tenth-develop
+        image: usdotfhwastol/carma-base:noetic-f1tenth-develop
         network_mode: host
         container_name: roscore
         runtime: nvidia
@@ -31,7 +31,7 @@ services:
         command: roscore
         
     platform:
-        image: usdotfhwastoldev/carma-platform:noetic-f1tenth-develop
+        image: usdotfhwastol/carma-platform:noetic-f1tenth-develop
         network_mode: host
         container_name: platform
         runtime: nvidia
@@ -50,7 +50,7 @@ services:
         command: bash -c 'wait-for-it.sh localhost:11311 -- roslaunch /opt/carma/vehicle/config/carma_docker.launch'
 
     platform_ros2:
-        image: usdotfhwastoldev/carma-platform:develop
+        image: usdotfhwastol/carma-platform:carma-system-4.1.0
         network_mode: host
         container_name: platform_ros2
         volumes_from:
@@ -65,7 +65,7 @@ services:
         command: bash -c 'source /opt/carma/install_ros2/setup.bash && ros2 launch /opt/carma/vehicle/config/carma_docker.launch.py'
 
     ros1_bridge:
-        image: usdotfhwastoldev/carma-msgs:develop
+        image: usdotfhwastol/carma-msgs:carma-system-4.1.0
         network_mode: host
         container_name: ros1_bridge
         volumes_from:
@@ -83,7 +83,7 @@ services:
         command: bash -c 'source ~/.base-image/workspace/install/setup.bash && ros2 run ros1_bridge dynamic_bridge'
 
     c1t-vesc-driver:
-        image: usdotfhwastoldev/c1t-vesc-driver:noetic-f1tenth-develop
+        image: usdotfhwastol/c1t-vesc-driver:noetic-f1tenth-develop
         network_mode: host
         container_name: c1t-vesc-driver
         runtime: nvidia
@@ -99,7 +99,7 @@ services:
         command: bash -c 'export ROS_NAMESPACE=$${CARMA_INTR_NS} && wait-for-it.sh localhost:11311 -- roslaunch /opt/carma/vehicle/config/drivers.launch drivers:=c1t_vesc_driver'
 
     c1t-razor-imu-m0-driver:
-        image: usdotfhwastoldev/c1t-razor-imu-m0-driver:noetic-f1tenth-develop
+        image: usdotfhwastol/c1t-razor-imu-m0-driver:noetic-f1tenth-develop
         network_mode: host
         container_name: c1t-razor-imu-m0-driver
         runtime: nvidia
@@ -115,7 +115,7 @@ services:
         command: bash -c 'export ROS_NAMESPACE=$${CARMA_INTR_NS} && wait-for-it.sh localhost:11311 -- roslaunch /opt/carma/vehicle/config/drivers.launch drivers:=c1t_razor_imu_m0_driver'
 
     c1t-rplidar-driver:
-        image: usdotfhwastoldev/c1t-rplidar-driver:noetic-f1tenth-develop
+        image: usdotfhwastol/c1t-rplidar-driver:noetic-f1tenth-develop
         network_mode: host
         container_name: c1t-rplidar-driver
         runtime: nvidia
@@ -131,7 +131,7 @@ services:
         command: bash -c 'export ROS_NAMESPACE=$${CARMA_INTR_NS} && wait-for-it.sh localhost:11311 -- roslaunch /opt/carma/vehicle/config/drivers.launch drivers:=c1t_rplidar_driver'
 
     c1t-zed-driver:
-        image: usdotfhwastoldev/c1t-zed-driver:noetic-f1tenth-develop
+        image: usdotfhwastol/c1t-zed-driver:noetic-f1tenth-develop
         network_mode: host
         container_name: c1t-zed-driver
         runtime: nvidia
