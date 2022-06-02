@@ -1,0 +1,246 @@
+#  Copyright (C) 2018-2021 LEIDOS.
+#
+#  Licensed under the Apache License, Version 2.0 (the "License"); you may not
+#  use this file except in compliance with the License. You may obtain a copy of
+#  the License at
+#
+#  http://www.apache.org/licenses/LICENSE-2.0
+#
+#  Unless required by applicable law or agreed to in writing, software
+#  distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+#  WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+#  License for the specific language governing permissions and limitations under
+#  the License.
+
+# Docker Compose Spec Version
+version: '2'
+
+services:
+  roscore_1:
+    image: usdotfhwastol/carma-base:carma-system-4.1.0
+    container_name: roscore_1
+    networks:
+      net_1:
+        ipv4_address: 172.24.0.2
+    volumes_from:
+      - container:carma-config:ro
+    volumes:
+      - /opt/carma/.ros:/home/carma/.ros
+      - /opt/carma/logs/carma_1:/opt/carma/logs
+    restart: always
+    environment:
+      - ROS_IP=172.24.0.2
+      - ROS_MASTER_URI=http://172.24.0.2:11311/
+    command: roscore
+
+  platform_1:
+    image: usdotfhwastol/carma-platform:carma-system-4.1.0
+    networks:
+      net_1:
+        ipv4_address: 172.24.0.3
+    container_name: platform_1
+    volumes_from:
+      - container:carma-config:ro
+    volumes:
+      - /opt/carma/logs/carma_1:/opt/carma/logs
+      - /opt/carma/.ros:/home/carma/.ros
+      - /opt/carma/vehicle/calibration:/opt/carma/vehicle/calibration
+      - /opt/carma/yolo:/opt/carma/yolo
+      - /opt/carma/maps:/opt/carma/maps
+      - /opt/carma/routes:/opt/carma/routes
+      - /opt/carma/data:/opt/carma/data
+      - /home/yuan/carma_ws/carma/src/carma-platform/inlanecruising_plugin/config:/opt/carma/install/inlanecruising_plugin/share/inlanecruising_plugin/config
+      - /home/yuan/carma_ws/carma/src/carma-platform/arbitrator/config:/opt/carma/install/arbitrator/share/arbitrator/config
+      - /home/yuan/carma_ws/carma/src/carma-platform/motion_computation/config:/opt/carma/install/motion_computation/share/motion_computation/config
+    environment:
+      - ROS_IP=172.24.0.3
+      - ROS_MASTER_URI=http://172.24.0.2:11311/
+    command: bash -c 'wait-for-it.sh 172.24.0.2:11311 -- roslaunch /opt/carma/vehicle/config/carma_docker.launch'
+
+  mock-radar-driver_1:
+    image: usdotfhwastol/carma-platform:carma-system-4.1.0
+    networks:
+      net_1:
+        ipv4_address: 172.24.0.4
+    container_name: carma-mock-radar-driver_1
+    volumes_from:
+      - container:carma-config:ro
+    volumes:
+      - /opt/carma/logs/carma_1:/opt/carma/logs
+      - /opt/carma/.ros:/home/carma/.ros
+      - /opt/carma/data:/opt/carma/data
+    environment:
+      - ROS_IP=172.24.0.4
+      - ROS_MASTER_URI=http://172.24.0.2:11311/
+    command: bash -c 'export ROS_NAMESPACE=$${CARMA_INTR_NS} && wait-for-it.sh 172.24.0.2:11311 -- roslaunch carma mock_drivers.launch mock_drivers:=radar'
+
+  mock-gnss-driver_1:
+    image: usdotfhwastol/carma-platform:carma-system-4.1.0
+    networks:
+      net_1:
+        ipv4_address: 172.24.0.5
+    container_name: carma-mock-gnss-driver_1
+    volumes_from:
+      - container:carma-config:ro
+    volumes:
+      - /opt/carma/logs/carma_1:/opt/carma/logs
+      - /opt/carma/.ros:/home/carma/.ros
+      - /opt/carma/data:/opt/carma/data
+    environment:
+      - ROS_IP=172.24.0.5
+      - ROS_MASTER_URI=http://172.24.0.2:11311/
+    command: bash -c 'export ROS_NAMESPACE=$${CARMA_INTR_NS} && wait-for-it.sh 172.24.0.2:11311 -- roslaunch carma mock_drivers.launch mock_drivers:=gnss'
+
+  mock-lidar-driver_1:
+    image: usdotfhwastol/carma-platform:carma-system-4.1.0
+    networks:
+      net_1:
+        ipv4_address: 172.24.0.6
+    container_name: carma-mock-lidar-driver_1
+    volumes_from:
+      - container:carma-config:ro
+    volumes:
+      - /opt/carma/logs/carma_1:/opt/carma/logs
+      - /opt/carma/.ros:/home/carma/.ros
+      - /opt/carma/data:/opt/carma/data
+    environment:
+      - ROS_IP=172.24.0.6
+      - ROS_MASTER_URI=http://172.24.0.2:11311/
+    command: bash -c 'export ROS_NAMESPACE=$${CARMA_INTR_NS} && wait-for-it.sh 172.24.0.2:11311 -- roslaunch carma mock_drivers.launch mock_drivers:=lidar'
+
+  mock-camera-driver_1:
+    image: usdotfhwastol/carma-platform:carma-system-4.1.0
+    networks:
+      net_1:
+        ipv4_address: 172.24.0.7
+    container_name: carma-mock-camera-driver_1
+    volumes_from:
+      - container:carma-config:ro
+    volumes:
+      - /opt/carma/logs/carma_1:/opt/carma/logs
+      - /opt/carma/.ros:/home/carma/.ros
+      - /opt/carma/data:/opt/carma/data
+    environment:
+      - ROS_IP=172.24.0.7
+      - ROS_MASTER_URI=http://172.24.0.2:11311/
+    command: bash -c 'export ROS_NAMESPACE=$${CARMA_INTR_NS} && wait-for-it.sh 172.24.0.2:11311 -- roslaunch carma mock_drivers.launch mock_drivers:=camera'
+
+  roscore_2:
+    image: usdotfhwastol/carma-base:carma-system-4.1.0
+    container_name: roscore_2
+    networks:
+      net_2:
+        ipv4_address: 172.25.0.2
+    volumes_from:
+      - container:carma-config:ro
+    volumes:
+      - /opt/carma/.ros:/home/carma/.ros
+      - /opt/carma/logs/carma_2:/opt/carma/logs
+    restart: always
+    environment:
+      - ROS_IP=172.25.0.2
+      - ROS_MASTER_URI=http://172.25.0.2:11311/
+    command: roscore
+
+  platform_2:
+    image: usdotfhwastol/carma-platform:carma-system-4.1.0
+    networks:
+      net_2:
+        ipv4_address: 172.25.0.3
+    container_name: platform_2
+    volumes_from:
+      - container:carma-config:ro
+    volumes:
+      - /opt/carma/logs/carma_2:/opt/carma/logs
+      - /opt/carma/.ros:/home/carma/.ros
+      - /opt/carma/vehicle/calibration:/opt/carma/vehicle/calibration
+      - /opt/carma/yolo:/opt/carma/yolo
+      - /opt/carma/maps:/opt/carma/maps
+      - /opt/carma/routes:/opt/carma/routes
+      - /opt/carma/data:/opt/carma/data
+      - /home/yuan/carma_ws/carma/src/carma-platform/inlanecruising_plugin/config:/opt/carma/install/inlanecruising_plugin/share/inlanecruising_plugin/config
+      - /home/yuan/carma_ws/carma/src/carma-platform/arbitrator/config:/opt/carma/install/arbitrator/share/arbitrator/config
+      - /home/yuan/carma_ws/carma/src/carma-platform/motion_computation/config:/opt/carma/install/motion_computation/share/motion_computation/config
+    environment:
+      - ROS_IP=172.25.0.3
+      - ROS_MASTER_URI=http://172.25.0.2:11311/
+    command: bash -c 'wait-for-it.sh 172.25.0.2:11311 -- roslaunch /opt/carma/vehicle/config/carma_docker.launch'
+
+  mock-radar-driver_2:
+    image: usdotfhwastol/carma-platform:carma-system-4.1.0
+    networks:
+      net_2:
+        ipv4_address: 172.25.0.4
+    container_name: carma-mock-radar-driver_2
+    volumes_from:
+      - container:carma-config:ro
+    volumes:
+      - /opt/carma/logs/carma_2:/opt/carma/logs
+      - /opt/carma/.ros:/home/carma/.ros
+      - /opt/carma/data:/opt/carma/data
+    environment:
+      - ROS_IP=172.25.0.4
+      - ROS_MASTER_URI=http://172.25.0.2:11311/
+    command: bash -c 'export ROS_NAMESPACE=$${CARMA_INTR_NS} && wait-for-it.sh 172.25.0.2:11311 -- roslaunch carma mock_drivers.launch mock_drivers:=radar'
+
+  mock-gnss-driver_2:
+    image: usdotfhwastol/carma-platform:carma-system-4.1.0
+    networks:
+      net_2:
+        ipv4_address: 172.25.0.5
+    container_name: carma-mock-gnss-driver_2
+    volumes_from:
+      - container:carma-config:ro
+    volumes:
+      - /opt/carma/logs/carma_2:/opt/carma/logs
+      - /opt/carma/.ros:/home/carma/.ros
+      - /opt/carma/data:/opt/carma/data
+    environment:
+      - ROS_IP=172.25.0.5
+      - ROS_MASTER_URI=http://172.25.0.2:11311/
+    command: bash -c 'export ROS_NAMESPACE=$${CARMA_INTR_NS} && wait-for-it.sh 172.25.0.2:11311 -- roslaunch carma mock_drivers.launch mock_drivers:=gnss'
+
+  mock-lidar-driver_2:
+    image: usdotfhwastol/carma-platform:carma-system-4.1.0
+    networks:
+      net_2:
+        ipv4_address: 172.25.0.6
+    container_name: carma-mock-lidar-driver_2
+    volumes_from:
+      - container:carma-config:ro
+    volumes:
+      - /opt/carma/logs/carma_2:/opt/carma/logs
+      - /opt/carma/.ros:/home/carma/.ros
+      - /opt/carma/data:/opt/carma/data
+    environment:
+      - ROS_IP=172.25.0.6
+      - ROS_MASTER_URI=http://172.25.0.2:11311/
+    command: bash -c 'export ROS_NAMESPACE=$${CARMA_INTR_NS} && wait-for-it.sh 172.25.0.2:11311 -- roslaunch carma mock_drivers.launch mock_drivers:=lidar'
+
+  mock-camera-driver_2:
+    image: usdotfhwastol/carma-platform:carma-system-4.1.0
+    networks:
+      net_2:
+        ipv4_address: 172.25.0.7
+    container_name: carma-mock-camera-driver_2
+    volumes_from:
+      - container:carma-config:ro
+    volumes:
+      - /opt/carma/logs/carma_2:/opt/carma/logs
+      - /opt/carma/.ros:/home/carma/.ros
+      - /opt/carma/data:/opt/carma/data
+    environment:
+      - ROS_IP=172.25.0.7
+      - ROS_MASTER_URI=http://172.25.0.2:11311/
+    command: bash -c 'export ROS_NAMESPACE=$${CARMA_INTR_NS} && wait-for-it.sh 172.25.0.2:11311 -- roslaunch carma mock_drivers.launch mock_drivers:=camera'
+
+networks:
+  net_1:
+    ipam:
+      config:
+        - subnet: 172.24.0.0/16
+
+  net_2:
+    ipam:
+      config:
+        - subnet: 172.25.0.0/16
