@@ -32,7 +32,7 @@ topics:
     qos:
       history: keep_all
       durability: transient_local
--
+  -
     topic: /environment/external_object_predictions
     type: carma_perception_msgs/msg/ExternalObjectList
     queue_size: 1
