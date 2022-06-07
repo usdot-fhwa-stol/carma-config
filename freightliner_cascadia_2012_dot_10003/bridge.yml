@@ -19,7 +19,7 @@ topics:
     topic: /environment/semantic_map
     type: autoware_lanelet2_msgs/msg/MapBin
     queue_size: 1
-    direction: 1to2
+    direction: 2to1
     qos:
       history: keep_last
       depth: 1
@@ -28,7 +28,7 @@ topics:
     topic: /environment/map_update
     type: autoware_lanelet2_msgs/msg/MapBin
     queue_size: 200
-    direction: 1to2
+    direction: 2to1
     qos:
       history: keep_all
       durability: transient_local
