@@ -17,7 +17,7 @@ version: '2'
 
 services:
   roscore_1:
-    image: usdotfhwastol/carma-base:carma-system-4.1.0
+    image: usdotfhwastoldev/carma-base:develop
     container_name: roscore_1
     networks:
       net_1:
@@ -34,7 +34,7 @@ services:
     command: roscore
 
   platform_1:
-    image: usdotfhwastol/carma-platform:carma-system-4.1.0
+    image: usdotfhwastoldev/carma-platform:develop
     networks:
       net_1:
         ipv4_address: 172.24.0.3
@@ -58,7 +58,7 @@ services:
     command: bash -c 'wait-for-it.sh 172.24.0.2:11311 -- roslaunch /opt/carma/vehicle/config/carma_docker.launch'
 
   mock-radar-driver_1:
-    image: usdotfhwastol/carma-platform:carma-system-4.1.0
+    image: usdotfhwastoldev/carma-platform:develop
     networks:
       net_1:
         ipv4_address: 172.24.0.4
@@ -75,7 +75,7 @@ services:
     command: bash -c 'export ROS_NAMESPACE=$${CARMA_INTR_NS} && wait-for-it.sh 172.24.0.2:11311 -- roslaunch carma mock_drivers.launch mock_drivers:=radar'
 
   mock-gnss-driver_1:
-    image: usdotfhwastol/carma-platform:carma-system-4.1.0
+    image: usdotfhwastoldev/carma-platform:develop
     networks:
       net_1:
         ipv4_address: 172.24.0.5
@@ -92,7 +92,7 @@ services:
     command: bash -c 'export ROS_NAMESPACE=$${CARMA_INTR_NS} && wait-for-it.sh 172.24.0.2:11311 -- roslaunch carma mock_drivers.launch mock_drivers:=gnss'
 
   mock-lidar-driver_1:
-    image: usdotfhwastol/carma-platform:carma-system-4.1.0
+    image: usdotfhwastoldev/carma-platform:develop
     networks:
       net_1:
         ipv4_address: 172.24.0.6
@@ -109,7 +109,7 @@ services:
     command: bash -c 'export ROS_NAMESPACE=$${CARMA_INTR_NS} && wait-for-it.sh 172.24.0.2:11311 -- roslaunch carma mock_drivers.launch mock_drivers:=lidar'
 
   mock-camera-driver_1:
-    image: usdotfhwastol/carma-platform:carma-system-4.1.0
+    image: usdotfhwastoldev/carma-platform:develop
     networks:
       net_1:
         ipv4_address: 172.24.0.7
@@ -126,7 +126,7 @@ services:
     command: bash -c 'export ROS_NAMESPACE=$${CARMA_INTR_NS} && wait-for-it.sh 172.24.0.2:11311 -- roslaunch carma mock_drivers.launch mock_drivers:=camera'
 
   roscore_2:
-    image: usdotfhwastol/carma-base:carma-system-4.1.0
+    image: usdotfhwastoldev/carma-base:develop
     container_name: roscore_2
     networks:
       net_2:
@@ -143,7 +143,7 @@ services:
     command: roscore
 
   platform_2:
-    image: usdotfhwastol/carma-platform:carma-system-4.1.0
+    image: usdotfhwastoldev/carma-platform:develop
     networks:
       net_2:
         ipv4_address: 172.25.0.3
@@ -167,7 +167,7 @@ services:
     command: bash -c 'wait-for-it.sh 172.25.0.2:11311 -- roslaunch /opt/carma/vehicle/config/carma_docker.launch'
 
   mock-radar-driver_2:
-    image: usdotfhwastol/carma-platform:carma-system-4.1.0
+    image: usdotfhwastoldev/carma-platform:develop
     networks:
       net_2:
         ipv4_address: 172.25.0.4
@@ -184,7 +184,7 @@ services:
     command: bash -c 'export ROS_NAMESPACE=$${CARMA_INTR_NS} && wait-for-it.sh 172.25.0.2:11311 -- roslaunch carma mock_drivers.launch mock_drivers:=radar'
 
   mock-gnss-driver_2:
-    image: usdotfhwastol/carma-platform:carma-system-4.1.0
+    image: usdotfhwastoldev/carma-platform:develop
     networks:
       net_2:
         ipv4_address: 172.25.0.5
@@ -201,7 +201,7 @@ services:
     command: bash -c 'export ROS_NAMESPACE=$${CARMA_INTR_NS} && wait-for-it.sh 172.25.0.2:11311 -- roslaunch carma mock_drivers.launch mock_drivers:=gnss'
 
   mock-lidar-driver_2:
-    image: usdotfhwastol/carma-platform:carma-system-4.1.0
+    image: usdotfhwastoldev/carma-platform:develop
     networks:
       net_2:
         ipv4_address: 172.25.0.6
@@ -218,7 +218,7 @@ services:
     command: bash -c 'export ROS_NAMESPACE=$${CARMA_INTR_NS} && wait-for-it.sh 172.25.0.2:11311 -- roslaunch carma mock_drivers.launch mock_drivers:=lidar'
 
   mock-camera-driver_2:
-    image: usdotfhwastol/carma-platform:carma-system-4.1.0
+    image: usdotfhwastoldev/carma-platform:develop
     networks:
       net_2:
         ipv4_address: 172.25.0.7
