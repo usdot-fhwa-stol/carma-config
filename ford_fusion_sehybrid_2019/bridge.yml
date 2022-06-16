@@ -1,159 +1,37 @@
-##########
-# THIS FILE IS DEPRECATED IN FAVOR OF USING THE MULTI-THREADED VERSION OF THE DYNAMIC BRIDGE
-# THIS FILE WILL BE REMOVED ONCE SYSTEM HAS PROVEN STABILITY WITH THAT BRIDGE
-##########
-
-
 # This file contains explicit topic mappings between ROS1 and ROS2 portions of CARMA Platform while the 
 # ROS2 migration is underway.
+# NOTE: A custom dynamic_bridge is used in CARMA Platform which will automatically connect topics and services, but 
+#       this file allows for certain topics to be pre-configured with specified QoS settings. 
 topics:
-  -
-    topic: /localization/current_pose_with_covariance
-    type: geometry_msgs/msg/PoseWithCovarianceStamped
-    queue_size: 1
-  -
-    topic: /hardware_interface/lidar/points_raw
-    type: sensor_msgs/msg/PointCloud2
-    queue_size: 1
   -
     topic: /environment/external_objects
     type: carma_perception_msgs/msg/ExternalObjectList
     queue_size: 1
   -
-    topic: /tf
-    type: tf2_msgs/msg/TFMessage
-    queue_size: 100
-  -
     topic: /environment/external_objects_viz
     type: visualization_msgs/msg/MarkerArray
     queue_size: 1
-  -    
+  -
     topic: /environment/roadway_obstacles_viz
     type: visualization_msgs/msg/MarkerArray
     queue_size: 1
-  -    
+  -
     topic: /environment/semantic_map
     type: autoware_lanelet2_msgs/msg/MapBin
     queue_size: 1
+    direction: 2to1
+    qos:
+      history: keep_last
+      depth: 1
+      durability: transient_local
+  -
+    topic: /environment/map_update
+    type: autoware_lanelet2_msgs/msg/MapBin
+    queue_size: 200
+    direction: 2to1
     qos:
       history: keep_all
       durability: transient_local
-  -
-    topic: /message/mobility_path_msg
-    type: carma_v2x_msgs/msg/MobilityPath
-    queue_size: 1
-  -
-    topic: /message/bsm_outbound
-    type: carma_v2x_msgs/msg/BSM
-    queue_size: 1
-  -
-    topic: /guidance/plan_trajectory
-    type: carma_planning_msgs/msg/TrajectoryPlan
-    queue_size: 1
-  -
-    topic: /localization/map_param_loader/georeference
-    type: std_msgs/msg/String
-    queue_size: 1
-  -
-    topic: /hardware_interface/velocity_accel_cov
-    type: automotive_platform_msgs/msg/VelocityAccelCov
-    queue_size: 1
-  -
-    topic: /hardware_interface/imu_raw
-    type: sensor_msgs/msg/Imu
-    queue_size: 1
-  -
-    topic: /hardware_interface/can/transmission_state
-    type: j2735_v2x_msgs/msg/TransmissionState
-    queue_size: 1
-  -
-    topic: /hardware_interface/can/steering_wheel_angle
-    type: std_msgs/msg/Float64
-    queue_size: 1
-  -
-    topic: /hardware_interface/gnss_fix_fused
-    type: gps_msgs/msg/GPSFix
-    queue_size: 1
-  -
-    topic: /localization/current_pose
-    type: geometry_msgs/msg/PoseStamped
-    queue_size: 1
-  -
-    topic: /hardware_interface/can/brake_position
-    type: std_msgs/msg/Float64
-    queue_size: 1
-  -
-    topic: /hardware_interface/vehicle/twist
-    type: geometry_msgs/msg/TwistStamped
-    queue_size: 1
-  -
-    topic: /hardware_interface/comms/inbound_binary_msg
-    type: carma_driver_msgs/msg/ByteArray
-    queue_size: 50
-  -
-    topic: /hardware_interface/comms/outbound_binary_msg
-    type: carma_driver_msgs/msg/ByteArray
-    queue_size: 50
-  -
-    topic: /message/incoming_bsm
-    type: carma_v2x_msgs/msg/BSM
-    queue_size: 50
-  -
-    topic: /message/incoming_spat
-    type: carma_v2x_msgs/msg/SPAT
-    queue_size: 50
-  -
-    topic: /message/incoming_map
-    type: carma_v2x_msgs/msg/MapData
-    queue_size: 50
-  -
-    topic: /message/incoming_geofence_control
-    type: carma_v2x_msgs/msg/TrafficControlMessage
-    queue_size: 10
-  -
-    topic: /message/incoming_geofence_request
-    type: carma_v2x_msgs/msg/TrafficControlRequest
-    queue_size: 1
-  -
-    topic: /message/outgoing_geofence_control
-    type: carma_v2x_msgs/msg/TrafficControlMessage
-    queue_size: 1
-  -
-    topic: /message/outgoing_geofence_request
-    type: carma_v2x_msgs/msg/TrafficControlRequest
-    queue_size: 1
-  -
-    topic: /message/incoming_mobility_operation
-    type: carma_v2x_msgs/msg/MobilityOperation
-    queue_size: 50
-  -
-    topic: /message/outgoing_mobility_operation
-    type: carma_v2x_msgs/msg/MobilityOperation
-    queue_size: 50
-  -
-    topic: /message/incoming_mobility_response
-    type: carma_v2x_msgs/msg/MobilityResponse
-    queue_size: 50
-  -
-    topic: /message/outgoing_mobility_response
-    type: carma_v2x_msgs/msg/MobilityResponse
-    queue_size: 50
-  -
-    topic: /message/incoming_mobility_path
-    type: carma_v2x_msgs/msg/MobilityPath
-    queue_size: 50
-  -
-    topic: /message/outgoing_mobility_path
-    type: carma_v2x_msgs/msg/MobilityPath
-    queue_size: 50
-  -
-    topic: /message/incoming_mobility_request
-    type: carma_v2x_msgs/msg/MobilityRequest
-    queue_size: 50
-  -
-    topic: /message/outgoing_mobility_request
-    type: carma_v2x_msgs/msg/MobilityRequest
-    queue_size: 50
   -
     topic: /environment/external_object_predictions
     type: carma_perception_msgs/msg/ExternalObjectList
@@ -162,7 +40,4 @@ topics:
     topic: /system_alert
     type: carma_msgs/msg/SystemAlert
     queue_size: 5
-    qos:
-      history: keep_all
-      durability: transient_local
 services_1_to_2: []
