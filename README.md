@@ -1,3 +1,9 @@
+| DockerHub Release | DockerHub Release Candidate | DockerHub Develop |
+|------|-----|-----|
+[![Docker Cloud Build Status](https://img.shields.io/docker/cloud/build/usdotfhwastol/carma-config?label=Docker%20Build&logo=232496ED)](https://hub.docker.com/repository/docker/usdotfhwastol/carma-config) | [![Docker Cloud Build Status](https://img.shields.io/docker/cloud/build/usdotfhwastolcandidate/carma-config?label=Docker%20Build&logo=232496ED)](https://hub.docker.com/repository/docker/usdotfhwastolcandidate/carma-config) | [![Docker Cloud Build Status](https://img.shields.io/docker/cloud/build/usdotfhwastoldev/carma-config?label=Docker%20Build&logo=232496ED)](https://hub.docker.com/repository/docker/usdotfhwastoldev/carma-config)
+
+
+
 # CARMAConfig
 The CARMAConfig repository stores the vehicle-specifc and vehicle-class specific configuration files (such as Docker Compose manifests, network configuration files, system parameters) for use with the different vehicles the CARMA Platform supports. A detailed breakdown of how CARMA treats vehicle configuration can be found on the confluence page: https://usdot-carma.atlassian.net/wiki/spaces/CAR/pages/196182019/CARMA3+Project+Documentation?preview=/196182019/198574135/CARMA%20Platform%20Detailed%20Design%20-%20Parameter%20and%20Launch%20Standards%20for%20Different%20Vehicle%20Configurations.docx
 
