@@ -129,6 +129,21 @@ def generate_launch_description():
         ]
     )
 
+    lightbar_driver_group = GroupAction(
+        condition=IfCondition(PythonExpression(["'lightbar_driver' in '", drivers, "'.split()"])),
+        actions=[
+            PushRosNamespace(EnvironmentVariable('CARMA_INTR_NS', default_value='hardware_interface')),
+            IncludeLaunchDescription(
+                PythonLaunchDescriptionSource([ FindPackageShare('lightbar_driver'), '/launch/lightbar_driver_node_launch.py']),
+                launch_arguments = { 
+                    'log_level' : GetLogLevel('lightbar_driver', env_log_levels),
+                    'ip_addr' : '192.168.88.28',
+                    'port' : '80',
+                    'vehicle_calibration_dir' : vehicle_calibration_dir,
+                    }.items()
+            ),
+        ]
+    )
 
     return LaunchDescription([
         declare_drivers_arg,
@@ -138,5 +153,6 @@ def generate_launch_description():
         dsrc_group,
         ssc_group,
         lidar_group,
-        gnss_ins_group
+        gnss_ins_group,
+        lightbar_driver_group
     ])
