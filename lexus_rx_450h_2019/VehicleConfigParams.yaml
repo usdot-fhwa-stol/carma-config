@@ -5,7 +5,7 @@
 # Post localization manager pose offsets in meters
 pose_x_offset: 1.0
 pose_y_offset: 1.0
-pose_z_offset: 1.0
+pose_z_offset: 0.0
 
 # String: Host vehicle make
 # Value type: Measured
