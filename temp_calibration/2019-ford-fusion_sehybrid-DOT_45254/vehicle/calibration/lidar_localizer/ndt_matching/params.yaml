@@ -1,0 +1,9 @@
+# Autoware transform params
+# TODO: Resolve code duplication, this information is already in the base_link -> velodyne TF
+tf_x: 1.32
+tf_y: 0.0
+tf_z: 2.02
+tf_yaw: -0.09
+tf_pitch: 0.0
+tf_roll: 0.0
+localizer: velodyne

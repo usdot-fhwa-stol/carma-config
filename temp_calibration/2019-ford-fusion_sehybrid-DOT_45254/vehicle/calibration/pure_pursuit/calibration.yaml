@@ -1,0 +1,6 @@
+# Pure pursuit lookahead calibration params
+
+const_lookahead_distance: 4.0
+lookahead_ratio: 1.5
+minimum_lookahead_distance: 12.0
+vehicle_wheel_base: 3.2
