@@ -87,6 +87,10 @@ vehicle_model_steer_tau : 0.3
 truck: false
 car: true
 
+# CARLA Vehicle Role Name
+# Value Type: String
+role_name: "ego_vehicle"
+
 # Required drivers for the vehicle to be functional
 required_drivers:
   - /hardware_interface/controller
