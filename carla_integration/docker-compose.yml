@@ -50,9 +50,9 @@ services:
       - ~/carma_ws/src/carma-platform/platooning_control/config/parameters.yaml:/opt/carma/install/platoon_control/share/platoon_control/config/parameters.yaml
     command: bash -c 'wait-for-it.sh localhost:11311 -- roslaunch /opt/carma/vehicle/config/carma_docker.launch'
 
-  carla_ackermann_control:
-    image: usdotfhwastol/carma-simulation:carma-system-3.11.0
-    container_name: carla-ackermann-control-driver
+  cohda_dsrc_driver:
+    image: usdotfhwastol/carma-cohda-dsrc-driver:carma-system-3.11.0
+    container_name: carma-cohda-dsrc-driver
     network_mode: host
     volumes_from:
       - container:carma-config:ro
@@ -61,30 +61,5 @@ services:
     volumes:
       - /opt/carma/logs:/opt/carma/logs
       - /opt/carma/.ros:/home/carma/.ros
-    command: bash -c 'export ROS_NAMESPACE=$${CARMA_INTR_NS} && wait-for-it.sh localhost:11311 -- roslaunch /opt/carma/vehicle/config/drivers.launch'
-
-  mock-gnss-driver:
-    image: usdotfhwastol/carma-platform:carma-system-3.11.0
-    network_mode: host
-    container_name: carma-mock-gnss-driver
-    volumes_from: 
-      - container:carma-config:ro
-    volumes:
-      - /opt/carma/logs:/opt/carma/logs
-      - /opt/carma/.ros:/home/carma/.ros
-    environment:
-      - ROS_IP=127.0.0.1
-    command: bash -c 'export ROS_NAMESPACE=$${CARMA_INTR_NS} && wait-for-it.sh localhost:11311 -- roslaunch carma mock_drivers.launch mock_drivers:=gnss'
-
-  mock-lidar-driver:
-    image: usdotfhwastol/carma-platform:carma-system-3.11.0
-    network_mode: host
-    container_name: carma-mock-lidar-driver
-    volumes_from: 
-      - container:carma-config:ro
-    volumes:
-      - /opt/carma/logs:/opt/carma/logs
-      - /opt/carma/.ros:/home/carma/.ros
-    environment:
-      - ROS_IP=127.0.0.1
-    command: bash -c 'export ROS_NAMESPACE=$${CARMA_INTR_NS} && wait-for-it.sh localhost:11311 -- roslaunch carma mock_drivers.launch mock_drivers:=lidar'
+      - ~/carma_ws/src/carma-cohda-dsrc-driver/dsrc_driver/launch:/opt/carma/install/dsrc_driver/share/dsrc_driver/launch
+    command: bash -c 'export ROS_NAMESPACE=$${CARMA_INTR_NS} && wait-for-it.sh localhost:11311 -- roslaunch /opt/carma/vehicle/config/drivers.launch drivers:=dsrc_driver'
