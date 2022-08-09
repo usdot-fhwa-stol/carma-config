@@ -47,6 +47,7 @@ services:
       - /opt/carma/maps:/opt/carma/maps
       - /opt/carma/routes:/opt/carma/routes
       - /opt/carma/yolo:/opt/carma/yolo
+      - ~/carma_ws/src/carma-platform/platooning_strategic/config/parameters.yaml:/opt/carma/install/platoon_strategic/share/platoon_strategic/config/parameters.yaml
     command: bash -c 'wait-for-it.sh localhost:11311 -- roslaunch /opt/carma/vehicle/config/carma_docker.launch'
 
   lightbar-driver:
