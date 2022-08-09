@@ -102,7 +102,7 @@ vehicle_participant_type: "vehicle:car"
 
 # Parameter to enable configurable speed limit
 # Value type: Desired
-config_speed_limit: 45.0
+config_speed_limit: 15.0
 
 # Topics to exclude from rosbag recording
 exclude_default: true
