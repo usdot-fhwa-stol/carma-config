@@ -90,6 +90,7 @@ car: true
 # Required drivers for the vehicle to be functional
 required_drivers:
   - /hardware_interface/carla_driver
+  - /hardware_interface/dsrc
 lidar_gps_drivers:
   - /hardware_interface/carla_lidar_driver
   - /hardware_interface/carla_gnss_driver
