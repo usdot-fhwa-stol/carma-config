@@ -15,34 +15,34 @@
   the License.
 -->
 <!--
-	drivers.launch
+        drivers.launch
 
-This file is used for vehicle configurations. The arguments from carma.launch should pass on to carma_src.launch, which should then pass those arguments to this file. The arguments in the carma.launch file will override all of the default values of the arguments being passed, so you should be making changes to the carma.launch to configure it to your vehicle. 
+This file is used for vehicle configurations. The arguments from carma.launch should pass on to carma_src.launch, which should then pass those arguments to this file. The arguments in the carma.laun>
 
-If not using simulated drivers they are activated if the respective mock arguments being passed in are false. These lines below activate the respective actual driver if the respective mock argument being passed is false.
+If not using simulated drivers they are activated if the respective mock arguments being passed in are false. These lines below activate the respective actual driver if the respective mock argument >
 
 -->
 
 <launch>
-  <arg name='role_name' default='ego_vehicle'/>
-  <arg name="socket_ip" default="127.0.0.1" />
-  <arg name="socket_port" default="8080" />
+  <!--<arg name="mock_drivers" default="controller can comms gnss radar lidar camera roadway_sensor" />
+  <arg name="vehicle_calibration_dir" default="$(arg vehicle_calibration_dir)"/> -->
+  <!-- File not used in development environment where only mock drivers are used -->
 
-  <!-- handling global prameters -->
-  <remap from="~vehicle_wheel_base" to="/vehicle_wheel_base"/> 
-  <remap from="~vehicle_acceleration_limit" to="/vehicle_acceleration_limit"/>
-  <remap from="~vehicle_deceleration_limit" to="/vehicle_deceleration_limit"/>
-  <remap from="~vehicle_steer_lim_deg" to="/vehicle_steer_lim_deg"/> 
+  <!-- Shutdown node to shutsdown driver node with fatal message -->
+  <node pkg="driver_shutdown" type="driver_shutdown" name="$(anon driver_shutdown)" required="true"/>
 
-  <include file="$(find carla_ackermann_control_wrapper)/launch/carla_ackermann_control_wrapper.launch"/>
+  <!-- Mock Drivers -->
+  <arg name="mock_drivers"        default="" doc="List of driver node base names which will be launched as mock drivers"/>
 
-  <include file="$(find carla_ackermann_control)/launch/carla_ackermann_control.launch">
-    <arg name='role_name' value='$(arg role_name)'/>
-  </include>
-  
-  <include file="$(find carla_carma)/launch/carma_comm.launch">
-    <arg name="socket_ip" value='$(arg socket_ip)'/>
-    <arg name="socket_port" value='$(arg socket_port)'/>
-  </include>
+  <arg name="mock_comms"          value="$(eval 'comms' in arg('mock_drivers').split())"/>
+
+  <!-- Specific Drivers -->
+  <arg name="drivers" default="dsrc_driver"
+    doc="Desired real drivers to launch specified by package name. Mock drivers will take precedence"/>
+
+  <arg name="dsrc_driver"                   value="$(eval ('dsrc_driver' in arg('drivers').split()) and not arg('mock_comms'))"/>
+
+  <!-- DSRC OBU Driver Node -->
+  <include if="$(arg dsrc_driver)" file="$(find dsrc_driver)/launch/dsrc_node.launch"/>
 
 </launch>
