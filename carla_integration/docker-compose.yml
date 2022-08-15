@@ -31,7 +31,7 @@ services:
     command: roscore
 
   platform:
-    image: usdotfhwastolcandidate/carma-platform:voices
+    image: usdotfhwastolcandidate/carma-platform:voices-follower
     network_mode: host
     container_name: platform
     volumes_from:
