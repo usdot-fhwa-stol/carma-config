@@ -49,7 +49,7 @@ guidance:
         - /guidance/plugins/sci_strategic_plugin
         - /guidance/plugins/stop_controlled_intersection_tactical_plugin
         - /guidance/plugins/platoon_control_ihp
-        - /guidance/plugins/platoon_strategic_ihp
+        - /guidance/plugins/platoon_strategic_ihp_node
         - /guidance/plugins/platooning_tactical_plugin
         - /guidance/plugins/yield_plugin
       ros2_initial_plugins:
