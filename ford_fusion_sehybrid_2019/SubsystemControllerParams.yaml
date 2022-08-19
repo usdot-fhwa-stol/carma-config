@@ -54,7 +54,6 @@ guidance:
         - /guidance/plugins/yield_plugin
       ros2_initial_plugins:
         - /guidance/plugins/inlanecruising_plugin          
-        - /guidance/plugins/yield_plugin
         - /guidance/plugins/platoon_strategic_ihp_node
         - /guidance/plugins/stop_and_wait_plugin
         - /guidance/plugins/route_following_plugin
