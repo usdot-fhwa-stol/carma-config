@@ -57,6 +57,7 @@ guidance:
         - /guidance/plugins/platoon_strategic_ihp_node
         - /guidance/plugins/stop_and_wait_plugin
         - /guidance/plugins/route_following_plugin
+        - /guidance/plugins/cooperative_lanechange
 
 localization:
   localization_controller:
