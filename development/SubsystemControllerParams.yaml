@@ -57,6 +57,7 @@ guidance:
         - /guidance/plugins/route_following_plugin
         - /guidance/plugins/platooning_tactical_plugin_node
         - /guidance/plugins/cooperative_lanechange
+        - /guidance/plugins/sci_strategic_plugin
 
 localization:
   localization_controller:
