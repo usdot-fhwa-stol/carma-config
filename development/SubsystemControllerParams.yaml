@@ -47,9 +47,16 @@ guidance:
         - /guidance/plugins/sci_strategic_plugin
         - /guidance/plugins/stop_controlled_intersection_tactical_plugin
         - /guidance/plugins/platoon_control_ihp
-        - /guidance/plugins/platoon_strategic_ihp
-        - /guidance/plugins/platooning_tactical_plugin
+        - /guidance/plugins/platoon_strategic_ihp_node
+        - /guidance/plugins/platooning_tactical_plugin_node
         - /guidance/plugins/yield_plugin
+      ros2_initial_plugins:
+        - /guidance/plugins/inlanecruising_plugin          
+        - /guidance/plugins/platoon_strategic_ihp_node
+        - /guidance/plugins/stop_and_wait_plugin
+        - /guidance/plugins/route_following_plugin
+        - /guidance/plugins/platooning_tactical_plugin_node
+        - /guidance/plugins/cooperative_lanechange
 
 localization:
   localization_controller:
