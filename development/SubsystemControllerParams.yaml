@@ -59,6 +59,7 @@ guidance:
         - /guidance/plugins/cooperative_lanechange
         - /guidance/plugins/light_controlled_intersection_tactical_plugin
         - /guidance/plugins/sci_strategic_plugin
+        - /guidance/plugins/yield_plugin
 
 localization:
   localization_controller:
