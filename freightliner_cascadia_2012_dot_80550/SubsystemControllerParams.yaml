@@ -60,6 +60,7 @@ guidance:
         - /guidance/plugins/platooning_tactical_plugin_node
         - /guidance/plugins/cooperative_lanechange
         - /guidance/plugins/light_controlled_intersection_tactical_plugin
+        - /guidance/plugins/sci_strategic_plugin
 
 localization:
   localization_controller:
