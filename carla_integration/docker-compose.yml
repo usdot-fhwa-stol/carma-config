@@ -31,7 +31,7 @@ services:
     command: roscore
 
   platform:
-    image: usdotfhwastolcandidate/carma-platform:voices-follower
+    image: usdotfhwastolcandidate/carma-platform:voices
     network_mode: host
     container_name: platform
     volumes_from:
@@ -48,7 +48,6 @@ services:
       - /opt/carma/yolo:/opt/carma/yolo
       - ~/carma_ws/src/carma-platform/platooning_tactical_plugin/config/parameters.yaml:/opt/carma/install/platooning_tactical_plugin/share/platooning_tactical_plugin/config/parameters.yaml
       - ~/carma_ws/src/carma-platform/platooning_control/config/parameters.yaml:/opt/carma/install/platoon_control/share/platoon_control/config/parameters.yaml
-      - ~/carma_ws/src/carma-platform/carma/launch/environment.launch:/opt/carma/install/carma/share/carma/launch/environment.launch
     command: bash -c 'wait-for-it.sh localhost:11311 -- roslaunch /opt/carma/vehicle/config/carma_docker.launch'
 
   cohda_dsrc_driver:
