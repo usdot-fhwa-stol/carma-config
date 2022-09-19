@@ -61,6 +61,7 @@ guidance:
         - /guidance/plugins/sci_strategic_plugin
         - /guidance/plugins/stop_controlled_intersection_tactical_plugin
         - /guidance/plugins/yield_plugin
+        - /guidance/plugins/pure_pursuit_wrapper
 
 localization:
   localization_controller:
