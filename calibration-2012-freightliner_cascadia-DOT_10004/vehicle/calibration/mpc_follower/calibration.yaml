@@ -1,0 +1,29 @@
+#MPC Follower Weights and Parameters
+#TODO: The parameters are tuned on Blue Lexus and may needadditional ajustments on other vehicles.
+
+qp_solver_type: "unconstraint_fast"
+mpc_prediction_horizon: 70.0
+mpc_prediction_sampling_time: 0.1
+mpc_weight_lat_error: 0.1
+mpc_weight_terminal_lat_error: 1.0
+mpc_weight_steering_input: 1.0
+mpc_weight_steering_input_squared_vel_coeff: 0.25
+mpc_weight_heading_error: 0.35
+mpc_weight_terminal_heading_error: 1.0
+mpc_weight_heading_error_squared_vel_coeff: 0.5
+mpc_weight_lat_jerk: 1.0
+
+show_debug_info: false
+publish_debug_values: false
+ctrl_period: 0.03
+traj_resample_dist: 0.1
+enable_yaw_recalculation: true
+admisible_position_error: 5.0
+admisible_yaw_error_deg: 90.0
+enable_path_smoothing: true
+path_smoothing_times: 2
+path_filter_moving_ave_num: 35
+curvature_smoothing_num: 35
+steering_lpf_cutoff_hz: 3.0
+qpoases_max_iter: 500
+vehicle_model_type: "kinematics"

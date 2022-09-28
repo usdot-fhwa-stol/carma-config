@@ -1,0 +1,11 @@
+{
+    "publish_interval": 0.05,
+    "publish_state_interval": 0.5,
+    "command_timeout": 0.5,
+    "report_timeout": 0.5,
+    "fault_report_timeout": 0.5,
+    "ignore_override_time": 0.0,
+    "re_enable_time": 2.0,
+    "engage_on_wheels": 1,
+    "shift_delay": 5.0
+}

@@ -1,0 +1,2 @@
+#Fixed distance between two sensors in cm
+distance_between_two_sensor: 150.0

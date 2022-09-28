@@ -1,0 +1,20 @@
+# Defines the ros parameters which define a unique vehicles specific traits
+
+# String: Host vehicle color
+vehicle_color: 'WHITE'
+
+# String: Host vehicle’s Unique ID that will be used in mobility messages.
+vehicle_id: 'MY-ID'
+
+# String: Host vehicle's vin number 
+vin_number: '11111111111111111'
+
+# Double: Approximation of delay in vehicle acceleration response to changes in speed command
+vehicle_response_lag: 0.74
+
+#BSM Message ID for Simulation Testing 
+#The value will be converted to a 4 element array of uint8_t where each byte of the parameter becomes one element of the array.
+bsm_message_id: 3
+
+#Enable/disable rotation of BSM ID during vehicle operations
+bsm_id_rotation_enabled: true

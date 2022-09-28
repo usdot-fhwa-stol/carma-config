@@ -1,0 +1,13 @@
+tf_x: 5.2245
+tf_y: 0.0
+tf_z: 0.0
+tf_roll: 0.0
+tf_pitch: 0.0
+tf_yaw: 0.0
+
+localizer: concat_velodyne
+
+vehicle_info:
+  maximum_steering_angle: 600.0
+  minimum_turning_radius: 5.7
+  wheel_base: 5.791

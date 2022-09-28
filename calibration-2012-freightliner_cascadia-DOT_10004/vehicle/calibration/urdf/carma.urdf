@@ -1,0 +1,149 @@
+<?xml version="1.0"?>
+<robot name="GEM">
+  <link name="base_link" />
+  <link name="velodyne_1" />
+  <link name="velodyne_2" />
+  <link name="concat_velodyne" />
+  <link name="front_esr" />
+  <link name="rear_esr" />
+  <link name="front_right_srr" />
+  <link name="front_left_srr" />
+  <link name="rear_right_srr" />
+  <link name="rear_left_srr" />
+  <link name="mobileye" /> 
+  <link name="novatel" /> 
+  <link name="gps" />
+  <link name="novatel_imu"/>
+  <link name="ned_heading"/>
+  <link name="vehicle_front" />
+
+  <!-- Reference Frame Transforms -->
+
+  <!-- base_link -> vehicle_front Transform vehicle_front is FLU-->
+  <joint name="base_link_to_vehicle_front" type="fixed">
+		<parent link="base_link" />
+		<child link="vehicle_front" />
+    <origin xyz="7.32 0 0.71" rpy="0 0 0" />
+  </joint>
+
+  <!-- Sensor Transforms -->
+
+  <joint name="velodyne_1" type="fixed" >
+    <origin xyz="5.224 1.065 3.03" rpy="0 0 0.0676" />
+    <parent link="base_link" />
+    <child link="velodyne_1" />
+  </joint>
+
+ <joint name="velodyne_2" type="fixed" >
+    <origin xyz="-0.136174 -2.06041 0.0183966" rpy="0.0005524 0.0001121 -0.0557507" />
+    <parent link="velodyne_1" />
+    <child link="velodyne_2" />
+  </joint>
+
+<!--
+Oct 2021 
+ <joint name="velodyne_2" type="fixed" >
+    <origin xyz="-0.136174 -2.06041 0.0183966" rpy="0.0005524 0.0001121 -0.0557507" />
+    <parent link="velodyne_1" />
+    <child link="velodyne_2" />
+  </joint>
+
+Feb 2020
+<joint name="velodyne_2" type="fixed" >
+    <origin xyz="-0.14601 -2.11585 0.0381178" rpy="-0.0106651 0.0000007 -0.0216084" />
+    <parent link="velodyne_1" />
+    <child link="velodyne_2" />
+  </joint>
+
+OLDEST
+  <joint name="velodyne_2" type="fixed" >
+    <origin xyz="5.225 -1.076 3.06" rpy="0 0 -0.02" />
+    <parent link="base_link" />
+    <child link="velodyne_2" />
+  </joint>
+-->
+
+<!-- 
+  <joint name="velodyne_2" type="fixed" >
+    <origin xyz="5.225 -1.076 3.06" rpy="0 0 -0.02" />
+    <parent link="base_link" />
+    <child link="velodyne_2" />
+  </joint>
+-->
+
+  <joint name="concat_velodyne" type="fixed">
+    <origin xyz="5.2245 0 0" rpy="0 0 0" />
+    <parent link="base_link" />
+    <child link="concat_velodyne" />
+  </joint>
+
+  <joint name="front_esr" type="fixed" >
+    <origin xyz="7.32 0 0.71" rpy="0 0 -0.055" />
+    <parent link="base_link" />
+    <child link="front_esr" />
+  </joint>
+
+  <joint name="rear_esr" type="fixed" >
+    <origin xyz="-15.11 0 .637" rpy="0 0 2.9" />
+    <parent link="base_link" />
+    <child link="rear_esr" />
+  </joint>
+
+  <joint name="front_right_srr" type="fixed" >
+    <origin xyz="6.975 -1.235 0.705" rpy="0 0 -1.047" />
+    <parent link="base_link" />
+    <child link="front_right_srr" />
+  </joint>
+
+  <joint name="front_left_srr" type="fixed" >
+    <origin xyz="6.972 1.26 0.70" rpy="0 0 0.9" />
+    <parent link="base_link" />
+    <child link="front_left_srr" />
+  </joint>
+
+  <joint name="rear_right_srr" type="fixed" >
+    <origin xyz="2.06 -1.260 0.56" rpy="0 0 -1.6" />
+    <parent link="base_link" />
+    <child link="rear_right_srr" />
+  </joint>
+
+  <joint name="rear_left_srr" type="fixed" >
+    <origin xyz="2.318 1.22 0.56" rpy="0 0 1.53" />
+    <parent link="base_link" />
+    <child link="rear_left_srr" />
+  </joint>
+
+  <joint name="mobileye" type="fixed" >
+    <origin xyz="5.285 -0.058 2.130" rpy="0 0 0" />
+    <parent link="base_link" />
+    <child link="mobileye" />
+  </joint>
+
+  <joint name="novatel" type="fixed" >
+    <origin xyz="2.506 0 0.988" rpy="0 0 0" />
+    <parent link="base_link" />
+    <child link="novatel" />
+  </joint>
+
+
+  <!-- Novatel Fix -->
+  <joint name="base_link_to_novatel" type="fixed">
+		<parent link="base_link"/>
+		<child link="gps"/>
+		<origin xyz="0 0 0" rpy="0 0 0"/>
+  </joint>
+
+  <!-- Novatel IMU  -->
+  <joint name="base_link_novatel_imu" type="fixed">
+		<parent link="base_link" />
+		<child link="novatel_imu" />
+		<origin xyz="0 0 0" rpy="0 0 0" />
+  </joint>
+
+  <!-- Novatel to NED Heading  -->
+  <joint name="gnss_to_ned_heading" type="fixed">
+		<parent link="gps" />
+		<child link="ned_heading" />
+		<origin xyz="0 0 0" rpy="3.14159265358979323846 0 0" />
+  </joint>
+</robot>

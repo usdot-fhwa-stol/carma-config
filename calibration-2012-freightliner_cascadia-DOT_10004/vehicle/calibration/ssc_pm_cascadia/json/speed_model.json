@@ -1,0 +1,84 @@
+{
+    "publish_interval": 0.1,
+    "publish_state_interval": 0.5,
+    "message_timeout": 0.5,
+
+    "failure_mode": "RELINQUISH_CONTROL",
+
+    "min_throttle": 0.0,
+    "initial_throttle": 0.05,
+    "max_throttle": 1.0,
+
+    "min_brake": 0.0,
+    "initial_brake": 0.005,
+    "max_brake": 0.80,
+
+    "coast_decel": -0.5,
+    "minimum_desired_speed": 0.45,
+    "minimum_measureable_speed": 0.9,
+    "vehicle_low_speed_map": [0.0, 1.0, 0.3, 0.9],
+
+    "command_filter": 0.01,
+
+    "speed_error_map": [0.05, 0.3, 2.0, 0.0, 0.2, 2.2],
+
+    "positive_p_gain_map": [2.0, 10.0, 0.4, 0.6],
+    "negative_p_gain_map": [2.0, 15.0, 0.37, 0.5],
+    "min_p_term_map": [5.0, 10.0, -1.0, -1.0],
+    "max_p_term_map": [5.0, 15.0, 1.0, 1.0],
+
+    "positive_i_gain_map": [5.0, 10.0, 0.01, 0.0068],
+    "negative_i_gain_map": [5.0, 15.0, 0.01, 0.01],
+    "min_i_term_map": [1.0, 5.0, -0.3, -0.7],
+    "max_i_term_map": [1.0, 5.0, 0.3, 0.7],
+    "error_based_min_i_term_map": [0.45, 1.0, -1.0, -1.0],
+    "error_based_max_i_term_map": [-1.0, -0.3, 0.01, 0.7],
+    "brake_max_step_command_map": [-4.0, -1.2, 0.3, 0.1],
+
+    "positive_d_gain_map": [5.0, 10.0, 0.0, 0.0],
+    "negative_d_gain_map": [5.0, 10.0, 0.0, 0.0],
+    "min_d_term_map": [5.0, 10.0, 0.0, 0.0],
+    "max_d_term_map": [5.0, 15.0, 0.0, 0.0],
+
+    "p_gain_braking": 0.2,
+    "d_gain_braking": 0.0,
+
+    "decel_rate_to_brake_cmd_map": [-3.0, -0.5, 0.8, 0.4],
+    "brake_ramp_on_scale_map": [-3.0, -1.5, 4.0, 1.0],
+    "brake_ramp_on_min": 0.02,
+    "brake_ramp_on_accel_offset": 0.2,
+
+    "hold_brake": 0.4,
+    "gentle_stop_map": [0.2, 0.6, 0.8, 1.0, 0.0, -0.03, -0.04, 0.02],
+
+    "stopped_ramp_rate": 0.2,
+
+    "brake_mode_enter_speed": 0.5,
+    "brake_mode_exit_speed": 1.0,
+    "brake_mode_exit_i_term": 0.3,
+    "brake_mode_exit_throttle_init": 0.05,
+    "brake_mode_exit_hill_throttle_init": 0.05,
+    "brake_mode_enter_i_term_init": 0.01,
+    "brake_mode_p_boost_map": [0.0, 0.45, 0.15, 0.0],
+    "brake_mode_i_boost_map": [1.2, 1.6, 0.0, 0.3],
+		"brake_mode_p_gain_pos": 0.12,
+    "brake_mode_p_gain_neg": 0.2,
+    "brake_mode_p_min": -0.03,
+    "brake_mode_p_max": 0.035,
+    "brake_mode_i_gain_pos": 0.001,
+    "brake_mode_i_gain_neg": 0.003,
+    "brake_mode_i_min": 0.1,
+    "brake_mode_i_max": 0.4,
+    "brake_mode_d_gain": 0.0,
+    "brake_mode_d_min": 0.0,
+    "brake_mode_d_max": 0.0,
+
+    "hill_gain_boost": 1.0,
+    "hill_i_term_max_boost": 0.001,
+    "hill_mode_exit_speed": 3.5,
+
+    "throttle_increasing_rate_limit_map": [0.2, 0.3, 1.0, 1.0],
+
+    "quick_stop_mode_rate": 0.0,
+    "quick_stop_mode_max": 0.0
+}
