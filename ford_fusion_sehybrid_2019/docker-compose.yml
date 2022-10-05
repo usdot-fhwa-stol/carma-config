@@ -39,6 +39,7 @@ services:
     environment:
       - ROS_IP=192.168.88.10
       - NVIDIA_VISIBLE_DEVICES=all
+      - CYCLONEDDS_URI=${CYCLONEDDS_URI}
     runtime: nvidia
     volumes:
       - /opt/carma/logs:/opt/carma/logs
@@ -55,6 +56,8 @@ services:
     container_name: platform_ros2
     volumes_from:
       - container:carma-config:ro
+    environment:
+      - CYCLONEDDS_URI=${CYCLONEDDS_URI}
     volumes:
       - /opt/carma/logs:/opt/carma/logs
       - /opt/carma/.ros:/home/carma/.ros
@@ -73,6 +76,7 @@ services:
     environment:
       - ROS_IP=192.168.88.10
       - ROS_MASTER_URI=http://localhost:11311
+      - CYCLONEDDS_URI=${CYCLONEDDS_URI}
     volumes:
       - /opt/carma/logs:/opt/carma/logs
       - /opt/carma/.ros:/home/carma/.ros
@@ -94,6 +98,7 @@ services:
       - /opt/carma/vehicle/calibration:/opt/carma/vehicle/calibration
     environment:
       - ROS_IP=192.168.88.10
+      - CYCLONEDDS_URI=${CYCLONEDDS_URI}
     command: bash -c 'export ROS_NAMESPACE=$${CARMA_INTR_NS} && wait-for-it.sh localhost:11311 -- roslaunch /opt/carma/vehicle/config/drivers.launch drivers:=lightbar_driver'
 
   cohda_dsrc_driver:
@@ -102,6 +107,8 @@ services:
     network_mode: host
     volumes_from:
       - container:carma-config:ro
+    environment:
+      - CYCLONEDDS_URI=${CYCLONEDDS_URI}
     volumes:
       - /opt/carma/logs:/opt/carma/logs
       - /opt/carma/.ros:/home/carma/.ros
@@ -118,6 +125,7 @@ services:
       - container:carma-config:ro
     environment:
       - ROS_IP=192.168.88.10
+      - CYCLONEDDS_URI=${CYCLONEDDS_URI}
     volumes:
       - /opt/carma/logs:/opt/carma/logs
       - /opt/carma/.ros:/home/carma/.ros
@@ -130,6 +138,8 @@ services:
     network_mode: host
     volumes_from:
       - container:carma-config:ro
+    environment:
+      - CYCLONEDDS_URI=${CYCLONEDDS_URI}
     volumes:
       - /opt/carma/logs:/opt/carma/logs
       - /opt/carma/.ros:/home/carma/.ros
@@ -145,6 +155,8 @@ services:
     volumes:
       - /opt/carma/logs:/opt/carma/logs
       - /opt/carma/.ros:/home/carma/.ros
+    environment:
+      - CYCLONEDDS_URI=${CYCLONEDDS_URI}
     command: bash -c 'source /opt/carma/install/setup.bash && ros2 launch /opt/carma/vehicle/config/drivers.launch.py drivers:=velodyne_lidar_driver_wrapper'
   
   # NOTE: This is a mock driver and not an actual camera
@@ -162,6 +174,7 @@ services:
       - /opt/carma/data:/opt/carma/data
     environment:
       - ROS_IP=192.168.88.10
+      - CYCLONEDDS_URI=${CYCLONEDDS_URI}
     command: bash -c 'export ROS_NAMESPACE=$${CARMA_INTR_NS} && wait-for-it.sh localhost:11311 -- roslaunch carma mock_drivers.launch mock_drivers:=camera'
   
   # TODO DelphiESR Front Driver Node
