@@ -87,6 +87,26 @@ vehicle_model_steer_tau : 0.3
 truck: false
 car: true
 
+# CARLA Ground Truth Object Detection Sensor Stream Toggle
+# Value type: Boolean
+object_detection_stream: true
+
+# CARLA Ground Truth Localization Sensor Stream Toggle
+# Value type: Boolean
+localization_stream: true
+
+# CARLA LIDAR Sensor Stream Toggle
+# Value type: Boolean
+carla_lidar_stream: true
+
+# CARLA Camera Sensor Stream Toggle
+# Value type: Boolean
+carla_camera_stream: true
+
+# CARLA GNSS Sensor Stream Toggle
+# Value type: Boolean
+carla_gnss_stream: true
+
 # Required drivers for the vehicle to be functional
 required_drivers:
   - /hardware_interface/controller
