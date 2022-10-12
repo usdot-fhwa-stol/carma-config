@@ -143,10 +143,10 @@ If not using simulated drivers they are activated if the respective mock argumen
       <arg name="frame_id" default="left_optical"/>
       <arg name="trig_timestamp_topic" default=""/>
       <arg name="show_debug_prints" default="false"/>
-      <!-- <arg name="decimation_x" value="$(arg right_side_decimation)" />
+      <arg name="decimation_x" value="$(arg right_side_decimation)" />
       <arg name="decimation_y" value="$(arg right_side_decimation)" />
       <arg name="acquisition_rate" value="$(arg right_side_framerate)"/>
-      <arg name="pixel_format" value="$(arg right_side_encoding)"/> -->
+      <arg name="pixel_format" value="$(arg right_side_encoding)"/>
     </include>
   </group>
   
@@ -172,7 +172,7 @@ If not using simulated drivers they are activated if the respective mock argumen
     <remap from="camera/camera_info" to="dummy_camera_info"/>
     <include if="$(arg avt_vimba_camera_sl)" file="$(find avt_vimba_camera)/launch/mono_camera.launch">
       <arg name="guid" default=""/>
-      <arg name="ip" default="192.168.50.1"/>
+      <arg name="ip" default="192.168.88.51"/>
       <arg name="camera_info_url" value="file://$(arg vehicle_calibration_dir)/avt_vimba_camera/camera_fl_intrinsics.yaml"/>
       <arg name="frame_id" default="left_side_optical"/>
       <arg name="trig_timestamp_topic" default=""/>
@@ -189,7 +189,7 @@ If not using simulated drivers they are activated if the respective mock argumen
     <remap from="camera/camera_info" to="dummy_camera_info"/>
     <include if="$(arg avt_vimba_camera_sr)" file="$(find avt_vimba_camera)/launch/mono_camera.launch">
       <arg name="guid" default=""/>
-      <arg name="ip" default="192.168.30.1"/>
+      <arg name="ip" default="192.168.88.50"/>
       <arg name="camera_info_url" value="file://$(arg vehicle_calibration_dir)/avt_vimba_camera/camera_fl_intrinsics.yaml"/>
       <arg name="frame_id" default="right_side_optical"/>
       <arg name="trig_timestamp_topic" default=""/>
@@ -204,8 +204,8 @@ If not using simulated drivers they are activated if the respective mock argumen
   <!-- DelphiESR Front Driver Node -->
   <include if="$(arg delphi_esr_driver)" ns="radar_fc" file="$(find delphi_esr)/launch/delphi_esr.launch">
     <arg name="use_kvaser" default="true" />
-    <arg name="kvaser_hardware_id" default="11211" />
-    <arg name="kvaser_circuit_id" default="3" />
+    <arg name="kvaser_hardware_id" default="11213" />
+    <arg name="kvaser_circuit_id" default="1" />
     <arg name="esr_frame_id" default="radar_fc" />
     <arg name="esr_upside_down" default="false" />
     <arg name="viz_mature_tracks_only" default="false" />
@@ -214,38 +214,38 @@ If not using simulated drivers they are activated if the respective mock argumen
   <!-- DelphiSRR2 Front Left Driver Node -->
   <include if="$(arg delphi_srr_driver)" ns="radar_fl" file="$(find delphi_srr2_radar_driver_wrapper)/launch/delphi_srr2_radar_driver_wrapper.launch">
     <arg name="use_kvaser" default="true" />
-    <arg name="kvaser_hardware_id" default="11211" />
-    <arg name="kvaser_circuit_id" default="0" />
+    <arg name="kvaser_hardware_id" default="11213" />
+    <arg name="kvaser_circuit_id" default="2" />
     <arg name="srr_frame_id" default="radar_fl" />
     <arg name="srr_side" default="Left" />
   </include>
 
   <!-- DelphiSRR2 Rear Left Driver Node -->
-  <!-- <include if="$(arg delphi_srr_driver)" ns="radar_rl" file="$(find delphi_srr2_radar_driver_wrapper)/launch/delphi_srr2_radar_driver_wrapper.launch">
+  <include if="$(arg delphi_srr_driver)" ns="radar_rl" file="$(find delphi_srr2_radar_driver_wrapper)/launch/delphi_srr2_radar_driver_wrapper.launch">
     <arg name="use_kvaser" default="true" />
-    <arg name="kvaser_hardware_id" default="11211" />
+    <arg name="kvaser_hardware_id" default="11213" />
     <arg name="kvaser_circuit_id" default="1" />
     <arg name="srr_frame_id" default="radar_rl" />
     <arg name="srr_side" default="Left" />
-  </include> -->
+  </include>
 
   <!-- DelphiSRR2 Rear Right Driver Node -->
   <!-- <include if="$(arg delphi_srr_driver)" ns="radar_rr" file="$(find delphi_srr2_radar_driver_wrapper)/launch/delphi_srr2_radar_driver_wrapper.launch">
     <arg name="use_kvaser" default="true" />
-    <arg name="kvaser_hardware_id" default="11211" />
-    <arg name="kvaser_circuit_id" default="1" />
+    <arg name="kvaser_hardware_id" default="11213" />
+    <arg name="kvaser_circuit_id" default="0" />
     <arg name="srr_frame_id" default="radar_rr" />
     <arg name="srr_side" default="Right" />
   </include> -->
 
   <!-- DelphiSRR2 Front Right Driver Node -->
-  <!-- <include if="$(arg delphi_srr_driver)" ns="radar_fr" file="$(find delphi_srr2_radar_driver_wrapper)/launch/delphi_srr2_radar_driver_wrapper.launch">
+  <include if="$(arg delphi_srr_driver)" ns="radar_fr" file="$(find delphi_srr2_radar_driver_wrapper)/launch/delphi_srr2_radar_driver_wrapper.launch">
     <arg name="use_kvaser" default="true" />
-    <arg name="kvaser_hardware_id" default="11211" />
-    <arg name="kvaser_circuit_id" default="0" />
+    <arg name="kvaser_hardware_id" default="11213" />
+    <arg name="kvaser_circuit_id" default="3" />
     <arg name="srr_frame_id" default="radar_fr" />
     <arg name="srr_side" default="Right" />
-  </include> -->
+  </include>
 
   <!-- Mobileye Camera Driver Node -->
   <include if="$(arg mobileye_camera_driver)" ns="mobileye" file="$(find mobileye_camera_driver_wrapper)/launch/mobileye_camera_driver_wrapper.launch">
