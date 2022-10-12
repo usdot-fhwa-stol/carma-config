@@ -97,15 +97,15 @@ gt_localization_stream: false
 
 # CARLA LIDAR Sensor Stream Toggle
 # Value type: Boolean
-carla_lidar_stream: true
+carla_lidar: true
 
 # CARLA Camera Sensor Stream Toggle
 # Value type: Boolean
-carla_camera_stream: true
+carla_camera: true
 
 # CARLA GNSS Sensor Stream Toggle
 # Value type: Boolean
-carla_gnss_stream: true
+carla_gnss: true
 
 # Required drivers for the vehicle to be functional
 required_drivers:
