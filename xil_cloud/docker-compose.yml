@@ -1,0 +1,99 @@
+version: '3'
+services:
+
+  carlasim:
+    privileged: true
+    image: usdotfhwastol/carma-simulation:1.0.1
+    networks:
+      carma_sim_net:
+        ipv4_address: 172.2.0.2
+    environment:
+      - DISPLAY=${DISPLAY}
+      - QT_X11_NO_MITSHM=1
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - capabilities: [gpu]
+    command: "./mosaic.sh -s Town04_20"
+
+  roscore_1:
+    image: usdotfhwastol/carma-base:carma-system-3.9.0
+    networks:
+      carma_net_1:
+        ipv4_address: 172.3.0.2
+    volumes_from:
+      - container:carma-config:ro
+    volumes:
+      - /opt/carma/.ros:/home/carma/.ros
+      - /opt/carma/logs:/opt/carma/logs
+    restart: always
+    environment:
+      - ROS_IP=172.3.0.2
+      - ROS_MASTER_URI=http://172.3.0.2:11311/
+    command: roscore
+
+  platform_1:
+    image: usdotfhwastol/carma-platform:carma-system-3.9.0
+    networks:
+      carma_net_1:
+        ipv4_address: 172.3.0.3
+    container_name: platform_1
+    volumes_from:
+      - container:carma-config:ro
+    volumes:
+      - /opt/carma/logs:/opt/carma/logs
+      - /opt/carma/.ros:/home/carma/.ros
+      - /opt/carma/vehicle/calibration:/opt/carma/vehicle/calibration
+      - /opt/carma/yolo:/opt/carma/yolo
+      - /opt/carma/maps:/opt/carma/maps
+      - /opt/carma/routes:/opt/carma/routes
+      - /opt/carma/data:/opt/carma/data
+      - /opt/carma/simulation:/opt/carma/simulation
+    environment:
+      - ROS_IP=172.3.0.3
+      - ROS_MASTER_URI=http://172.3.0.2:11311/
+    command: bash -c 'wait-for-it.sh 172.3.0.2:11311 -- roslaunch /opt/carma/vehicle/config/carma_docker.launch'
+
+  carma-carla-integration_1:
+    image: usdotfhwastol/carma-carla-integration:carma-carla-1.1.0
+    networks:
+      carma_net_1:
+        ipv4_address: 172.3.0.4
+      carma_sim_net:
+        ipv4_address: 172.2.0.4
+    environment:
+      - ROS_IP=172.3.0.4
+      - ROS_MASTER_URI=http://172.3.0.2:11311/
+    command: bash -c "sleep 8;
+                      export PYTHONPATH=/home/PythonAPI/carla/dist/carla-0.9.10-py2.7-linux-x86_64.egg &&
+                      source /home/carma_carla_ws/devel/setup.bash &&
+                      roslaunch carma_carla_agent carma_carla_agent.launch role_name:='hero1'
+                                                                           town:='Town04'
+                                                                           host:='172.2.0.2'
+                                                                           spawn_point:='15.4,-90.1,0,0,0,90'
+                                                                           selected_route:='Release_test_case_1'
+                                                                           selected_plugins:='RouteFollowingPlugin,InLaneCruisingPlugin,StopAndWaitPlugin,Pure Pursuit'
+                                                                           speed_Kp:='0.4'
+                                                                           speed_Ki:='0.0'
+                                                                           speed_Kd:='0.05'
+                                                                           accel_Kp:='0.05'
+                                                                           accel_Ki:='0.0'
+                                                                           accel_Kd:='0.05'
+                                                                           init_speed:='5'
+                                                                           init_acceleration:='1'
+                                                                           init_steering_angle:='0'
+                                                                           init_jerk:='0'
+                                                                           max_steering_degree:='70'"
+
+networks:
+  carma_sim_net:
+    ipam:
+      config:
+        - subnet: 172.2.0.0/16
+  carma_net_1:
+    ipam:
+      config:
+        - subnet: 172.3.0.0/16
