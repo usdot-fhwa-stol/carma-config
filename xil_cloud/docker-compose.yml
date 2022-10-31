@@ -3,7 +3,7 @@ services:
 
   carlasim:
     privileged: true
-    image: usdotfhwastol/carma-simulation:1.0.1
+    image: usdotfhwastol/carma-simulation:carma-simulation-1.0.1
     networks:
       carma_sim_net:
         ipv4_address: 172.2.0.2
