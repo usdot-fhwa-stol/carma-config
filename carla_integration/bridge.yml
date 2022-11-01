@@ -1,8 +1,12 @@
-# This file contains explicit topic mappings between ROS1 and ROS2 portions of CARMA Platform while the 
+# This file contains explicit topic mappings between ROS1 and ROS2 portions of CARMA Platform while the
 # ROS2 migration is underway.
-# NOTE: A custom dynamic_bridge is used in CARMA Platform which will automatically connect topics and services, but 
-#       this file allows for certain topics to be pre-configured with specified QoS settings. 
+# NOTE: A custom dynamic_bridge is used in CARMA Platform which will automatically connect topics and services, but
+#       this file allows for certain topics to be pre-configured with specified QoS settings.
 topics:
+  -
+    topic: /hardware_interface/controller/robot_status
+    type: carma_perception_msgs/msg/RobotEnabled
+    queue_size: 10
   -
     topic: /environment/external_objects
     type: carma_perception_msgs/msg/ExternalObjectList
