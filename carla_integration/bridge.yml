@@ -44,4 +44,8 @@ topics:
     topic: /system_alert
     type: carma_msgs/msg/SystemAlert
     queue_size: 5
+    qos:
+      history: keep_last
+      depth: 5
+      durability: transient_local
 services_1_to_2: []
