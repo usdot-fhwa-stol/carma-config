@@ -20,7 +20,7 @@ services:
     command: "./mosaic.sh -s Town04_20"
 
   roscore_1:
-    image: usdotfhwastol/carma-base:carma-system-3.9.0
+    image: usdotfhwastoldev/carma-platform:develop
     networks:
       carma_net_1:
         ipv4_address: 172.3.0.2
@@ -36,7 +36,7 @@ services:
     command: roscore
 
   platform_1:
-    image: usdotfhwastol/carma-platform:carma-system-3.9.0
+    image: usdotfhwastoldev/carma-platform:develop
     networks:
       carma_net_1:
         ipv4_address: 172.3.0.3
@@ -57,24 +57,63 @@ services:
       - ROS_MASTER_URI=http://172.3.0.2:11311/
     command: bash -c 'wait-for-it.sh 172.3.0.2:11311 -- roslaunch /opt/carma/vehicle/config/carma_docker.launch'
 
-  carma-carla-integration_1:
-    image: usdotfhwastol/carma-carla-integration:carma-carla-1.1.0
+  platform_ros2:
+    image: usdotfhwastoldev/carma-platform:develop
     networks:
       carma_net_1:
         ipv4_address: 172.3.0.4
-      carma_sim_net:
-        ipv4_address: 172.2.0.4
+    container_name: platform_ros2
+    volumes_from:
+      - container:carma-config:ro
+    volumes:
+      - /opt/carma/logs:/opt/carma/logs
+      - /opt/carma/.ros:/home/carma/.ros
+      - /opt/carma/vehicle/calibration:/opt/carma/vehicle/calibration
+      - /opt/carma/maps:/opt/carma/maps
+      - /opt/carma/routes:/opt/carma/routes
+      - /opt/carma/yolo:/opt/carma/yolo
+    command: bash -c 'source /opt/carma/install_ros2/setup.bash && ros2 launch /opt/carma/vehicle/config/carma_docker.launch.py'
+
+  ros1_bridge:
+    image: usdotfhwastoldev/carma-msgs:develop
+    networks:
+      carma_net_1:
+        ipv4_address: 172.3.0.5
+    container_name: ros1_bridge
+    volumes_from:
+      - container:carma-config:ro
     environment:
-      - ROS_IP=172.3.0.4
+      - ROS_IP=172.3.0.5
       - ROS_MASTER_URI=http://172.3.0.2:11311/
-    command: bash -c "sleep 8;
-                      export PYTHONPATH=/home/PythonAPI/carla/dist/carla-0.9.10-py2.7-linux-x86_64.egg &&
+    volumes:
+      - /opt/carma/logs:/opt/carma/logs
+      - /opt/carma/.ros:/home/carma/.ros
+      - /opt/carma/vehicle/calibration:/opt/carma/vehicle/calibration
+      - /opt/carma/maps:/opt/carma/maps
+      - /opt/carma/routes:/opt/carma/routes
+      - /opt/carma/yolo:/opt/carma/yolo
+    command: bash -c 'wait-for-it.sh 172.3.0.2:11311 -- rosparam load /opt/carma/vehicle/config/bridge.yml && source ~/.base-image/workspace/install/setup.bash && ros2 run ros1_bridge dynamic_bridge --multi-threads'
+
+  carma-carla-integration_1:
+    image: usdotfhwastol/carma-carla-integration:carma-ros-2-aws-test
+    networks:
+      carma_net_1:
+        ipv4_address: 172.3.0.6
+      carma_sim_net:
+        ipv4_address: 172.2.0.6
+    volumes_from:
+      - container:carma-config:ro
+    environment:
+      - ROS_IP=172.3.0.6
+      - ROS_MASTER_URI=http://172.3.0.2:11311/
+    command: bash -c "sleep 10;
+                      export PYTHONPATH=$PYTHONPATH:/home/PythonAPI/carla/dist/carla-0.9.10-py3.7-linux-x86_64.egg &&
                       source /home/carma_carla_ws/devel/setup.bash &&
                       roslaunch carma_carla_agent carma_carla_agent.launch role_name:='hero1'
                                                                            town:='Town04'
                                                                            host:='172.2.0.2'
                                                                            spawn_point:='15.4,-90.1,0,0,0,90'
-                                                                           selected_route:='Release_test_case_1'
+                                                                           selected_route:='test_case_1'
                                                                            selected_plugins:='RouteFollowingPlugin,InLaneCruisingPlugin,StopAndWaitPlugin,Pure Pursuit'
                                                                            speed_Kp:='0.4'
                                                                            speed_Ki:='0.0'
@@ -93,6 +132,7 @@ networks:
     ipam:
       config:
         - subnet: 172.2.0.0/16
+
   carma_net_1:
     ipam:
       config:
