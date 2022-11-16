@@ -20,7 +20,7 @@ services:
     command: "./mosaic.sh -s Town04_20"
 
   roscore_1:
-    image: usdotfhwastoldev/carma-platform:develop
+    image: usdotfhwastol/carma-platform:carma-system-4.2.0
     networks:
       carma_net_1:
         ipv4_address: 172.3.0.2
@@ -36,7 +36,7 @@ services:
     command: roscore
 
   platform_1:
-    image: usdotfhwastoldev/carma-platform:develop
+    image: usdotfhwastol/carma-platform:carma-system-4.2.0
     networks:
       carma_net_1:
         ipv4_address: 172.3.0.3
@@ -58,7 +58,7 @@ services:
     command: bash -c 'wait-for-it.sh 172.3.0.2:11311 -- roslaunch /opt/carma/vehicle/config/carma_docker.launch'
 
   platform_ros2:
-    image: usdotfhwastoldev/carma-platform:develop
+    image: usdotfhwastol/carma-platform:carma-system-4.2.0
     networks:
       carma_net_1:
         ipv4_address: 172.3.0.4
@@ -75,7 +75,7 @@ services:
     command: bash -c 'source /opt/carma/install_ros2/setup.bash && ros2 launch /opt/carma/vehicle/config/carma_docker.launch.py'
 
   ros1_bridge:
-    image: usdotfhwastoldev/carma-msgs:develop
+    image: usdotfhwastol/carma-msgs:carma-system-4.2.0
     networks:
       carma_net_1:
         ipv4_address: 172.3.0.5
