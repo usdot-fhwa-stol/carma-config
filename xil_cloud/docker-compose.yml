@@ -20,7 +20,7 @@ services:
     command: "./mosaic.sh -s Town04_20"
 
   roscore_1:
-    image: usdotfhwastol/carma-platform:carma-system-4.2.0
+    image: usdotfhwastol/carma-base:carma-system-4.2.0
     networks:
       carma_net_1:
         ipv4_address: 172.3.0.2
