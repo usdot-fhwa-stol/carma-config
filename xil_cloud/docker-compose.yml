@@ -113,7 +113,7 @@ services:
                                                                            town:='Town04'
                                                                            host:='172.2.0.2'
                                                                            spawn_point:='15.4,-90.1,0,0,0,90'
-                                                                           selected_route:='test_case_1'
+                                                                           selected_route:='Release_test_case_1'
                                                                            selected_plugins:='RouteFollowingPlugin,InLaneCruisingPlugin,StopAndWaitPlugin,Pure Pursuit'
                                                                            speed_Kp:='0.4'
                                                                            speed_Ki:='0.0'
