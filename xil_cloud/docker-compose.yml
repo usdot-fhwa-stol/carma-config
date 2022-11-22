@@ -1,12 +1,13 @@
 version: '3'
 services:
 
-  carlasim:
+  carma-simulation:
     privileged: true
     image: usdotfhwastol/carma-simulation:carma-simulation-1.0.1
     networks:
       carma_sim_net:
         ipv4_address: 172.2.0.2
+    container_name: carma-simulation
     environment:
       - DISPLAY=${DISPLAY}
       - QT_X11_NO_MITSHM=1
@@ -24,6 +25,7 @@ services:
     networks:
       carma_net_1:
         ipv4_address: 172.3.0.2
+    container_name: roscore_1
     volumes_from:
       - container:carma-config:ro
     volumes:
@@ -57,12 +59,12 @@ services:
       - ROS_MASTER_URI=http://172.3.0.2:11311/
     command: bash -c 'wait-for-it.sh 172.3.0.2:11311 -- roslaunch /opt/carma/vehicle/config/carma_docker.launch'
 
-  platform_ros2:
+  platform_ros2_1:
     image: usdotfhwastol/carma-platform:carma-system-4.2.0
     networks:
       carma_net_1:
         ipv4_address: 172.3.0.4
-    container_name: platform_ros2
+    container_name: platform_ros2_1
     volumes_from:
       - container:carma-config:ro
     volumes:
@@ -74,12 +76,12 @@ services:
       - /opt/carma/yolo:/opt/carma/yolo
     command: bash -c 'source /opt/carma/install_ros2/setup.bash && ros2 launch /opt/carma/vehicle/config/carma_docker.launch.py'
 
-  ros1_bridge:
+  ros1_bridge_1:
     image: usdotfhwastol/carma-msgs:carma-system-4.2.0
     networks:
       carma_net_1:
         ipv4_address: 172.3.0.5
-    container_name: ros1_bridge
+    container_name: ros1_bridge_1
     volumes_from:
       - container:carma-config:ro
     environment:
@@ -101,6 +103,7 @@ services:
         ipv4_address: 172.3.0.6
       carma_sim_net:
         ipv4_address: 172.2.0.6
+    container_name: carma-carla-integration_1
     volumes_from:
       - container:carma-config:ro
     environment:
