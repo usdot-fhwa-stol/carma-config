@@ -36,20 +36,20 @@
 
   <!-- Reference Frame Transforms -->
   
-  <!-- base_link -> host_vehicle Transform TODO this transform needs to be updated-->
+  <!-- base_link -> host_vehicle Transform Baselink updated to pivot point at rear axle ((23.625/2)in - 9.75 in = 2.0625 in = 0.0523875 m), (z = -2.75 in = -0.06985) -->
   <joint name="base_link_to_host_vehicle" type="fixed">
     <parent link="base_link" />
     <child link="host_vehicle" />
     <!-- Arguments (x y z roll pitch yaw) -->
     <!-- Units: Meters and Rad-->
-    <origin xyz="3.37 0 -0.3556" rpy="3.14159265359 0 0" />
+    <origin xyz="0.0523875 0 -0.06985" rpy="3.14159265359 0 0" />
   </joint>
 
-  <!-- base_link -> vehicle_front Transform vehicle_front is FLU-->
+  <!-- base_link -> vehicle_front Transform vehicle_front is FLU ((23.625/2)in - 3.125 in = 0.2206625 m)-->
   <joint name="base_link_to_vehicle_front" type="fixed">
 		<parent link="base_link" />
 		<child link="vehicle_front" />
-		<origin xyz="4 0 0.57" rpy="0 0 0" />
+		<origin xyz="0.2206625 0 0.06985" rpy="0 0 0" />
   </joint>
 
 	<!-- Sensor Transforms -->
@@ -58,52 +58,57 @@
 	<joint name="lidar" type="fixed" >
 		<parent link="base_link" />
 		<child link="velodyne" />
-		<origin xyz="1.02 0 2.23" rpy="0 0 0" />
+		<origin xyz="0.1016 0 0 0.02195" rpy="0 0 0" />
 	</joint>
 
-	<!-- Mobileye -->
+	<!-- Mobileye - N/A 
 	<joint name="mobileye" type="fixed" >
 		<parent link="base_link" />
 		<child link="mobileye" />
 		<origin xyz="2.195 0 1.78" rpy="0 0 0" />
 	</joint>
 
-	<!-- Front Center Radar -->
+	-->
+	
+	<!-- Front Center Radar - N/A 
 	<joint name="radar_fc" type="fixed" >
 		<parent link="base_link" />
 		<child link="radar_fc" />
 		<origin xyz="4 0 0.57" rpy="0 0 0" />
 	</joint>
 
-	<!-- Front Left Radar -->
+	-->
+	<!-- Front Left Radar - N/A 
 	<joint name="radar_fl" type="fixed" >
 		<parent link="base_link" />
 		<child link="radar_fl" />
 		<origin xyz="3.42 1.02 0.535" rpy="0 0 0.953" />
 	</joint>
-
-	<!-- Front Right Radar -->
+	-->
+	<!-- Front Right Radar - N/A 
 	<joint name="radar_fr" type="fixed" >
 		<parent link="base_link" />
 		<child link="radar_fr" />
 		<origin xyz="3.42 -1.02 0.535" rpy="0 0 -0.903" />
 	</joint>
-
-	<!-- Rear Left Radar -->
+	-->
+	<!-- Rear Left Radar - N/A
 	<joint name="radar_rl" type="fixed" >
 		<parent link="base_link" />
 		<child link="radar_rl" />
 		<origin xyz="-0.85 1.05 0.535" rpy="0 0 2.042" />
 	</joint>
+	 -->	
 
-	<!-- Rear Right Radar -->
+	<!-- Rear Right Radar - N/A 
 	<joint name="radar_rr" type="fixed" >
 		<parent link="base_link" />
 		<child link="radar_rr" />
 		<origin xyz="-0.85 -1.05 0.535" rpy="0 0 -1.992" />
 	</joint>
-
-	<!-- Novatel Fix-->
+	-->
+	
+	<!-- Novatel Fix -> No update necessary -->
   <joint name="base_link_to_novatel" type="fixed">
 		<parent link="base_link" />
 		<child link="novatel_gnss" />
