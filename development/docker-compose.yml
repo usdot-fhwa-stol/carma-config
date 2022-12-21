@@ -64,7 +64,7 @@ services:
     command: bash -c 'source /opt/carma/install_ros2/setup.bash && ros2 launch /opt/carma/vehicle/config/carma_docker.launch.py'
 
   ros1_bridge:
-    image: usdotfhwastoldev/carma-msgs:develop    
+    image: usdotfhwastoldev/carma-msgs:develop  
     network_mode: host
     container_name: ros1_bridge
     volumes_from:
