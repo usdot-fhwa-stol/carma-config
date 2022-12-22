@@ -84,6 +84,14 @@ def generate_launch_description():
         description='List of String: Guidance Control Plugins that will be validated by the Guidance Plugin Validator Node if enabled'
     )
 
+    # Declare enable_opening_tunnels
+    enable_opening_tunnels = LaunchConfiguration('enable_opening_tunnels')
+    declare_enable_opening_tunnels = DeclareLaunchArgument(
+        name = 'enable_opening_tunnels',
+        default_value= 'False',
+        description='Flag to enable opening http tunnesl to CARMA Cloud'
+    )
+
     # Launch the core carma launch file
     carma_src_launch = IncludeLaunchDescription(
         PythonLaunchDescriptionSource([ get_package_share_directory('carma'), '/launch/carma_src.launch.py']),
@@ -94,7 +102,8 @@ def generate_launch_description():
             'enable_guidance_plugin_validator' : enable_guidance_plugin_validator,
             'strategic_plugins_to_validate' : strategic_plugins_to_validate,
             'tactical_plugins_to_validate' : tactical_plugins_to_validate,
-            'control_plugins_to_validate' : control_plugins_to_validate
+            'control_plugins_to_validate' : control_plugins_to_validate,
+            'enable_opening_tunnels' : enable_opening_tunnels
             }.items()
     )
 
@@ -107,5 +116,6 @@ def generate_launch_description():
         declare_strategic_plugins_to_validate,
         declare_tactical_plugins_to_validate,
         declare_control_plugins_to_validate,
+        declare_enable_opening_tunnels,
         carma_src_launch
     ])
