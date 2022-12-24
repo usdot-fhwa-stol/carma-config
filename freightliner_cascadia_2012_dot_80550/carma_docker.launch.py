@@ -98,6 +98,14 @@ def generate_launch_description():
             }.items()
     )
 
+    # Declare enable_opening_tunnels
+    enable_opening_tunnels = LaunchConfiguration('enable_opening_tunnels')
+    declare_enable_opening_tunnels = DeclareLaunchArgument(
+        name = 'enable_opening_tunnels',
+        default_value= 'False',
+        description='Flag to enable opening http tunnesl to CARMA Cloud'
+    )
+
     return LaunchDescription([
         logging_env_var, # Environment variables must be placed before included files
         declare_vehicle_calibration_dir_arg,
@@ -107,5 +115,6 @@ def generate_launch_description():
         declare_strategic_plugins_to_validate,
         declare_tactical_plugins_to_validate,
         declare_control_plugins_to_validate,
+        declare_enable_opening_tunnels,
         carma_src_launch
     ])
