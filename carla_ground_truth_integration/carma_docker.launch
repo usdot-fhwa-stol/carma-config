@@ -61,6 +61,6 @@
 
   <!-- Include the detailed launch file and pass in new arguments -->
   <include file="$(find carma)/launch/carma_src.launch" pass_all_args="true">
-    <arg name="simulation_mode" value="true"/>
-  </include>
+    <arg name='simulation_mode' value='$(arg simulation_mode)'/>
+  <include/>
 </launch>
