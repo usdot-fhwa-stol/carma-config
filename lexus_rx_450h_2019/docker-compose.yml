@@ -111,12 +111,13 @@ services:
     network_mode: host
     volumes_from:
       - container:carma-config:ro
+    environment:
+      - CYCLONEDDS_URI=${CYCLONEDDS_URI}
     volumes:
       - /opt/carma/logs:/opt/carma/logs
       - /opt/carma/.ros:/home/carma/.ros
       - /opt/carma/maps:/opt/carma/maps
-    environment:
-      - CYCLONEDDS_URI=${CYCLONEDDS_URI}
+      - /opt/carma/vehicle/calibration:/opt/carma/vehicle/calibration
     command: bash -c 'source /opt/carma/install/setup.bash && ros2 launch /opt/carma/vehicle/config/drivers.launch.py drivers:=dsrc_driver'
 
   ssc_controller_driver:
@@ -142,13 +143,13 @@ services:
     network_mode: host
     volumes_from:
       - container:carma-config:ro
+    environment:
+      - CYCLONEDDS_URI=${CYCLONEDDS_URI}
     volumes:
       - /opt/carma/logs:/opt/carma/logs
       - /opt/carma/.ros:/home/carma/.ros
       - /opt/carma/maps:/opt/carma/maps
       - /opt/carma/vehicle/calibration:/opt/carma/vehicle/calibration
-    environment:
-      - CYCLONEDDS_URI=${CYCLONEDDS_URI}
     command: bash -c 'source /opt/carma/install/setup.bash && ros2 launch /opt/carma/vehicle/config/drivers.launch.py drivers:=carma_novatel_driver_wrapper'
 
   velodyne_lidar_driver:
@@ -157,12 +158,13 @@ services:
     network_mode: host
     volumes_from:
       - container:carma-config:ro
+    environment:
+      - CYCLONEDDS_URI=${CYCLONEDDS_URI}
     volumes:
       - /opt/carma/logs:/opt/carma/logs
       - /opt/carma/.ros:/home/carma/.ros
       - /opt/carma/maps:/opt/carma/maps
-    environment:
-      - CYCLONEDDS_URI=${CYCLONEDDS_URI}
+      - /opt/carma/vehicle/calibration:/opt/carma/vehicle/calibration
     command: bash -c 'source /opt/carma/install/setup.bash && ros2 launch /opt/carma/vehicle/config/drivers.launch.py drivers:=velodyne_lidar_driver_wrapper'
   
   # NOTE: This is a mock driver and not an actual camera
