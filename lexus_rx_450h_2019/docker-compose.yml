@@ -27,6 +27,7 @@ services:
     volumes:
       - /opt/carma/.ros:/home/carma/.ros
       - /opt/carma/logs:/opt/carma/logs
+      - /opt/carma/maps:/opt/carma/maps
     restart: always
     command: roscore
 
@@ -58,6 +59,7 @@ services:
     environment:
       - ROS_IP=192.168.0.100
       - NVIDIA_VISIBLE_DEVICES=all
+      - CYCLONEDDS_URI=${CYCLONEDDS_URI}
     runtime: nvidia
     volumes:
       - /opt/carma/logs:/opt/carma/logs
@@ -77,6 +79,7 @@ services:
     environment:
       - ROS_IP=192.168.0.100
       - ROS_MASTER_URI=http://localhost:11311
+      - CYCLONEDDS_URI=${CYCLONEDDS_URI}
     volumes:
       - /opt/carma/logs:/opt/carma/logs
       - /opt/carma/.ros:/home/carma/.ros
@@ -95,9 +98,11 @@ services:
     volumes:
       - /opt/carma/logs:/opt/carma/logs
       - /opt/carma/.ros:/home/carma/.ros
+      - /opt/carma/maps:/opt/carma/maps
       - /opt/carma/vehicle/calibration:/opt/carma/vehicle/calibration
     environment:
       - ROS_IP=192.168.0.100
+      - CYCLONEDDS_URI=${CYCLONEDDS_URI}
     command: bash -c 'export ROS_NAMESPACE=$${CARMA_INTR_NS} && wait-for-it.sh localhost:11311 -- roslaunch /opt/carma/vehicle/config/drivers.launch drivers:=lightbar_driver'
 
   cohda_dsrc_driver:
@@ -106,9 +111,13 @@ services:
     network_mode: host
     volumes_from:
       - container:carma-config:ro
+    environment:
+      - CYCLONEDDS_URI=${CYCLONEDDS_URI}
     volumes:
       - /opt/carma/logs:/opt/carma/logs
       - /opt/carma/.ros:/home/carma/.ros
+      - /opt/carma/maps:/opt/carma/maps
+      - /opt/carma/vehicle/calibration:/opt/carma/vehicle/calibration
     command: bash -c 'source /opt/carma/install/setup.bash && ros2 launch /opt/carma/vehicle/config/drivers.launch.py drivers:=dsrc_driver'
 
   ssc_controller_driver:
@@ -120,9 +129,11 @@ services:
       - container:carma-config:ro
     environment:
       - ROS_IP=192.168.0.100
+      - CYCLONEDDS_URI=${CYCLONEDDS_URI}
     volumes:
       - /opt/carma/logs:/opt/carma/logs
       - /opt/carma/.ros:/home/carma/.ros
+      - /opt/carma/maps:/opt/carma/maps
       - /opt/carma/vehicle/calibration:/opt/carma/vehicle/calibration
     command: bash -c 'source /opt/carma/install_ros2/setup.bash && ros2 launch /opt/carma/vehicle/config/drivers.launch.py drivers:=ssc_interface_wrapper_ros2'
 
@@ -132,9 +143,12 @@ services:
     network_mode: host
     volumes_from:
       - container:carma-config:ro
+    environment:
+      - CYCLONEDDS_URI=${CYCLONEDDS_URI}
     volumes:
       - /opt/carma/logs:/opt/carma/logs
       - /opt/carma/.ros:/home/carma/.ros
+      - /opt/carma/maps:/opt/carma/maps
       - /opt/carma/vehicle/calibration:/opt/carma/vehicle/calibration
     command: bash -c 'source /opt/carma/install/setup.bash && ros2 launch /opt/carma/vehicle/config/drivers.launch.py drivers:=carma_novatel_driver_wrapper'
 
@@ -144,9 +158,13 @@ services:
     network_mode: host
     volumes_from:
       - container:carma-config:ro
+    environment:
+      - CYCLONEDDS_URI=${CYCLONEDDS_URI}
     volumes:
       - /opt/carma/logs:/opt/carma/logs
       - /opt/carma/.ros:/home/carma/.ros
+      - /opt/carma/maps:/opt/carma/maps
+      - /opt/carma/vehicle/calibration:/opt/carma/vehicle/calibration
     command: bash -c 'source /opt/carma/install/setup.bash && ros2 launch /opt/carma/vehicle/config/drivers.launch.py drivers:=velodyne_lidar_driver_wrapper'
   
   # NOTE: This is a mock driver and not an actual camera
@@ -161,9 +179,11 @@ services:
     volumes:
       - /opt/carma/logs:/opt/carma/logs
       - /opt/carma/.ros:/home/carma/.ros
+      - /opt/carma/maps:/opt/carma/maps
       - /opt/carma/data:/opt/carma/data
     environment:
       - ROS_IP=192.168.0.100
+      - CYCLONEDDS_URI=${CYCLONEDDS_URI}
     command: bash -c 'export ROS_NAMESPACE=$${CARMA_INTR_NS} && wait-for-it.sh localhost:11311 -- roslaunch carma mock_drivers.launch mock_drivers:=camera'
   
   # TODO DelphiESR Front Driver Node
@@ -171,3 +191,4 @@ services:
   # TODO Delphi Srr2 Front Right Driver Node
   # TODO Delphi Srr2 Rear Left Driver Node
   # TODO Delphi Srr2 Rear Right Driver Node
+
