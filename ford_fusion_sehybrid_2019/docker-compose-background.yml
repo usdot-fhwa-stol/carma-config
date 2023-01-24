@@ -25,5 +25,5 @@ services:
     volumes_from: 
       - container:carma-config:ro
     volumes: 
-      - /var/run/docker.sock:/var/run/docker.sock
+      - /var/run/docker.sock:/var/run/docker.sock 
     restart: always
