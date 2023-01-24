@@ -124,7 +124,6 @@ services:
       - container:carma-config:ro
     environment:
       - ROS_IP=192.168.88.10
-      - CYCLONEDDS_URI=${CYCLONEDDS_URI}
     volumes:
       - /opt/carma/logs:/opt/carma/logs
       - /opt/carma/.ros:/home/carma/.ros

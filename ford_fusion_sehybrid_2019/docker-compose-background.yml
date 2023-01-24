@@ -22,10 +22,8 @@ services:
     container_name: web-ui
     environment:
       - ROS_IP=192.168.88.10
-      - CYCLONEDDS_URI=${CYCLONEDDS_URI}
     volumes_from: 
       - container:carma-config:ro
     volumes: 
       - /var/run/docker.sock:/var/run/docker.sock
-      - /opt/carma/vehicle/calibration:/opt/carma/vehicle/calibration 
     restart: always
