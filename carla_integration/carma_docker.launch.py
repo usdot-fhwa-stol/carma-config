@@ -27,9 +27,9 @@ def generate_launch_description():
     """
     Launch CARMA System.
     """
-    
+
     # Parse the log config file and convert it to an environment variable
-    config_file_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'carma_rosconsole.conf') 
+    config_file_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'carma_rosconsole.conf')
     logging_env_var = SetEnvironmentVariable('CARMA_ROS_LOGGING_CONFIG', generate_log_levels(config_file_path))
 
     # Declare the vehicle_calibration_dir launch argument
@@ -55,8 +55,8 @@ def generate_launch_description():
     # Declare enable_guidance_plugin_validate
     enable_guidance_plugin_validator = LaunchConfiguration('enable_guidance_plugin_validator')
     declare_enable_guidance_plugin_validator = DeclareLaunchArgument(
-        name = 'enable_guidance_plugin_validator', 
-        default_value='true', 
+        name = 'enable_guidance_plugin_validator',
+        default_value='true',
         description='Flag indicating whether the Guidance Plugin Validator node will actively validate guidance strategic, tactical, and control plugins'
     )
 
@@ -84,14 +84,6 @@ def generate_launch_description():
         description='List of String: Guidance Control Plugins that will be validated by the Guidance Plugin Validator Node if enabled'
     )
 
-    # Declare enable_opening_tunnels
-    enable_opening_tunnels = LaunchConfiguration('enable_opening_tunnels')
-    declare_enable_opening_tunnels = DeclareLaunchArgument(
-        name = 'enable_opening_tunnels',
-        default_value= 'False',
-        description='Flag to enable opening http tunnesl to CARMA Cloud'
-    )
-
     # Launch the core carma launch file
     carma_src_launch = IncludeLaunchDescription(
         PythonLaunchDescriptionSource([ get_package_share_directory('carma'), '/launch/carma_src.launch.py']),
@@ -115,6 +107,5 @@ def generate_launch_description():
         declare_strategic_plugins_to_validate,
         declare_tactical_plugins_to_validate,
         declare_control_plugins_to_validate,
-        enable_opening_tunnels,
         carma_src_launch
     ])
