@@ -1,0 +1,145 @@
+# Defines the ros parameters which define the characteristics of this host vehicle configuration
+# The value type field is used to indicate how the field should be set.
+# Should it be treated as a measured value (Measured) or a desired behavior constraint (Desired)
+use_sim_time: true
+
+# String: Host vehicle make
+# Value type: Measured
+vehicle_make: 'greased'
+
+# String: Host vehicle model
+# Value type: Measured
+vehicle_model: 'lightning'
+
+# Integer: Host vehicle year
+# Value type: Measured
+# Units: Year
+vehicle_year: 2019
+
+# Double: Host vehicle length
+# Value type: Measured
+# Units: Meters
+vehicle_length: 5.0
+
+# Double: Host vehicle width
+# Value type: Measured
+# Units: Meters
+vehicle_width: 3.0
+
+# Double: Host vehicle height
+# Value type: Measured
+# Units: Meters
+vehicle_height: 2.0
+
+# Double: Distance from front axel to rear axel
+# Value type: Measured
+# Units: Meters
+vehicle_wheel_base: 2.79
+
+# Double: Radius of the tires
+# Value type: Measured
+# Units: Meters
+vehicle_tire_radius: 0.39
+
+# Acceleration limit
+# Value type: Desired
+# Units: m/s^2
+vehicle_acceleration_limit: 2.0
+
+# Deceleration limit
+# Value type: Desired
+# Units: m/s^2
+vehicle_deceleration_limit: 2.0
+
+# Lateral Acceleration Limit
+# Value type: Desired
+# Units: m/s^2
+vehicle_lateral_accel_limit: 2.3
+
+# Lateral Jerk Limit
+# Value type: Desired
+# Units: m/s^3
+vehicle_lateral_jerk_limit: 2.0
+
+# Max curvature rate
+# Value type: Desired
+# Units: (m^-1) / s
+vehicle_max_curvature_rate: 0.75
+
+# Ratio relating the steering wheel angle and the tire position on the road
+# Value type: Measured
+# (radians of a full steering wheel rotation) / (radians of tires with the longitudinal axis under full steer)
+vehicle_steering_gear_ratio: 16.863
+
+# Maximum steering angle of the wheel relative to the vehicle centerline.
+# Value type: Measured
+# Unit: deg
+vehicle_steer_lim_deg: 29.2
+
+# steering dynamics time constant
+# Value type: Measured
+# Unit: s
+vehicle_model_steer_tau : 0.3
+
+# Parameter to switch between passenger car and truck
+# Value type: Measured
+truck: false
+car: true
+
+# Required drivers for the vehicle to be functional
+required_drivers:
+  - /hardware_interface/carla_driver
+lidar_gps_drivers:
+  - /hardware_interface/carla_lidar_driver
+  - /hardware_interface/carla_gnss_driver
+camera_drivers:
+  - /hardware_interface/carla_camera_driver
+
+# Parameter to enable configurable speed limit
+# Value type: Desired
+config_speed_limit: 20.0
+
+# Vehicle Participation Type corresponding to the Lanelet2 participant type standards.
+# Used for interpreting traffic rules in world model instances
+vehicle_participant_type: "vehicle:car"
+
+# Topics to exclude from rosbag recording
+exclude_default: true
+excluded_default_topics:
+  - /rosout(.*)
+  - (.*)/received_messages
+  - (.*)/sent_messages
+  - (.*)/scan
+
+exclude_lidar: false
+excluded_lidar_topics:
+  - /detection/lidar_detector/objects
+  - /detection/lidar_detector/objects_markers
+  - /hardware_interface/lidar/points_raw
+  - /hardware_interface/camera/projection_matrix/detection/lidar_detector/cloud_clusters
+  - /environment/range_vision_fusion_01/detection/lidar_detector/objects
+  - /environment/detection/fusion_tools/objects
+  - /environment/detection/fusion_tools/objects_markers
+  - /environment/detection/object_tracker/objects
+  - /environment/detection/object_tracker/objects_markers
+  - /environment/detection/objects
+
+exclude_camera: false
+excluded_camera_topics:
+  - /hardware_interface/camera/camera_info
+  - /hardware_interface/camera/image_raw
+  - /hardware_interface/camera/image_rect
+  - /hardware_interface/camera/image_rects
+  - /hardware_interface/camera/projection_matrix/detection/lidar_detector/cloud_clusters
+  - /environment/range_vision_fusion_01/detection/image_detector/objects
+  - /environment/vision_beyond_track_01/detection/image_detector/objects
+  - /environment/detection/fusion_tools/objects
+  - /environment/detection/fusion_tools/objects_markers
+  - /environment/detection/object_tracker/objects
+  - /environment/detection/object_tracker/objects_markers
+  - /environment/detection/objects
+
+exclude_can: false
+excluded_can_topics:
+  - /hardware_interface/ds_fusion/can_bus_dbw/can_rx
+  - /hardware_interface/ds_fusion/can_bus_dbw/can_tx
