@@ -91,7 +91,7 @@ services:
     command: bash -c 'export ROS_NAMESPACE=$${CARMA_INTR_NS} && wait-for-it.sh localhost:11311 -- roslaunch /opt/carma/vehicle/config/drivers.launch drivers:=velodyne_lidar_driver_wrapper'
   
   avt_vimba_camera_fl_driver:
-    image: usdotfhwastol/carma-avt-vimba-driver:carma-system-3.8.0
+    image: usdotfhwastol/carma-avt-vimba-driver:data-collection-3.8.0
     container_name: avt-vimba-camera-driver-fl
     network_mode: host
     volumes_from:
@@ -104,62 +104,62 @@ services:
       - /opt/carma/vehicle/calibration:/opt/carma/vehicle/calibration
     command: bash -c 'export ROS_NAMESPACE=$${CARMA_INTR_NS} && wait-for-it.sh localhost:11311 -- roslaunch /opt/carma/vehicle/config/drivers.launch drivers:=avt_vimba_camera_fl'
 
-  # avt_vimba_camera_fr_driver:
-  #   image: usdotfhwastol/carma-avt-vimba-driver:carma-system-3.8.0
-  #   container_name: avt-vimba-camera-driver-fr
-  #   network_mode: host
-  #   volumes_from:
-  #     - container:carma-config:ro
-  #   environment:
-  #     - ROS_IP=192.168.88.10
-  #   volumes:
-  #     - /opt/carma/logs:/opt/carma/logs
-  #     - /opt/carma/.ros:/home/carma/.ros
-  #     - /opt/carma/vehicle/calibration:/opt/carma/vehicle/calibration
-  #   command: bash -c 'export ROS_NAMESPACE=$${CARMA_INTR_NS} && wait-for-it.sh localhost:11311 -- roslaunch /opt/carma/vehicle/config/drivers.launch drivers:=avt_vimba_camera_fr'
+  avt_vimba_camera_fr_driver:
+    image: usdotfhwastol/carma-avt-vimba-driver:data-collection-3.8.0
+    container_name: avt-vimba-camera-driver-fr
+    network_mode: host
+    volumes_from:
+      - container:carma-config:ro
+    environment:
+      - ROS_IP=192.168.88.10
+    volumes:
+      - /opt/carma/logs:/opt/carma/logs
+      - /opt/carma/.ros:/home/carma/.ros
+      - /opt/carma/vehicle/calibration:/opt/carma/vehicle/calibration
+    command: bash -c 'export ROS_NAMESPACE=$${CARMA_INTR_NS} && wait-for-it.sh localhost:11311 -- roslaunch /opt/carma/vehicle/config/drivers.launch drivers:=avt_vimba_camera_fr'
 
-  # avt_vimba_camera_sl_driver:
-  #   image: usdotfhwastol/carma-avt-vimba-driver:carma-system-3.8.0
-  #   container_name: avt-vimba-camera-driver-sl
-  #   network_mode: host
-  #   volumes_from:
-  #     - container:carma-config:ro
-  #   environment:
-  #     - ROS_IP=192.168.88.10
-  #   volumes:
-  #     - /opt/carma/logs:/opt/carma/logs
-  #     - /opt/carma/.ros:/home/carma/.ros
-  #     - /opt/carma/vehicle/calibration:/opt/carma/vehicle/calibration
-  #   command: bash -c 'export ROS_NAMESPACE=$${CARMA_INTR_NS} && wait-for-it.sh localhost:11311 -- roslaunch /opt/carma/vehicle/config/drivers.launch drivers:=avt_vimba_camera_sl'
+  avt_vimba_camera_sl_driver:
+    image: usdotfhwastol/carma-avt-vimba-driver:data-collection-3.8.0
+    container_name: avt-vimba-camera-driver-sl
+    network_mode: host
+    volumes_from:
+      - container:carma-config:ro
+    environment:
+      - ROS_IP=192.168.88.10
+    volumes:
+      - /opt/carma/logs:/opt/carma/logs
+      - /opt/carma/.ros:/home/carma/.ros
+      - /opt/carma/vehicle/calibration:/opt/carma/vehicle/calibration
+    command: bash -c 'export ROS_NAMESPACE=$${CARMA_INTR_NS} && wait-for-it.sh localhost:11311 -- roslaunch /opt/carma/vehicle/config/drivers.launch drivers:=avt_vimba_camera_sl'
 
-  # avt_vimba_camera_sr_driver:
-  #   image: usdotfhwastol/carma-avt-vimba-driver:carma-system-3.8.0
-  #   container_name: avt-vimba-camera-driver-sr
-  #   network_mode: host
-  #   volumes_from:
-  #     - container:carma-config:ro
-  #   environment:
-  #     - ROS_IP=192.168.88.10
-  #   volumes:
-  #     - /opt/carma/logs:/opt/carma/logs
-  #     - /opt/carma/.ros:/home/carma/.ros
-  #     - /opt/carma/vehicle/calibration:/opt/carma/vehicle/calibration
-  #   command: bash -c 'export ROS_NAMESPACE=$${CARMA_INTR_NS} && wait-for-it.sh localhost:11311 -- roslaunch /opt/carma/vehicle/config/drivers.launch drivers:=avt_vimba_camera_sr'
+  avt_vimba_camera_sr_driver:
+    image: usdotfhwastol/carma-avt-vimba-driver:data-collection-3.8.0
+    container_name: avt-vimba-camera-driver-sr
+    network_mode: host
+    volumes_from:
+      - container:carma-config:ro
+    environment:
+      - ROS_IP=192.168.88.10
+    volumes:
+      - /opt/carma/logs:/opt/carma/logs
+      - /opt/carma/.ros:/home/carma/.ros
+      - /opt/carma/vehicle/calibration:/opt/carma/vehicle/calibration
+    command: bash -c 'export ROS_NAMESPACE=$${CARMA_INTR_NS} && wait-for-it.sh localhost:11311 -- roslaunch /opt/carma/vehicle/config/drivers.launch drivers:=avt_vimba_camera_sr'
 
-  # delphi_esr_driver:
-  #   image: usdotfhwastol/carma-delphi-esr-driver:data-collection-3.8.0
-  #   container_name: delphi-esr-driver
-  #   network_mode: host
-  #   privileged: true # Grant access to pcie can data
-  #   volumes_from:
-  #     - container:carma-config:ro
-  #   environment:
-  #     - ROS_IP=192.168.88.10
-  #   volumes:
-  #     - /opt/carma/logs:/opt/carma/logs
-  #     - /opt/carma/.ros:/home/carma/.ros
-  #     - /opt/carma/vehicle/calibration:/opt/carma/vehicle/calibration
-  #   command: bash -c 'export ROS_NAMESPACE=$${CARMA_INTR_NS} && wait-for-it.sh localhost:11311 -- roslaunch /opt/carma/vehicle/config/drivers.launch drivers:=delphi_esr'
+  delphi_esr_driver:
+    image: usdotfhwastol/carma-delphi-esr-driver:data-collection-3.8.0
+    container_name: delphi-esr-driver
+    network_mode: host
+    privileged: true # Grant access to pcie can data
+    volumes_from:
+      - container:carma-config:ro
+    environment:
+      - ROS_IP=192.168.88.10
+    volumes:
+      - /opt/carma/logs:/opt/carma/logs
+      - /opt/carma/.ros:/home/carma/.ros
+      - /opt/carma/vehicle/calibration:/opt/carma/vehicle/calibration
+    command: bash -c 'export ROS_NAMESPACE=$${CARMA_INTR_NS} && wait-for-it.sh localhost:11311 -- roslaunch /opt/carma/vehicle/config/drivers.launch drivers:=delphi_esr'
   
   delphi_srr_driver:
     image: usdotfhwastol/carma-delphi-srr2-driver:data-collection-3.8.0
