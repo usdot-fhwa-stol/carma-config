@@ -27,9 +27,9 @@ def generate_launch_description():
     """
     Launch CARMA System.
     """
-    
+
     # Parse the log config file and convert it to an environment variable
-    config_file_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'carma_rosconsole.conf') 
+    config_file_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'carma_rosconsole.conf')
     logging_env_var = SetEnvironmentVariable('CARMA_ROS_LOGGING_CONFIG', generate_log_levels(config_file_path))
 
     # Declare the vehicle_calibration_dir launch argument
@@ -55,8 +55,8 @@ def generate_launch_description():
     # Declare enable_guidance_plugin_validate
     enable_guidance_plugin_validator = LaunchConfiguration('enable_guidance_plugin_validator')
     declare_enable_guidance_plugin_validator = DeclareLaunchArgument(
-        name = 'enable_guidance_plugin_validator', 
-        default_value='true', 
+        name = 'enable_guidance_plugin_validator',
+        default_value='true',
         description='Flag indicating whether the Guidance Plugin Validator node will actively validate guidance strategic, tactical, and control plugins'
     )
 
