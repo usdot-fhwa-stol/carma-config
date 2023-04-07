@@ -62,6 +62,12 @@ services:
       - /opt/carma/maps:/opt/carma/maps
       - /opt/carma/routes:/opt/carma/routes
       - /opt/carma/yolo:/opt/carma/yolo
+      - ~/carma_ws/src/carma-platform/localization_manager/config/parameters.yaml:/opt/carma/install_ros2/localization_manager/share/localization_manager/config/parameters.yaml
+      - ~/carma_ws/src/carma-platform/subsystem_controllers/config:/opt/carma/install_ros2/subsystem_controllers/share/subsystem_controllers/config
+      - ~/carma_ws/src/carma-platform/route/config:/opt/carma/install_ros2/route/share/route/config
+      - ~/carma_ws/src/carma-platform/cooperative_lanechange/config:/opt/carma/install_ros2/cooperative_lanechange/share/cooperative_lanechange/config
+      - ~/carma_ws/src/carma-platform/approaching_emergency_vehicle_plugin/config:/opt/carma/install_ros2/approaching_emergency_vehicle_plugin/share/approaching_emergency_vehicle_plugin/config
+      - ~/carma_ws/src/carma-platform/plan_delegator/config/plan_delegator_params.yaml:/opt/carma/install_ros2/plan_delegator/share/plan_delegator/config/plan_delegator_params.yaml
     command: bash -c 'source /opt/carma/install_ros2/setup.bash && ros2 launch /opt/carma/vehicle/config/carma_docker.launch.py'
 
   ros1_bridge:
