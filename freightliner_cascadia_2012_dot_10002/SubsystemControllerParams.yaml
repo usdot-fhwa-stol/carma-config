@@ -52,6 +52,7 @@ guidance:
         - /guidance/plugins/platoon_strategic_ihp_node
         - /guidance/plugins/platooning_tactical_plugin_node
         - /guidance/plugins/yield_plugin
+        - /guidance/plugins/approaching_emergency_vehicle_plugin
       ros2_initial_plugins:
         - /guidance/plugins/lci_strategic_plugin
         - /guidance/plugins/inlanecruising_plugin          
@@ -65,6 +66,7 @@ guidance:
         - /guidance/plugins/stop_controlled_intersection_tactical_plugin
         - /guidance/plugins/yield_plugin
         - /guidance/plugins/pure_pursuit_wrapper
+        - /guidance/plugins/approaching_emergency_vehicle_plugin
 
 localization:
   localization_controller:
