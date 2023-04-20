@@ -46,6 +46,8 @@ services:
       - /opt/carma/maps:/opt/carma/maps
       - /opt/carma/routes:/opt/carma/routes
       - /opt/carma/yolo:/opt/carma/yolo
+      - ~/carma_ws/src/carma-platform/platooning_tactical_plugin/config/parameters.yaml:/opt/carma/install/platooning_tactical_plugin/share/platooning_tactical_plugin/config/parameters.yaml
+      - ~/carma_ws/src/carma-platform/platooning_control/config/parameters.yaml:/opt/carma/install/platoon_control/share/platoon_control/config/parameters.yaml
     command: bash -c 'wait-for-it.sh localhost:11311 -- roslaunch /opt/carma/vehicle/config/carma_docker.launch'
 
   platform_ros2:
@@ -80,3 +82,15 @@ services:
       - /opt/carma/routes:/opt/carma/routes
       - /opt/carma/yolo:/opt/carma/yolo
     command: bash -c 'wait-for-it.sh localhost:11311 -- rosparam load /opt/carma/vehicle/config/bridge.yml && source ~/.base-image/workspace/install/setup.bash && ros2 run ros1_bridge dynamic_bridge --multi-threads'
+
+  cohda_dsrc_driver:
+    image: usdotfhwastol/carma-cohda-dsrc-driver:carma-system-4.0.0
+    container_name: carma-cohda-dsrc-driver
+    network_mode: host
+    volumes_from:
+      - container:carma-config:ro
+    volumes:
+      - /opt/carma/logs:/opt/carma/logs
+      - /opt/carma/.ros:/home/carma/.ros
+      - ~/carma_ws/src/carma-cohda-dsrc-driver/dsrc_driver/config:/opt/carma/install/dsrc_driver/share/dsrc_driver/config
+    command: bash -c 'source /opt/carma/install/setup.bash && ros2 launch /opt/carma/vehicle/config/drivers.launch.py drivers:=dsrc_driver'
