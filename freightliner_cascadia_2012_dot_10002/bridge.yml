@@ -4,6 +4,34 @@
 #       this file allows for certain topics to be pre-configured with specified QoS settings. 
 topics:
   -
+    topic: /message/incoming_bsm
+    type: carma_v2x_msgs/msg/BSM
+    queue_size: 1
+  -
+    topic: /message/incoming_emergency_vehicle_ack
+    type: carma_v2x_msgs/msg/EmergencyVehicleAck
+    queue_size: 1
+  -
+    topic: /message/outgoing_emergency_vehicle_response
+    type: carma_v2x_msgs/msg/EmergencyVehicleResponse
+    queue_size: 1
+  -
+    topic: /guidance/final_maneuver_plan
+    type: carma_planning_msgs/msg/ManeuverPlan
+    queue_size: 1
+  -
+    topic: /guidance/trajectory_plan
+    type: carma_planning_msgs/msg/TrajectoryPlan
+    queue_size: 1
+  -
+    topic: /guidance/approaching_erv_status
+    type: carma_msgs/msg/UIInstructions
+    queue_size: 1
+  -
+    topic: /hardware_interface/vehicle/twist
+    type: geometry_msgs/msg/TwistStamped
+    queue_size: 1
+  -
     topic: /environment/external_objects
     type: carma_perception_msgs/msg/ExternalObjectList
     queue_size: 1

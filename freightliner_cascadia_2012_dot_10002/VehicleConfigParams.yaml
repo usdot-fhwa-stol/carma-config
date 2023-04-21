@@ -61,7 +61,7 @@ vehicle_lateral_accel_limit: 2.5
 # Lateral Jerk Limit
 # Value type: Desired
 # Units: m/s^3
-vehicle_lateral_jerk_limit: 2.0
+vehicle_lateral_jerk_limit: 0.8
 
 # Max curvature rate
 # Value type: Desired
@@ -104,7 +104,7 @@ vehicle_participant_type: "vehicle:truck"
 
 # Parameter to enable configurable speed limit
 # Value type: Desired
-config_speed_limit: 45.0
+config_speed_limit: 35.0
 
 
 # Topics to exclude from rosbag recording
@@ -147,7 +147,7 @@ excluded_default_topics:
   - /guidance/twist_filter/result/twist/lateral_accel  
   - /guidance/twist_filter/result/twist/lateral_jerk  
   - /guidance/twist_raw
-  - /guidance/upcoming_lane_change_status 
+  #- /guidance/upcoming_lane_change_status 
   - /hardware_interface/brake_command_echo 
   - /hardware_interface/comms/inbound_binary_msg
   - /hardware_interface/comms/outbound_binary_msg
