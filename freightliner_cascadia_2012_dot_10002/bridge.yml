@@ -4,6 +4,18 @@
 #       this file allows for certain topics to be pre-configured with specified QoS settings. 
 topics:
   -
+    topic: /guidance/route
+    type: carma_planning_msgs/msg/Route
+    queue_size: 1
+  -
+    topic: /guidance/route_state
+    type: carma_planning_msgs/msg/RouteState
+    queue_size: 1
+  -
+    topic: /guidance/state
+    type: carma_planning_msgs/msg/GuidanceState
+    queue_size: 1
+  -
     topic: /message/incoming_bsm
     type: carma_v2x_msgs/msg/BSM
     queue_size: 1
@@ -20,7 +32,7 @@ topics:
     type: carma_planning_msgs/msg/ManeuverPlan
     queue_size: 1
   -
-    topic: /guidance/trajectory_plan
+    topic: /guidance/plan_trajectory
     type: carma_planning_msgs/msg/TrajectoryPlan
     queue_size: 1
   -
