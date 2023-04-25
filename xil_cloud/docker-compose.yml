@@ -1,9 +1,8 @@
-version: '3'
+version: '2'
 services:
-
   carma-simulation:
     privileged: true
-    image: usdotfhwastol/carma-simulation:carma-simulation-1.0.1
+    image: usdotfhwastoldev/carma-simulation:develop
     networks:
       carma_sim_net:
         ipv4_address: 172.2.0.2
@@ -97,7 +96,7 @@ services:
     command: bash -c 'wait-for-it.sh 172.3.0.2:11311 -- rosparam load /opt/carma/vehicle/config/bridge.yml && source ~/.base-image/workspace/install/setup.bash && ros2 run ros1_bridge dynamic_bridge --multi-threads'
 
   carma-carla-integration_1:
-    image: usdotfhwastol/carma-carla-integration:carma-ros-2-aws-test
+    image: usdotfhwastoldev/carma-carla-integration:develop
     networks:
       carma_net_1:
         ipv4_address: 172.3.0.6
@@ -129,14 +128,148 @@ services:
                                                                            init_steering_angle:='0'
                                                                            init_jerk:='0'
                                                                            max_steering_degree:='70'"
+  web-ui:
+    image: usdotfhwastol/carma-web-ui:carma-system-4.2.0
+    networks:
+      carma_net_1:
+        ipv4_address: 172.3.0.7
+    container_name: web-ui
+    environment:
+      - ROS_IP=172.3.0.7
+      - ROS_MASTER_URI=http://172.3.0.2:11311/
+    volumes_from:
+      - container:carma-config:ro
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+  zookeeper:
+    image: wurstmeister/zookeeper
+    container_name: zookeeper
+    ports:
+       - "2181:2182"
+    volumes:
+      - zookeeper-datavolume:/opt/zookeeper-3.4.13/data
+  kafka:
+    image: wurstmeister/kafka
+    container_name: kafka
+    depends_on: 
+      - zookeeper
+    ports:
+      - "9092:9092"
+    environment:
+      DOCKER_HOST_IP:  ${DOCKER_HOST_IP}
+      KAFKA_ADVERTISED_HOST_NAME:  ${DOCKER_HOST_IP}
+      KAFKA_CREATE_TOPICS: "v2xhub_scheduling_plan_sub:1:1,v2xhub_bsm_in:1:1,v2xhub_mobility_operation_in:1:1,v2xhub_mobility_path_in:1:1,vehicle_status_intent_output:1:1,v2xhub_map_msg_in:1:1,modified_spat:1:1,desired_phase_plan:1:1, tsc_config_state:1:1"
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_LOG_DIRS: "/kafka/kafka-logs"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - kafka-datavolume:/kafka/kafka-logs
+##############################################################
+# Kafka Owl for monitoring kafka traffic. UI can be accessed on 
+# configurable port set in performance/kowl.yaml NOTE: IS NOT 
+# NECESSARY FOR DEPLOYMENT BUT HELFUL FOR DEBUGGING! 
+################################################################
+  kowl:
+    image: quay.io/cloudhut/kowl
+    container_name: kowl
+    restart: on-failure
+    network_mode: host
+    volumes_from:
+      - container:carma-config:ro
+    depends_on:
+      - kafka
+    environment:
+      CONFIG_FILEPATH: /etc/kowl/kowl.yaml
+    volume:
+      - ./kowl:/etc/kowl/
+  db:
+    image: mysql:5.7
+    container_name: mysql
+    restart: always
+    volumes_from:
+      - container:carma-config:ro
+    environment:
+      - MYSQL_DATABASE=IVP
+      - MYSQL_USER=IVP
+      - MYSQL_PASSWORD_FILE=/secrets/mysql_password.txt
+      - MYSQL_ROOT_PASSWORD_FILE=/secrets/mysql_root_password.txt
+    network_mode: host
+    volumes:
+      - mysql-datavolume:/var/lib/mysql
+      - ./secrets:/secrets
+      - ./mysql:/docker-entrypoint-initdb.d
+  php:
+    image: usdotfhwaops/php:latest
+    container_name: php
+    network_mode: host
+    depends_on:
+      - v2xhub
+    stdin_open: true
+    tty: true
+  v2xhub:
+    image: usdotfhwaops/v2xhubamd:latest
+    container_name: v2xhub
+    network_mode: host
+    restart: always
+    volumes_from:
+      - container:carma-config:ro
+    depends_on:
+      - db
+    environment:
+      - MYSQL_PASSWORD_FILE=/secrets/mysql_password.txt
+    volumes:
+      - ./logs:/var/log/tmx
+      - ./secrets:/secrets
 
+  intersection_model:
+    image: usdotfhwastoldev/intersection_model:develop
+    container_name: intersection_model
+    restart: always
+    network_mode: host
+    volumes_from:
+      - container:carma-config:ro
+    depends_on:
+      - kafka
+    environment:
+      DOCKER_HOST_IP:  ${DOCKER_HOST_IP}
+    volumes: 
+      - ./intersection_model/manifest.json:/home/carma-streets/intersection_model/manifest.json
+      - ./logs/:/home/carma-streets/intersection_model/logs/
+  tsc_service:
+    image: usdotfhwastoldev/tsc_service:develop
+    command: sh -c "/wait && /home/carma-streets/tsc_client_service/build/traffic_signal_controller_service"
+    container_name: tsc_service
+    volumes_from:
+      - container:carma-config:ro
+    restart: always
+    network_mode: host
+    depends_on:
+      - kafka
+      - intersection_model
+    environment:
+      DOCKER_HOST_IP:  ${DOCKER_HOST_IP}
+      WAIT_HOSTS: localhost:8080
+      WAIT_HOSTS_TIMEOUT: 300
+      WAIT_SLEEP_INTERVAL: 30
+      WAIT_HOST_CONNECT_TIMEOUT: 30
+      CONFIG_FILEPATH: /opt/carma/vehicle/config/tsc_service/manifest.json
+    volumes: 
+      - ./tsc_client_service/logs/:/home/carma-streets/tsc_client_service/logs/
 networks:
   carma_sim_net:
     ipam:
       config:
         - subnet: 172.2.0.0/16
-
   carma_net_1:
     ipam:
       config:
         - subnet: 172.3.0.0/16
+# secrets:
+#     mysql_password:
+#         file: ./secrets/mysql_password.txt
+#     mysql_root_password:
+#         file: ./secrets/mysql_root_password.txt
+volumes:
+  mysql-datavolume:
+  kafka-datavolume:
+  zookeeper-datavolume:
