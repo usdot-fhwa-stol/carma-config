@@ -4,6 +4,10 @@
 #       this file allows for certain topics to be pre-configured with specified QoS settings. 
 topics:
   -
+    topic: /guidance/upcoming_lane_change_status
+    type: carma_planning_msgs/msg/UpcomingLaneChangeStatus
+    queue_size: 1
+  -
     topic: /guidance/route
     type: carma_planning_msgs/msg/Route
     queue_size: 1
