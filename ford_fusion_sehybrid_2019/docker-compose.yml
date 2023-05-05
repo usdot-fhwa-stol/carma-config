@@ -17,7 +17,7 @@ version: '2'
 
 services:
   roscore:
-    image: usdotfhwastol/carma-base:carma-system-4.3.0
+    image: usdotfhwastol/carma-base:carma-system-4.4.0
     network_mode: host
     container_name: roscore
     volumes_from:
@@ -31,7 +31,7 @@ services:
     command: roscore
 
   platform:
-    image: usdotfhwastol/carma-platform:carma-system-4.3.0
+    image: usdotfhwastol/carma-platform:carma-system-4.4.0
     network_mode: host
     container_name: platform
     volumes_from:
@@ -50,11 +50,13 @@ services:
     command: bash -c 'wait-for-it.sh localhost:11311 -- roslaunch /opt/carma/vehicle/config/carma_docker.launch'
 
   platform_ros2:
-    image: usdotfhwastol/carma-platform:carma-system-4.3.0
+    image: usdotfhwastol/carma-platform:carma-system-4.4.0
     network_mode: host
     container_name: platform_ros2
     volumes_from:
       - container:carma-config:ro
+    environment:
+      - CYCLONEDDS_URI=${CYCLONEDDS_URI}
     volumes:
       - /opt/carma/logs:/opt/carma/logs
       - /opt/carma/.ros:/home/carma/.ros
@@ -65,7 +67,7 @@ services:
     command: bash -c 'source /opt/carma/install_ros2/setup.bash && ros2 launch /opt/carma/vehicle/config/carma_docker.launch.py'
 
   ros1_bridge:
-    image: usdotfhwastol/carma-msgs:carma-system-4.3.0
+    image: usdotfhwastol/carma-msgs:carma-system-4.4.0
     network_mode: host
     container_name: ros1_bridge
     volumes_from:
@@ -73,6 +75,7 @@ services:
     environment:
       - ROS_IP=192.168.88.10
       - ROS_MASTER_URI=http://localhost:11311
+      - CYCLONEDDS_URI=${CYCLONEDDS_URI}
     volumes:
       - /opt/carma/logs:/opt/carma/logs
       - /opt/carma/.ros:/home/carma/.ros
@@ -83,7 +86,7 @@ services:
     command: bash -c 'wait-for-it.sh localhost:11311 -- rosparam load /opt/carma/vehicle/config/bridge.yml && source ~/.base-image/workspace/install/setup.bash && ros2 run ros1_bridge dynamic_bridge --multi-threads'
     
   lightbar-driver:
-    image: usdotfhwastol/carma-lightbar-driver:carma-system-4.3.0
+    image: usdotfhwastol/carma-lightbar-driver:carma-system-4.4.0
     network_mode: host
     container_name: lightbar-driver
     volumes_from: 
@@ -97,18 +100,21 @@ services:
     command: bash -c 'export ROS_NAMESPACE=$${CARMA_INTR_NS} && wait-for-it.sh localhost:11311 -- roslaunch /opt/carma/vehicle/config/drivers.launch drivers:=lightbar_driver'
 
   cohda_dsrc_driver:
-    image: usdotfhwastol/carma-cohda-dsrc-driver:carma-system-4.3.0
+    image: usdotfhwastol/carma-cohda-dsrc-driver:carma-system-4.4.0
     container_name: carma-cohda-dsrc-driver
     network_mode: host
     volumes_from:
       - container:carma-config:ro
+    environment:
+      - CYCLONEDDS_URI=${CYCLONEDDS_URI}
     volumes:
       - /opt/carma/logs:/opt/carma/logs
       - /opt/carma/.ros:/home/carma/.ros
+      - /opt/carma/vehicle/calibration:/opt/carma/vehicle/calibration
     command: bash -c 'source /opt/carma/install/setup.bash && ros2 launch /opt/carma/vehicle/config/drivers.launch.py drivers:=dsrc_driver'
 
   ssc_controller_driver:
-    image: usdotfhwastol/carma-ssc-interface-wrapper:carma-system-4.3.0
+    image: usdotfhwastol/carma-ssc-interface-wrapper:carma-system-4.4.0
     container_name: ssc_controller_driver
     network_mode: host
     privileged: true # Grant access to usb for can data
@@ -125,11 +131,13 @@ services:
     command: bash -c 'export ROS_NAMESPACE=$${CARMA_INTR_NS} && wait-for-it.sh localhost:11311 -- roslaunch /opt/carma/vehicle/config/drivers.launch drivers:=ssc_interface_wrapper'
 
   novatel_gnss_imu_driver:
-    image: usdotfhwastol/carma-novatel-oem7-driver-wrapper:carma-system-4.3.0
+    image: usdotfhwastol/carma-novatel-oem7-driver-wrapper:carma-system-4.4.0
     container_name: carma-novatel-oem7-driver-wrapper
     network_mode: host
     volumes_from:
       - container:carma-config:ro
+    environment:
+      - CYCLONEDDS_URI=${CYCLONEDDS_URI}
     volumes:
       - /opt/carma/logs:/opt/carma/logs
       - /opt/carma/.ros:/home/carma/.ros
@@ -137,21 +145,24 @@ services:
     command: bash -c 'source /opt/carma/install/setup.bash && ros2 launch /opt/carma/vehicle/config/drivers.launch.py drivers:=carma_novatel_driver_wrapper'
 
   velodyne_lidar_driver:
-    image: usdotfhwastol/carma-velodyne-lidar-driver:carma-system-4.3.0
+    image: usdotfhwastol/carma-velodyne-lidar-driver:carma-system-4.4.0
     container_name: velodyne-lidar-driver
     network_mode: host
     volumes_from:
       - container:carma-config:ro
+    environment:
+      - CYCLONEDDS_URI=${CYCLONEDDS_URI}
     volumes:
       - /opt/carma/logs:/opt/carma/logs
       - /opt/carma/.ros:/home/carma/.ros
+      - /opt/carma/vehicle/calibration:/opt/carma/vehicle/calibration
     command: bash -c 'source /opt/carma/install/setup.bash && ros2 launch /opt/carma/vehicle/config/drivers.launch.py drivers:=velodyne_lidar_driver_wrapper'
   
   # NOTE: This is a mock driver and not an actual camera
   # It is being used instead as camera input is currently not supported in the Autoware.Auto
   # system integrated in release carma-system-4.0
   mock-camera-driver:
-    image: usdotfhwastol/carma-platform:carma-system-4.3.0
+    image: usdotfhwastol/carma-platform:carma-system-4.4.0
     network_mode: host
     container_name: carma-mock-camera-driver
     volumes_from: 
