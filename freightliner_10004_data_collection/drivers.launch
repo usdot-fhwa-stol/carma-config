@@ -26,7 +26,7 @@ If not using simulated drivers they are activated if the respective mock argumen
 <launch>
   
   <!-- Shutdown node to shutsdown driver node with fatal message -->
-  <node pkg="driver_shutdown" type="driver_shutdown" name="$(anon driver_shutdown)" required="true"/>
+  <!-- <node pkg="driver_shutdown" type="driver_shutdown" name="$(anon driver_shutdown)" required="true"/> -->
 
   <arg name="vehicle_calibration_dir" default="/opt/carma/vehicle/calibration" doc="Folder containing vehicle calibration directories"/>
 
@@ -46,10 +46,12 @@ If not using simulated drivers they are activated if the respective mock argumen
   <arg name="mock_trailer_angle"  value="$(eval 'trailer_angle' in arg('mock_drivers').split())"/>
   <arg name="mock_mobileye" 	    value="$(eval 'mobileye' in arg('mock_drivers').split())"/>
 
+  
   <!-- Specific Drivers -->
-  <arg name="drivers" default="dsrc_driver ssc_interface_wrapper novatel_gps_driver velodyne_lidar_driver_wrapper avt_vimba_camera_fl avt_vimba_camera_fr avt_vimba_camera_sl avt_vimba_camera_sr delphi_esr delphi_srr mobileye_camera"
+  <arg name="drivers" default="urdf_pub dsrc_driver ssc_interface_wrapper novatel_gps_driver velodyne_lidar_driver_wrapper avt_vimba_camera_fl avt_vimba_camera_fr avt_vimba_camera_sl avt_vimba_camera_sr delphi_esr delphi_srr mobileye_camera"
     doc="Desired real drivers to launch specified by package name. Mock drivers will take precedence"/>
 
+  <arg name="urdf_pub"                        value="$(eval ('urdf_pub' in arg('drivers').split()) and not arg('mock_comms'))"/>
   <arg name="dsrc_driver"                   value="$(eval ('dsrc_driver' in arg('drivers').split()) and not arg('mock_comms'))"/>
   <arg name="ssc_interface_wrapper"         value="$(eval ('ssc_interface_wrapper' in arg('drivers').split()) and not arg('mock_controller'))"/>
   <arg name="novatel_gps_driver"            value="$(eval ('novatel_gps_driver' in arg('drivers').split()) and not (arg('mock_gnss') or arg('mock_imu')))"/>
@@ -64,6 +66,12 @@ If not using simulated drivers they are activated if the respective mock argumen
   <arg name="delphi_srr_driver"             value="$(eval ('delphi_srr' in arg('drivers').split()) and not arg('mock_radar'))"/>
   <arg name="mobileye_camera_driver"             value="$(eval ('mobileye_camera' in arg('drivers').split()) and not arg('mock_mobileye'))"/>
  
+  <!-- URDF publisher -->
+  <group if="$(arg urdf_pub)" >
+    <param name="robot_description" command="cat $(arg vehicle_calibration_dir)/urdf/carma.urdf" />
+    <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" />
+  </group>
+  
   <!-- DSRC OBU Driver Node -->
   <include if="$(arg dsrc_driver)" file="$(find dsrc_driver)/launch/dsrc_node.launch"/>
 
@@ -83,7 +91,7 @@ If not using simulated drivers they are activated if the respective mock argumen
   <!-- Velodyne Lidar Driver Nodes -->
   <!-- Lidar 1 -->
   <remap from="driver_discovery" to="$(optenv CARMA_INTR_NS)/driver_discovery"/>
-  <include if="$(arg velodyne_lidar_driver_wrapper)" ns="velodyne_1" file="$(find velodyne_lidar_driver_wrapper)/launch/velodyne_lidar_driver.launch">
+  <include if="$(arg velodyne_lidar_driver_wrapper)" ns="hardware_interface/velodyne_1" file="$(find velodyne_pointcloud)/launch/VLP-32C_points.launch">
     <arg name="frame_id" value="velodyne_1"/>
     <arg name="device_ip" value="192.168.1.201"/>
     <arg name="max_range" value="200" />
@@ -91,7 +99,7 @@ If not using simulated drivers they are activated if the respective mock argumen
   </include>
 
   <!-- Lidar 2 -->
-  <include if="$(arg velodyne_lidar_driver_wrapper)" ns="velodyne_2" file="$(find velodyne_lidar_driver_wrapper)/launch/velodyne_lidar_driver.launch">
+  <include if="$(arg velodyne_lidar_driver_wrapper)" ns="hardware_interface/velodyne_2" file="$(find velodyne_pointcloud)/launch/VLP-32C_points.launch">
     <arg name="frame_id" value="velodyne_2"/>
     <arg name="device_ip" value="192.168.2.201"/>
     <arg name="max_range" value="200" />
@@ -99,7 +107,7 @@ If not using simulated drivers they are activated if the respective mock argumen
   </include>
 
   <!-- Lidar Concat -->
-  <include if="$(arg velodyne_lidar_driver_wrapper)" file="$(find points_preprocessor)/launch/points_concat_filter.launch">
+  <include if="$(arg velodyne_lidar_driver_wrapper)" ns="hardware_interface" file="$(find points_preprocessor)/launch/points_concat_filter.launch">
     <arg name="input_topics" default="[velodyne_1/lidar/points_raw, velodyne_2/lidar/points_raw]" />
     <arg name="output_topic" default="lidar/points_raw" />
     <arg name="output_frame_id" default="concat_velodyne" />
@@ -122,7 +130,7 @@ If not using simulated drivers they are activated if the respective mock argumen
   </include>
 
   <!-- Camera parameters -->
-  <arg name="front_decimation" value="2"/>
+  <arg name="front_decimation" value="1"/>
   <arg name="left_side_decimation" value="2"/>
   <arg name="right_side_decimation" value="2"/>
   <arg name="front_encoding" default="BayerRG8" />
@@ -139,16 +147,15 @@ If not using simulated drivers they are activated if the respective mock argumen
     <include if="$(arg avt_vimba_camera_fl)" file="$(find avt_vimba_camera)/launch/mono_camera.launch">
       <arg name="guid" default=""/>
       <arg name="ip" default="192.168.10.1"/>
-      <!-- <arg name="camera_info_url" value="file://$(arg vehicle_calibration_dir)/avt_vimba_camera/camera_fl_intrinsics.yaml"/> -->
+      <arg name="camera_info_url" value="file://$(arg vehicle_calibration_dir)/avt_vimba_camera/camera_fl_intrinsics.yaml"/>
       <arg name="frame_id" default="left_optical"/>
       <arg name="trig_timestamp_topic" default=""/>
       <arg name="show_debug_prints" default="false"/>
-      <arg name="decimation_x" value="$(arg front_decimation)" />
-      <arg name="decimation_y" value="$(arg front_decimation)" />
+      <arg name="decimation" value="$(arg front_decimation)" />
       <arg name="acquisition_rate" value="$(arg front_framerate)"/>
       <arg name="pixel_format" value="$(arg front_encoding)"/>
-      <param name="width" value="960"/>
-      <param name="height" value="720"/>
+      <param name="width" value="2048"/>
+      <param name="height" value="1544"/>
     </include>
   </group>
   
@@ -158,16 +165,15 @@ If not using simulated drivers they are activated if the respective mock argumen
     <include if="$(arg avt_vimba_camera_fr)" file="$(find avt_vimba_camera)/launch/mono_camera.launch">
       <arg name="guid" default=""/>
       <arg name="ip" default="192.168.20.1"/>
-      <!-- <arg name="camera_info_url" value="file://$(arg vehicle_calibration_dir)/avt_vimba_camera/camera_fr_intrinsics.yaml"/> -->
+      <arg name="camera_info_url" value="file://$(arg vehicle_calibration_dir)/avt_vimba_camera/camera_fr_intrinsics.yaml"/>
       <arg name="frame_id" default="right_optical"/>
       <arg name="trig_timestamp_topic" default=""/>
       <arg name="show_debug_prints" default="false"/>
-      <arg name="decimation_x" value="$(arg front_decimation)" />
-      <arg name="decimation_y" value="$(arg front_decimation)" />
+      <arg name="decimation" value="$(arg front_decimation)" />
       <arg name="acquisition_rate" value="$(arg front_framerate)"/>
       <arg name="pixel_format" value="$(arg front_encoding)"/>
-      <param name="width" value="960"/>
-      <param name="height" value="720"/>
+      <param name="width" value="2048"/>
+      <param name="height" value="1544"/>
     </include>
   </group>
 
@@ -177,16 +183,15 @@ If not using simulated drivers they are activated if the respective mock argumen
     <include if="$(arg avt_vimba_camera_sl)" file="$(find avt_vimba_camera)/launch/mono_camera.launch">
       <arg name="guid" default=""/>
       <arg name="ip" default="192.168.88.51"/>
-      <!-- <arg name="camera_info_url" value="file://$(arg vehicle_calibration_dir)/avt_vimba_camera/camera_sl_intrinsics.yaml"/> -->
+      <arg name="camera_info_url" value="file://$(arg vehicle_calibration_dir)/avt_vimba_camera/camera_sl_intrinsics.yaml"/>
       <arg name="frame_id" default="left_side_optical"/>
       <arg name="trig_timestamp_topic" default=""/>
       <arg name="show_debug_prints" default="false"/>
-      <arg name="decimation_x" value="$(arg left_side_decimation)" />
-      <arg name="decimation_y" value="$(arg left_side_decimation)" />
+      <arg name="decimation" value="$(arg left_side_decimation)" />
       <arg name="acquisition_rate" value="$(arg left_side_framerate)"/>
       <arg name="pixel_format" value="$(arg left_side_encoding)"/>
-      <param name="width" value="960"/>
-      <param name="height" value="720"/>
+      <param name="width" value="2048"/>
+      <param name="height" value="1544"/>
     </include>
   </group>
   
@@ -196,16 +201,15 @@ If not using simulated drivers they are activated if the respective mock argumen
     <include if="$(arg avt_vimba_camera_sr)" file="$(find avt_vimba_camera)/launch/mono_camera.launch">
       <arg name="guid" default=""/>
       <arg name="ip" default="192.168.88.50"/>
-      <!-- <arg name="camera_info_url" value="file://$(arg vehicle_calibration_dir)/avt_vimba_camera/camera_sr_intrinsics.yaml"/> -->
+      <arg name="camera_info_url" value="file://$(arg vehicle_calibration_dir)/avt_vimba_camera/camera_sr_intrinsics.yaml"/>
       <arg name="frame_id" default="right_side_optical"/>
       <arg name="trig_timestamp_topic" default=""/>
       <arg name="show_debug_prints" default="false"/>
-      <arg name="decimation_x" value="$(arg right_side_decimation)" />
-      <arg name="decimation_y" value="$(arg right_side_decimation)" />
+      <arg name="decimation" value="$(arg right_side_decimation)" />
       <arg name="acquisition_rate" value="$(arg right_side_framerate)"/>
       <arg name="pixel_format" value="$(arg right_side_encoding)"/>
-      <param name="width" value="960"/>
-      <param name="height" value="720"/>
+      <param name="width" value="2048"/>
+      <param name="height" value="1544"/>
     </include>
   </group>
   
@@ -224,7 +228,7 @@ If not using simulated drivers they are activated if the respective mock argumen
     <arg name="use_kvaser" default="true" />
     <arg name="kvaser_hardware_id" default="11213" />
     <arg name="kvaser_circuit_id" default="2" />
-    <arg name="srr_frame_id" default="radar_fl" />
+    <arg name="srr_frame_id" default="front_left_srr" />
     <arg name="srr_side" default="Left" />
   </include>
 
@@ -233,7 +237,7 @@ If not using simulated drivers they are activated if the respective mock argumen
     <arg name="use_kvaser" default="true" />
     <arg name="kvaser_hardware_id" default="11213" />
     <arg name="kvaser_circuit_id" default="1" />
-    <arg name="srr_frame_id" default="radar_rl" />
+    <arg name="srr_frame_id" default="rear_left_srr" />
     <arg name="srr_side" default="Left" />
   </include>
 
@@ -242,7 +246,7 @@ If not using simulated drivers they are activated if the respective mock argumen
     <arg name="use_kvaser" default="true" />
     <arg name="kvaser_hardware_id" default="11213" />
     <arg name="kvaser_circuit_id" default="0" />
-    <arg name="srr_frame_id" default="radar_rr" />
+    <arg name="srr_frame_id" default="rear_right_srr" />
     <arg name="srr_side" default="Right" />
   </include> -->
 
@@ -251,15 +255,25 @@ If not using simulated drivers they are activated if the respective mock argumen
     <arg name="use_kvaser" default="true" />
     <arg name="kvaser_hardware_id" default="11213" />
     <arg name="kvaser_circuit_id" default="3" />
-    <arg name="srr_frame_id" default="radar_fr" />
+    <arg name="srr_frame_id" default="front_right_srr" />
     <arg name="srr_side" default="Right" />
   </include>
 
+  <!-- DelphiESR Rear Center Driver Node -->
+  <!-- <include if="$(arg delphi_esr_driver)" ns="radar_rc" file="$(find delphi_esr)/launch/delphi_esr.launch">
+    <arg name="use_kvaser" default="true" />
+    <arg name="kvaser_hardware_id" default="11704" />
+    <arg name="kvaser_circuit_id" default="0" />
+    <arg name="esr_frame_id" default="rear_esr" />
+    <arg name="esr_upside_down" default="false" />
+    <arg name="viz_mature_tracks_only" default="false" />
+  </include> -->
+
   <!-- Mobileye Camera Driver Node -->
-  <include if="$(arg mobileye_camera_driver)" ns="mobileye" file="$(find mobileye_camera_driver_wrapper)/launch/mobileye_camera_driver_wrapper.launch">
+  <!-- <include if="$(arg mobileye_camera_driver)" ns="mobileye" file="$(find mobileye_camera_driver_wrapper)/launch/mobileye_camera_driver_wrapper.launch">
     <arg name="use_kvaser" default="true" />
     <arg name="kvaser_hardware_id" default="11211" />
     <arg name="kvaser_circuit_id" default="2" />
     <arg name="sensor_frame_id" default="mobileye" />
-  </include>
+  </include> -->
 </launch>
