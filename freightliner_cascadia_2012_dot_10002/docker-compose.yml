@@ -31,7 +31,7 @@ services:
     command: roscore
 
   platform:
-    image: usdotfhwastol/carma-platform:carma-system-4.4.1
+    image: usdotfhwastol/carma-platform:carma-system-4.4.2
     network_mode: host
     container_name: platform
     runtime: nvidia
@@ -50,7 +50,7 @@ services:
     command: bash -c 'wait-for-it.sh localhost:11311 -- roslaunch /opt/carma/vehicle/config/carma_docker.launch'
 
   platform_ros2:
-    image: usdotfhwastol/carma-platform:carma-system-4.4.1
+    image: usdotfhwastol/carma-platform:carma-system-4.4.2
     network_mode: host
     container_name: platform_ros2
     volumes_from:
@@ -83,7 +83,7 @@ services:
     command: bash -c 'wait-for-it.sh localhost:11311 -- rosparam load /opt/carma/vehicle/config/bridge.yml && source ~/.base-image/workspace/install/setup.bash && ros2 run ros1_bridge dynamic_bridge --multi-threads'
     
   truck-inspection:
-    image: usdotfhwastol/carma-platform:carma-system-4.4.1
+    image: usdotfhwastol/carma-platform:carma-system-4.4.2
     network_mode: host
     container_name: carma-truck-inspection
     volumes_from: 
@@ -163,7 +163,7 @@ services:
     command: bash -c 'source /opt/carma/install/setup.bash && ros2 launch /opt/carma/vehicle/config/drivers.launch.py drivers:=velodyne_lidar_driver_wrapper'
   
   velodyne_concatenator:
-    image: usdotfhwastol/carma-platform:carma-system-4.4.1
+    image: usdotfhwastol/carma-platform:carma-system-4.4.2
     container_name: velodyne-concatenator
     network_mode: host
     volumes_from:
@@ -197,7 +197,7 @@ services:
   # It is being used instead as camera input is currently not supported in the Autoware.Auto
   # system integrated in release carma-system-4.0
   mock-camera-driver:
-    image: usdotfhwastol/carma-platform:carma-system-4.4.1
+    image: usdotfhwastol/carma-platform:carma-system-4.4.2
     network_mode: host
     container_name: carma-mock-camera-driver
     volumes_from: 
