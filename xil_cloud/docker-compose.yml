@@ -217,13 +217,13 @@ services:
       - db
     environment:
       - MYSQL_PASSWORD=/home/V2X-Hub/secrets/mysql_password.txt
-      - SIMULATION_MODE=true
-      - SIMULATION_IP=127.0.0.1
+      - SIMULATION_MODE=${SIMULATION_MODE}
+      - SIMULATION_IP=${DOCKER_HOST_IP}
       - SIMULATION_REGISTRATION_PORT=1615
-      - LOCAL_IP=127.0.0.1
+      - LOCAL_IP=${DOCKER_HOST_IP}
       - TIME_SYNC_TOPIC=time_sync
       - TIME_SYNC_PORT=7575
-      - SIM_V2X_PORT=5757
+      - SIM_V2X_PORT=1517
       - V2X_PORT=8686
       - INFRASTRUCTURE_ID=TEST_INSTANCE_1
       - KAFKA_BROKER_ADDRESS=127.0.0.1:9092
@@ -265,7 +265,7 @@ services:
       WAIT_HOSTS_TIMEOUT: 300
       WAIT_SLEEP_INTERVAL: 30
       WAIT_HOST_CONNECT_TIMEOUT: 30
-      SIMULATION_MODE: TRUE
+      SIMULATION_MODE:  ${SIMULATION_MODE}
       CONFIG_FILEPATH: /opt/carma/vehicle/config/tsc_service/manifest.json
     volumes: 
       - ./tsc_client_service/manifest.json:/home/carma-streets/tsc_client_service/manifest.json
