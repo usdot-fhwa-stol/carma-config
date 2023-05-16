@@ -188,8 +188,6 @@ services:
     image: mysql:5.7
     container_name: mysql
     restart: always
-    volumes_from:
-      - container:carma-config:ro
     environment:
       - MYSQL_DATABASE=IVP
       - MYSQL_USER=IVP
@@ -213,8 +211,6 @@ services:
     container_name: v2xhub
     network_mode: host
     restart: always
-    volumes_from:
-      - container:carma-config:ro
     depends_on:
       - db
     environment:
@@ -228,7 +224,7 @@ services:
       - SIM_V2X_PORT=1517
       - V2X_PORT=8686
       - INFRASTRUCTURE_ID=rsu_15
-      - KAFKA_BROKER_ADDRESS=127.0.0.1:9092
+      - KAFKA_BROKER_ADDRESS=${DOCKER_HOST_IP}:9092
     volumes:
       - ./logs:/var/log/tmx
       - ./MAP:/var/www/plugins/MAP
@@ -239,8 +235,6 @@ services:
     container_name: intersection_model
     restart: always
     network_mode: host
-    volumes_from:
-      - container:carma-config:ro
     depends_on:
       - kafka
     environment:
@@ -254,8 +248,6 @@ services:
     image: usdotfhwastoldev/tsc_service:develop
     command: sh -c "/wait && /home/carma-streets/tsc_client_service/build/traffic_signal_controller_service"
     container_name: tsc_service
-    volumes_from:
-      - container:carma-config:ro
     restart: always
     network_mode: host
     depends_on:
