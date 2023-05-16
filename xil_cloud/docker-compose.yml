@@ -12,12 +12,14 @@ services:
       - QT_X11_NO_MITSHM=1
     volumes:
       - /tmp/.X11-unix:/tmp/.X11-unix
+      - /opt/carma-simulation/logs:/opt/carma-simulation/logs
+      - /opt/carma-simulation/etc:/opt/carma-simulation/etc
     deploy:
       resources:
         reservations:
           devices:
             - capabilities: [gpu]
-    command: "./mosaic.sh -s Town04_20"
+    command: bash -c "./mosaic.sh -s Town04"
 
   roscore_1:
     image: usdotfhwastol/carma-base:carma-system-4.2.0
@@ -218,14 +220,14 @@ services:
     environment:
       - MYSQL_PASSWORD=/home/V2X-Hub/secrets/mysql_password.txt
       - SIMULATION_MODE=${SIMULATION_MODE}
-      - SIMULATION_IP=${DOCKER_HOST_IP}
+      - SIMULATION_IP=172.2.0.2
       - SIMULATION_REGISTRATION_PORT=1615
       - LOCAL_IP=${DOCKER_HOST_IP}
       - TIME_SYNC_TOPIC=time_sync
       - TIME_SYNC_PORT=7575
       - SIM_V2X_PORT=1517
       - V2X_PORT=8686
-      - INFRASTRUCTURE_ID=TEST_INSTANCE_1
+      - INFRASTRUCTURE_ID=rsu_15
       - KAFKA_BROKER_ADDRESS=127.0.0.1:9092
     volumes:
       - ./logs:/var/log/tmx
