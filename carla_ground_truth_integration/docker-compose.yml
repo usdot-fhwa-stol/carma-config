@@ -48,6 +48,23 @@ services:
       - /opt/carma/yolo:/opt/carma/yolo
     command: bash -c 'wait-for-it.sh localhost:11311 -- roslaunch /opt/carma/vehicle/config/carma_docker.launch simulation_mode:="true" '
 
+  ns3_adapter:
+    image: usdotfhwastol/carma-ns3-adapter:latest
+    network_mode: host
+    container_name: ns3_adapter
+    volumes_from:
+      - container:carma-config:ro
+    environment:
+      - ROS_IP=127.0.0.1
+      - NVIDIA_VISIBLE_DEVICES=all
+    volumes:
+      - /opt/carma/logs:/opt/carma/logs
+      - /opt/carma/.ros:/home/carma/.ros
+      - /opt/carma/vehicle/calibration:/opt/carma/vehicle/calibration
+      - /opt/carma/maps:/opt/carma/maps
+      - /opt/carma/routes:/opt/carma/routes
+      - /opt/carma/yolo:/opt/carma/yolo
+
   platform_ros2:
     image: usdotfhwastol/carma-platform:carma-system-4.2.0
     network_mode: host
