@@ -49,7 +49,7 @@ services:
     command: bash -c 'wait-for-it.sh localhost:11311 -- roslaunch /opt/carma/vehicle/config/carma_docker.launch simulation_mode:="true" '
 
   ns3_adapter:
-    image: usdotfhwastol/carma-ns3-adapter:latest
+    image: usdotfhwastoldev/carma-ns3-adapter:develop
     network_mode: host
     container_name: ns3_adapter
     volumes_from:
