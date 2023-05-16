@@ -59,7 +59,6 @@ services:
       - ROS_IP=172.3.0.3
       - ROS_MASTER_URI=http://172.3.0.2:11311/
     command: bash -c 'wait-for-it.sh 172.3.0.2:11311 -- roslaunch /opt/carma/vehicle/config/carma_docker.launch'
-
   platform_ros2_1:
     image: usdotfhwastol/carma-platform:carma-system-4.2.0
     networks:
@@ -143,6 +142,24 @@ services:
       - container:carma-config:ro
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
+  ns3_adapter:
+    image: usdotfhwastoldev/carma-ns3-adapter:develop
+    networks:
+      carma_net_1:
+        ipv4_address: 172.3.0.8
+    container_name: ns3_adapter
+    volumes_from:
+      - container:carma-config:ro
+    environment:
+      - ROS_IP=172.3.0.8
+      - NVIDIA_VISIBLE_DEVICES=all
+    volumes:
+      - /opt/carma/logs:/opt/carma/logs
+      - /opt/carma/.ros:/home/carma/.ros
+      - /opt/carma/vehicle/calibration:/opt/carma/vehicle/calibration
+      - /opt/carma/maps:/opt/carma/maps
+      - /opt/carma/routes:/opt/carma/routes
+      - /opt/carma/yolo:/opt/carma/yolo
   zookeeper:
     image: wurstmeister/zookeeper
     container_name: zookeeper
