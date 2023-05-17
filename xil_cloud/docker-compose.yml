@@ -14,6 +14,7 @@ services:
       - /tmp/.X11-unix:/tmp/.X11-unix
       - /opt/carma-simulation/logs:/opt/carma-simulation/logs
       - /opt/carma-simulation/etc:/opt/carma-simulation/etc
+      - /opt/carma-simulation/scenarios:/opt/carma-simulation/scenarios
     deploy:
       resources:
         reservations:
@@ -112,23 +113,14 @@ services:
     command: bash -c "sleep 10;
                       export PYTHONPATH=$PYTHONPATH:/home/PythonAPI/carla/dist/carla-0.9.10-py3.7-linux-x86_64.egg &&
                       source /home/carma_carla_ws/devel/setup.bash &&
-                      roslaunch carma_carla_agent carma_carla_agent.launch role_name:='hero1'
+                      roslaunch carma_carla_agent carma_carla_agent.launch role_name:='carma_200'
                                                                            town:='Town04'
                                                                            host:='172.2.0.2'
-                                                                           spawn_point:='15.4,-90.1,0,0,0,90'
-                                                                           selected_route:='Release_test_case_1'
-                                                                           selected_plugins:='RouteFollowingPlugin,InLaneCruisingPlugin,StopAndWaitPlugin,Pure Pursuit'
+                                                                           selected_route:='Carma_Street_test_case1'
+                                                                           spawn_point:='202.5,-180.2,0,0,0,90'
                                                                            speed_Kp:='0.4'
-                                                                           speed_Ki:='0.0'
-                                                                           speed_Kd:='0.05'
-                                                                           accel_Kp:='0.05'
-                                                                           accel_Ki:='0.0'
-                                                                           accel_Kd:='0.05'
-                                                                           init_speed:='5'
-                                                                           init_acceleration:='1'
-                                                                           init_steering_angle:='0'
-                                                                           init_jerk:='0'
-                                                                           max_steering_degree:='70'"
+                                                                           speed_Ki:='0.0.3'
+                                                                           speed_Kd:='0'
   web-ui:
     image: usdotfhwastol/carma-web-ui:carma-system-4.2.0
     networks:
@@ -147,6 +139,8 @@ services:
     networks:
       carma_net_1:
         ipv4_address: 172.3.0.8
+      carma_sim_net:
+        ipv4_address: 172.2.0.3
     container_name: ns3_adapter
     volumes_from:
       - container:carma-config:ro
