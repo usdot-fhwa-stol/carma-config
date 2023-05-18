@@ -117,12 +117,12 @@ services:
                                                                            town:='Town04'
                                                                            host:='172.2.0.2'
                                                                            selected_route:='Carma_Street_test_case1'
-                                                                           selected_plugins:="['RouteFollowingPlugin','InLaneCruisingPlugin','StopAndWaitPlugin','Pure Pursuit','CooperativeLaneChangePlugin']" 
-                                                                           synchronous_mode:="false"
+                                                                           selected_plugins:='['RouteFollowingPlugin','InLaneCruisingPlugin','StopAndWaitPlugin','Pure Pursuit','CooperativeLaneChangePlugin']' 
+                                                                           synchronous_mode:='false'
                                                                            spawn_point:='202.5,-180.2,0,0,0,90'
                                                                            speed_Kp:='0.4'
                                                                            speed_Ki:='0.0.3'
-                                                                           speed_Kd:='0'
+                                                                           speed_Kd:='0'"
   web-ui:
     image: usdotfhwastol/carma-web-ui:carma-system-4.2.0
     networks:
