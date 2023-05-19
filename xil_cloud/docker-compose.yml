@@ -12,9 +12,10 @@ services:
       - QT_X11_NO_MITSHM=1
     volumes:
       - /tmp/.X11-unix:/tmp/.X11-unix
-      - /opt/carma-simulation/logs:/opt/carma-simulation/logs
-      - /opt/carma-simulation/etc:/opt/carma-simulation/etc
-      - /opt/carma-simulation/scenarios:/opt/carma-simulation/scenarios
+      - carma-simulation_logs:/opt/carma-simulation/logs
+      - carma-simulation_scenarios:/opt/carma-simulation/scenarios
+      - carma-simulation_etc:/opt/carma-simulation/etc
+
     deploy:
       resources:
         reservations:
@@ -189,8 +190,6 @@ services:
     container_name: kowl
     restart: on-failure
     network_mode: host
-    volumes_from:
-      - container:carma-config:ro
     depends_on:
       - kafka
     environment:
@@ -220,7 +219,7 @@ services:
     stdin_open: true
     tty: true
   v2xhub:
-    image: usdotfhwaops/v2xhubamd:latest
+    image: usdotfhwaops/v2xhubamd:integration_test_xil
     container_name: v2xhub
     network_mode: host
     restart: always
@@ -252,9 +251,10 @@ services:
       - kafka
     environment:
       DOCKER_HOST_IP:  ${DOCKER_HOST_IP}
+
     volumes: 
       - ./intersection_model/manifest.json:/home/carma-streets/intersection_model/manifest.json
-      - ./logs/:/home/carma-streets/intersection_model/logs/
+      - ./intersection_model/logs:/home/carma-streets/intersection_model/logs
       - ./MAP:/home/carma-streets/intersection_model/MAP
 
   tsc_service:
@@ -290,3 +290,21 @@ volumes:
   mysql-datavolume:
   kafka-datavolume:
   zookeeper-datavolume:
+  carma-simulation_logs:
+    driver: local
+    driver_opts:
+      type: none
+      device: ./carma-simulation/logs
+      o: bind
+  carma-simulation_scenarios:
+    driver: local
+    driver_opts:
+      type: none
+      device: ./carma-simulation/scenarios
+      o: bind
+  carma-simulation_etc:
+    driver: local
+    driver_opts:
+      type: none
+      device: ./carma-simulation/etc
+      o: bind
