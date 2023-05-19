@@ -12,9 +12,9 @@ services:
       - QT_X11_NO_MITSHM=1
     volumes:
       - /tmp/.X11-unix:/tmp/.X11-unix
-      - carma-simulation_logs:/opt/carma-simulation/logs
-      - carma-simulation_scenarios:/opt/carma-simulation/scenarios
-      - carma-simulation_etc:/opt/carma-simulation/etc
+      - ./carma-simulation/logs:/opt/carma-simulation/logs
+      - ./carma-simulation/scenarios:/opt/carma-simulation/scenarios
+      - ./carma-simulation/etc:/opt/carma-simulation/etc
 
     deploy:
       resources:
@@ -277,6 +277,14 @@ services:
     volumes: 
       - ./tsc_client_service/manifest.json:/home/carma-streets/tsc_client_service/manifest.json
       - ./tsc_client_service/logs/:/home/carma-streets/tsc_client_service/logs/
+  evc:
+    image: evc_local:latest
+    container_name: evc
+    restart: always
+    network_mode: host
+    depends_on: 
+      - carma-simulation
+    
 networks:
   carma_sim_net:
     ipam:
@@ -290,21 +298,3 @@ volumes:
   mysql-datavolume:
   kafka-datavolume:
   zookeeper-datavolume:
-  carma-simulation_logs:
-    driver: local
-    driver_opts:
-      type: none
-      device: ./carma-simulation/logs
-      o: bind
-  carma-simulation_scenarios:
-    driver: local
-    driver_opts:
-      type: none
-      device: ./carma-simulation/scenarios
-      o: bind
-  carma-simulation_etc:
-    driver: local
-    driver_opts:
-      type: none
-      device: ./carma-simulation/etc
-      o: bind
