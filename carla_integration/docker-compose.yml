@@ -18,7 +18,7 @@ version: '2'
 services:
   carma-simulation:
     privileged: true
-    image: usdotfhwastoldev/carma-simulation:paul
+    image: usdotfhwastoldev/carma-simulation:develop
     network_mode: host
 #   networks:
 #     carma_sim_net:
@@ -38,11 +38,13 @@ services:
         reservations:
           devices:
             - capabilities: [gpu]
-    command: bash -c "./mosaic.sh -s Town04"
+    command: bash -c "./mosaic.sh -s Town04_test4"
 
   roscore:
     image: usdotfhwastol/carma-base:carma-system-4.2.0
-    network_mode: host
+    networks:
+      carma_sim_net:
+        ipv4_address: 172.2.0.2
     container_name: roscore
     volumes_from:
       - container:carma-config:ro
@@ -56,7 +58,7 @@ services:
 
   platform:
     image: usdotfhwastol/carma-platform:carma-system-4.2.0
-    network_mode: host
+    network_mode: service:roscore
     container_name: platform
     volumes_from:
       - container:carma-config:ro
@@ -74,7 +76,7 @@ services:
 
   platform_ros2:
     image: usdotfhwastol/carma-platform:carma-system-4.2.0
-    network_mode: host
+    network_mode: service:roscore
     container_name: platform_ros2
     volumes_from:
       - container:carma-config:ro
@@ -89,7 +91,7 @@ services:
 
   ros1_bridge:
     image: usdotfhwastol/carma-msgs:carma-system-4.2.0
-    network_mode: host
+    network_mode: service:roscore
     container_name: ros1_bridge
     volumes_from:
       - container:carma-config:ro
@@ -107,27 +109,25 @@ services:
 
   carma-carla-integration_1:
     image: usdotfhwastoldev/carma-carla-integration:develop
-#   networks:
-#     carma_net_1:
-#       ipv4_address: 172.3.0.6
-#     carma_sim_net:
-#       ipv4_address: 172.2.0.6
+    networks:
+      carma_net_1:
+        ipv4_address: 172.3.0.6
+      carma_sim_net:
+        ipv4_address: 172.2.0.6
     container_name: carma-carla-integration_1
     volumes_from:
       - container:carma-config:ro
     environment:
-      - ROS_IP=127.0.0.1
-      - ROS_MASTER_URI=http://localhost:11311/
+      - ROS_IP=172.3.0.6
+      - ROS_MASTER_URI=http://172.3.0.2:11311/
     command: bash -c "sleep 10; 
-        export PYTHONPATH=$PYTHONPATH:/home/PythonAPI/carla/dist/carla-0.9.10-py3.7-linux-x86_64.egg &&
-        source /home/carma_carla_ws/devel/setup.bash && roslaunch carma_carla_agent carma_carla_agent.launch role_name:='carma_200' host:='127.0.0.1'"
-
-        - /home/carma/carma/carma_ws/src/carma-ns3-adapter/ns3_adapter/launch:/opt/carma/install/ns3_adapter/share/ns3_adapter/launch      
+        export PYTHONPATH=$PYTHONPATH:~/PythonAPI/carla/dist/carla-0.9.10-py3.7-linux-x86_64.egg &&
+                      source ~/carma_carla_ws/devel/setup.bash && roslaunch carma_carla_agent carma_carla_agent.launch role_name:='carma_2' host:='127.0.0.1'"
   web-ui:
     image: usdotfhwastol/carma-web-ui:carma-system-4.2.0
-#   networks:
-#     carma_net_1:
-#       ipv4_address: 172.3.0.7
+    network_mode: service:roscore
+    ports:
+      - 8080:8080
     container_name: web-ui
     environment:
       - ROS_IP=127.0.0.1
@@ -138,18 +138,18 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
 
   ns3_adapter:
-    image: usdotfhwastol/carma-ns3-adapter:latest
-#   networks:
-#     carma_net_1:
-#       ipv4_address: 172.3.0.8
-#     carma_sim_net:
-#       ipv4_address: 172.2.0.3
+    image: usdotfhwastoldev/carma-ns3-adapter:develop
+    networks:
+      carma_net_1:
+        ipv4_address: 172.3.0.8
+      carma_sim_net:
+        ipv4_address: 172.2.0.3
     container_name: ns3_adapter
     volumes_from:
       - container:carma-config:ro
     environment:
-      - ROS_IP=127.0.0.1
-      - ROS_MASTER_URI=http://localhost:11311/
+      - ROS_IP=172.3.0.8
+      - ROS_MASTER_URI=http://172.3.0.8:11311/
       - NVIDIA_VISIBLE_DEVICES=all
     volumes:
       - /opt/carma/logs:/opt/carma/logs
@@ -158,3 +158,13 @@ services:
       - /opt/carma/maps:/opt/carma/maps
       - /opt/carma/routes:/opt/carma/routes
       - /opt/carma/yolo:/opt/carma/yolo
+
+networks:
+  carma_sim_net:
+    ipam:
+      config:
+        - subnet: 172.2.0.0/16
+  carma_net_1:
+    ipam:
+      config:
+        - subnet: 172.3.0.0/16
