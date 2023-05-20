@@ -112,18 +112,11 @@ services:
       - ROS_IP=172.3.0.6
       - ROS_MASTER_URI=http://172.3.0.2:11311/
     command: bash -c "sleep 10;
-                      export PYTHONPATH=$PYTHONPATH:/home/PythonAPI/carla/dist/carla-0.9.10-py3.7-linux-x86_64.egg &&
-                      source /home/carma_carla_ws/devel/setup.bash &&
-                      roslaunch carma_carla_agent carma_carla_agent.launch role_name:='carma_200'
-                                                                           town:='Town04'
+                      export PYTHONPATH=$PYTHONPATH:~/PythonAPI/carla/dist/carla-0.9.10-py3.7-linux-x86_64.egg &&
+                      source ~/carma_carla_ws/devel/setup.bash &&
+                      roslaunch carma_carla_agent carma_carla_agent.launch role_name:='carma_1'
                                                                            host:='172.2.0.2'
-                                                                           selected_route:='Carma_Street_test_case1'
-                                                                           selected_plugins:='['RouteFollowingPlugin','InLaneCruisingPlugin','StopAndWaitPlugin','Pure Pursuit','CooperativeLaneChangePlugin']' 
-                                                                           synchronous_mode:='false'
-                                                                           spawn_point:='202.5,-180.2,0,0,0,90'
-                                                                           speed_Kp:='0.4'
-                                                                           speed_Ki:='0.0.3'
-                                                                           speed_Kd:='0'"
+                                                                           selected_route:='Carma_Street_test_case1'"
   web-ui:
     image: usdotfhwastol/carma-web-ui:carma-system-4.2.0
     networks:
