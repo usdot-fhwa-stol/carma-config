@@ -277,13 +277,21 @@ services:
     volumes: 
       - ./tsc_client_service/manifest.json:/home/carma-streets/tsc_client_service/manifest.json
       - ./tsc_client_service/logs/:/home/carma-streets/tsc_client_service/logs/
-  evc:
-    image: evc_local:latest
+      
+  econolite-virtual-controller:
+    image: usdotfhwastol/econolite-virtual-controller:latest
     container_name: evc
     restart: always
-    network_mode: host
+    networks:
+      carma_sim_net:
+        ipv4_address: 172.2.0.4
+    environment:
+      - DISPLAY=${DISPLAY}
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix
     depends_on: 
       - carma-simulation
+    command: bash -c "sleep 10;x-terminal-emulator -e python3.8 evc_sumo_bridge.py --asc3app-path '../evcfile/asc3app-application.zip' --traci-ip 172.2.0.2"
     
 networks:
   carma_sim_net:
