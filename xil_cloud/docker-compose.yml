@@ -12,16 +12,12 @@ services:
       - QT_X11_NO_MITSHM=1
     volumes:
       - /tmp/.X11-unix:/tmp/.X11-unix
-      - ./carma-simulation/logs:/opt/carma-simulation/logs
-      - ./carma-simulation/scenarios:/opt/carma-simulation/scenarios
-      - ./carma-simulation/etc:/opt/carma-simulation/etc
-
     deploy:
       resources:
         reservations:
           devices:
             - capabilities: [gpu]
-    command: bash -c "./mosaic.sh -s Town04"
+    command: "./mosaic.sh -s Town04"
 
   roscore_1:
     image: usdotfhwastol/carma-base:carma-system-4.2.0
@@ -61,6 +57,7 @@ services:
       - ROS_IP=172.3.0.3
       - ROS_MASTER_URI=http://172.3.0.2:11311/
     command: bash -c 'wait-for-it.sh 172.3.0.2:11311 -- roslaunch /opt/carma/vehicle/config/carma_docker.launch'
+
   platform_ros2_1:
     image: usdotfhwastol/carma-platform:carma-system-4.2.0
     networks:
@@ -115,33 +112,21 @@ services:
                       export PYTHONPATH=$PYTHONPATH:~/PythonAPI/carla/dist/carla-0.9.10-py3.7-linux-x86_64.egg &&
                       source ~/carma_carla_ws/devel/setup.bash &&
                       roslaunch carma_carla_agent carma_carla_agent.launch role_name:='carma_1'
-                                                                           host:='172.2.0.2'
-                                                                           selected_route:='Carma_Street_test_case1'"
-  web-ui:
-    image: usdotfhwastol/carma-web-ui:carma-system-4.2.0
-    networks:
-      carma_net_1:
-        ipv4_address: 172.3.0.7
-    container_name: web-ui
-    environment:
-      - ROS_IP=172.3.0.7
-      - ROS_MASTER_URI=http://172.3.0.2:11311/
-    volumes_from:
-      - container:carma-config:ro
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
+                                                                           host:='172.2.0.2'"
+
   ns3_adapter:
     image: usdotfhwastoldev/carma-ns3-adapter:develop
     networks:
       carma_net_1:
-        ipv4_address: 172.3.0.8
+        ipv4_address: 172.3.0.7
       carma_sim_net:
-        ipv4_address: 172.2.0.3
+        ipv4_address: 172.2.0.7
     container_name: ns3_adapter
     volumes_from:
       - container:carma-config:ro
     environment:
-      - ROS_IP=172.3.0.8
+      - ROS_IP=172.3.0.7
+      - ROS_MASTER_URI=http://172.3.0.2:11311/
       - NVIDIA_VISIBLE_DEVICES=all
     volumes:
       - /opt/carma/logs:/opt/carma/logs
@@ -153,8 +138,9 @@ services:
   zookeeper:
     image: wurstmeister/zookeeper
     container_name: zookeeper
-    ports:
-       - "2181:2182"
+    networks:
+      carma_streets_net_1:
+        ipv4_address: 172.4.0.3
     volumes:
       - zookeeper-datavolume:/opt/zookeeper-3.4.13/data
   kafka:
@@ -162,11 +148,10 @@ services:
     container_name: kafka
     depends_on: 
       - zookeeper
-    ports:
-      - "9092:9092"
+    network_mode: service:zookeeper
     environment:
-      DOCKER_HOST_IP:  ${DOCKER_HOST_IP}
-      KAFKA_ADVERTISED_HOST_NAME:  ${DOCKER_HOST_IP}
+      DOCKER_HOST_IP:  172.4.0.3
+      KAFKA_ADVERTISED_HOST_NAME:  172.4.0.3
       KAFKA_CREATE_TOPICS: "v2xhub_scheduling_plan_sub:1:1,v2xhub_bsm_in:1:1,v2xhub_mobility_operation_in:1:1,v2xhub_mobility_path_in:1:1,vehicle_status_intent_output:1:1,v2xhub_map_msg_in:1:1,modified_spat:1:1,desired_phase_plan:1:1, tsc_config_state:1:1"
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
       KAFKA_LOG_DIRS: "/kafka/kafka-logs"
@@ -182,7 +167,7 @@ services:
     image: quay.io/cloudhut/kowl
     container_name: kowl
     restart: on-failure
-    network_mode: host
+    network_mode: service:zookeeper
     depends_on:
       - kafka
     environment:
@@ -198,7 +183,11 @@ services:
       - MYSQL_USER=IVP
       - MYSQL_PASSWORD_FILE=/secrets/mysql_password.txt
       - MYSQL_ROOT_PASSWORD_FILE=/secrets/mysql_root_password.txt
-    network_mode: host
+    networks:
+      carma_streets_net_1:
+        ipv4_address: 172.4.0.2
+      carma_sim_net:
+        ipv4_address: 172.2.0.8
     volumes:
       - mysql-datavolume:/var/lib/mysql
       - ./secrets:/secrets
@@ -206,7 +195,7 @@ services:
   php:
     image: usdotfhwaops/php:latest
     container_name: php
-    network_mode: host
+    network_mode: service:db
     depends_on:
       - v2xhub
     stdin_open: true
@@ -214,7 +203,7 @@ services:
   v2xhub:
     image: usdotfhwaops/v2xhubamd:integration_test_xil
     container_name: v2xhub
-    network_mode: host
+    network_mode: service:db
     restart: always
     depends_on:
       - db
@@ -223,13 +212,13 @@ services:
       - SIMULATION_MODE=${SIMULATION_MODE}
       - SIMULATION_IP=172.2.0.2
       - SIMULATION_REGISTRATION_PORT=1615
-      - LOCAL_IP=${DOCKER_HOST_IP}
+      - LOCAL_IP=172.2.0.8
       - TIME_SYNC_TOPIC=time_sync
       - TIME_SYNC_PORT=7575
       - SIM_V2X_PORT=1517
       - V2X_PORT=8686
       - INFRASTRUCTURE_ID=rsu_15
-      - KAFKA_BROKER_ADDRESS=${DOCKER_HOST_IP}:9092
+      - KAFKA_BROKER_ADDRESS= 172.4.0.3:9092
     volumes:
       - ./logs:/var/log/tmx
       - ./MAP:/var/www/plugins/MAP
@@ -239,11 +228,11 @@ services:
     image: usdotfhwastoldev/intersection_model:develop
     container_name: intersection_model
     restart: always
-    network_mode: host
+    network_mode: services:zookeeper
     depends_on:
       - kafka
     environment:
-      DOCKER_HOST_IP:  ${DOCKER_HOST_IP}
+      DOCKER_HOST_IP:  172.4.0.3
 
     volumes: 
       - ./intersection_model/manifest.json:/home/carma-streets/intersection_model/manifest.json
@@ -255,12 +244,12 @@ services:
     command: sh -c "/wait && /home/carma-streets/tsc_client_service/build/traffic_signal_controller_service"
     container_name: tsc_service
     restart: always
-    network_mode: host
+    network_mode: service:zookeeper
     depends_on:
       - kafka
       - intersection_model
     environment:
-      DOCKER_HOST_IP:  ${DOCKER_HOST_IP}
+      DOCKER_HOST_IP:  172.4.0.3
       WAIT_HOSTS: localhost:8080
       WAIT_HOSTS_TIMEOUT: 300
       WAIT_SLEEP_INTERVAL: 30
@@ -278,6 +267,8 @@ services:
     networks:
       carma_sim_net:
         ipv4_address: 172.2.0.4
+      carma_streets_net_1:
+        ipv4_address: 172.4.0.4
     environment:
       - DISPLAY=${DISPLAY}
     volumes:
@@ -295,6 +286,10 @@ networks:
     ipam:
       config:
         - subnet: 172.3.0.0/16
+  carma_streets_net_1:
+    ipam:
+      config:
+        - subnet: 172.4.0.0/16
 volumes:
   mysql-datavolume:
   kafka-datavolume:
