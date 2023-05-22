@@ -111,7 +111,7 @@ excluded_default_topics:
   - (.*)/sent_messages
   - (.*)/scan
 
-exclude_lidar: false
+exclude_lidar: true
 excluded_lidar_topics:
   - /detection/lidar_detector/objects
   - /detection/lidar_detector/objects_markers
@@ -124,7 +124,7 @@ excluded_lidar_topics:
   - /environment/detection/object_tracker/objects_markers
   - /environment/detection/objects
 
-exclude_camera: false
+exclude_camera: true
 excluded_camera_topics:
   - /hardware_interface/camera/camera_info
   - /hardware_interface/camera/image_raw
