@@ -61,6 +61,7 @@ services:
       - /opt/carma/maps:/opt/carma/maps
       - /opt/carma/routes:/opt/carma/routes
       - /opt/carma/yolo:/opt/carma/yolo
+      - /home/carma/carma_ws/src/carma-platform/carma/launch/localization.launch.py:/opt/carma/install_ros2/carma/share/carma/launch/localization.launch.py
     command: bash -c 'source /opt/carma/install_ros2/setup.bash && ros2 launch /opt/carma/vehicle/config/carma_docker.launch.py'
 
   ros1_bridge:

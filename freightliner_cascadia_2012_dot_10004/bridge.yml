@@ -4,6 +4,24 @@
 #       this file allows for certain topics to be pre-configured with specified QoS settings. 
 topics:
   -
+    topic: /localization/points_map
+    type: sensor_msgs/msg/PointCloud2
+    queue_size: 1
+    direction: 2to1
+    qos:
+      history: keep_last
+      depth: 1
+      durability: transient_local
+  -
+    topic: /environment/base_map  
+    type: autoware_lanelet2_msgs/msg/MapBin
+    queue_size: 1
+    direction: 2to1
+    qos:
+      history: keep_last
+      depth: 1
+      durability: transient_local
+  -
     topic: /environment/external_objects
     type: carma_perception_msgs/msg/ExternalObjectList
     queue_size: 1
