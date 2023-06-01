@@ -49,7 +49,7 @@ def generate_launch_description():
     declare_load_type= DeclareLaunchArgument(name = 'load_type', default_value = "noupdate")
 
     single_pcd_path = LaunchConfiguration('single_pcd_path')
-    declare_single_pcd_path = DeclareLaunchArgument(name='single_pcd_path', default_value="/opt/carma/maps/pcd_map.pcd")
+    declare_single_pcd_path = DeclareLaunchArgument(name='single_pcd_path', default_value="['/opt/carma/maps/pcd_map.pcd']")
 
     area = LaunchConfiguration('area')
     declare_area = DeclareLaunchArgument(name='area', default_value="1x1")
