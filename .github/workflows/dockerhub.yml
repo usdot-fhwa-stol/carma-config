@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - "release/k900-xil"
+      - "fix/dockerbuild-xil"
 
 jobs:
   docker:
