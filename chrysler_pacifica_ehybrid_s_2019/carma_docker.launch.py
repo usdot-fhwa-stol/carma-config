@@ -119,7 +119,6 @@ def generate_launch_description():
             'strategic_plugins_to_validate' : strategic_plugins_to_validate,
             'tactical_plugins_to_validate' : tactical_plugins_to_validate,
             'control_plugins_to_validate' : control_plugins_to_validate,
-            'enable_opening_tunnels' : enable_opening_tunnels,
             'load_type' : load_type,
             'single_pcd_path' : single_pcd_path,
             'area' : area,
