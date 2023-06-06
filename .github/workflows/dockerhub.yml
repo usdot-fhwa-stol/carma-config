@@ -4,8 +4,6 @@ on:
   push:
     branches:
       - "release/k900-xil"
-      - "fix/dockerbuild-xil"
-
 jobs:
   docker:
     runs-on: ubuntu-latest
@@ -24,4 +22,4 @@ jobs:
         with:
           context: ./xil_cloud
           push: true
-          tags: usdotfhwastolcandidate/${{ github.event.repository.name }}:k900-xil
+          tags: usdotfhwastolcandidate/${{ github.event.repository.name }}:k900-xil_cloud
