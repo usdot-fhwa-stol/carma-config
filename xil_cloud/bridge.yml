@@ -40,6 +40,19 @@ topics:
     topic: /environment/external_object_predictions
     type: carma_perception_msgs/msg/ExternalObjectList
     queue_size: 1
+  
+  -
+    topic: /hardware_interface/comms/outbound_binary_msg
+    type: carma_driver_msgs/msg/ByteArray
+    queue_size: 100
+    direction: 2to1
+  
+  -
+    topic: /hardware_interface/comms/inbound_binary_msg
+    type: carma_driver_msgs/msg/ByteArray
+    queue_size: 100
+    direction: 1to2
+
   -
     topic: /system_alert
     type: carma_msgs/msg/SystemAlert
