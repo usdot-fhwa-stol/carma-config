@@ -43,7 +43,7 @@ def generate_launch_description():
     declare_vehicle_config_dir_arg = DeclareLaunchArgument(
         name = 'vehicle_config_dir', default_value = '/opt/carma/vehicle/config', description = "Path to vehicle configuration directory"
     )
-    
+
     # Declare launch arguments for points_map_loader
     load_type = LaunchConfiguration('load_type')
     declare_load_type= DeclareLaunchArgument(name = 'load_type', default_value = "noupdate")
@@ -119,6 +119,7 @@ def generate_launch_description():
             'strategic_plugins_to_validate' : strategic_plugins_to_validate,
             'tactical_plugins_to_validate' : tactical_plugins_to_validate,
             'control_plugins_to_validate' : control_plugins_to_validate,
+            'enable_opening_tunnels' : enable_opening_tunnels,
             'load_type' : load_type,
             'single_pcd_path' : single_pcd_path,
             'area' : area,
