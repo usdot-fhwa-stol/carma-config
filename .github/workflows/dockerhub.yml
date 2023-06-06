@@ -3,7 +3,7 @@ name: DockerHub
 on:
   push:
     branches:
-      - "release/k900-xil"
+      - "release/*"
 jobs:
   docker:
     runs-on: ubuntu-latest
