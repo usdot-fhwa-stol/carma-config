@@ -55,7 +55,7 @@ services:
       - /opt/carma/routes:/opt/carma/routes
       - /opt/carma/data:/opt/carma/data
       - /opt/carma/simulation:/opt/carma/simulation
-      - ./parameters.yaml:/opt/carma/install/inlanecruising_plugin/share/inlanecruising_plugin/config/parameters.yaml
+      - ./inlanecruising_config/parameters.yaml:/opt/carma/install/inlanecruising_plugin/share/inlanecruising_plugin/config/parameters.yaml
     environment:
       - ROS_IP=172.3.0.3
       - ROS_MASTER_URI=http://172.3.0.2:11311/
