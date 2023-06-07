@@ -232,7 +232,7 @@ services:
       - ./secrets:/home/V2X-Hub/secrets
 
   intersection_model:
-    image: usdotfhwastolcandidate/intersection_model:k900
+    image: usdotfhwastolcandidate/intersection_model:k900-xil
     container_name: intersection_model
     restart: always
     network_mode: service:zookeeper
