@@ -89,4 +89,9 @@ topics:
       history: keep_last
       depth: 5
       durability: transient_local
+  - 
+    topic: /localization/vehicle/odom
+    type: nav_msgs/msg/Odometry
+    queue_size: 1
+    direction: 2to1
 services_1_to_2: []
