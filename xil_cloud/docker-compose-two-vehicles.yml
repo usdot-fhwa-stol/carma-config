@@ -141,6 +141,7 @@ services:
       - /opt/carma/maps/carma_1:/opt/carma/maps
       - /opt/carma/routes/carma_1:/opt/carma/routes
       - /opt/carma/yolo/carma_1:/opt/carma/yolo
+    command: bash -c "wait-for-it.sh 172.3.0.2:11311 -- roslaunch ns3_adapter ns3_adapter.launch role_id:='carma_1' remap_ns:=/hardware_interface/comms"
 ##################
 ## carma_2 vehicle
 
@@ -263,6 +264,7 @@ services:
       - /opt/carma/maps/carma_2:/opt/carma/maps
       - /opt/carma/routes/carma_2:/opt/carma/routes
       - /opt/carma/yolo/carma_2:/opt/carma/yolo
+    command: bash -c "wait-for-it.sh 172.5.0.2:11311 -- roslaunch ns3_adapter ns3_adapter.launch role_id:='carma_2' remap_ns:=/hardware_interface/comms"
 ##################
 
 
