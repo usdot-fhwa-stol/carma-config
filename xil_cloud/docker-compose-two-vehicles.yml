@@ -37,7 +37,7 @@ services:
     environment:
       - ROS_IP=172.3.0.2
       - ROS_MASTER_URI=http://172.3.0.2:11311/
-    command: roscorecarma_net_2
+    command: roscorec
 
   platform_1:
     image: usdotfhwastol/carma-platform:carma-system-4.2.0
