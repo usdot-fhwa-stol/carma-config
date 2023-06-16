@@ -21,6 +21,7 @@ services:
             - capabilities: [gpu]
     command: bash -c "./mosaic.sh -s Town04"
 
+## carma_1 vehicle
   roscore_1:
     image: usdotfhwastol/carma-base:carma-system-4.2.0
     networks:
@@ -31,7 +32,7 @@ services:
       - container:carma-config:ro
     volumes:
       - /opt/carma/.ros:/home/carma/.ros
-      - /opt/carma/logs:/opt/carma/logs
+      - /opt/carma/logs/carma_1:/opt/carma/logs
     restart: always
     environment:
       - ROS_IP=172.3.0.2
@@ -47,7 +48,7 @@ services:
     volumes_from:
       - container:carma-config:ro
     volumes:
-      - /opt/carma/logs:/opt/carma/logs
+      - /opt/carma/logs/carma_1:/opt/carma/logs
       - /opt/carma/.ros:/home/carma/.ros
       - /opt/carma/vehicle/calibration:/opt/carma/vehicle/calibration
       - /opt/carma/yolo:/opt/carma/yolo
@@ -70,7 +71,7 @@ services:
     volumes_from:
       - container:carma-config:ro
     volumes:
-      - /opt/carma/logs:/opt/carma/logs
+      - /opt/carma/logs/carma_1:/opt/carma/logs
       - /opt/carma/.ros:/home/carma/.ros
       - /opt/carma/vehicle/calibration:/opt/carma/vehicle/calibration
       - /opt/carma/maps:/opt/carma/maps
@@ -90,7 +91,7 @@ services:
       - ROS_IP=172.3.0.5
       - ROS_MASTER_URI=http://172.3.0.2:11311/
     volumes:
-      - /opt/carma/logs:/opt/carma/logs
+      - /opt/carma/logs/carma_1:/opt/carma/logs
       - /opt/carma/.ros:/home/carma/.ros
       - /opt/carma/vehicle/calibration:/opt/carma/vehicle/calibration
       - /opt/carma/maps:/opt/carma/maps
@@ -116,17 +117,17 @@ services:
                       source ~/carma_carla_ws/devel/setup.bash &&
                       roslaunch carma_carla_agent carma_carla_agent.launch role_name:='carma_1' 
                                                                            host:='172.2.0.2'
-                                                                           selected_route:='Release_test_case_2' 
-                                                                           spawn_point:='201.4,-291.5,0,0,0,-90'"
+                                                                           selected_route:='Release_test_case_1' 
+                                                                           spawn_point:='151.2,-305.9,0,0,0,0'"
 
-  ns3_adapter:
+  ns3_adapter_1:
     image: usdotfhwastolcandidate/carma-ns3-adapter:k900-xil
     networks:
       carma_net_1:
         ipv4_address: 172.3.0.7
       carma_sim_net:
         ipv4_address: 172.2.0.7
-    container_name: ns3_adapter
+    container_name: ns3_adapter_1
     volumes_from:
       - container:carma-config:ro
     environment:
@@ -134,12 +135,141 @@ services:
       - ROS_MASTER_URI=http://172.3.0.2:11311/
       - NVIDIA_VISIBLE_DEVICES=all
     volumes:
-      - /opt/carma/logs:/opt/carma/logs
+      - /opt/carma/logs/carma_1:/opt/carma/logs
       - /opt/carma/.ros:/home/carma/.ros
       - /opt/carma/vehicle/calibration:/opt/carma/vehicle/calibration
       - /opt/carma/maps:/opt/carma/maps
       - /opt/carma/routes:/opt/carma/routes
       - /opt/carma/yolo:/opt/carma/yolo
+      - ./ns3_adapter/adapter_1/parameters.yaml:/opt/carma/install/ns3_adapter/share/ns3_adapter/config/parameters.yaml
+    command: bash -c "wait-for-it.sh 172.3.0.2:11311 -- roslaunch ns3_adapter ns3_adapter.launch role_id:='carma_1' remap_ns:=/hardware_interface/comms"
+#################
+# carma_2 vehicle
+
+  # roscore_2:
+  #   image: usdotfhwastol/carma-base:carma-system-4.2.0
+  #   networks:
+  #     carma_net_2:
+  #       ipv4_address: 172.5.0.2
+  #   container_name: roscore_2
+  #   volumes_from:
+  #     - container:carma-config:ro
+  #   volumes:
+  #     - /opt/carma/.ros/:/home/carma/.ros
+  #     - /opt/carma/logs/carma_2:/opt/carma/logs
+  #   restart: always
+  #   environment:
+  #     - ROS_IP=172.5.0.2
+  #     - ROS_MASTER_URI=http://172.5.0.2:11311/
+  #   command: roscore
+
+  # platform_2:
+  #   image: usdotfhwastol/carma-platform:carma-system-4.2.0
+  #   networks:
+  #     carma_net_2:
+  #       ipv4_address: 172.5.0.3
+  #   container_name: platform_2
+  #   volumes_from:
+  #     - container:carma-config:ro
+  #   volumes:
+  #     - /opt/carma/logs/carma_2:/opt/carma/logs
+  #     - /opt/carma/.ros:/home/carma/.ros
+  #     - /opt/carma/vehicle/calibration:/opt/carma/vehicle/calibration
+  #     - /opt/carma/yolo:/opt/carma/yolo
+  #     - /opt/carma/maps:/opt/carma/maps
+  #     - /opt/carma/routes:/opt/carma/routes
+  #     - /opt/carma/data:/opt/carma/data
+  #     - /opt/carma/simulation:/opt/carma/simulation
+  #     - ./inlanecruising_config/parameters.yaml:/opt/carma/install/inlanecruising_plugin/share/inlanecruising_plugin/config/parameters.yaml
+  #   environment:
+  #     - ROS_IP=172.5.0.3
+  #     - ROS_MASTER_URI=http://172.5.0.2:11311/
+  #   command: bash -c 'wait-for-it.sh 172.3.0.2:11311 -- roslaunch /opt/carma/vehicle/config/carma_docker.launch'
+
+  # platform_ros2_2:
+  #   image: usdotfhwastol/carma-platform:carma-system-4.2.0
+  #   networks:
+  #     carma_net_2:
+  #       ipv4_address: 172.5.0.4
+  #   container_name: platform_ros2_2
+  #   volumes_from:
+  #     - container:carma-config:ro
+  #   volumes:
+  #     - /opt/carma/logs/carma_2:/opt/carma/logs
+  #     - /opt/carma/.ros:/home/carma/.ros
+  #     - /opt/carma/vehicle/calibration:/opt/carma/vehicle/calibration
+  #     - /opt/carma/maps:/opt/carma/maps
+  #     - /opt/carma/routes:/opt/carma/routes
+  #     - /opt/carma/yolo:/opt/carma/yolo
+  #   command: bash -c 'source /opt/carma/install_ros2/setup.bash && ros2 launch /opt/carma/vehicle/config/carma_docker.launch.py'
+
+  # ros1_bridge_2:
+  #   image: usdotfhwastol/carma-msgs:carma-system-4.2.0
+  #   networks:
+  #     carma_net_2:
+  #       ipv4_address: 172.5.0.5
+  #   container_name: ros1_bridge_2
+  #   volumes_from:
+  #     - container:carma-config:ro
+  #   environment:
+  #     - ROS_IP=172.5.0.5
+  #     - ROS_MASTER_URI=http://172.5.0.2:11311/
+  #   volumes:
+  #     - /opt/carma/logs/carma_2:/opt/carma/logs
+  #     - /opt/carma/.ros:/home/carma/.ros
+  #     - /opt/carma/vehicle/calibration:/opt/carma/vehicle/calibration
+  #     - /opt/carma/maps:/opt/carma/maps
+  #     - /opt/carma/routes:/opt/carma/routes3
+  #     - /opt/carma/yolo:/opt/carma/yolo
+  #   command: bash -c 'wait-for-it.sh 172.5.0.2:11311 -- rosparam load /opt/carma/vehicle/config/bridge.yml && source ~/.base-image/workspace/install/setup.bash && ros2 run ros1_bridge dynamic_bridge --multi-threads'
+
+  # carma-carla-integration_2:
+  #   image: usdotfhwastolcandidate/carma-carla-integration:k900-xil
+  #   networks:
+  #     carma_net_2:
+  #       ipv4_address: 172.5.0.6
+  #     carma_sim_net:
+  #       ipv4_address: 172.2.0.10
+  #   container_name: carma-carla-integration_2
+  #   volumes_from:
+  #     - container:carma-config:ro
+  #   environment:
+  #     - ROS_IP=172.5.0.6
+  #     - ROS_MASTER_URI=http://172.5.0.2:11311/
+  #   command: bash -c "sleep 10;
+  #                     export PYTHONPATH=$PYTHONPATH:~/PythonAPI/carla/dist/carla-0.9.10-py3.7-linux-x86_64.egg &&
+  #                     source ~/carma_carla_ws/devel/setup.bash &&
+  #                     roslaunch carma_carla_agent carma_carla_agent.launch role_name:='carma_2' 
+  #                                                                          host:='172.2.0.2'
+  #                                                                          selected_route:='Release_test_case_2' 
+  #                                                                          spawn_point:='201.4,-291.5,0,0,0,-90'"
+
+  # ns3_adapter_2:
+  #   image: usdotfhwastolcandidate/carma-ns3-adapter:k900-xil
+  #   networks:
+  #     carma_net_2:
+  #       ipv4_address: 172.5.0.7
+  #     carma_sim_net:
+  #       ipv4_address: 172.2.0.11
+  #   container_name: ns3_adapter_2
+  #   volumes_from:
+  #     - container:carma-config:ro
+  #   environment:
+  #     - ROS_IP=172.5.0.7
+  #     - ROS_MASTER_URI=http://172.5.0.2:11311/
+  #     - NVIDIA_VISIBLE_DEVICES=all
+  #   volumes:
+  #     - /opt/carma/logs/carma_2:/opt/carma/logs
+  #     - /opt/carma/.ros:/home/carma/.ros
+  #     - /opt/carma/vehicle/calibration:/opt/carma/vehicle/calibration
+  #     - /opt/carma/maps:/opt/carma/maps
+  #     - /opt/carma/routes:/opt/carma/routes
+  #     - /opt/carma/yolo:/opt/carma/yolo
+  #     - ./ns3_adapter/adapter_2/parameters.yaml:/opt/carma/install/ns3_adapter/share/ns3_adapter/config/parameters.yaml
+  #   command: bash -c "wait-for-it.sh 172.5.0.2:11311 -- roslaunch ns3_adapter ns3_adapter.launch role_id:='carma_2' remap_ns:=/hardware_interface/comms"
+
+#################
+
 
   zookeeper:
     image: wurstmeister/zookeeper
@@ -294,6 +424,11 @@ networks:
     ipam:
       config:
         - subnet: 172.3.0.0/16
+  
+  # carma_net_2:
+  #   ipam:
+  #     config:
+  #       - subnet: 172.5.0.0/16
 
   carma_streets_net_1:
     ipam:
