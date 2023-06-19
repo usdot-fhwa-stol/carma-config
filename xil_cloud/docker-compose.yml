@@ -3,7 +3,7 @@ services:
 
   carma-simulation:
     privileged: true
-    image: usdotfhwastolcandidate/cdasim:k900-xil
+    image: usdotfhwastol/cdasim:carma-system-4.4.3
     networks:
       carma_sim_net:
         ipv4_address: 172.2.0.2
@@ -100,7 +100,7 @@ services:
     command: bash -c 'wait-for-it.sh 172.3.0.2:11311 -- rosparam load /opt/carma/vehicle/config/bridge.yml && source ~/.base-image/workspace/install/setup.bash && ros2 run ros1_bridge dynamic_bridge --multi-threads'
 
   carma-carla-integration_1:
-    image: usdotfhwastolcandidate/carma-carla-integration:k900-xil
+    image: usdotfhwastol/carma-carla-integration:carma-system-4.4.3
     networks:
       carma_net_1:
         ipv4_address: 172.3.0.6
@@ -121,7 +121,7 @@ services:
                                                                            spawn_point:='151.2,-305.9,0,0,0,0'"
 
   ns3_adapter_1:
-    image: usdotfhwastolcandidate/carma-ns3-adapter:k900-xil
+    image: usdotfhwastol/carma-ns3-adapter:carma-system-4.4.3
     networks:
       carma_net_1:
         ipv4_address: 172.3.0.7
@@ -338,7 +338,7 @@ services:
     stdin_open: true
     tty: true
   v2xhub:
-    image: usdotfhwaops/v2xhubamd:k900-xil
+    image: usdotfhwaops/v2xhubamd:7.5.1
     container_name: v2xhub
     network_mode: service:db
     restart: always
@@ -362,7 +362,7 @@ services:
       - ./secrets:/home/V2X-Hub/secrets
 
   intersection_model:
-    image: usdotfhwastolcandidate/intersection_model:k900-xil
+    image: usdotfhwastol/intersection_model:carma-system-4.4.3
     container_name: intersection_model
     restart: always
     network_mode: service:zookeeper
@@ -377,7 +377,7 @@ services:
       - ./MAP:/home/carma-streets/intersection_model/MAP
 
   tsc_service:
-    image: usdotfhwastolcandidate/tsc_service:k900-xil
+    image: usdotfhwastol/tsc_service:carma-system-4.4.3
     command: sh -c "/wait && /home/carma-streets/tsc_client_service/build/traffic_signal_controller_service"
     container_name: tsc_service
     restart: always
