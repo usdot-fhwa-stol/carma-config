@@ -17,7 +17,7 @@ version: '2'
 
 services:
   web-ui:
-    image: usdotfhwastoldev/carma-web-ui:develop
+    image: usdotfhwastoldev/carma-web-ui:carma-system-4.4.2
     network_mode: host
     container_name: web-ui
     environment:

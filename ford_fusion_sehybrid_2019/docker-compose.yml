@@ -17,7 +17,7 @@ version: '2'
 
 services:
   roscore:
-    image: usdotfhwastoldev/carma-base:develop
+    image: usdotfhwastoldev/carma-base:carma-system-4.4.2
     network_mode: host
     container_name: roscore
     volumes_from:
@@ -67,7 +67,7 @@ services:
     command: bash -c 'source /opt/carma/install_ros2/setup.bash && ros2 launch /opt/carma/vehicle/config/carma_docker.launch.py'
 
   ros1_bridge:
-    image: usdotfhwastoldev/carma-msgs:develop
+    image: usdotfhwastoldev/carma-msgs:carma-system-4.4.2
     network_mode: host
     container_name: ros1_bridge
     volumes_from:
@@ -86,7 +86,7 @@ services:
     command: bash -c 'wait-for-it.sh localhost:11311 -- rosparam load /opt/carma/vehicle/config/bridge.yml && source ~/.base-image/workspace/install/setup.bash && ros2 run ros1_bridge dynamic_bridge --multi-threads'
     
   lightbar-driver:
-    image: usdotfhwastoldev/carma-lightbar-driver:develop
+    image: usdotfhwastoldev/carma-lightbar-driver:carma-system-4.4.2
     network_mode: host
     container_name: lightbar-driver
     volumes_from: 
@@ -100,7 +100,7 @@ services:
     command: bash -c 'export ROS_NAMESPACE=$${CARMA_INTR_NS} && wait-for-it.sh localhost:11311 -- roslaunch /opt/carma/vehicle/config/drivers.launch drivers:=lightbar_driver'
 
   cohda_dsrc_driver:
-    image: usdotfhwastoldev/carma-cohda-dsrc-driver:develop
+    image: usdotfhwastoldev/carma-cohda-dsrc-driver:carma-system-4.4.2
     container_name: carma-cohda-dsrc-driver
     network_mode: host
     volumes_from:
@@ -114,7 +114,7 @@ services:
     command: bash -c 'source /opt/carma/install/setup.bash && ros2 launch /opt/carma/vehicle/config/drivers.launch.py drivers:=dsrc_driver'
 
   ssc_controller_driver:
-    image: usdotfhwastoldev/carma-ssc-interface-wrapper:develop
+    image: usdotfhwastoldev/carma-ssc-interface-wrapper:carma-system-4.4.2
     container_name: ssc_controller_driver
     network_mode: host
     privileged: true # Grant access to usb for can data
@@ -131,7 +131,7 @@ services:
     command: bash -c 'export ROS_NAMESPACE=$${CARMA_INTR_NS} && wait-for-it.sh localhost:11311 -- roslaunch /opt/carma/vehicle/config/drivers.launch drivers:=ssc_interface_wrapper'
 
   novatel_gnss_imu_driver:
-    image: usdotfhwastoldev/carma-novatel-oem7-driver-wrapper:develop
+    image: usdotfhwastoldev/carma-novatel-oem7-driver-wrapper:carma-system-4.4.2
     container_name: carma-novatel-oem7-driver-wrapper
     network_mode: host
     volumes_from:
@@ -145,7 +145,7 @@ services:
     command: bash -c 'source /opt/carma/install/setup.bash && ros2 launch /opt/carma/vehicle/config/drivers.launch.py drivers:=carma_novatel_driver_wrapper'
 
   velodyne_lidar_driver:
-    image: usdotfhwastoldev/carma-velodyne-lidar-driver:develop
+    image: usdotfhwastoldev/carma-velodyne-lidar-driver:carma-system-4.4.2
     container_name: velodyne-lidar-driver
     network_mode: host
     volumes_from:
