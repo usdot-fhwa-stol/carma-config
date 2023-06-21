@@ -77,4 +77,14 @@ topics:
     type: nav_msgs/msg/Odometry
     queue_size: 1
     direction: 2to1
+  - 
+    topic: /localization/random_points
+    type: sensor_msgs/msg/PointCloud2
+    queue_size: 200
+    direction: 2to1
+  - 
+    topic: /hardware_interface/lidar/points_raw
+    type: sensor_msgs/msg/PointCloud2
+    queue_size: 200
+    direction: 1to2
 services_1_to_2: []
