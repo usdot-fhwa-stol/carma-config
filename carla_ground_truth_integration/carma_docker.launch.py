@@ -101,7 +101,7 @@ def generate_launch_description():
     )
 
     simulation_mode = LaunchConfiguration('simulation_mode')
-    declare_simulation_mode = DeclareLaunchArgument(name='simulation_mode', default_value = 'False', description = 'True if CARMA Platform is launched with CARLA Simulator')
+    declare_simulation_mode = DeclareLaunchArgument(name='simulation_mode', default_value = 'True', description = 'True if CARMA Platform is launched with CARLA Simulator')
 
     # Launch the core carma launch file
     carma_src_launch = IncludeLaunchDescription(
