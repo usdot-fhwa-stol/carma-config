@@ -51,8 +51,8 @@
   <!-- Launch without drivers as those will be launched as docker containers-->
   <arg name="launch_drivers" default="false"/>
 
-  <!-- Rosbag Flag -->
-  <arg name="use_rosbag" default="true"/>
+  <!-- ROS 1 Rosbag Flag -->
+  <arg name="use_ros1_rosbag" default="true"/>
 
   <!-- Include the detailed launch file and pass in new arguments -->
   <include file="$(find carma)/launch/carma_src.launch" pass_all_args="true"/>
