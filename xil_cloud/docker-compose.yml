@@ -223,13 +223,15 @@ services:
       - TIME_SYNC_TOPIC=time_sync
       - TIME_SYNC_PORT=7575
       - SIM_V2X_PORT=1517
+      - SIM_INTERACTION_PORT=7576
       - V2X_PORT=8686
+      - SENSOR_JSON_FILE_PATH=/var/www/plugins/sensors/sensors.json
       - INFRASTRUCTURE_ID=rsu_15
-      - KAFKA_BROKER_ADDRESS= 172.4.0.3:9092
     volumes:
       - ./logs:/var/log/tmx
       - ./MAP:/var/www/plugins/MAP
       - ./secrets:/home/V2X-Hub/secrets
+      - ./sensors:/var/www/plugins/sensors
 
   intersection_model:
     image: usdotfhwastolcandidate/intersection_model:k900
