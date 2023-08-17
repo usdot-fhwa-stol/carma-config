@@ -225,13 +225,13 @@ services:
       - SIM_V2X_PORT=1517
       - SIM_INTERACTION_PORT=7576
       - V2X_PORT=8686
-      - SENSOR_JSON_FILE_PATH=/var/www/plugins/sensors/sensors.json
+      - SENSOR_JSON_FILE_PATH=/home/V2X-Hub/sensor_configurations/sensors.json
       - INFRASTRUCTURE_ID=rsu_15
     volumes:
       - ./logs:/var/log/tmx
       - ./MAP:/var/www/plugins/MAP
       - ./secrets:/home/V2X-Hub/secrets
-      - ./sensors:/var/www/plugins/sensors
+      - ./sensor_configurations:/home/V2X-Hub/sensor_configurations/
 
   intersection_model:
     image: usdotfhwastolcandidate/intersection_model:k900
