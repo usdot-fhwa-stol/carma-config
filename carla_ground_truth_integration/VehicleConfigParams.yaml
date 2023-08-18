@@ -106,7 +106,6 @@ vehicle_participant_type: "vehicle:car"
 # Topics to exclude from rosbag recording
 exclude_default: true
 excluded_default_topics:
-  - /rosout(.*)
   - (.*)/received_messages
   - (.*)/sent_messages
   - (.*)/scan

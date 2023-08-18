@@ -107,7 +107,6 @@ config_speed_limit: 45.0
 # Topics to exclude from rosbag recording
 exclude_default: true
 excluded_default_topics:
-  - /rosout(.*)
   - (.*)/received_messages
   - (.*)/sent_messages
   - (.*)/scan
