@@ -104,7 +104,7 @@ def generate_launch_description():
     use_ros2_rosbag = LaunchConfiguration('use_ros2_rosbag')
     declare_use_ros2_rosbag = DeclareLaunchArgument(
         name = 'use_ros2_rosbag',
-        default_value='false',
+        default_value='False',
         description = 'Flag indicating whether data should be recorded in ROS 2 rosbag format'
     )
 
