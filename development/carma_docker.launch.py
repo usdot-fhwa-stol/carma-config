@@ -108,14 +108,6 @@ def generate_launch_description():
         description='Flag to enable opening http tunnesl to CARMA Cloud'
     )
 
-    # Declare launch argument for ROS 2 rosbag logging
-    use_ros2_rosbag = LaunchConfiguration('use_ros2_rosbag')
-    declare_use_ros2_rosbag = DeclareLaunchArgument(
-        name = 'use_ros2_rosbag',
-        default_value='False',
-        description = 'Flag indicating whether data should be recorded in ROS 2 rosbag format'
-    )
-
     # Launch the core carma launch file
     carma_src_launch = IncludeLaunchDescription(
         PythonLaunchDescriptionSource([ get_package_share_directory('carma'), '/launch/carma_src.launch.py']),
@@ -132,8 +124,7 @@ def generate_launch_description():
             'single_pcd_path' : single_pcd_path,
             'area' : area,
             'arealist_path' : arealist_path,
-            'vector_map_file' : vector_map_file,
-            'use_ros2_rosbag' : use_ros2_rosbag
+            'vector_map_file' : vector_map_file
             }.items()
     )
 
@@ -152,6 +143,5 @@ def generate_launch_description():
         declare_area,
         declare_arealist_path,
         declare_vector_map_file,
-        declare_use_ros2_rosbag,
         carma_src_launch
     ])

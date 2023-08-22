@@ -100,14 +100,6 @@ def generate_launch_description():
         description='List of String: Guidance Control Plugins that will be validated by the Guidance Plugin Validator Node if enabled'
     )
 
-    # Declare launch argument for ROS 2 rosbag logging
-    use_ros2_rosbag = LaunchConfiguration('use_ros2_rosbag')
-    declare_use_ros2_rosbag = DeclareLaunchArgument(
-        name = 'use_ros2_rosbag',
-        default_value='False',
-        description = 'Flag indicating whether data should be recorded in ROS 2 rosbag format'
-    )
-
     simulation_mode = LaunchConfiguration('simulation_mode')
     declare_simulation_mode = DeclareLaunchArgument(name='simulation_mode', default_value = 'True', description = 'True if CARMA Platform is launched with CARLA Simulator')
 
@@ -127,8 +119,7 @@ def generate_launch_description():
             'area' : area,
             'arealist_path' : arealist_path,
             'vector_map_file' : vector_map_file,
-            'use_ros2_rosbag' : use_ros2_rosbag,
-            'simulation_mode' : simulation_mode,
+            'simulation_mode' : simulation_mode
             }.items()
     )
 
@@ -147,6 +138,5 @@ def generate_launch_description():
         declare_arealist_path,
         declare_vector_map_file,
         declare_simulation_mode,
-        declare_use_ros2_rosbag,
         carma_src_launch
     ])
