@@ -103,10 +103,13 @@ config_speed_limit: 20.0
 # Used for interpreting traffic rules in world model instances
 vehicle_participant_type: "vehicle:car"
 
+# Parameters to enable either ROS 1 or ROS 2 (or both) rosbag logging
+use_ros1_rosbag: true
+use_ros2_rosbag: false
+
 # Topics to exclude from rosbag recording
 exclude_default: true
 excluded_default_topics:
-  - /rosout(.*)
   - (.*)/received_messages
   - (.*)/sent_messages
   - (.*)/scan
