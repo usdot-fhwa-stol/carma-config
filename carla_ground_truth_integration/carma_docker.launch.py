@@ -1,4 +1,4 @@
-# Copyright (C) 2021-2022 LEIDOS.
+# Copyright (C) 2021-2023 LEIDOS.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -119,7 +119,7 @@ def generate_launch_description():
             'area' : area,
             'arealist_path' : arealist_path,
             'vector_map_file' : vector_map_file,
-            'simulation_mode' : simulation_mode,
+            'simulation_mode' : simulation_mode
             }.items()
     )
 
