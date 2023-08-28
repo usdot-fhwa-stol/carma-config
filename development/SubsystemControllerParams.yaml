@@ -17,6 +17,11 @@ hardware_interface:
       subsystem_namespace: /hardware_interface
       required_subsystem_nodes: ['']
       unmanaged_required_nodes: ['']
+      excluded_namespace_nodes: ['']
+      ros1_required_drivers:
+       - /hardware_interface/controller
+      ros1_camera_drivers:
+      - /hardware_interface/camera
       full_subsystem_required: false
 
 message:

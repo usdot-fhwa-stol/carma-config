@@ -80,20 +80,6 @@ vehicle_steer_lim_deg: 29.2
 # Unit: s
 vehicle_model_steer_tau : 0.3
 
-# Parameter to switch between passenger car and truck
-# Value type: Measured
-truck: false
-car: true
-
-# Required drivers for the vehicle to be functional
-required_drivers:
-  - /hardware_interface/controller
-lidar_gps_drivers:
-  - /hardware_interface/lidar
-  - /hardware_interface/gnss
-camera_drivers:
-  - /hardware_interface/camera
-
 # Vehicle Participation Type corresponding to the Lanelet2 participant type standards. 
 # Used for interpreting traffic rules in world model instances
 vehicle_participant_type: "vehicle:car"
