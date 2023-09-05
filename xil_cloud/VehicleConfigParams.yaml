@@ -81,20 +81,6 @@ vehicle_steer_lim_deg: 29.2
 # Unit: s
 vehicle_model_steer_tau : 0.3
 
-# Parameter to switch between passenger car and truck
-# Value type: Measured
-truck: false
-car: true
-
-# Required drivers for the vehicle to be functional
-required_drivers:
-  - /hardware_interface/carla_driver
-lidar_gps_drivers:
-  - /hardware_interface/carla_lidar_driver
-  - /hardware_interface/carla_gnss_driver
-camera_drivers:
-  - /hardware_interface/carla_camera_driver
-
 # Parameter to enable configurable speed limit
 # Value type: Desired
 config_speed_limit: 20.0
