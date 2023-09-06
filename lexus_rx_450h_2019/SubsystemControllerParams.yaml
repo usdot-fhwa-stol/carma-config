@@ -21,8 +21,7 @@ hardware_interface:
       excluded_namespace_nodes: # Lidar and GPS drivers are handled by the localization subsystem
         - /hardware_interface/velodyne_lidar_driver_wrapper_node
         - /hardware_interface/carma_novatel_driver_wrapper_node
-      ros1_required_drivers: 
-       - /hardware_interface/controller
+      ros1_required_drivers: ['']
       ros1_camera_drivers:
        - /hardware_interface/camera
       full_subsystem_required: false
