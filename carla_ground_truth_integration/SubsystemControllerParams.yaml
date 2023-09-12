@@ -18,6 +18,13 @@ hardware_interface:
       subsystem_namespace: /hardware_interface
       required_subsystem_nodes: ['']
       unmanaged_required_nodes: ['']
+      excluded_namespace_nodes:
+        - /hardware_interface/carla_lidar_driver
+        - /hardware_interface/carla_gnss_driver
+      ros1_required_drivers:
+       - /hardware_interface/carla_driver
+      ros1_camera_drivers:
+      - /hardware_interface/carla_camera_driver
       full_subsystem_required: false
 
 message:

@@ -18,6 +18,13 @@ hardware_interface:
       subsystem_namespace: /hardware_interface
       required_subsystem_nodes: ['']
       unmanaged_required_nodes: ['']
+      excluded_namespace_nodes:
+        - /hardware_interface/velodyne_lidar_driver_wrapper
+        - /hardware_interface/carma_novatel_driver_wrapper_node
+      ros1_required_drivers:
+       - /hardware_interface/ssc_interface_wrapper
+      ros1_camera_drivers:
+      - /hardware_interface/camera
       full_subsystem_required: false
 
 message:
