@@ -34,6 +34,10 @@ LABEL org.label-schema.vcs-ref=${VCS_REF}
 LABEL org.label-schema.build-date=${BUILD_DATE}
 
 ADD . /root/vehicle/config
+RUN rm -r /root/vehicle/config/carma-streets
 VOLUME /opt/carma/vehicle/config
+ADD ./carma-streets /root/carma-streets/config
+VOLUME /opt/carma-streets/config
 
-CMD  cp /root/vehicle/config/* /opt/carma/vehicle/config
+
+CMD  cp /root/vehicle/config/* /opt/carma/vehicle/config && cp -r /root/carma-streets/config/* /opt/carma-streets/config

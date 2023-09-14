@@ -56,7 +56,7 @@ services:
       - /opt/carma/routes:/opt/carma/routes
       - /opt/carma/data:/opt/carma/data
       - /opt/carma/simulation:/opt/carma/simulation
-      - ./inlanecruising_config/parameters.yaml:/opt/carma/install/inlanecruising_plugin/share/inlanecruising_plugin/config/parameters.yaml
+      - /opt/carma/vehicle/config/inlanecruising_config/parameters.yaml:/opt/carma/install/inlanecruising_plugin/share/inlanecruising_plugin/config/parameters.yaml
     environment:
       - ROS_IP=172.3.0.3
       - ROS_MASTER_URI=http://172.3.0.2:11311/
@@ -141,7 +141,7 @@ services:
       - /opt/carma/maps:/opt/carma/maps
       - /opt/carma/routes:/opt/carma/routes
       - /opt/carma/yolo:/opt/carma/yolo
-      - ./ns3_adapter/adapter_1/parameters.yaml:/opt/carma/install/ns3_adapter/share/ns3_adapter/config/parameters.yaml
+      - /opt/carma/vehicle/config/ns3_adapter/adapter_1/parameters.yaml:/opt/carma/install/ns3_adapter/share/ns3_adapter/config/parameters.yaml
     command: bash -c "wait-for-it.sh 172.3.0.2:11311 -- roslaunch ns3_adapter ns3_adapter.launch role_id:='carma_1' remap_ns:=/hardware_interface/comms"
 #################
 # carma_2 vehicle
@@ -309,8 +309,10 @@ services:
       - kafka
     environment:
       CONFIG_FILEPATH: /etc/kowl/kowl.yaml
+    volumes_from:
+      - container:carma-config:ro
     volumes:
-      - ./kowl:/etc/kowl/
+      - /opt/carma-streets/config/kowl:/etc/kowl/
   db:
     image: mysql:5.7
     container_name: mysql
@@ -325,10 +327,12 @@ services:
         ipv4_address: 172.4.0.2
       carma_sim_net:
         ipv4_address: 172.2.0.8
+    volumes_from:
+      - container:carma-config:ro
     volumes:
       - mysql-datavolume:/var/lib/mysql
-      - ./secrets:/secrets
-      - ./mysql:/docker-entrypoint-initdb.d
+      - /opt/carma-streets/config/secrets:/secrets
+      - /opt/carma-streets/config/mysql:/docker-entrypoint-initdb.d
   php:
     image: usdotfhwaops/php:k900-xil
     container_name: php
@@ -357,11 +361,13 @@ services:
       - V2X_PORT=8686
       - SENSOR_JSON_FILE_PATH=/home/V2X-Hub/sensor_configurations/sensors.json
       - INFRASTRUCTURE_ID=rsu_15
+    volumes_from:
+      - container:carma-config:ro
     volumes:
-      - ./logs:/var/log/tmx
-      - ./MAP:/var/www/plugins/MAP
-      - ./secrets:/home/V2X-Hub/secrets
-      - ./sensor_configurations:/home/V2X-Hub/sensor_configurations/
+      - /opt/carma-streets/logs:/var/log/tmx
+      - /opt/carma-streets/config/MAP:/var/www/plugins/MAP
+      - /opt/carma-streets/config/secrets:/home/V2X-Hub/secrets
+      - /opt/carma-streets/conifg/sensor_configurations:/home/V2X-Hub/sensor_configurations/
 
   intersection_model:
     image: usdotfhwastolcandidate/intersection_model:k900
@@ -372,11 +378,12 @@ services:
       - kafka
     environment:
       DOCKER_HOST_IP:  172.4.0.3
-
+    volumes_from:
+      - container:carma-config:ro
     volumes:
-      - ./intersection_model/manifest.json:/home/carma-streets/intersection_model/manifest.json
-      - ./intersection_model/logs:/home/carma-streets/intersection_model/logs
-      - ./MAP:/home/carma-streets/intersection_model/MAP
+      - /opt/carma-streets/config/intersection_model/manifest.json:/home/carma-streets/intersection_model/manifest.json
+      - /opt/carma-streets/logs:/home/carma-streets/intersection_model/logs
+      - /opt/carma-streets/config/MAP:/home/carma-streets/intersection_model/MAP
 
   tsc_service:
     image: usdotfhwastolcandidate/tsc_service:k900-xil
@@ -396,9 +403,11 @@ services:
       SIMULATION_MODE:  ${SIMULATION_MODE}
       TIME_SYNC_TOPIC: time_sync
       CONFIG_FILE_PATH: /home/carma-streets/tsc_client_service/manifest.json
+    volumes_from:
+      - container:carma-config:ro
     volumes:
-      - ./tsc_client_service/manifest.json:/home/carma-streets/tsc_client_service/manifest.json
-      - ./tsc_client_service/logs/:/home/carma-streets/tsc_client_service/logs/
+      - /opt/carma-streets/config/tsc_client_service/manifest.json:/home/carma-streets/tsc_client_service/manifest.json
+      - /opt/carma-streets/logs/:/home/carma-streets/tsc_client_service/logs/
   econolite-virtual-controller:
     image: usdotfhwastol/econolite-virtual-controller:latest
     container_name: evc
