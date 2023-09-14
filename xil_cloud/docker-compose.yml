@@ -338,7 +338,7 @@ services:
     stdin_open: true
     tty: true
   v2xhub:
-    image: usdotfhwaops/v2xhubamd:latest
+    image: usdotfhwaops/v2xhubamd:develop
     container_name: v2xhub
     network_mode: service:db
     restart: always
@@ -364,7 +364,7 @@ services:
       - ./sensor_configurations:/home/V2X-Hub/sensor_configurations/
 
   intersection_model:
-    image: usdotfhwastolcandidate/intersection_model:k900
+    image: usdotfhwastoldev/intersection_model:develop
     container_name: intersection_model
     restart: always
     network_mode: service:zookeeper
@@ -379,7 +379,7 @@ services:
       - ./MAP:/home/carma-streets/intersection_model/MAP
 
   tsc_service:
-    image: usdotfhwastolcandidate/tsc_service:k900-xil
+    image: usdotfhwastoldev/tsc_service:develop
     command: sh -c "/wait && /home/carma-streets/tsc_client_service/build/traffic_signal_controller_service"
     container_name: tsc_service
     restart: always
@@ -396,6 +396,7 @@ services:
       SIMULATION_MODE:  ${SIMULATION_MODE}
       TIME_SYNC_TOPIC: time_sync
       CONFIG_FILE_PATH: /home/carma-streets/tsc_client_service/manifest.json
+      LOGS_DIRECTORY: /home/carma-streets/tsc_client_service/logs/
     volumes:
       - ./tsc_client_service/manifest.json:/home/carma-streets/tsc_client_service/manifest.json
       - ./tsc_client_service/logs/:/home/carma-streets/tsc_client_service/logs/
