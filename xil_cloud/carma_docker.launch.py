@@ -80,7 +80,7 @@ def generate_launch_description():
     strategic_plugins_to_validate = LaunchConfiguration('strategic_plugins_to_validate')
     declare_strategic_plugins_to_validate = DeclareLaunchArgument(
         name = 'strategic_plugins_to_validate',
-        default_value = '[RouteFollowing]',
+        default_value = '[/guidance/plugins/route_following_plugin]',
         description = 'List of String: Guidance Strategic Plugins that will be validated by the Guidance Plugin Validator Node if enabled'
     )
 
@@ -88,7 +88,7 @@ def generate_launch_description():
     tactical_plugins_to_validate = LaunchConfiguration('tactical_plugins_to_validate')
     declare_tactical_plugins_to_validate = DeclareLaunchArgument(
         name = 'tactical_plugins_to_validate',
-        default_value='[InLaneCruisingPlugin, StopandWaitPlugin, CooperativeLaneChangePlugin, UnobstructedLaneChangePlugin, YieldPlugin]',
+        default_value='[/guidance/plugins/inlanecruising_plugin, /guidance/plugins/stop_and_wait_plugin, /guidance/plugins/cooperative_lanechange, /guidance/plugins/yield_plugin]',
         description='List of String: Guidance Tactical Plugins that will be validated by the Guidance Plugin Validator Node if enabled'
     )
 
@@ -96,7 +96,7 @@ def generate_launch_description():
     control_plugins_to_validate = LaunchConfiguration('control_plugins_to_validate')
     declare_control_plugins_to_validate = DeclareLaunchArgument(
         name = 'control_plugins_to_validate',
-        default_value= '[Pure Pursuit]',
+        default_value= '[/guidance/plugins/pure_pursuit_wrapper]',
         description='List of String: Guidance Control Plugins that will be validated by the Guidance Plugin Validator Node if enabled'
     )
 
