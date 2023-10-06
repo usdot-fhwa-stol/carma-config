@@ -23,7 +23,7 @@ services:
 
 ## carma_1 vehicle
   roscore_1:
-    image: usdotfhwastol/carma-base:carma-system-4.2.0
+    image: usdotfhwastoldev/carma-base:develop
     networks:
       carma_net_1:
         ipv4_address: 172.3.0.2
@@ -40,7 +40,7 @@ services:
     command: roscore
 
   platform_1:
-    image: usdotfhwastol/carma-platform:carma-system-4.2.0
+    image: usdotfhwastoldev/carma-platform:develop
     networks:
       carma_net_1:
         ipv4_address: 172.3.0.3
@@ -56,14 +56,13 @@ services:
       - /opt/carma/routes:/opt/carma/routes
       - /opt/carma/data:/opt/carma/data
       - /opt/carma/simulation:/opt/carma/simulation
-      - ./inlanecruising_config/parameters.yaml:/opt/carma/install/inlanecruising_plugin/share/inlanecruising_plugin/config/parameters.yaml
     environment:
       - ROS_IP=172.3.0.3
       - ROS_MASTER_URI=http://172.3.0.2:11311/
     command: bash -c 'wait-for-it.sh 172.3.0.2:11311 -- roslaunch /opt/carma/vehicle/config/carma_docker.launch'
 
   platform_ros2_1:
-    image: usdotfhwastol/carma-platform:carma-system-4.2.0
+    image: usdotfhwastoldev/carma-platform:develop
     networks:
       carma_net_1:
         ipv4_address: 172.3.0.4
@@ -77,6 +76,7 @@ services:
       - /opt/carma/maps:/opt/carma/maps
       - /opt/carma/routes:/opt/carma/routes
       - /opt/carma/yolo:/opt/carma/yolo
+      - ./inlanecruising_config/parameters.yaml:/opt/carma/install/inlanecruising_plugin/share/inlanecruising_plugin/config/parameters.yaml
     command: bash -c 'source /opt/carma/install_ros2/setup.bash && ros2 launch /opt/carma/vehicle/config/carma_docker.launch.py'
 
   ros1_bridge_1:
@@ -100,7 +100,7 @@ services:
     command: bash -c 'wait-for-it.sh 172.3.0.2:11311 -- rosparam load /opt/carma/vehicle/config/bridge.yml && source ~/.base-image/workspace/install/setup.bash && ros2 run ros1_bridge dynamic_bridge --multi-threads'
 
   carma-carla-integration_1:
-    image: usdotfhwastolcandidate/carma-carla-integration:k900-xil
+    image: usdotfhwastoldev/carma-carla-integration:develop
     networks:
       carma_net_1:
         ipv4_address: 172.3.0.6
@@ -117,7 +117,8 @@ services:
                       source ~/carma_carla_ws/devel/setup.bash &&
                       roslaunch carma_carla_agent carma_carla_agent.launch role_name:='carma_1' 
                                                                            host:='172.2.0.2'
-                                                                           selected_route:='Release_test_case_1' 
+                                                                           selected_route:='Release_test_case_1'
+                                                                           start_delay_in_seconds:='15'
                                                                            spawn_point:='151.2,-305.9,0,0,0,0'"
 
   ns3_adapter_1:
@@ -147,7 +148,7 @@ services:
 # carma_2 vehicle
 
   # roscore_2:
-  #   image: usdotfhwastol/carma-base:carma-system-4.2.0
+  #   image: usdotfhwastoldev/carma-base:develop
   #   networks:
   #     carma_net_2:
   #       ipv4_address: 172.5.0.2
@@ -164,7 +165,7 @@ services:
   #   command: roscore
 
   # platform_2:
-  #   image: usdotfhwastol/carma-platform:carma-system-4.2.0
+  #   image: usdotfhwastoldev/carma-platform:develop
   #   networks:
   #     carma_net_2:
   #       ipv4_address: 172.5.0.3
@@ -180,14 +181,13 @@ services:
   #     - /opt/carma/routes:/opt/carma/routes
   #     - /opt/carma/data:/opt/carma/data
   #     - /opt/carma/simulation:/opt/carma/simulation
-  #     - ./inlanecruising_config/parameters.yaml:/opt/carma/install/inlanecruising_plugin/share/inlanecruising_plugin/config/parameters.yaml
   #   environment:
   #     - ROS_IP=172.5.0.3
   #     - ROS_MASTER_URI=http://172.5.0.2:11311/
   #   command: bash -c 'wait-for-it.sh 172.3.0.2:11311 -- roslaunch /opt/carma/vehicle/config/carma_docker.launch'
 
   # platform_ros2_2:
-  #   image: usdotfhwastol/carma-platform:carma-system-4.2.0
+  #   image: usdotfhwastoldev/carma-platform:develop
   #   networks:
   #     carma_net_2:
   #       ipv4_address: 172.5.0.4
@@ -201,10 +201,11 @@ services:
   #     - /opt/carma/maps:/opt/carma/maps
   #     - /opt/carma/routes:/opt/carma/routes
   #     - /opt/carma/yolo:/opt/carma/yolo
+  #     - ./inlanecruising_config/parameters.yaml:/opt/carma/install/inlanecruising_plugin/share/inlanecruising_plugin/config/parameters.yaml
   #   command: bash -c 'source /opt/carma/install_ros2/setup.bash && ros2 launch /opt/carma/vehicle/config/carma_docker.launch.py'
 
   # ros1_bridge_2:
-  #   image: usdotfhwastol/carma-msgs:carma-system-4.2.0
+  #   image: usdotfhwastoldev/carma-msgs:develop
   #   networks:
   #     carma_net_2:
   #       ipv4_address: 172.5.0.5
@@ -224,7 +225,7 @@ services:
   #   command: bash -c 'wait-for-it.sh 172.5.0.2:11311 -- rosparam load /opt/carma/vehicle/config/bridge.yml && source ~/.base-image/workspace/install/setup.bash && ros2 run ros1_bridge dynamic_bridge --multi-threads'
 
   # carma-carla-integration_2:
-  #   image: usdotfhwastolcandidate/carma-carla-integration:k900-xil
+  #   image: usdotfhwastoldev/carma-carla-integration:develop
   #   networks:
   #     carma_net_2:
   #       ipv4_address: 172.5.0.6
@@ -242,10 +243,11 @@ services:
   #                     roslaunch carma_carla_agent carma_carla_agent.launch role_name:='carma_2' 
   #                                                                          host:='172.2.0.2'
   #                                                                          selected_route:='Release_test_case_2' 
+  #                                                                          start_delay_in_seconds:='15'   
   #                                                                          spawn_point:='201.4,-291.5,0,0,0,-90'"
 
   # ns3_adapter_2:
-  #   image: usdotfhwastolcandidate/carma-ns3-adapter:k900-xil
+  #   image: usdotfhwastoldev/carma-ns3-adapter:develop
   #   networks:
   #     carma_net_2:
   #       ipv4_address: 172.5.0.7
@@ -330,7 +332,7 @@ services:
       - ./secrets:/secrets
       - ./mysql:/docker-entrypoint-initdb.d
   php:
-    image: usdotfhwaops/php:k900-xil
+    image: usdotfhwaops/php:develop
     container_name: php
     network_mode: service:db
     depends_on:
@@ -413,6 +415,7 @@ services:
       - DISPLAY=${DISPLAY}
     volumes:
       - /tmp/.X11-unix:/tmp/.X11-unix
+      - ./evc_sumo/evc_sumo_cfg.json:/home/carma/src/resources/evc_sumo_cfg.json
     depends_on: 
       - carma-simulation
     command: bash -c "sleep 10;x-terminal-emulator -e python3.8 evc_sumo_bridge.py --asc3app-path '../evcfile/asc3app-application.zip' --traci-ip 172.2.0.2"
