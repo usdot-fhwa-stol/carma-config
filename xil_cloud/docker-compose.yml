@@ -415,6 +415,7 @@ services:
       - DISPLAY=${DISPLAY}
     volumes:
       - /tmp/.X11-unix:/tmp/.X11-unix
+      - ./evc_sumo/evc_sumo_cfg.json:/home/carma/src/resources/evc_sumo_cfg.json
     depends_on: 
       - carma-simulation
     command: bash -c "sleep 10;x-terminal-emulator -e python3.8 evc_sumo_bridge.py --asc3app-path '../evcfile/asc3app-application.zip' --traci-ip 172.2.0.2"
