@@ -76,7 +76,7 @@ services:
       - /opt/carma/maps:/opt/carma/maps
       - /opt/carma/routes:/opt/carma/routes
       - /opt/carma/yolo:/opt/carma/yolo
-      - ./inlanecruising_config/parameters.yaml:/opt/carma/install/inlanecruising_plugin/share/inlanecruising_plugin/config/parameters.yaml
+      - ./inlanecruising_config/parameters.yaml:/opt/carma/install_ros2/inlanecruising_plugin/share/inlanecruising_plugin/config/parameters.yaml
     command: bash -c 'source /opt/carma/install_ros2/setup.bash && ros2 launch /opt/carma/vehicle/config/carma_docker.launch.py'
 
   ros1_bridge_1:
