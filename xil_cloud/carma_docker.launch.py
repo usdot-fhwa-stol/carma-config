@@ -43,6 +43,11 @@ def generate_launch_description():
     declare_vehicle_config_dir_arg = DeclareLaunchArgument(
         name = 'vehicle_config_dir', default_value = '/opt/carma/vehicle/config', description = "Path to vehicle configuration directory"
     )
+    
+    # Declare the simuation_mode argument
+    simulation_mode = LaunchConfiguration('simulation_mode')
+    declare_simulation_mode = DeclareLaunchArgument(name='simulation_mode', default_value = 'True', description = 'True if CARMA Platform is launched with CARLA Simulator')
+
 
     # Declare launch arguments for points_map_loader
     load_type = LaunchConfiguration('load_type')
@@ -115,7 +120,8 @@ def generate_launch_description():
             'single_pcd_path' : single_pcd_path,
             'area' : area,
             'arealist_path' : arealist_path,
-            'vector_map_file' : vector_map_file
+            'vector_map_file' : vector_map_file,
+            'simulation_mode' : declare_simulation_mode
             }.items()
     )
 
@@ -133,5 +139,6 @@ def generate_launch_description():
         declare_area,
         declare_arealist_path,
         declare_vector_map_file,
+        declare_simulation_mode,
         carma_src_launch
     ])
