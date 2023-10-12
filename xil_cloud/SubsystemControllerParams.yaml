@@ -22,7 +22,7 @@ hardware_interface:
         - /hardware_interface/carla_lidar_driver
         - /hardware_interface/carla_gnss_driver
       ros1_required_drivers:
-        - /hardware_interface/carla_drivers
+        - /hardware_interface/carla_driver
       ros1_camera_drivers:
         - /hardware_interface/carla_camera_driver
       full_subsystem_required: false

@@ -121,7 +121,7 @@ def generate_launch_description():
             'area' : area,
             'arealist_path' : arealist_path,
             'vector_map_file' : vector_map_file,
-            'simulation_mode' : declare_simulation_mode
+            'simulation_mode' : simulation_mode
             }.items()
     )
 
