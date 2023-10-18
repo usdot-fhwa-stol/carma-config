@@ -129,28 +129,28 @@ services:
                                                                            init_steering_angle:='0'
                                                                            init_jerk:='0'
                                                                            max_steering_degree:='70'"
-carma-vehicle-nats-bridge:
-  image: usdotfhwastoldev/carma_vehicle_nats_bridge:develop
-  logging:
-      options:
-        max-size: "10m"
-        max-file: "1" 
-  networks:
-      carma_net_1:
-        ipv4_address: 172.3.0.7
-  entrypoint: /ws/ros_entrypoint.sh  
-  environment:
-    - VEHICLE_BRIDGE_UNIT_ID=vehicle_id
-    - NATS_SERVER_IP_PORT=nats://<IP>:4222 #REQUIRED variable, replace IP with IP address of NATS server
-    - VEHICLE_BRIDGE_UNIT_TYPE=platform
-    - VEHICLE_BRIDGE_UNIT_NAME=vehicle_id
-    - VEHICLE_BRIDGE_LOG_LEVEL=debug
-    - VEHICLE_BRIDGE_LOG_NAME=ros2_nats_bridge
-    - VEHICLE_BRIDGE_LOG_PATH=/var/logs/
-    - CYCLONE_URL=./telematic_units/cyclone_config.xml
-    - VEHICLE_BRIDGE_LOG_ROTATION_SIZE_BYTES=2147483648 #2 gigabytes
-    - VEHICLE_BRIDGE_LOG_HANDLER_TYPE=console #console: Print logs on console; file: Save logs to file; all: Prints logs on console and file
-    - VEHICLE_BRIDGE_EXCLUSION_LIST= ${VEHICLE_BRIDGE_EXCLUSION_LIST} #OPTIONAL variable to set a comma separated list of topics not available to publish, leave empty if none                                                                 
+  carma-vehicle-nats-bridge_1:
+    image: usdotfhwastoldev/carma_vehicle_nats_bridge:develop
+    logging:
+        options:
+          max-size: "10m"
+          max-file: "1"
+    networks:
+        carma_net_1:
+          ipv4_address: 172.3.0.7
+    container_name: carma_vehicle_bridge
+    environment:
+      - VEHICLE_BRIDGE_UNIT_ID=vehicle_id
+      - NATS_SERVER_IP_PORT=nats://<IP>:4222 #REQUIRED variable, replace IP with IP address of NATS server
+      - VEHICLE_BRIDGE_UNIT_TYPE=platform
+      - VEHICLE_BRIDGE_UNIT_NAME=vehicle_id
+      - VEHICLE_BRIDGE_LOG_LEVEL=debug
+      - VEHICLE_BRIDGE_LOG_NAME=ros2_nats_bridge
+      - VEHICLE_BRIDGE_LOG_PATH=/var/logs/
+      - VEHICLE_BRIDGE_LOG_ROTATION_SIZE_BYTES=2147483648 #2 gigabytes
+      - VEHICLE_BRIDGE_LOG_HANDLER_TYPE=console #console: Print logs on console; file: Save logs to file; all: Prints logs on console and file
+      - VEHICLE_BRIDGE_EXCLUSION_LIST= ${VEHICLE_BRIDGE_EXCLUSION_LIST} #OPTIONAL variable to set a comma separated list of topics not available to publish, leave empty if none                           >
+    command:  bash -c 'source /ws/install/setup.bash && ros2 launch ros2_nats_bridge ros2_nats_bridge_launch.py
 
 networks:
   carma_sim_net:
