@@ -130,7 +130,6 @@ services:
                                                                            init_jerk:='0'
                                                                            max_steering_degree:='70'"
 
-
 networks:
   carma_sim_net:
     ipam:
