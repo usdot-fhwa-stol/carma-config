@@ -140,7 +140,7 @@ services:
           ipv4_address: 172.3.0.7
     container_name: carma_vehicle_bridge_1
     env_file:
-     - /opt/carma/vehicle/calibration/telematics/telematic.env
+     - /opt/carma/vehicle/calibration/telematics/telematics.env
     command:  bash -c 'source /ws/install/setup.bash && ros2 launch ros2_nats_bridge ros2_nats_bridge_launch.py'
 
 networks:
