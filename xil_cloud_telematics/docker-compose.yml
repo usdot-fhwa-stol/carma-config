@@ -129,7 +129,19 @@ services:
                                                                            init_steering_angle:='0'
                                                                            init_jerk:='0'
                                                                            max_steering_degree:='70'"
-
+  carma-vehicle-nats-bridge_1:
+    image: usdotfhwastoldev/carma_vehicle_nats_bridge:develop
+    logging:
+        options:
+          max-size: "10m"
+          max-file: "1"
+    networks:
+        carma_net_1:
+          ipv4_address: 172.3.0.7
+    container_name: carma_vehicle_bridge_1
+    env_file:
+     - /opt/carma/vehicle/calibration/telematics/telematic.env
+    command:  bash -c 'source /ws/install/setup.bash && ros2 launch ros2_nats_bridge ros2_nats_bridge_launch.py'
 
 networks:
   carma_sim_net:
