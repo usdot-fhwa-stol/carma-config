@@ -155,6 +155,8 @@ services:
         carma_net_1:
           ipv4_address: 172.3.0.8
     container_name: carma_vehicle_bridge_1
+    volumes:
+      - /opt/carma/vehicle/calibration:/opt/carma/vehicle/calibration
     env_file:
       - /opt/carma/vehicle/calibration/telematics/telematics.env
     environment:
