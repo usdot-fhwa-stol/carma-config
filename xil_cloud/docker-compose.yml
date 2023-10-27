@@ -365,6 +365,18 @@ services:
       - ./secrets:/home/V2X-Hub/secrets
       - ./sensor_configurations:/home/V2X-Hub/sensor_configurations/
 
+  sensorlib-xml-rpc:
+    image: usdotfhwastoldev/sensorlib-xml-rpc:develop
+    networks:
+      carma_sim_net:
+        ipv4_address: 172.2.0.5
+    container_name: sensorlib-xml-rpc
+    restart: always
+    environment:
+      - ENV LOAD_CARLA_EGG=True
+      - ENV CARLA_VERSION=0.9.10
+      - ENV CARLA_EGG_DIR="/home/CarlaCDASimAdapter/"
+
   intersection_model:
     image: usdotfhwastoldev/intersection_model:develop
     container_name: intersection_model
@@ -379,21 +391,6 @@ services:
       - ./intersection_model/manifest.json:/home/carma-streets/intersection_model/manifest.json
       - ./intersection_model/logs:/home/carma-streets/intersection_model/logs
       - ./MAP:/home/carma-streets/intersection_model/MAP
-
-  sensorlib-xml-rpc:
-    image: usdotfhwastoldev/sensorlib-xml-rpc:develop
-    networks:
-      carma_sim_net:
-        ipv4_address: 172.2.0.5
-    container_name: sensorlib-xml-rpc
-    restart: always
-    environment:
-      - ENV LOAD_CARLA_EGG=True
-      - ENV CARLA_VERSION=0.9.10
-      - ENV CARLA_EGG_DIR="/home/CarlaCDASimAdapter/"
-    build:
-      context: ${HOME}/carma-utils/sensorlib
-      dockerfile: Dockerfile
 
   tsc_service:
     image: usdotfhwastoldev/tsc_service:develop
@@ -431,12 +428,9 @@ services:
     volumes:
       - /tmp/.X11-unix:/tmp/.X11-unix
       - ./evc_sumo/evc_sumo_cfg.json:/home/carma/src/resources/evc_sumo_cfg.json
-    depends_on:
+    depends_on: 
       - carma-simulation
     command: bash -c "sleep 10;x-terminal-emulator -e python3.8 evc_sumo_bridge.py --asc3app-path '../evcfile/asc3app-application.zip' --traci-ip 172.2.0.2"
-
-
-
 
 networks:
   carma_sim_net:
