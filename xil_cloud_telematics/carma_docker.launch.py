@@ -43,6 +43,27 @@ def generate_launch_description():
     declare_vehicle_config_dir_arg = DeclareLaunchArgument(
         name = 'vehicle_config_dir', default_value = '/opt/carma/vehicle/config', description = "Path to vehicle configuration directory"
     )
+    
+    # Declare the simuation_mode argument
+    simulation_mode = LaunchConfiguration('simulation_mode')
+    declare_simulation_mode = DeclareLaunchArgument(name='simulation_mode', default_value = 'True', description = 'True if CARMA Platform is launched with CARLA Simulator')
+
+
+    # Declare launch arguments for points_map_loader
+    load_type = LaunchConfiguration('load_type')
+    declare_load_type= DeclareLaunchArgument(name = 'load_type', default_value = "noupdate")
+
+    single_pcd_path = LaunchConfiguration('single_pcd_path')
+    declare_single_pcd_path = DeclareLaunchArgument(name='single_pcd_path', default_value="['/opt/carma/maps/pcd_map.pcd']")
+
+    area = LaunchConfiguration('area')
+    declare_area = DeclareLaunchArgument(name='area', default_value="1x1")
+
+    arealist_path = LaunchConfiguration('arealist_path')
+    declare_arealist_path = DeclareLaunchArgument(name='arealist_path', default_value="/opt/carma/maps/arealist.txt")
+
+    vector_map_file = LaunchConfiguration('vector_map_file')
+    declare_vector_map_file = DeclareLaunchArgument(name='vector_map_file', default_value='/opt/carma/maps/vector_map.osm')
 
     #Declare the route file folder launch argument
     route_file_folder = LaunchConfiguration('route_file_folder')
@@ -64,7 +85,7 @@ def generate_launch_description():
     strategic_plugins_to_validate = LaunchConfiguration('strategic_plugins_to_validate')
     declare_strategic_plugins_to_validate = DeclareLaunchArgument(
         name = 'strategic_plugins_to_validate',
-        default_value = '[RouteFollowing]',
+        default_value = '[/guidance/plugins/route_following_plugin]',
         description = 'List of String: Guidance Strategic Plugins that will be validated by the Guidance Plugin Validator Node if enabled'
     )
 
@@ -72,7 +93,7 @@ def generate_launch_description():
     tactical_plugins_to_validate = LaunchConfiguration('tactical_plugins_to_validate')
     declare_tactical_plugins_to_validate = DeclareLaunchArgument(
         name = 'tactical_plugins_to_validate',
-        default_value='[InLaneCruisingPlugin, StopandWaitPlugin, CooperativeLaneChangePlugin, UnobstructedLaneChangePlugin, YieldPlugin]',
+        default_value='[/guidance/plugins/inlanecruising_plugin, /guidance/plugins/stop_and_wait_plugin, /guidance/plugins/cooperative_lanechange, /guidance/plugins/yield_plugin]',
         description='List of String: Guidance Tactical Plugins that will be validated by the Guidance Plugin Validator Node if enabled'
     )
 
@@ -80,7 +101,7 @@ def generate_launch_description():
     control_plugins_to_validate = LaunchConfiguration('control_plugins_to_validate')
     declare_control_plugins_to_validate = DeclareLaunchArgument(
         name = 'control_plugins_to_validate',
-        default_value= '[Pure Pursuit]',
+        default_value= '[/guidance/plugins/pure_pursuit_wrapper]',
         description='List of String: Guidance Control Plugins that will be validated by the Guidance Plugin Validator Node if enabled'
     )
 
@@ -94,7 +115,13 @@ def generate_launch_description():
             'enable_guidance_plugin_validator' : enable_guidance_plugin_validator,
             'strategic_plugins_to_validate' : strategic_plugins_to_validate,
             'tactical_plugins_to_validate' : tactical_plugins_to_validate,
-            'control_plugins_to_validate' : control_plugins_to_validate
+            'control_plugins_to_validate' : control_plugins_to_validate,
+            'load_type' : load_type,
+            'single_pcd_path' : single_pcd_path,
+            'area' : area,
+            'arealist_path' : arealist_path,
+            'vector_map_file' : vector_map_file,
+            'simulation_mode' : simulation_mode
             }.items()
     )
 
@@ -107,5 +134,11 @@ def generate_launch_description():
         declare_strategic_plugins_to_validate,
         declare_tactical_plugins_to_validate,
         declare_control_plugins_to_validate,
+        declare_load_type,
+        declare_single_pcd_path,
+        declare_area,
+        declare_arealist_path,
+        declare_vector_map_file,
+        declare_simulation_mode,
         carma_src_launch
     ])
