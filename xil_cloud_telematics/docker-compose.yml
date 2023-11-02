@@ -145,6 +145,19 @@ services:
       - NATS_IP=${NATS_IP} # This variable needs to be explictly defined before bringing the container up. NATS_IP referes to the IP of the cloud instance running the telematic server.
     command:  bash -c 'source /ws/install/setup.bash && ros2 launch ros2_nats_bridge ros2_nats_bridge_launch.py'
 
+  # scenario-runner:
+  #   image: usdotfhwastoldev/carma-scenario-runner:develop
+  #   container_name: carma-scenario-runner
+  #   networks:
+  #     - carma_sim_net
+  #   depends_on:
+  #     - carma-simulation
+  #   entrypoint: >
+  #     bash -c "sleep 30
+  #     && python3 scenario_runner.py
+  #     --scenario MyScenario_1
+  #     --host 172.2.0.2"
+
 networks:
   carma_sim_net:
     ipam:
