@@ -420,18 +420,18 @@ services:
       - carma-simulation
     command: bash -c "sleep 10;x-terminal-emulator -e python3.8 evc_sumo_bridge.py --asc3app-path '../evcfile/asc3app-application.zip' --traci-ip 172.2.0.2"
 
-  scenario-runner:
-    image: usdotfhwastoldev/carma-scenario-runner:latest
-    container_name: carma-scenario-runner
-    networks:
-      - carma_sim_net
-    depends_on:
-      - carma-simulation
-    entrypoint: >
-      bash -c "sleep 30
-      && python3 scenario_runner.py
-      --scenario MyScenario_1
-      --host 172.2.0.2"
+  # scenario-runner:
+  #   image: usdotfhwastoldev/carma-scenario-runner:develop
+  #   container_name: carma-scenario-runner
+  #   networks:
+  #     - carma_sim_net
+  #   depends_on:
+  #     - carma-simulation
+  #   entrypoint: >
+  #     bash -c "sleep 30
+  #     && python3 scenario_runner.py
+  #     --scenario MyScenario_1
+  #     --host 172.2.0.2"
 
 networks:
   carma_sim_net:
