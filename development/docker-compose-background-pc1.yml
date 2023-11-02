@@ -17,16 +17,24 @@
 services:
   web-ui:
     image: usdotfhwastoldev/carma-web-ui:develop
-    network_mode: host
-    container_name: carma-web-ui
     environment:
       - ROS_IP=127.0.0.1
+    networks:
+      - host
     volumes: 
       - /var/run/docker.sock:/var/run/docker.sock 
       - carma-config-data:/opt/carma/vehicle/config
-    restart: always
+    deploy:
+      placement:
+        constraints:
+          - node.role == manager
 
 volumes:
   carma-config-data:
     external: true
     name: carma-config-data
+
+networks:
+  host:
+    external: true
+    name: host
