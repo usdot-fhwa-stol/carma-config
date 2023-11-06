@@ -115,7 +115,7 @@ services:
     command: bash -c "sleep 10;
                       export PYTHONPATH=$PYTHONPATH:~/PythonAPI/carla/dist/carla-0.9.10-py3.7-linux-x86_64.egg &&
                       source ~/carma_carla_ws/devel/setup.bash &&
-                      roslaunch carma_carla_agent carma_carla_agent.launch role_name:='carma_1' 
+                      roslaunch carma_carla_agent carma_carla_agent.launch role_name:='carma_1'
                                                                            host:='172.2.0.2'
                                                                            selected_route:='Release_test_case_1'
                                                                            start_delay_in_seconds:='15'
@@ -240,10 +240,10 @@ services:
   #   command: bash -c "sleep 10;
   #                     export PYTHONPATH=$PYTHONPATH:~/PythonAPI/carla/dist/carla-0.9.10-py3.7-linux-x86_64.egg &&
   #                     source ~/carma_carla_ws/devel/setup.bash &&
-  #                     roslaunch carma_carla_agent carma_carla_agent.launch role_name:='carma_2' 
+  #                     roslaunch carma_carla_agent carma_carla_agent.launch role_name:='carma_2'
   #                                                                          host:='172.2.0.2'
-  #                                                                          selected_route:='Release_test_case_2' 
-  #                                                                          start_delay_in_seconds:='15'   
+  #                                                                          selected_route:='Release_test_case_2'
+  #                                                                          start_delay_in_seconds:='15'
   #                                                                          spawn_point:='201.4,-291.5,0,0,0,-90'"
 
   # ns3_adapter_2:
@@ -416,9 +416,22 @@ services:
     volumes:
       - /tmp/.X11-unix:/tmp/.X11-unix
       - ./evc_sumo/evc_sumo_cfg.json:/home/carma/src/resources/evc_sumo_cfg.json
-    depends_on: 
+    depends_on:
       - carma-simulation
     command: bash -c "sleep 10;x-terminal-emulator -e python3.8 evc_sumo_bridge.py --asc3app-path '../evcfile/asc3app-application.zip' --traci-ip 172.2.0.2"
+
+  # scenario-runner:
+  #   image: usdotfhwastoldev/carma-scenario-runner:develop
+  #   container_name: carma-scenario-runner
+  #   networks:
+  #     - carma_sim_net
+  #   depends_on:
+  #     - carma-simulation
+  #   entrypoint: >
+  #     bash -c "sleep 30
+  #     && python3 scenario_runner.py
+  #     --scenario MyScenario_1
+  #     --host 172.2.0.2"
 
 networks:
   carma_sim_net:
@@ -430,7 +443,7 @@ networks:
     ipam:
       config:
         - subnet: 172.3.0.0/16
-  
+
   # carma_net_2:
   #   ipam:
   #     config:
