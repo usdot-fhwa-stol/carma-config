@@ -381,7 +381,7 @@ services:
       - ./MAP:/home/carma-streets/intersection_model/MAP
 
   sensorlib-xml-rpc:
-    image: sensorlib-xml-rpc:develop
+    image: usdotfhwastoldev/sensorlib-xml-rpc:develop
     networks:
       carma_sim_net:
         ipv4_address: 172.2.0.5
@@ -392,7 +392,7 @@ services:
       - CARLA_VERSION=0.9.10
       - CARLA_EGG_DIR=/home/CarlaCDASimAdapter/
     command: bash -c "sleep 15;
-                      python3 /home/CarlaCDASimAdapter/src/CarlaCDASimAdapter.py --carla-host 172.2.0.2 --xmlrpc-server-host 172.2.0.5  --sensor-config-file ./config/simulated_sensor_config.yaml --noise-model-config-file ./config/noise_model_config.yaml"
+                      python3 -u /home/CarlaCDASimAdapter/src/CarlaCDASimAdapter.py --carla-host 172.2.0.2 --xmlrpc-server-host 172.2.0.5  --sensor-config-file ./config/simulated_sensor_config.yaml --noise-model-config-file ./config/noise_model_config.yaml"
 
   tsc_service:
     image: usdotfhwastoldev/tsc_service:develop
