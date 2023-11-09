@@ -38,6 +38,14 @@ topics:
     topic: /hardware_interface/controller/robot_status
     type: carma_perception_msgs/msg/RobotEnabled
     queue_size: 10
+  - topic: /guidance/route_event
+    type: carma_planning_msgs/msg/RouteEvent
+    queue_size: 10
+    direction: 2to1
+    qos:
+      history: keep_all
+      reliability: reliable
+      durability: transient_local
   -
     topic: /environment/external_objects
     type: carma_perception_msgs/msg/ExternalObjectList

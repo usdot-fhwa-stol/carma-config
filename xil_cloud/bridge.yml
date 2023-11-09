@@ -6,6 +6,14 @@ topics:
   - topic: /guidance/trajectory_visualizer
     type: visualization_msgs/msg/MarkerArray
     queue_size: 1
+  - topic: /guidance/route_event
+    type: carma_planning_msgs/msg/RouteEvent
+    queue_size: 10
+    direction: 2to1
+    qos:
+      history: keep_all
+      reliability: reliable
+      durability: transient_local
   -
     topic: /environment/lanelet2_map_viz
     type: visualization_msgs/msg/MarkerArray
