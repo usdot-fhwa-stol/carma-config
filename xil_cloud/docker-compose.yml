@@ -380,6 +380,20 @@ services:
       - ./intersection_model/logs:/home/carma-streets/intersection_model/logs
       - ./MAP:/home/carma-streets/intersection_model/MAP
 
+  sensorlib-xml-rpc:
+    image: usdotfhwastoldev/sensorlib-xml-rpc:develop
+    networks:
+      carma_sim_net:
+        ipv4_address: 172.2.0.5
+    container_name: sensorlib-xml-rpc
+    restart: always
+    environment:
+      - LOAD_CARLA_EGG=True
+      - CARLA_VERSION=0.9.10
+      - CARLA_EGG_DIR=/home/CarlaCDASimAdapter/
+    command: bash -c "sleep 15;
+                      python3 -u /home/CarlaCDASimAdapter/src/CarlaCDASimAdapter.py --carla-host 172.2.0.2 --xmlrpc-server-host 172.2.0.5  --sensor-config-file ./config/simulated_sensor_config.yaml --noise-model-config-file ./config/noise_model_config.yaml"
+
   tsc_service:
     image: usdotfhwastoldev/tsc_service:develop
     command: sh -c "/wait && /home/carma-streets/tsc_client_service/build/traffic_signal_controller_service"
@@ -432,6 +446,7 @@ services:
   #     && python3 scenario_runner.py
   #     --scenario MyScenario_1
   #     --host 172.2.0.2"
+
 
 networks:
   carma_sim_net:
