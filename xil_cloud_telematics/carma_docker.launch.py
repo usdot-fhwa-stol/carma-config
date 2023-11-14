@@ -148,6 +148,6 @@ def generate_launch_description():
         declare_arealist_path,
         declare_vector_map_file,
         declare_simulation_mode,
-        declare_is_ros2_tracing_enabled
+        declare_is_ros2_tracing_enabled,
         carma_src_launch
     ])
