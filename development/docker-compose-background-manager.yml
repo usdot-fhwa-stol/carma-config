@@ -12,7 +12,8 @@
 #  License for the specific language governing permissions and limitations under
 #  the License.
 
-# Updated for testing with dual compute system
+# This is a test file for a dual compute host
+version: "3.8"
 
 services:
   web-ui:

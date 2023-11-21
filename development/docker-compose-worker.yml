@@ -13,6 +13,7 @@
 #  the License.
 
 # This is a test file for a dual compute host
+version: "3.8"
 
 services:
   mock-imu-driver:
@@ -30,7 +31,7 @@ services:
     deploy:
       placement:
         constraints:
-          - node.role == manager  
+          - node.role == worker  
     command: bash -c 'export ROS_NAMESPACE=$${CARMA_INTR_NS} && wait-for-it.sh localhost:11311 -- roslaunch carma mock_drivers.launch mock_drivers:=imu'
 
 volumes:

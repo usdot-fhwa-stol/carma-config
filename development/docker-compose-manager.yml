@@ -13,6 +13,7 @@
 #  the License.
 
 # This is a test file for a dual compute host
+version: "3.8"
 
 services:
   roscore:
