@@ -59,8 +59,8 @@ services:
       - ROS_IP=172.3.0.3
       - ROS_MASTER_URI=http://172.3.0.2:11311/
     command: >
-      bash -c 'wait-for-it.sh 172.3.0.2:11311 --
-      roslaunch /opt/carma/vehicle/config/carma_docker.launch'
+      bash -c 'export RMW_IMPLEMENTATION=rmw_fastrtps_cpp
+      && wait-for-it.sh 172.3.0.2:11311 -- roslaunch /opt/carma/vehicle/config/carma_docker.launch'
 
   platform_ros2_1:
     image: usdotfhwastoldev/carma-platform:develop
@@ -79,7 +79,8 @@ services:
       - /opt/carma/yolo:/opt/carma/yolo
       - ./inlanecruising_config/parameters.yaml:/opt/carma/install_ros2/inlanecruising_plugin/share/inlanecruising_plugin/config/parameters.yaml
     command: >
-      bash -c 'source /opt/carma/install_ros2/setup.bash
+      bash -c 'export RMW_IMPLEMENTATION=rmw_fastrtps_cpp
+      && source /opt/carma/install_ros2/setup.bash
       && ros2 launch /opt/carma/vehicle/config/carma_docker.launch.py'
 
   ros1_bridge_1:
@@ -101,8 +102,8 @@ services:
       - /opt/carma/routes:/opt/carma/routes
       - /opt/carma/yolo:/opt/carma/yolo
     command: >
-      bash -c 'wait-for-it.sh 172.3.0.2:11311 --
-      rosparam load /opt/carma/vehicle/config/bridge.yml
+      bash -c 'export RMW_IMPLEMENTATION=rmw_fastrtps_cpp
+      && wait-for-it.sh 172.3.0.2:11311 -- rosparam load /opt/carma/vehicle/config/bridge.yml
       && source ~/.base-image/workspace/install/setup.bash
       && ros2 run ros1_bridge dynamic_bridge --multi-threads'
 
@@ -120,7 +121,8 @@ services:
       - ROS_IP=172.3.0.6
       - ROS_MASTER_URI=http://172.3.0.2:11311/
     command: >
-      bash -c "sleep 10
+      bash -c "export RMW_IMPLEMENTATION=rmw_fastrtps_cpp
+      && sleep 10
       && export PYTHONPATH=$PYTHONPATH:~/PythonAPI/carla/dist/carla-0.9.10-py3.7-linux-x86_64.egg:/home/carma/utils/carma-utils/sensorlib:/home/carma/utils/carma-utils/sensorlib/src
       && source ~/carma_carla_ws/devel/setup.bash
       && roslaunch carma_carla_agent carma_carla_agent.launch
@@ -153,12 +155,12 @@ services:
       - /opt/carma/yolo:/opt/carma/yolo
       - ./ns3_adapter/adapter_1/parameters.yaml:/opt/carma/install/ns3_adapter/share/ns3_adapter/config/parameters.yaml
     command: >
-      bash -c "wait-for-it.sh 172.3.0.2:11311 --
-      roslaunch ns3_adapter ns3_adapter.launch
+      bash -c "export RMW_IMPLEMENTATION=rmw_fastrtps_cpp
+      && wait-for-it.sh 172.3.0.2:11311 -- roslaunch ns3_adapter ns3_adapter.launch
       role_id:='carma_1'
       remap_ns:=/hardware_interface/comms"
 
-  zookeeper:
+    zookeeper:
     image: wurstmeister/zookeeper
     container_name: zookeeper
     networks:
@@ -269,9 +271,23 @@ services:
       - ./intersection_model/logs:/home/carma-streets/intersection_model/logs
       - ./MAP:/home/carma-streets/intersection_model/MAP
 
+  sensorlib-xml-rpc:
+    image: usdotfhwastoldev/sensorlib-xml-rpc:develop
+    networks:
+      carma_sim_net:
+        ipv4_address: 172.2.0.5
+    container_name: sensorlib-xml-rpc
+    restart: always
+    environment:
+      - LOAD_CARLA_EGG=True
+      - CARLA_VERSION=0.9.10
+      - CARLA_EGG_DIR=/home/CarlaCDASimAdapter/
+    command: bash -c "sleep 15;
+      python3 -u /home/CarlaCDASimAdapter/src/CarlaCDASimAdapter.py --carla-host 172.2.0.2 --xmlrpc-server-host 172.2.0.5  --sensor-config-file ./config/simulated_sensor_config.yaml --noise-model-config-file ./config/noise_model_config.yaml"
+
   tsc_service:
     image: usdotfhwastoldev/tsc_service:develop
-    container_name: tsc_service
+        container_name: tsc_service
     restart: always
     network_mode: service:zookeeper
     depends_on:
@@ -290,12 +306,12 @@ services:
     volumes:
       - ./tsc_client_service/manifest.json:/home/carma-streets/tsc_client_service/manifest.json
       - ./tsc_client_service/logs/:/home/carma-streets/tsc_client_service/logs/
-    command: >
+command: >
       sh -c "/wait
       && /home/carma-streets/tsc_client_service/build/traffic_signal_controller_service"
 
   econolite-virtual-controller:
-    image: usdotfhwastol/econolite-virtual-controller:latest
+        image: usdotfhwastol/econolite-virtual-controller:latest
     container_name: evc
     restart: always
     networks:
@@ -317,7 +333,7 @@ services:
       --traci-ip 172.2.0.2"
 
   scenario-runner:
-    image: usdotfhwastoldev/carma-scenario-runner:trb2024
+    image: adam/carma-scenario-runner:trb2024
     container_name: carma-scenario-runner
     networks:
       - carma_sim_net
