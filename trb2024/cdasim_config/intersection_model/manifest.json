@@ -4,13 +4,13 @@
     "configurations": [
         {
             "name": "osm_file_path",
-            "value": "../MAP/Town04_streets_reduced.osm",
+            "value": "../MAP/Town04_vector_map.osm",
             "description": "Path to lanelet2 osm map for a given intersection.",
             "type": "STRING"
         },
         {
             "name": "intersection_name",
-            "value": "Town04 Intersection 916",
+            "value": "Town04 Intersection 785",
             "description": "Name of intersection.",
             "type": "STRING"
         },
