@@ -1,4 +1,4 @@
-#  Copyright (C) 2018-2021 LEIDOS.
+#  Copyright (C) 2018-2023 LEIDOS.
 # 
 #  Licensed under the Apache License, Version 2.0 (the "License"); you may not
 #  use this file except in compliance with the License. You may obtain a copy of
@@ -12,18 +12,30 @@
 #  License for the specific language governing permissions and limitations under
 #  the License.
 
-# Docker Compose Spec Version
-version: '2'
+# This is a test file for a dual compute host
+version: "3.8"
 
 services:
   web-ui:
     image: usdotfhwastoldev/carma-web-ui:develop
-    network_mode: host
-    container_name: carma-web-ui
     environment:
       - ROS_IP=127.0.0.1
-    volumes_from: 
-      - container:carma-config:ro
+    networks:
+      - host
     volumes: 
       - /var/run/docker.sock:/var/run/docker.sock 
-    restart: always
+      - carma-config-data:/opt/carma/vehicle/config
+    deploy:
+      placement:
+        constraints:
+          - node.role == manager
+
+volumes:
+  carma-config-data:
+    external: true
+    name: carma-config-data
+
+networks:
+  host:
+    external: true
+    name: host
