@@ -90,7 +90,7 @@ services:
       placement:
         constraints:
           - node.role == manager
-    command: bash -c 'source /opt/carma/install_ros2/setup.bash && ros2 launch /opt/carma/vehicle/config/carma_docker.launch.py'
+    command: bash -c 'source /opt/carma/install_ros2/setup.bash && ros2 launch /opt/carma/vehicle/config/carma_docker.launch.py' system_architecture:=dual host_placement:=manager
 
   mock-lightbar-driver:
     image: usdotfhwastoldev/carma-platform:develop

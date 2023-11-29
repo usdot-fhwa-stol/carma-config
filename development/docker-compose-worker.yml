@@ -16,6 +16,24 @@
 version: "3.8"
 
 services:
+  platform_ros2:
+    image: usdotfhwastoldev/carma-platform:develop
+    networks:
+      - host
+    volumes:
+      - /opt/carma/logs:/opt/carma/logs
+      - /opt/carma/.ros:/home/carma/.ros
+      - /opt/carma/vehicle/calibration:/opt/carma/vehicle/calibration
+      - /opt/carma/maps:/opt/carma/maps
+      - /opt/carma/routes:/opt/carma/routes
+      - /opt/carma/yolo:/opt/carma/yolo
+      - carma-config-data:/opt/carma/vehicle/config
+    deploy:
+      placement:
+        constraints:
+          - node.role == worker
+    command: bash -c 'source /opt/carma/install_ros2/setup.bash && ros2 launch /opt/carma/vehicle/config/carma_docker.launch.py' system_architecture:=dual host_placement:=worker
+
   mock-imu-driver:
     image: usdotfhwastoldev/carma-platform:develop
     networks:
