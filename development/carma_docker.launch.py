@@ -108,6 +108,22 @@ def generate_launch_description():
         description='Flag to enable opening http tunnesl to CARMA Cloud'
     )
 
+    # Declare system_architecture
+    system_architecture = LaunchConfiguration('system_architecture')
+    declare_system_architecture = DeclareLaunchArgument(
+        name = 'system_architecture',
+        default_value = 'single',
+        description = 'Flag to define whether a single compute system or a dual compute system is being used'
+    )
+
+    # Declare host_placement
+    host_placement = LaunchConfiguration('host_placement')
+    declare_host_placement = DeclareLaunchArgument(
+        name = 'host_placement',
+        default_value = 'manager',
+        description = 'Flag to define whether the current active host is a manager or worker for ROS node allocation'
+    )
+
     # Launch the core carma launch file
     carma_src_launch = IncludeLaunchDescription(
         PythonLaunchDescriptionSource([ get_package_share_directory('carma'), '/launch/carma_src.launch.py']),
@@ -124,7 +140,9 @@ def generate_launch_description():
             'single_pcd_path' : single_pcd_path,
             'area' : area,
             'arealist_path' : arealist_path,
-            'vector_map_file' : vector_map_file
+            'vector_map_file' : vector_map_file,
+            'system_architecture' : system_architecture,
+            'host_placement' : host_placement
             }.items()
     )
 
@@ -143,5 +161,7 @@ def generate_launch_description():
         declare_area,
         declare_arealist_path,
         declare_vector_map_file,
+        declare_system_architecture,
+        declare_host_placement,
         carma_src_launch
     ])
