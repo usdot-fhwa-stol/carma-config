@@ -113,7 +113,7 @@ def generate_launch_description():
     declare_system_architecture = DeclareLaunchArgument(
         name = 'system_architecture',
         default_value = 'single',
-        description = 'Flag to define whether a single compute system or a dual compute system is being used'
+        description = 'Flag to define whether a single compute system (option:single) or a dual compute system (option:dual) is being used. Defaults to single host system.'
     )
 
     # Declare host_placement
@@ -121,7 +121,7 @@ def generate_launch_description():
     declare_host_placement = DeclareLaunchArgument(
         name = 'host_placement',
         default_value = 'manager',
-        description = 'Flag to define whether the current active host is a manager or worker for ROS node allocation'
+        description = 'Flag to define whether the current active host is a manager (option:manager) or worker (option:worker) for ROS node allocation. Defaults to the active host being a manager'
     )
 
     # Launch the core carma launch file
