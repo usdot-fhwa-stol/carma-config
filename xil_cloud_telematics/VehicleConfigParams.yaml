@@ -41,6 +41,17 @@ vehicle_wheel_base: 2.79
 # Units: Meters
 vehicle_tire_radius: 0.39
 
+# Int: The maximum duration that Plan Delegator will wait after calling a tactical plugin's trajectory planning service; if trajectory
+# generation takes longer than this, then trajectory planning will immediately end for the current trajectory planning iteration.
+# NOTE: It is highly desirable to maintain a timeout of 100 ms or less, but trajectory generation success cannot be guaranteed with this duration
+#       for tactical plugins (primarily cooperative_lanechange) in all test scenarios at this time.
+# Units: Milliseconds
+tactical_plugin_service_call_timeout: 100
+
+# Activates object avoidance logics in trajectory planning plugins
+# Units: Boolean
+enable_object_avoidance: false
+
 # Acceleration limit
 # Value type: Desired
 # Units: m/s^2
