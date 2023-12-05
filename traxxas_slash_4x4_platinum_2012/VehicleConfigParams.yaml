@@ -1,5 +1,5 @@
 # Defines the ros parameters which define the characteristics of this host vehicle configuration
-# The value type field is used to indicate how the field should be set. 
+# The value type field is used to indicate how the field should be set.
 # Should it be treated as a measured value (Measured) or a desired behavior constraint (Desired)
 
 # String: Host vehicle make
@@ -40,6 +40,17 @@ vehicle_wheel_base: 0.324
 # Units: Meters
 vehicle_tire_radius: 0.055
 
+# Int: The maximum duration that Plan Delegator will wait after calling a tactical plugin's trajectory planning service; if trajectory
+# generation takes longer than this, then trajectory planning will immediately end for the current trajectory planning iteration.
+# NOTE: It is highly desirable to maintain a timeout of 100 ms or less, but trajectory generation success cannot be guaranteed with this duration
+#       for tactical plugins (primarily cooperative_lanechange) in all test scenarios at this time.
+# Units: Milliseconds
+tactical_plugin_service_call_timeout: 100
+
+# Activates object avoidance logics in trajectory planning plugins
+# Units: Boolean
+enable_object_avoidance: false
+
 # Acceleration limit
 # Value type: Desired
 # Units: m/s^2
@@ -75,8 +86,8 @@ vehicle_steering_gear_ratio: 0.0
 # Unit: deg
 vehicle_steer_lim_deg: 0.0
 
-# steering dynamics time constant 
-# Value type: Measured 
+# steering dynamics time constant
+# Value type: Measured
 # Unit: s
 vehicle_model_steer_tau : 0.0
 
@@ -88,9 +99,9 @@ car: true
 # Required drivers for the vehicle to be functional
 required_drivers:
   - /hardware_interface/c1t_vesc_driver
-lidar_gps_drivers: 
+lidar_gps_drivers:
   - /hardware_interface/c1t_rplidar_driver
-camera_drivers: 
+camera_drivers:
   - /hardware_interface/c1t_zed_driver
 
 # Parameters to enable either ROS 1 or ROS 2 (or both) rosbag logging
