@@ -1,0 +1,1478 @@
+[2023-12-08 00:38:41.033] [info] [streets_configuration.cpp:198] Default Logger initialized!
+[2023-12-08 00:38:41.033] [info] [streets_configuration.cpp:177] Log Level set to debug!
+[2023-12-08 00:38:41.033] [debug] [streets_configuration.cpp:59] Updating Configuration Map
+[2023-12-08 00:38:41.033] [debug] [configuration.cpp:62] Create config name : target_ip, value : 172.4.0.4, description : Target device IP address 
+[2023-12-08 00:38:41.033] [debug] [configuration.cpp:62] Create config name : target_port, value : 5050, description : Target device NTCIP port 
+[2023-12-08 00:38:41.033] [debug] [configuration.cpp:62] Create config name : community, value : administrator, description : Target community for establishing snmp communication 
+[2023-12-08 00:38:41.033] [debug] [configuration.cpp:62] Create config name : snmp_version, value : 0, description : snmp version being used. net-snmp version definition: SNMP_VERSION_1:0 SNMP_VERSION_2c:1 SNMP_VERSION_2u:2 SNMP_VERSION_3:3 
+[2023-12-08 00:38:41.033] [debug] [configuration.cpp:62] Create config name : snmp_timeout, value : 1500000000, description : Time in microseconds after which the the snmp request times out 
+[2023-12-08 00:38:41.033] [debug] [configuration.cpp:62] Create config name : udp_socket_ip, value : 172.4.0.3, description : IP for UDP socket listener to listen on. Should be localhost IP of container or VM running TSC Service. 
+[2023-12-08 00:38:41.033] [debug] [configuration.cpp:62] Create config name : udp_socket_port, value : 6053, description : Port for UDP Socket Listener to list on. TSC configuration sets which port/host NTCIP SPaT data will be broadcast to. 
+[2023-12-08 00:38:41.033] [debug] [configuration.cpp:62] Create config name : socket_timeout, value : 100, description : Timeout in seconds for UDP Socket Listener. If UDP Socket Listener does not receive messages for this amount of time it will shutdown and thrown an exception.  
+[2023-12-08 00:38:41.033] [debug] [configuration.cpp:62] Create config name : bootstrap_server, value : 172.4.0.3:9092, description : Kafka Broker Server Address. 
+[2023-12-08 00:38:41.033] [debug] [configuration.cpp:62] Create config name : spat_producer_topic, value : modified_spat, description : Kafka topic for streets internal SPAT messages 
+[2023-12-08 00:38:41.033] [debug] [configuration.cpp:62] Create config name : desired_phase_plan_consumer_topic, value : desired_phase_plan, description : Kafka topic for streets internal desired phase plan messages 
+[2023-12-08 00:38:41.033] [debug] [configuration.cpp:62] Create config name : desired_phase_plan_consumer_group, value : desired_phase_plan_group, description : Kafka consumer group for desired phase plan topic 
+[2023-12-08 00:38:41.033] [debug] [configuration.cpp:62] Create config name : use_tsc_timestamp, value : false, description : If false will use host machine unix time for SPaT timestamp, If true will use ntcip message provided timestamp for SPaT timestamp. 
+[2023-12-08 00:38:41.033] [debug] [configuration.cpp:62] Create config name : spat_projection_mode, value : 0, description : Enumeration configuring SPat projection. 1 == DPP projection. 2 == Fixed Timing projection. Any other value will result in no projection of future 
+[2023-12-08 00:38:41.033] [debug] [configuration.cpp:62] Create config name : tsc_config_producer_topic, value : tsc_config_state, description : Kafka topic for streets internal Traffic Signal Controller config message 
+[2023-12-08 00:38:41.033] [debug] [configuration.cpp:62] Create config name : control_tsc_state_sleep_duration, value : 100, description : Sleep Duration for the control tsc state thread , in milliseconds, which makes Hold and Omit calls to the TSC. This sleep duration is the time between checking new events in queue, once it has been emptied 
+[2023-12-08 00:38:41.033] [debug] [configuration.cpp:62] Create config name : enable_snmp_cmd_logging, value : true, description : Bool flag to enable snmp commands logging. 
+[2023-12-08 00:38:41.033] [debug] [configuration.cpp:62] Create config name : snmp_cmd_log_path, value : ../logs/, description : File path where snmp commands log file will be written(Note: set enable_snmp_cmd_logging true). 
+[2023-12-08 00:38:41.033] [debug] [configuration.cpp:62] Create config name : snmp_cmd_log_filename, value : snmpcmdLogs, description : Filename for snmp commands logging (Note: set enable_snmp_cmd_logging true). 
+[2023-12-08 00:38:41.033] [debug] [configuration.cpp:62] Create config name : use_mmitss_mrp, value : false, description : If false, it will use carma-streets internal signal optimization service and its generated desired phase plan to schedule traffic signal controller. If true, it will use external MRP (MMITSS Roadside Processor, link: https://github.com/mmitss/mmitss-az) and its generated phase control schedule to schedule the traffic sginal controller. 
+[2023-12-08 00:38:41.033] [debug] [configuration.cpp:62] Create config name : use_desired_phase_plan_update, value : true, description : If true will enable monitor_desired_phase_plan to update incoming spat with calculated future movement events, using desired phase plan information from signal optimization service. If false will use TSC Configuration to predict future phases and append those to the spat based on default phase sequence. 
+[2023-12-08 00:38:41.033] [info] [streets_configuration.cpp:15] Printing Configuration Parameters ---------------------------------------
+[2023-12-08 00:38:41.033] [info] [streets_configuration.cpp:18] bootstrap_server : 172.4.0.3:9092 
+[2023-12-08 00:38:41.033] [info] [streets_configuration.cpp:18] community : administrator 
+[2023-12-08 00:38:41.033] [info] [streets_configuration.cpp:18] control_tsc_state_sleep_duration : 100 
+[2023-12-08 00:38:41.033] [info] [streets_configuration.cpp:18] desired_phase_plan_consumer_group : desired_phase_plan_group 
+[2023-12-08 00:38:41.033] [info] [streets_configuration.cpp:18] desired_phase_plan_consumer_topic : desired_phase_plan 
+[2023-12-08 00:38:41.033] [info] [streets_configuration.cpp:18] enable_snmp_cmd_logging : true 
+[2023-12-08 00:38:41.033] [info] [streets_configuration.cpp:18] snmp_cmd_log_filename : snmpcmdLogs 
+[2023-12-08 00:38:41.033] [info] [streets_configuration.cpp:18] snmp_cmd_log_path : ../logs/ 
+[2023-12-08 00:38:41.033] [info] [streets_configuration.cpp:18] snmp_timeout : 1500000000 
+[2023-12-08 00:38:41.033] [info] [streets_configuration.cpp:18] snmp_version : 0 
+[2023-12-08 00:38:41.033] [info] [streets_configuration.cpp:18] socket_timeout : 100 
+[2023-12-08 00:38:41.033] [info] [streets_configuration.cpp:18] spat_producer_topic : modified_spat 
+[2023-12-08 00:38:41.033] [info] [streets_configuration.cpp:18] spat_projection_mode : 0 
+[2023-12-08 00:38:41.033] [info] [streets_configuration.cpp:18] target_ip : 172.4.0.4 
+[2023-12-08 00:38:41.033] [info] [streets_configuration.cpp:18] target_port : 5050 
+[2023-12-08 00:38:41.033] [info] [streets_configuration.cpp:18] tsc_config_producer_topic : tsc_config_state 
+[2023-12-08 00:38:41.033] [info] [streets_configuration.cpp:18] udp_socket_ip : 172.4.0.3 
+[2023-12-08 00:38:41.033] [info] [streets_configuration.cpp:18] udp_socket_port : 6053 
+[2023-12-08 00:38:41.033] [info] [streets_configuration.cpp:18] use_desired_phase_plan_update : true 
+[2023-12-08 00:38:41.033] [info] [streets_configuration.cpp:18] use_mmitss_mrp : false 
+[2023-12-08 00:38:41.033] [info] [streets_configuration.cpp:18] use_tsc_timestamp : false 
+[2023-12-08 00:38:41.033] [debug] [streets_service.cpp:125] Reading system config SIMULATION_MODE as : TRUE!
+[2023-12-08 00:38:41.033] [info] [streets_singleton.tpp:27] Initializing Singleton of type PN9fwha_stol3lib4time10CarmaClockE!
+[2023-12-08 00:38:41.033] [info] [streets_service.cpp:20] Initializing snmp_client streets service in simulation mode : true!
+[2023-12-08 00:38:41.033] [debug] [streets_service.cpp:125] Reading system config TIME_SYNC_TOPIC as : time_sync!
+[2023-12-08 00:38:41.033] [info] [streets_configuration.cpp:177] Log Level set to debug!
+[2023-12-08 00:38:41.033] [debug] [streets_configuration.cpp:59] Updating Configuration Map
+[2023-12-08 00:38:41.033] [debug] [configuration.cpp:62] Create config name : target_ip, value : 172.4.0.4, description : Target device IP address 
+[2023-12-08 00:38:41.033] [debug] [configuration.cpp:62] Create config name : target_port, value : 5050, description : Target device NTCIP port 
+[2023-12-08 00:38:41.033] [debug] [configuration.cpp:62] Create config name : community, value : administrator, description : Target community for establishing snmp communication 
+[2023-12-08 00:38:41.033] [debug] [configuration.cpp:62] Create config name : snmp_version, value : 0, description : snmp version being used. net-snmp version definition: SNMP_VERSION_1:0 SNMP_VERSION_2c:1 SNMP_VERSION_2u:2 SNMP_VERSION_3:3 
+[2023-12-08 00:38:41.033] [debug] [configuration.cpp:62] Create config name : snmp_timeout, value : 1500000000, description : Time in microseconds after which the the snmp request times out 
+[2023-12-08 00:38:41.033] [debug] [configuration.cpp:62] Create config name : udp_socket_ip, value : 172.4.0.3, description : IP for UDP socket listener to listen on. Should be localhost IP of container or VM running TSC Service. 
+[2023-12-08 00:38:41.033] [debug] [configuration.cpp:62] Create config name : udp_socket_port, value : 6053, description : Port for UDP Socket Listener to list on. TSC configuration sets which port/host NTCIP SPaT data will be broadcast to. 
+[2023-12-08 00:38:41.033] [debug] [configuration.cpp:62] Create config name : socket_timeout, value : 100, description : Timeout in seconds for UDP Socket Listener. If UDP Socket Listener does not receive messages for this amount of time it will shutdown and thrown an exception.  
+[2023-12-08 00:38:41.033] [debug] [configuration.cpp:62] Create config name : bootstrap_server, value : 172.4.0.3:9092, description : Kafka Broker Server Address. 
+[2023-12-08 00:38:41.033] [debug] [configuration.cpp:62] Create config name : spat_producer_topic, value : modified_spat, description : Kafka topic for streets internal SPAT messages 
+[2023-12-08 00:38:41.033] [debug] [configuration.cpp:62] Create config name : desired_phase_plan_consumer_topic, value : desired_phase_plan, description : Kafka topic for streets internal desired phase plan messages 
+[2023-12-08 00:38:41.033] [debug] [configuration.cpp:62] Create config name : desired_phase_plan_consumer_group, value : desired_phase_plan_group, description : Kafka consumer group for desired phase plan topic 
+[2023-12-08 00:38:41.033] [debug] [configuration.cpp:62] Create config name : use_tsc_timestamp, value : false, description : If false will use host machine unix time for SPaT timestamp, If true will use ntcip message provided timestamp for SPaT timestamp. 
+[2023-12-08 00:38:41.033] [debug] [configuration.cpp:62] Create config name : spat_projection_mode, value : 0, description : Enumeration configuring SPat projection. 1 == DPP projection. 2 == Fixed Timing projection. Any other value will result in no projection of future 
+[2023-12-08 00:38:41.033] [debug] [configuration.cpp:62] Create config name : tsc_config_producer_topic, value : tsc_config_state, description : Kafka topic for streets internal Traffic Signal Controller config message 
+[2023-12-08 00:38:41.033] [debug] [configuration.cpp:62] Create config name : control_tsc_state_sleep_duration, value : 100, description : Sleep Duration for the control tsc state thread , in milliseconds, which makes Hold and Omit calls to the TSC. This sleep duration is the time between checking new events in queue, once it has been emptied 
+[2023-12-08 00:38:41.033] [debug] [configuration.cpp:62] Create config name : enable_snmp_cmd_logging, value : true, description : Bool flag to enable snmp commands logging. 
+[2023-12-08 00:38:41.033] [debug] [configuration.cpp:62] Create config name : snmp_cmd_log_path, value : ../logs/, description : File path where snmp commands log file will be written(Note: set enable_snmp_cmd_logging true). 
+[2023-12-08 00:38:41.033] [debug] [configuration.cpp:62] Create config name : snmp_cmd_log_filename, value : snmpcmdLogs, description : Filename for snmp commands logging (Note: set enable_snmp_cmd_logging true). 
+[2023-12-08 00:38:41.033] [debug] [configuration.cpp:62] Create config name : use_mmitss_mrp, value : false, description : If false, it will use carma-streets internal signal optimization service and its generated desired phase plan to schedule traffic signal controller. If true, it will use external MRP (MMITSS Roadside Processor, link: https://github.com/mmitss/mmitss-az) and its generated phase control schedule to schedule the traffic sginal controller. 
+[2023-12-08 00:38:41.033] [debug] [configuration.cpp:62] Create config name : use_desired_phase_plan_update, value : true, description : If true will enable monitor_desired_phase_plan to update incoming spat with calculated future movement events, using desired phase plan information from signal optimization service. If false will use TSC Configuration to predict future phases and append those to the spat based on default phase sequence. 
+[2023-12-08 00:38:41.033] [info] [kafka_consumer_worker.cpp:22] kafka_consumer_worker init()... 
+[2023-12-08 00:38:41.034] [info] [kafka_consumer_worker.cpp:73] created consumer: rdkafka#consumer-1 
+[2023-12-08 00:38:41.034] [info] [kafka_consumer_worker.cpp:133] Consumer connect to bootstrap_server: 172.4.0.3:9092 , topic:  time_sync , partition:  0, group id: snmp_client 
+[2023-12-08 00:38:41.034] [debug] [streets_service.cpp:83] Initialized Kafka consumer!
+[2023-12-08 00:38:41.034] [debug] [streets_service.cpp:125] Reading system config LOGS_DIRECTORY as : /home/carma-streets/tsc_client_service/logs/!
+[2023-12-08 00:38:41.034] [debug] [snmp_client.cpp:10] Starting SNMP Client
+[2023-12-08 00:38:41.034] [debug] [snmp_client.cpp:11] Target device IP address: 172.4.0.4
+[2023-12-08 00:38:41.034] [debug] [snmp_client.cpp:12] Target device NTCIP port: 5050
+[2023-12-08 00:38:41.039] [info] [snmp_client.cpp:45] Established session with device at 172.4.0.4
+[2023-12-08 00:38:41.039] [debug] [tsc_service.cpp:135] SNMP Client initialized!
+[2023-12-08 00:38:41.039] [info] [kafka_producer_worker.cpp:8] kafka_producer_worker init()... 
+[2023-12-08 00:38:41.039] [info] [kafka_producer_worker.cpp:61] created producer:  rdkafka#producer-2 
+[2023-12-08 00:38:41.039] [info] [kafka_producer_worker.cpp:169] Producer connect to bootstrap_server: 172.4.0.3:9092, topic: tsc_config_state ,partition: 0 
+[2023-12-08 00:38:41.039] [debug] [streets_service.cpp:68] Initialized Kafka producer on topic tsc_config_state!
+[2023-12-08 00:38:41.039] [debug] [snmp_client.cpp:64] Attemping to GET value for: 1.3.6.1.4.1.1206.4.2.1.8.1.0
+[2023-12-08 00:38:41.039] [debug] [snmp_client.cpp:104] Created OID for input: 1.3.6.1.4.1.1206.4.2.1.8.1.0
+[2023-12-08 00:38:41.039] [debug] [snmp_client.cpp:113] STAT_SUCCESS, received a response
+[2023-12-08 00:38:41.039] [debug] [snmp_client.cpp:123] Integer value in object: 16
+[2023-12-08 00:38:41.039] [debug] [snmp_client.cpp:64] Attemping to GET value for: 1.3.6.1.4.1.1206.4.2.1.8.2.1.3.1
+[2023-12-08 00:38:41.039] [debug] [snmp_client.cpp:104] Created OID for input: 1.3.6.1.4.1.1206.4.2.1.8.2.1.3.1
+[2023-12-08 00:38:41.040] [debug] [snmp_client.cpp:113] STAT_SUCCESS, received a response
+[2023-12-08 00:38:41.040] [debug] [snmp_client.cpp:123] Integer value in object: 2
+[2023-12-08 00:38:41.040] [debug] [snmp_client.cpp:64] Attemping to GET value for: 1.3.6.1.4.1.1206.4.2.1.8.2.1.3.2
+[2023-12-08 00:38:41.040] [debug] [snmp_client.cpp:104] Created OID for input: 1.3.6.1.4.1.1206.4.2.1.8.2.1.3.2
+[2023-12-08 00:38:41.041] [debug] [snmp_client.cpp:113] STAT_SUCCESS, received a response
+[2023-12-08 00:38:41.041] [debug] [snmp_client.cpp:123] Integer value in object: 2
+[2023-12-08 00:38:41.041] [debug] [snmp_client.cpp:64] Attemping to GET value for: 1.3.6.1.4.1.1206.4.2.1.8.2.1.3.3
+[2023-12-08 00:38:41.041] [debug] [snmp_client.cpp:104] Created OID for input: 1.3.6.1.4.1.1206.4.2.1.8.2.1.3.3
+[2023-12-08 00:38:41.042] [debug] [snmp_client.cpp:113] STAT_SUCCESS, received a response
+[2023-12-08 00:38:41.043] [debug] [snmp_client.cpp:123] Integer value in object: 2
+[2023-12-08 00:38:41.043] [debug] [snmp_client.cpp:64] Attemping to GET value for: 1.3.6.1.4.1.1206.4.2.1.8.2.1.3.4
+[2023-12-08 00:38:41.043] [debug] [snmp_client.cpp:104] Created OID for input: 1.3.6.1.4.1.1206.4.2.1.8.2.1.3.4
+[2023-12-08 00:38:41.044] [debug] [snmp_client.cpp:113] STAT_SUCCESS, received a response
+[2023-12-08 00:38:41.044] [debug] [snmp_client.cpp:123] Integer value in object: 2
+[2023-12-08 00:38:41.044] [debug] [snmp_client.cpp:64] Attemping to GET value for: 1.3.6.1.4.1.1206.4.2.1.8.2.1.3.5
+[2023-12-08 00:38:41.044] [debug] [snmp_client.cpp:104] Created OID for input: 1.3.6.1.4.1.1206.4.2.1.8.2.1.3.5
+[2023-12-08 00:38:41.045] [debug] [snmp_client.cpp:113] STAT_SUCCESS, received a response
+[2023-12-08 00:38:41.045] [debug] [snmp_client.cpp:123] Integer value in object: 2
+[2023-12-08 00:38:41.045] [debug] [snmp_client.cpp:64] Attemping to GET value for: 1.3.6.1.4.1.1206.4.2.1.8.2.1.3.6
+[2023-12-08 00:38:41.045] [debug] [snmp_client.cpp:104] Created OID for input: 1.3.6.1.4.1.1206.4.2.1.8.2.1.3.6
+[2023-12-08 00:38:41.046] [debug] [snmp_client.cpp:113] STAT_SUCCESS, received a response
+[2023-12-08 00:38:41.046] [debug] [snmp_client.cpp:123] Integer value in object: 2
+[2023-12-08 00:38:41.046] [debug] [snmp_client.cpp:64] Attemping to GET value for: 1.3.6.1.4.1.1206.4.2.1.8.2.1.3.7
+[2023-12-08 00:38:41.046] [debug] [snmp_client.cpp:104] Created OID for input: 1.3.6.1.4.1.1206.4.2.1.8.2.1.3.7
+[2023-12-08 00:38:41.047] [debug] [snmp_client.cpp:113] STAT_SUCCESS, received a response
+[2023-12-08 00:38:41.047] [debug] [snmp_client.cpp:123] Integer value in object: 2
+[2023-12-08 00:38:41.047] [debug] [snmp_client.cpp:64] Attemping to GET value for: 1.3.6.1.4.1.1206.4.2.1.8.2.1.3.8
+[2023-12-08 00:38:41.047] [debug] [snmp_client.cpp:104] Created OID for input: 1.3.6.1.4.1.1206.4.2.1.8.2.1.3.8
+[2023-12-08 00:38:41.048] [debug] [snmp_client.cpp:113] STAT_SUCCESS, received a response
+[2023-12-08 00:38:41.048] [debug] [snmp_client.cpp:123] Integer value in object: 2
+[2023-12-08 00:38:41.048] [debug] [snmp_client.cpp:64] Attemping to GET value for: 1.3.6.1.4.1.1206.4.2.1.8.2.1.3.9
+[2023-12-08 00:38:41.048] [debug] [snmp_client.cpp:104] Created OID for input: 1.3.6.1.4.1.1206.4.2.1.8.2.1.3.9
+[2023-12-08 00:38:41.049] [debug] [snmp_client.cpp:113] STAT_SUCCESS, received a response
+[2023-12-08 00:38:41.049] [debug] [snmp_client.cpp:123] Integer value in object: 4
+[2023-12-08 00:38:41.049] [debug] [snmp_client.cpp:64] Attemping to GET value for: 1.3.6.1.4.1.1206.4.2.1.8.2.1.3.10
+[2023-12-08 00:38:41.049] [debug] [snmp_client.cpp:104] Created OID for input: 1.3.6.1.4.1.1206.4.2.1.8.2.1.3.10
+[2023-12-08 00:38:41.050] [debug] [snmp_client.cpp:113] STAT_SUCCESS, received a response
+[2023-12-08 00:38:41.050] [debug] [snmp_client.cpp:123] Integer value in object: 4
+[2023-12-08 00:38:41.050] [debug] [snmp_client.cpp:64] Attemping to GET value for: 1.3.6.1.4.1.1206.4.2.1.8.2.1.3.11
+[2023-12-08 00:38:41.050] [debug] [snmp_client.cpp:104] Created OID for input: 1.3.6.1.4.1.1206.4.2.1.8.2.1.3.11
+[2023-12-08 00:38:41.051] [debug] [snmp_client.cpp:113] STAT_SUCCESS, received a response
+[2023-12-08 00:38:41.051] [debug] [snmp_client.cpp:123] Integer value in object: 4
+[2023-12-08 00:38:41.051] [debug] [snmp_client.cpp:64] Attemping to GET value for: 1.3.6.1.4.1.1206.4.2.1.8.2.1.3.12
+[2023-12-08 00:38:41.051] [debug] [snmp_client.cpp:104] Created OID for input: 1.3.6.1.4.1.1206.4.2.1.8.2.1.3.12
+[2023-12-08 00:38:41.052] [debug] [snmp_client.cpp:113] STAT_SUCCESS, received a response
+[2023-12-08 00:38:41.052] [debug] [snmp_client.cpp:123] Integer value in object: 4
+[2023-12-08 00:38:41.052] [debug] [snmp_client.cpp:64] Attemping to GET value for: 1.3.6.1.4.1.1206.4.2.1.8.2.1.3.13
+[2023-12-08 00:38:41.052] [debug] [snmp_client.cpp:104] Created OID for input: 1.3.6.1.4.1.1206.4.2.1.8.2.1.3.13
+[2023-12-08 00:38:41.054] [debug] [snmp_client.cpp:113] STAT_SUCCESS, received a response
+[2023-12-08 00:38:41.054] [debug] [snmp_client.cpp:123] Integer value in object: 4
+[2023-12-08 00:38:41.054] [debug] [snmp_client.cpp:64] Attemping to GET value for: 1.3.6.1.4.1.1206.4.2.1.8.2.1.3.14
+[2023-12-08 00:38:41.054] [debug] [snmp_client.cpp:104] Created OID for input: 1.3.6.1.4.1.1206.4.2.1.8.2.1.3.14
+[2023-12-08 00:38:41.054] [debug] [snmp_client.cpp:113] STAT_SUCCESS, received a response
+[2023-12-08 00:38:41.054] [debug] [snmp_client.cpp:123] Integer value in object: 4
+[2023-12-08 00:38:41.054] [debug] [snmp_client.cpp:64] Attemping to GET value for: 1.3.6.1.4.1.1206.4.2.1.8.2.1.3.15
+[2023-12-08 00:38:41.054] [debug] [snmp_client.cpp:104] Created OID for input: 1.3.6.1.4.1.1206.4.2.1.8.2.1.3.15
+[2023-12-08 00:38:41.055] [debug] [snmp_client.cpp:113] STAT_SUCCESS, received a response
+[2023-12-08 00:38:41.055] [debug] [snmp_client.cpp:123] Integer value in object: 4
+[2023-12-08 00:38:41.055] [debug] [snmp_client.cpp:64] Attemping to GET value for: 1.3.6.1.4.1.1206.4.2.1.8.2.1.3.16
+[2023-12-08 00:38:41.055] [debug] [snmp_client.cpp:104] Created OID for input: 1.3.6.1.4.1.1206.4.2.1.8.2.1.3.16
+[2023-12-08 00:38:41.056] [debug] [snmp_client.cpp:113] STAT_SUCCESS, received a response
+[2023-12-08 00:38:41.056] [debug] [snmp_client.cpp:123] Integer value in object: 4
+[2023-12-08 00:38:41.056] [debug] [monitor_tsc_state.cpp:442] Found no ped phases
+[2023-12-08 00:38:41.056] [debug] [monitor_tsc_state.cpp:445] Number of vehicle phase channels found: 8
+[2023-12-08 00:38:41.056] [debug] [monitor_tsc_state.cpp:446] Number of ped phase channels found: 0
+[2023-12-08 00:38:41.056] [debug] [snmp_client.cpp:64] Attemping to GET value for: 1.3.6.1.4.1.1206.4.2.1.8.2.1.2.1
+[2023-12-08 00:38:41.056] [debug] [snmp_client.cpp:104] Created OID for input: 1.3.6.1.4.1.1206.4.2.1.8.2.1.2.1
+[2023-12-08 00:38:41.057] [debug] [snmp_client.cpp:113] STAT_SUCCESS, received a response
+[2023-12-08 00:38:41.057] [debug] [snmp_client.cpp:123] Integer value in object: 1
+[2023-12-08 00:38:41.057] [debug] [snmp_client.cpp:64] Attemping to GET value for: 1.3.6.1.4.1.1206.4.2.1.8.2.1.2.2
+[2023-12-08 00:38:41.057] [debug] [snmp_client.cpp:104] Created OID for input: 1.3.6.1.4.1.1206.4.2.1.8.2.1.2.2
+[2023-12-08 00:38:41.058] [debug] [snmp_client.cpp:113] STAT_SUCCESS, received a response
+[2023-12-08 00:38:41.058] [debug] [snmp_client.cpp:123] Integer value in object: 2
+[2023-12-08 00:38:41.058] [debug] [snmp_client.cpp:64] Attemping to GET value for: 1.3.6.1.4.1.1206.4.2.1.8.2.1.2.3
+[2023-12-08 00:38:41.058] [debug] [snmp_client.cpp:104] Created OID for input: 1.3.6.1.4.1.1206.4.2.1.8.2.1.2.3
+[2023-12-08 00:38:41.060] [debug] [snmp_client.cpp:113] STAT_SUCCESS, received a response
+[2023-12-08 00:38:41.060] [debug] [snmp_client.cpp:123] Integer value in object: 3
+[2023-12-08 00:38:41.060] [debug] [snmp_client.cpp:64] Attemping to GET value for: 1.3.6.1.4.1.1206.4.2.1.8.2.1.2.4
+[2023-12-08 00:38:41.060] [debug] [snmp_client.cpp:104] Created OID for input: 1.3.6.1.4.1.1206.4.2.1.8.2.1.2.4
+[2023-12-08 00:38:41.061] [debug] [snmp_client.cpp:113] STAT_SUCCESS, received a response
+[2023-12-08 00:38:41.061] [debug] [snmp_client.cpp:123] Integer value in object: 4
+[2023-12-08 00:38:41.061] [debug] [snmp_client.cpp:64] Attemping to GET value for: 1.3.6.1.4.1.1206.4.2.1.8.2.1.2.5
+[2023-12-08 00:38:41.061] [debug] [snmp_client.cpp:104] Created OID for input: 1.3.6.1.4.1.1206.4.2.1.8.2.1.2.5
+[2023-12-08 00:38:41.062] [debug] [snmp_client.cpp:113] STAT_SUCCESS, received a response
+[2023-12-08 00:38:41.062] [debug] [snmp_client.cpp:123] Integer value in object: 5
+[2023-12-08 00:38:41.062] [debug] [snmp_client.cpp:64] Attemping to GET value for: 1.3.6.1.4.1.1206.4.2.1.8.2.1.2.6
+[2023-12-08 00:38:41.062] [debug] [snmp_client.cpp:104] Created OID for input: 1.3.6.1.4.1.1206.4.2.1.8.2.1.2.6
+[2023-12-08 00:38:41.063] [debug] [snmp_client.cpp:113] STAT_SUCCESS, received a response
+[2023-12-08 00:38:41.063] [debug] [snmp_client.cpp:123] Integer value in object: 6
+[2023-12-08 00:38:41.063] [debug] [snmp_client.cpp:64] Attemping to GET value for: 1.3.6.1.4.1.1206.4.2.1.8.2.1.2.7
+[2023-12-08 00:38:41.063] [debug] [snmp_client.cpp:104] Created OID for input: 1.3.6.1.4.1.1206.4.2.1.8.2.1.2.7
+[2023-12-08 00:38:41.064] [debug] [snmp_client.cpp:113] STAT_SUCCESS, received a response
+[2023-12-08 00:38:41.064] [debug] [snmp_client.cpp:123] Integer value in object: 7
+[2023-12-08 00:38:41.064] [debug] [snmp_client.cpp:64] Attemping to GET value for: 1.3.6.1.4.1.1206.4.2.1.8.2.1.2.8
+[2023-12-08 00:38:41.064] [debug] [snmp_client.cpp:104] Created OID for input: 1.3.6.1.4.1.1206.4.2.1.8.2.1.2.8
+[2023-12-08 00:38:41.065] [debug] [snmp_client.cpp:113] STAT_SUCCESS, received a response
+[2023-12-08 00:38:41.065] [debug] [snmp_client.cpp:123] Integer value in object: 8
+[2023-12-08 00:38:41.065] [debug] [snmp_client.cpp:64] Attemping to GET value for: 1.3.6.1.4.1.1206.4.2.1.7.1.0
+[2023-12-08 00:38:41.065] [debug] [snmp_client.cpp:104] Created OID for input: 1.3.6.1.4.1.1206.4.2.1.7.1.0
+[2023-12-08 00:38:41.066] [debug] [snmp_client.cpp:113] STAT_SUCCESS, received a response
+[2023-12-08 00:38:41.066] [debug] [snmp_client.cpp:123] Integer value in object: 4
+[2023-12-08 00:38:41.066] [debug] [snmp_client.cpp:64] Attemping to GET value for: 1.3.6.1.4.1.1206.4.2.1.7.3.1.3.1.1
+[2023-12-08 00:38:41.066] [debug] [snmp_client.cpp:104] Created OID for input: 1.3.6.1.4.1.1206.4.2.1.7.3.1.3.1.1
+[2023-12-08 00:38:41.067] [debug] [snmp_client.cpp:113] STAT_SUCCESS, received a response
+[2023-12-08 00:38:41.067] [debug] [snmp_client.cpp:64] Attemping to GET value for: 1.3.6.1.4.1.1206.4.2.1.7.3.1.3.1.2
+[2023-12-08 00:38:41.067] [debug] [snmp_client.cpp:104] Created OID for input: 1.3.6.1.4.1.1206.4.2.1.7.3.1.3.1.2
+[2023-12-08 00:38:41.068] [debug] [snmp_client.cpp:113] STAT_SUCCESS, received a response
+[2023-12-08 00:38:41.068] [debug] [snmp_client.cpp:64] Attemping to GET value for: 1.3.6.1.4.1.1206.4.2.1.7.3.1.3.1.3
+[2023-12-08 00:38:41.068] [debug] [snmp_client.cpp:104] Created OID for input: 1.3.6.1.4.1.1206.4.2.1.7.3.1.3.1.3
+[2023-12-08 00:38:41.069] [debug] [snmp_client.cpp:113] STAT_SUCCESS, received a response
+[2023-12-08 00:38:41.069] [debug] [monitor_tsc_state.cpp:482] No phases found in sequence 1 for ring 3
+[2023-12-08 00:38:41.069] [debug] [snmp_client.cpp:64] Attemping to GET value for: 1.3.6.1.4.1.1206.4.2.1.7.3.1.3.1.4
+[2023-12-08 00:38:41.069] [debug] [snmp_client.cpp:104] Created OID for input: 1.3.6.1.4.1.1206.4.2.1.7.3.1.3.1.4
+[2023-12-08 00:38:41.070] [debug] [snmp_client.cpp:113] STAT_SUCCESS, received a response
+[2023-12-08 00:38:41.070] [debug] [monitor_tsc_state.cpp:482] No phases found in sequence 1 for ring 4
+[2023-12-08 00:38:41.070] [debug] [snmp_client.cpp:64] Attemping to GET value for: 1.3.6.1.4.1.1206.4.2.1.1.2.1.6.1
+[2023-12-08 00:38:41.070] [debug] [snmp_client.cpp:104] Created OID for input: 1.3.6.1.4.1.1206.4.2.1.1.2.1.6.1
+[2023-12-08 00:38:41.071] [debug] [snmp_client.cpp:113] STAT_SUCCESS, received a response
+[2023-12-08 00:38:41.071] [debug] [snmp_client.cpp:123] Integer value in object: 10
+[2023-12-08 00:38:41.071] [debug] [snmp_client.cpp:64] Attemping to GET value for: 1.3.6.1.4.1.1206.4.2.1.1.2.1.4.1
+[2023-12-08 00:38:41.071] [debug] [snmp_client.cpp:104] Created OID for input: 1.3.6.1.4.1.1206.4.2.1.1.2.1.4.1
+[2023-12-08 00:38:41.072] [debug] [snmp_client.cpp:113] STAT_SUCCESS, received a response
+[2023-12-08 00:38:41.072] [debug] [snmp_client.cpp:123] Integer value in object: 5
+[2023-12-08 00:38:41.072] [debug] [snmp_client.cpp:64] Attemping to GET value for: 1.3.6.1.4.1.1206.4.2.1.1.2.1.8.1
+[2023-12-08 00:38:41.072] [debug] [snmp_client.cpp:104] Created OID for input: 1.3.6.1.4.1.1206.4.2.1.1.2.1.8.1
+[2023-12-08 00:38:41.073] [debug] [snmp_client.cpp:113] STAT_SUCCESS, received a response
+[2023-12-08 00:38:41.073] [debug] [snmp_client.cpp:123] Integer value in object: 30
+[2023-12-08 00:38:41.073] [debug] [snmp_client.cpp:64] Attemping to GET value for: 1.3.6.1.4.1.1206.4.2.1.1.2.1.9.1
+[2023-12-08 00:38:41.073] [debug] [snmp_client.cpp:104] Created OID for input: 1.3.6.1.4.1.1206.4.2.1.1.2.1.9.1
+[2023-12-08 00:38:41.074] [debug] [snmp_client.cpp:113] STAT_SUCCESS, received a response
+[2023-12-08 00:38:41.074] [debug] [snmp_client.cpp:123] Integer value in object: 10
+[2023-12-08 00:38:41.074] [debug] [snmp_client.cpp:64] Attemping to GET value for: 1.3.6.1.4.1.1206.4.2.1.1.2.1.23.1
+[2023-12-08 00:38:41.074] [debug] [snmp_client.cpp:104] Created OID for input: 1.3.6.1.4.1.1206.4.2.1.1.2.1.23.1
+[2023-12-08 00:38:41.076] [debug] [snmp_client.cpp:113] STAT_SUCCESS, received a response
+[2023-12-08 00:38:41.076] [warning] [monitor_tsc_state.cpp:658] No concurrent signal groups found for phase 1
+[2023-12-08 00:38:41.076] [debug] [snmp_client.cpp:64] Attemping to GET value for: 1.3.6.1.4.1.1206.4.2.1.1.2.1.6.2
+[2023-12-08 00:38:41.076] [debug] [snmp_client.cpp:104] Created OID for input: 1.3.6.1.4.1.1206.4.2.1.1.2.1.6.2
+[2023-12-08 00:38:41.077] [debug] [snmp_client.cpp:113] STAT_SUCCESS, received a response
+[2023-12-08 00:38:41.077] [debug] [snmp_client.cpp:123] Integer value in object: 10
+[2023-12-08 00:38:41.077] [debug] [snmp_client.cpp:64] Attemping to GET value for: 1.3.6.1.4.1.1206.4.2.1.1.2.1.4.2
+[2023-12-08 00:38:41.077] [debug] [snmp_client.cpp:104] Created OID for input: 1.3.6.1.4.1.1206.4.2.1.1.2.1.4.2
+[2023-12-08 00:38:41.078] [debug] [snmp_client.cpp:113] STAT_SUCCESS, received a response
+[2023-12-08 00:38:41.078] [debug] [snmp_client.cpp:123] Integer value in object: 5
+[2023-12-08 00:38:41.078] [debug] [snmp_client.cpp:64] Attemping to GET value for: 1.3.6.1.4.1.1206.4.2.1.1.2.1.8.2
+[2023-12-08 00:38:41.078] [debug] [snmp_client.cpp:104] Created OID for input: 1.3.6.1.4.1.1206.4.2.1.1.2.1.8.2
+[2023-12-08 00:38:41.079] [debug] [snmp_client.cpp:113] STAT_SUCCESS, received a response
+[2023-12-08 00:38:41.079] [debug] [snmp_client.cpp:123] Integer value in object: 30
+[2023-12-08 00:38:41.079] [debug] [snmp_client.cpp:64] Attemping to GET value for: 1.3.6.1.4.1.1206.4.2.1.1.2.1.9.2
+[2023-12-08 00:38:41.079] [debug] [snmp_client.cpp:104] Created OID for input: 1.3.6.1.4.1.1206.4.2.1.1.2.1.9.2
+[2023-12-08 00:38:41.080] [debug] [snmp_client.cpp:113] STAT_SUCCESS, received a response
+[2023-12-08 00:38:41.080] [debug] [snmp_client.cpp:123] Integer value in object: 10
+[2023-12-08 00:38:41.080] [debug] [snmp_client.cpp:64] Attemping to GET value for: 1.3.6.1.4.1.1206.4.2.1.1.2.1.23.2
+[2023-12-08 00:38:41.080] [debug] [snmp_client.cpp:104] Created OID for input: 1.3.6.1.4.1.1206.4.2.1.1.2.1.23.2
+[2023-12-08 00:38:41.081] [debug] [snmp_client.cpp:113] STAT_SUCCESS, received a response
+[2023-12-08 00:38:41.081] [debug] [snmp_client.cpp:64] Attemping to GET value for: 1.3.6.1.4.1.1206.4.2.1.1.2.1.6.3
+[2023-12-08 00:38:41.081] [debug] [snmp_client.cpp:104] Created OID for input: 1.3.6.1.4.1.1206.4.2.1.1.2.1.6.3
+[2023-12-08 00:38:41.082] [debug] [snmp_client.cpp:113] STAT_SUCCESS, received a response
+[2023-12-08 00:38:41.082] [debug] [snmp_client.cpp:123] Integer value in object: 10
+[2023-12-08 00:38:41.082] [debug] [snmp_client.cpp:64] Attemping to GET value for: 1.3.6.1.4.1.1206.4.2.1.1.2.1.4.3
+[2023-12-08 00:38:41.082] [debug] [snmp_client.cpp:104] Created OID for input: 1.3.6.1.4.1.1206.4.2.1.1.2.1.4.3
+[2023-12-08 00:38:41.083] [debug] [snmp_client.cpp:113] STAT_SUCCESS, received a response
+[2023-12-08 00:38:41.083] [debug] [snmp_client.cpp:123] Integer value in object: 5
+[2023-12-08 00:38:41.083] [debug] [snmp_client.cpp:64] Attemping to GET value for: 1.3.6.1.4.1.1206.4.2.1.1.2.1.8.3
+[2023-12-08 00:38:41.083] [debug] [snmp_client.cpp:104] Created OID for input: 1.3.6.1.4.1.1206.4.2.1.1.2.1.8.3
+[2023-12-08 00:38:41.084] [debug] [snmp_client.cpp:113] STAT_SUCCESS, received a response
+[2023-12-08 00:38:41.084] [debug] [snmp_client.cpp:123] Integer value in object: 30
+[2023-12-08 00:38:41.084] [debug] [snmp_client.cpp:64] Attemping to GET value for: 1.3.6.1.4.1.1206.4.2.1.1.2.1.9.3
+[2023-12-08 00:38:41.084] [debug] [snmp_client.cpp:104] Created OID for input: 1.3.6.1.4.1.1206.4.2.1.1.2.1.9.3
+[2023-12-08 00:38:41.085] [debug] [snmp_client.cpp:113] STAT_SUCCESS, received a response
+[2023-12-08 00:38:41.085] [debug] [snmp_client.cpp:123] Integer value in object: 10
+[2023-12-08 00:38:41.085] [debug] [snmp_client.cpp:64] Attemping to GET value for: 1.3.6.1.4.1.1206.4.2.1.1.2.1.23.3
+[2023-12-08 00:38:41.085] [debug] [snmp_client.cpp:104] Created OID for input: 1.3.6.1.4.1.1206.4.2.1.1.2.1.23.3
+[2023-12-08 00:38:41.086] [debug] [snmp_client.cpp:113] STAT_SUCCESS, received a response
+[2023-12-08 00:38:41.086] [warning] [monitor_tsc_state.cpp:658] No concurrent signal groups found for phase 3
+[2023-12-08 00:38:41.086] [debug] [snmp_client.cpp:64] Attemping to GET value for: 1.3.6.1.4.1.1206.4.2.1.1.2.1.6.4
+[2023-12-08 00:38:41.086] [debug] [snmp_client.cpp:104] Created OID for input: 1.3.6.1.4.1.1206.4.2.1.1.2.1.6.4
+[2023-12-08 00:38:41.087] [debug] [snmp_client.cpp:113] STAT_SUCCESS, received a response
+[2023-12-08 00:38:41.087] [debug] [snmp_client.cpp:123] Integer value in object: 10
+[2023-12-08 00:38:41.087] [debug] [snmp_client.cpp:64] Attemping to GET value for: 1.3.6.1.4.1.1206.4.2.1.1.2.1.4.4
+[2023-12-08 00:38:41.087] [debug] [snmp_client.cpp:104] Created OID for input: 1.3.6.1.4.1.1206.4.2.1.1.2.1.4.4
+[2023-12-08 00:38:41.088] [debug] [snmp_client.cpp:113] STAT_SUCCESS, received a response
+[2023-12-08 00:38:41.088] [debug] [snmp_client.cpp:123] Integer value in object: 5
+[2023-12-08 00:38:41.088] [debug] [snmp_client.cpp:64] Attemping to GET value for: 1.3.6.1.4.1.1206.4.2.1.1.2.1.8.4
+[2023-12-08 00:38:41.088] [debug] [snmp_client.cpp:104] Created OID for input: 1.3.6.1.4.1.1206.4.2.1.1.2.1.8.4
+[2023-12-08 00:38:41.089] [debug] [snmp_client.cpp:113] STAT_SUCCESS, received a response
+[2023-12-08 00:38:41.089] [debug] [snmp_client.cpp:123] Integer value in object: 30
+[2023-12-08 00:38:41.089] [debug] [snmp_client.cpp:64] Attemping to GET value for: 1.3.6.1.4.1.1206.4.2.1.1.2.1.9.4
+[2023-12-08 00:38:41.089] [debug] [snmp_client.cpp:104] Created OID for input: 1.3.6.1.4.1.1206.4.2.1.1.2.1.9.4
+[2023-12-08 00:38:41.090] [debug] [snmp_client.cpp:113] STAT_SUCCESS, received a response
+[2023-12-08 00:38:41.090] [debug] [snmp_client.cpp:123] Integer value in object: 10
+[2023-12-08 00:38:41.090] [debug] [snmp_client.cpp:64] Attemping to GET value for: 1.3.6.1.4.1.1206.4.2.1.1.2.1.23.4
+[2023-12-08 00:38:41.090] [debug] [snmp_client.cpp:104] Created OID for input: 1.3.6.1.4.1.1206.4.2.1.1.2.1.23.4
+[2023-12-08 00:38:41.091] [debug] [snmp_client.cpp:113] STAT_SUCCESS, received a response
+[2023-12-08 00:38:41.091] [debug] [snmp_client.cpp:64] Attemping to GET value for: 1.3.6.1.4.1.1206.4.2.1.1.2.1.6.5
+[2023-12-08 00:38:41.091] [debug] [snmp_client.cpp:104] Created OID for input: 1.3.6.1.4.1.1206.4.2.1.1.2.1.6.5
+[2023-12-08 00:38:41.092] [debug] [snmp_client.cpp:113] STAT_SUCCESS, received a response
+[2023-12-08 00:38:41.092] [debug] [snmp_client.cpp:123] Integer value in object: 10
+[2023-12-08 00:38:41.092] [debug] [snmp_client.cpp:64] Attemping to GET value for: 1.3.6.1.4.1.1206.4.2.1.1.2.1.4.5
+[2023-12-08 00:38:41.092] [debug] [snmp_client.cpp:104] Created OID for input: 1.3.6.1.4.1.1206.4.2.1.1.2.1.4.5
+[2023-12-08 00:38:41.094] [debug] [snmp_client.cpp:113] STAT_SUCCESS, received a response
+[2023-12-08 00:38:41.094] [debug] [snmp_client.cpp:123] Integer value in object: 5
+[2023-12-08 00:38:41.094] [debug] [snmp_client.cpp:64] Attemping to GET value for: 1.3.6.1.4.1.1206.4.2.1.1.2.1.8.5
+[2023-12-08 00:38:41.094] [debug] [snmp_client.cpp:104] Created OID for input: 1.3.6.1.4.1.1206.4.2.1.1.2.1.8.5
+[2023-12-08 00:38:41.095] [debug] [snmp_client.cpp:113] STAT_SUCCESS, received a response
+[2023-12-08 00:38:41.095] [debug] [snmp_client.cpp:123] Integer value in object: 30
+[2023-12-08 00:38:41.095] [debug] [snmp_client.cpp:64] Attemping to GET value for: 1.3.6.1.4.1.1206.4.2.1.1.2.1.9.5
+[2023-12-08 00:38:41.095] [debug] [snmp_client.cpp:104] Created OID for input: 1.3.6.1.4.1.1206.4.2.1.1.2.1.9.5
+[2023-12-08 00:38:41.096] [debug] [snmp_client.cpp:113] STAT_SUCCESS, received a response
+[2023-12-08 00:38:41.096] [debug] [snmp_client.cpp:123] Integer value in object: 10
+[2023-12-08 00:38:41.096] [debug] [snmp_client.cpp:64] Attemping to GET value for: 1.3.6.1.4.1.1206.4.2.1.1.2.1.23.5
+[2023-12-08 00:38:41.096] [debug] [snmp_client.cpp:104] Created OID for input: 1.3.6.1.4.1.1206.4.2.1.1.2.1.23.5
+[2023-12-08 00:38:41.097] [debug] [snmp_client.cpp:113] STAT_SUCCESS, received a response
+[2023-12-08 00:38:41.097] [warning] [monitor_tsc_state.cpp:658] No concurrent signal groups found for phase 5
+[2023-12-08 00:38:41.097] [debug] [snmp_client.cpp:64] Attemping to GET value for: 1.3.6.1.4.1.1206.4.2.1.1.2.1.6.6
+[2023-12-08 00:38:41.097] [debug] [snmp_client.cpp:104] Created OID for input: 1.3.6.1.4.1.1206.4.2.1.1.2.1.6.6
+[2023-12-08 00:38:41.098] [debug] [snmp_client.cpp:113] STAT_SUCCESS, received a response
+[2023-12-08 00:38:41.098] [debug] [snmp_client.cpp:123] Integer value in object: 10
+[2023-12-08 00:38:41.098] [debug] [snmp_client.cpp:64] Attemping to GET value for: 1.3.6.1.4.1.1206.4.2.1.1.2.1.4.6
+[2023-12-08 00:38:41.098] [debug] [snmp_client.cpp:104] Created OID for input: 1.3.6.1.4.1.1206.4.2.1.1.2.1.4.6
+[2023-12-08 00:38:41.099] [debug] [snmp_client.cpp:113] STAT_SUCCESS, received a response
+[2023-12-08 00:38:41.099] [debug] [snmp_client.cpp:123] Integer value in object: 5
+[2023-12-08 00:38:41.099] [debug] [snmp_client.cpp:64] Attemping to GET value for: 1.3.6.1.4.1.1206.4.2.1.1.2.1.8.6
+[2023-12-08 00:38:41.099] [debug] [snmp_client.cpp:104] Created OID for input: 1.3.6.1.4.1.1206.4.2.1.1.2.1.8.6
+[2023-12-08 00:38:41.100] [debug] [snmp_client.cpp:113] STAT_SUCCESS, received a response
+[2023-12-08 00:38:41.100] [debug] [snmp_client.cpp:123] Integer value in object: 30
+[2023-12-08 00:38:41.100] [debug] [snmp_client.cpp:64] Attemping to GET value for: 1.3.6.1.4.1.1206.4.2.1.1.2.1.9.6
+[2023-12-08 00:38:41.100] [debug] [snmp_client.cpp:104] Created OID for input: 1.3.6.1.4.1.1206.4.2.1.1.2.1.9.6
+[2023-12-08 00:38:41.101] [debug] [snmp_client.cpp:113] STAT_SUCCESS, received a response
+[2023-12-08 00:38:41.101] [debug] [snmp_client.cpp:123] Integer value in object: 10
+[2023-12-08 00:38:41.101] [debug] [snmp_client.cpp:64] Attemping to GET value for: 1.3.6.1.4.1.1206.4.2.1.1.2.1.23.6
+[2023-12-08 00:38:41.101] [debug] [snmp_client.cpp:104] Created OID for input: 1.3.6.1.4.1.1206.4.2.1.1.2.1.23.6
+[2023-12-08 00:38:41.102] [debug] [snmp_client.cpp:113] STAT_SUCCESS, received a response
+[2023-12-08 00:38:41.102] [debug] [snmp_client.cpp:64] Attemping to GET value for: 1.3.6.1.4.1.1206.4.2.1.1.2.1.6.7
+[2023-12-08 00:38:41.102] [debug] [snmp_client.cpp:104] Created OID for input: 1.3.6.1.4.1.1206.4.2.1.1.2.1.6.7
+[2023-12-08 00:38:41.103] [debug] [snmp_client.cpp:113] STAT_SUCCESS, received a response
+[2023-12-08 00:38:41.103] [debug] [snmp_client.cpp:123] Integer value in object: 10
+[2023-12-08 00:38:41.103] [debug] [snmp_client.cpp:64] Attemping to GET value for: 1.3.6.1.4.1.1206.4.2.1.1.2.1.4.7
+[2023-12-08 00:38:41.103] [debug] [snmp_client.cpp:104] Created OID for input: 1.3.6.1.4.1.1206.4.2.1.1.2.1.4.7
+[2023-12-08 00:38:41.104] [debug] [snmp_client.cpp:113] STAT_SUCCESS, received a response
+[2023-12-08 00:38:41.104] [debug] [snmp_client.cpp:123] Integer value in object: 5
+[2023-12-08 00:38:41.104] [debug] [snmp_client.cpp:64] Attemping to GET value for: 1.3.6.1.4.1.1206.4.2.1.1.2.1.8.7
+[2023-12-08 00:38:41.104] [debug] [snmp_client.cpp:104] Created OID for input: 1.3.6.1.4.1.1206.4.2.1.1.2.1.8.7
+[2023-12-08 00:38:41.105] [debug] [snmp_client.cpp:113] STAT_SUCCESS, received a response
+[2023-12-08 00:38:41.105] [debug] [snmp_client.cpp:123] Integer value in object: 30
+[2023-12-08 00:38:41.105] [debug] [snmp_client.cpp:64] Attemping to GET value for: 1.3.6.1.4.1.1206.4.2.1.1.2.1.9.7
+[2023-12-08 00:38:41.105] [debug] [snmp_client.cpp:104] Created OID for input: 1.3.6.1.4.1.1206.4.2.1.1.2.1.9.7
+[2023-12-08 00:38:41.106] [debug] [snmp_client.cpp:113] STAT_SUCCESS, received a response
+[2023-12-08 00:38:41.106] [debug] [snmp_client.cpp:123] Integer value in object: 10
+[2023-12-08 00:38:41.106] [debug] [snmp_client.cpp:64] Attemping to GET value for: 1.3.6.1.4.1.1206.4.2.1.1.2.1.23.7
+[2023-12-08 00:38:41.106] [debug] [snmp_client.cpp:104] Created OID for input: 1.3.6.1.4.1.1206.4.2.1.1.2.1.23.7
+[2023-12-08 00:38:41.107] [debug] [snmp_client.cpp:113] STAT_SUCCESS, received a response
+[2023-12-08 00:38:41.107] [warning] [monitor_tsc_state.cpp:658] No concurrent signal groups found for phase 7
+[2023-12-08 00:38:41.107] [debug] [snmp_client.cpp:64] Attemping to GET value for: 1.3.6.1.4.1.1206.4.2.1.1.2.1.6.8
+[2023-12-08 00:38:41.107] [debug] [snmp_client.cpp:104] Created OID for input: 1.3.6.1.4.1.1206.4.2.1.1.2.1.6.8
+[2023-12-08 00:38:41.108] [debug] [snmp_client.cpp:113] STAT_SUCCESS, received a response
+[2023-12-08 00:38:41.108] [debug] [snmp_client.cpp:123] Integer value in object: 10
+[2023-12-08 00:38:41.108] [debug] [snmp_client.cpp:64] Attemping to GET value for: 1.3.6.1.4.1.1206.4.2.1.1.2.1.4.8
+[2023-12-08 00:38:41.108] [debug] [snmp_client.cpp:104] Created OID for input: 1.3.6.1.4.1.1206.4.2.1.1.2.1.4.8
+[2023-12-08 00:38:41.109] [debug] [snmp_client.cpp:113] STAT_SUCCESS, received a response
+[2023-12-08 00:38:41.109] [debug] [snmp_client.cpp:123] Integer value in object: 5
+[2023-12-08 00:38:41.109] [debug] [snmp_client.cpp:64] Attemping to GET value for: 1.3.6.1.4.1.1206.4.2.1.1.2.1.8.8
+[2023-12-08 00:38:41.109] [debug] [snmp_client.cpp:104] Created OID for input: 1.3.6.1.4.1.1206.4.2.1.1.2.1.8.8
+[2023-12-08 00:38:41.110] [debug] [snmp_client.cpp:113] STAT_SUCCESS, received a response
+[2023-12-08 00:38:41.110] [debug] [snmp_client.cpp:123] Integer value in object: 30
+[2023-12-08 00:38:41.110] [debug] [snmp_client.cpp:64] Attemping to GET value for: 1.3.6.1.4.1.1206.4.2.1.1.2.1.9.8
+[2023-12-08 00:38:41.110] [debug] [snmp_client.cpp:104] Created OID for input: 1.3.6.1.4.1.1206.4.2.1.1.2.1.9.8
+[2023-12-08 00:38:41.112] [debug] [snmp_client.cpp:113] STAT_SUCCESS, received a response
+[2023-12-08 00:38:41.112] [debug] [snmp_client.cpp:123] Integer value in object: 10
+[2023-12-08 00:38:41.112] [debug] [snmp_client.cpp:64] Attemping to GET value for: 1.3.6.1.4.1.1206.4.2.1.1.2.1.23.8
+[2023-12-08 00:38:41.112] [debug] [snmp_client.cpp:104] Created OID for input: 1.3.6.1.4.1.1206.4.2.1.1.2.1.23.8
+[2023-12-08 00:38:41.113] [debug] [snmp_client.cpp:113] STAT_SUCCESS, received a response
+[2023-12-08 00:38:41.113] [debug] [monitor_tsc_state.cpp:63] Signal group id: 1 phase: 1
+[2023-12-08 00:38:41.113] [debug] [monitor_tsc_state.cpp:63] Signal group id: 2 phase: 2
+[2023-12-08 00:38:41.113] [debug] [monitor_tsc_state.cpp:63] Signal group id: 3 phase: 3
+[2023-12-08 00:38:41.113] [debug] [monitor_tsc_state.cpp:63] Signal group id: 4 phase: 4
+[2023-12-08 00:38:41.113] [debug] [monitor_tsc_state.cpp:63] Signal group id: 5 phase: 5
+[2023-12-08 00:38:41.113] [debug] [monitor_tsc_state.cpp:63] Signal group id: 6 phase: 6
+[2023-12-08 00:38:41.113] [debug] [monitor_tsc_state.cpp:63] Signal group id: 7 phase: 7
+[2023-12-08 00:38:41.113] [debug] [monitor_tsc_state.cpp:63] Signal group id: 8 phase: 8
+[2023-12-08 00:38:41.113] [debug] [monitor_tsc_state.cpp:68] Signal group id: 8
+[2023-12-08 00:38:41.113] [debug] [monitor_tsc_state.cpp:69] Phase num: 8
+[2023-12-08 00:38:41.113] [debug] [monitor_tsc_state.cpp:70] Max green: 10000
+[2023-12-08 00:38:41.113] [debug] [monitor_tsc_state.cpp:71] Min green: 5000
+[2023-12-08 00:38:41.113] [debug] [monitor_tsc_state.cpp:72] Green Duration: 5000
+[2023-12-08 00:38:41.113] [debug] [monitor_tsc_state.cpp:73] yellow duration: 3000
+[2023-12-08 00:38:41.113] [debug] [monitor_tsc_state.cpp:74] Red clearance: 1000
+[2023-12-08 00:38:41.113] [debug] [monitor_tsc_state.cpp:75] Red duration: 28000
+[2023-12-08 00:38:41.113] [debug] [monitor_tsc_state.cpp:77] Phase sequence:
+[2023-12-08 00:38:41.113] [debug] [monitor_tsc_state.cpp:79] 8
+[2023-12-08 00:38:41.113] [debug] [monitor_tsc_state.cpp:79] 5
+[2023-12-08 00:38:41.113] [debug] [monitor_tsc_state.cpp:79] 6
+[2023-12-08 00:38:41.113] [debug] [monitor_tsc_state.cpp:79] 7
+[2023-12-08 00:38:41.113] [debug] [monitor_tsc_state.cpp:82] Concurrent Signal Groups:
+[2023-12-08 00:38:41.113] [debug] [monitor_tsc_state.cpp:84] 4
+[2023-12-08 00:38:41.113] [debug] [monitor_tsc_state.cpp:68] Signal group id: 7
+[2023-12-08 00:38:41.113] [debug] [monitor_tsc_state.cpp:69] Phase num: 7
+[2023-12-08 00:38:41.113] [debug] [monitor_tsc_state.cpp:70] Max green: 10000
+[2023-12-08 00:38:41.113] [debug] [monitor_tsc_state.cpp:71] Min green: 5000
+[2023-12-08 00:38:41.113] [debug] [monitor_tsc_state.cpp:72] Green Duration: 5000
+[2023-12-08 00:38:41.113] [debug] [monitor_tsc_state.cpp:73] yellow duration: 3000
+[2023-12-08 00:38:41.113] [debug] [monitor_tsc_state.cpp:74] Red clearance: 1000
+[2023-12-08 00:38:41.113] [debug] [monitor_tsc_state.cpp:75] Red duration: 28000
+[2023-12-08 00:38:41.113] [debug] [monitor_tsc_state.cpp:77] Phase sequence:
+[2023-12-08 00:38:41.113] [debug] [monitor_tsc_state.cpp:79] 7
+[2023-12-08 00:38:41.113] [debug] [monitor_tsc_state.cpp:79] 8
+[2023-12-08 00:38:41.113] [debug] [monitor_tsc_state.cpp:79] 5
+[2023-12-08 00:38:41.113] [debug] [monitor_tsc_state.cpp:79] 6
+[2023-12-08 00:38:41.113] [debug] [monitor_tsc_state.cpp:82] Concurrent Signal Groups:
+[2023-12-08 00:38:41.113] [debug] [monitor_tsc_state.cpp:68] Signal group id: 6
+[2023-12-08 00:38:41.113] [debug] [monitor_tsc_state.cpp:69] Phase num: 6
+[2023-12-08 00:38:41.113] [debug] [monitor_tsc_state.cpp:70] Max green: 10000
+[2023-12-08 00:38:41.113] [debug] [monitor_tsc_state.cpp:71] Min green: 5000
+[2023-12-08 00:38:41.113] [debug] [monitor_tsc_state.cpp:72] Green Duration: 5000
+[2023-12-08 00:38:41.113] [debug] [monitor_tsc_state.cpp:73] yellow duration: 3000
+[2023-12-08 00:38:41.113] [debug] [monitor_tsc_state.cpp:74] Red clearance: 1000
+[2023-12-08 00:38:41.113] [debug] [monitor_tsc_state.cpp:75] Red duration: 28000
+[2023-12-08 00:38:41.113] [debug] [monitor_tsc_state.cpp:77] Phase sequence:
+[2023-12-08 00:38:41.113] [debug] [monitor_tsc_state.cpp:79] 6
+[2023-12-08 00:38:41.113] [debug] [monitor_tsc_state.cpp:79] 7
+[2023-12-08 00:38:41.113] [debug] [monitor_tsc_state.cpp:79] 8
+[2023-12-08 00:38:41.113] [debug] [monitor_tsc_state.cpp:79] 5
+[2023-12-08 00:38:41.113] [debug] [monitor_tsc_state.cpp:82] Concurrent Signal Groups:
+[2023-12-08 00:38:41.113] [debug] [monitor_tsc_state.cpp:84] 2
+[2023-12-08 00:38:41.113] [debug] [monitor_tsc_state.cpp:68] Signal group id: 5
+[2023-12-08 00:38:41.113] [debug] [monitor_tsc_state.cpp:69] Phase num: 5
+[2023-12-08 00:38:41.113] [debug] [monitor_tsc_state.cpp:70] Max green: 10000
+[2023-12-08 00:38:41.113] [debug] [monitor_tsc_state.cpp:71] Min green: 5000
+[2023-12-08 00:38:41.113] [debug] [monitor_tsc_state.cpp:72] Green Duration: 5000
+[2023-12-08 00:38:41.113] [debug] [monitor_tsc_state.cpp:73] yellow duration: 3000
+[2023-12-08 00:38:41.113] [debug] [monitor_tsc_state.cpp:74] Red clearance: 1000
+[2023-12-08 00:38:41.113] [debug] [monitor_tsc_state.cpp:75] Red duration: 28000
+[2023-12-08 00:38:41.113] [debug] [monitor_tsc_state.cpp:77] Phase sequence:
+[2023-12-08 00:38:41.113] [debug] [monitor_tsc_state.cpp:79] 5
+[2023-12-08 00:38:41.113] [debug] [monitor_tsc_state.cpp:79] 6
+[2023-12-08 00:38:41.113] [debug] [monitor_tsc_state.cpp:79] 7
+[2023-12-08 00:38:41.113] [debug] [monitor_tsc_state.cpp:79] 8
+[2023-12-08 00:38:41.113] [debug] [monitor_tsc_state.cpp:82] Concurrent Signal Groups:
+[2023-12-08 00:38:41.113] [debug] [monitor_tsc_state.cpp:68] Signal group id: 4
+[2023-12-08 00:38:41.113] [debug] [monitor_tsc_state.cpp:69] Phase num: 4
+[2023-12-08 00:38:41.113] [debug] [monitor_tsc_state.cpp:70] Max green: 10000
+[2023-12-08 00:38:41.113] [debug] [monitor_tsc_state.cpp:71] Min green: 5000
+[2023-12-08 00:38:41.113] [debug] [monitor_tsc_state.cpp:72] Green Duration: 5000
+[2023-12-08 00:38:41.113] [debug] [monitor_tsc_state.cpp:73] yellow duration: 3000
+[2023-12-08 00:38:41.113] [debug] [monitor_tsc_state.cpp:74] Red clearance: 1000
+[2023-12-08 00:38:41.113] [debug] [monitor_tsc_state.cpp:75] Red duration: 28000
+[2023-12-08 00:38:41.113] [debug] [monitor_tsc_state.cpp:77] Phase sequence:
+[2023-12-08 00:38:41.113] [debug] [monitor_tsc_state.cpp:79] 4
+[2023-12-08 00:38:41.113] [debug] [monitor_tsc_state.cpp:79] 1
+[2023-12-08 00:38:41.113] [debug] [monitor_tsc_state.cpp:79] 2
+[2023-12-08 00:38:41.113] [debug] [monitor_tsc_state.cpp:79] 3
+[2023-12-08 00:38:41.113] [debug] [monitor_tsc_state.cpp:82] Concurrent Signal Groups:
+[2023-12-08 00:38:41.113] [debug] [monitor_tsc_state.cpp:84] 8
+[2023-12-08 00:38:41.113] [debug] [monitor_tsc_state.cpp:68] Signal group id: 3
+[2023-12-08 00:38:41.113] [debug] [monitor_tsc_state.cpp:69] Phase num: 3
+[2023-12-08 00:38:41.113] [debug] [monitor_tsc_state.cpp:70] Max green: 10000
+[2023-12-08 00:38:41.113] [debug] [monitor_tsc_state.cpp:71] Min green: 5000
+[2023-12-08 00:38:41.113] [debug] [monitor_tsc_state.cpp:72] Green Duration: 5000
+[2023-12-08 00:38:41.113] [debug] [monitor_tsc_state.cpp:73] yellow duration: 3000
+[2023-12-08 00:38:41.113] [debug] [monitor_tsc_state.cpp:74] Red clearance: 1000
+[2023-12-08 00:38:41.113] [debug] [monitor_tsc_state.cpp:75] Red duration: 28000
+[2023-12-08 00:38:41.113] [debug] [monitor_tsc_state.cpp:77] Phase sequence:
+[2023-12-08 00:38:41.113] [debug] [monitor_tsc_state.cpp:79] 3
+[2023-12-08 00:38:41.113] [debug] [monitor_tsc_state.cpp:79] 4
+[2023-12-08 00:38:41.113] [debug] [monitor_tsc_state.cpp:79] 1
+[2023-12-08 00:38:41.113] [debug] [monitor_tsc_state.cpp:79] 2
+[2023-12-08 00:38:41.113] [debug] [monitor_tsc_state.cpp:82] Concurrent Signal Groups:
+[2023-12-08 00:38:41.113] [debug] [monitor_tsc_state.cpp:68] Signal group id: 2
+[2023-12-08 00:38:41.113] [debug] [monitor_tsc_state.cpp:69] Phase num: 2
+[2023-12-08 00:38:41.113] [debug] [monitor_tsc_state.cpp:70] Max green: 10000
+[2023-12-08 00:38:41.113] [debug] [monitor_tsc_state.cpp:71] Min green: 5000
+[2023-12-08 00:38:41.113] [debug] [monitor_tsc_state.cpp:72] Green Duration: 5000
+[2023-12-08 00:38:41.113] [debug] [monitor_tsc_state.cpp:73] yellow duration: 3000
+[2023-12-08 00:38:41.113] [debug] [monitor_tsc_state.cpp:74] Red clearance: 1000
+[2023-12-08 00:38:41.113] [debug] [monitor_tsc_state.cpp:75] Red duration: 28000
+[2023-12-08 00:38:41.113] [debug] [monitor_tsc_state.cpp:77] Phase sequence:
+[2023-12-08 00:38:41.113] [debug] [monitor_tsc_state.cpp:79] 2
+[2023-12-08 00:38:41.113] [debug] [monitor_tsc_state.cpp:79] 3
+[2023-12-08 00:38:41.113] [debug] [monitor_tsc_state.cpp:79] 4
+[2023-12-08 00:38:41.113] [debug] [monitor_tsc_state.cpp:79] 1
+[2023-12-08 00:38:41.113] [debug] [monitor_tsc_state.cpp:82] Concurrent Signal Groups:
+[2023-12-08 00:38:41.113] [debug] [monitor_tsc_state.cpp:84] 6
+[2023-12-08 00:38:41.113] [debug] [monitor_tsc_state.cpp:68] Signal group id: 1
+[2023-12-08 00:38:41.113] [debug] [monitor_tsc_state.cpp:69] Phase num: 1
+[2023-12-08 00:38:41.113] [debug] [monitor_tsc_state.cpp:70] Max green: 10000
+[2023-12-08 00:38:41.113] [debug] [monitor_tsc_state.cpp:71] Min green: 5000
+[2023-12-08 00:38:41.113] [debug] [monitor_tsc_state.cpp:72] Green Duration: 5000
+[2023-12-08 00:38:41.113] [debug] [monitor_tsc_state.cpp:73] yellow duration: 3000
+[2023-12-08 00:38:41.113] [debug] [monitor_tsc_state.cpp:74] Red clearance: 1000
+[2023-12-08 00:38:41.113] [debug] [monitor_tsc_state.cpp:75] Red duration: 28000
+[2023-12-08 00:38:41.113] [debug] [monitor_tsc_state.cpp:77] Phase sequence:
+[2023-12-08 00:38:41.113] [debug] [monitor_tsc_state.cpp:79] 1
+[2023-12-08 00:38:41.113] [debug] [monitor_tsc_state.cpp:79] 2
+[2023-12-08 00:38:41.113] [debug] [monitor_tsc_state.cpp:79] 3
+[2023-12-08 00:38:41.113] [debug] [monitor_tsc_state.cpp:79] 4
+[2023-12-08 00:38:41.113] [debug] [monitor_tsc_state.cpp:82] Concurrent Signal Groups:
+[2023-12-08 00:38:41.113] [debug] [tsc_service.cpp:150] TSC State initialized!
+[2023-12-08 00:38:41.113] [info] [kafka_producer_worker.cpp:8] kafka_producer_worker init()... 
+[2023-12-08 00:38:41.113] [info] [kafka_producer_worker.cpp:61] created producer:  rdkafka#producer-3 
+[2023-12-08 00:38:41.113] [info] [kafka_producer_worker.cpp:169] Producer connect to bootstrap_server: 172.4.0.3:9092, topic: modified_spat ,partition: 0 
+[2023-12-08 00:38:41.113] [debug] [streets_service.cpp:68] Initialized Kafka producer on topic modified_spat!
+[2023-12-08 00:38:41.113] [debug] [spat_worker.cpp:11] Creating Spat Worker
+[2023-12-08 00:38:41.113] [debug] [tsc_service.cpp:175] Spat worker initialized successfully!
+[2023-12-08 00:38:41.166] [debug] [tsc_service.cpp:185] Intersection client initialized successfully!
+[2023-12-08 00:38:41.166] [debug] [snmp_client.cpp:69] Attemping to SET value for 1.3.6.1.4.1.1206.3.5.2.9.44.1.0
+[2023-12-08 00:38:41.166] [debug] [snmp_client.cpp:104] Created OID for input: 1.3.6.1.4.1.1206.3.5.2.9.44.1.0
+[2023-12-08 00:38:41.166] [debug] [snmp_client.cpp:113] STAT_SUCCESS, received a response
+[2023-12-08 00:38:41.166] [debug] [snmp_client.cpp:154] Success in SET for OID: 1.3.6.1.4.1.1206.3.5.2.9.44.1.0 Value: 2
+[2023-12-08 00:38:41.166] [debug] [tsc_service.cpp:162] Enabled UDP broadcasting of NTCIP SPaT data from TSC!
+[2023-12-08 00:38:41.166] [info] [tsc_service.cpp:121] Traffic Signal Controller Service initialized successfully!
+[2023-12-08 00:38:41.166] [info] [tsc_service.cpp:450] Starting TSC Service threads
+[2023-12-08 00:38:41.167] [debug] [tsc_service.cpp:200] Starting SPaT producer
+[2023-12-08 00:38:41.167] [info] [kafka_consumer_worker.cpp:114] rdkafka#consumer-1 Successfully to subscribe to   1 topics: Success 
+[2023-12-08 00:38:41.169] [info] [kafka_consumer_worker.h:42] RebalanceCb: Local: Assign partitions 
+[2023-12-08 00:38:41.169] [info] [kafka_consumer_worker.h:36] Topic time_sync , Partition 0
+[2023-12-08 00:38:41.170] [debug] [streets_service.cpp:95] Consumed: {"timestep":0,"seq":1}
+[2023-12-08 00:38:41.170] [debug] [streets_service.cpp:95] Consumed: {"timestep":100,"seq":2}
+[2023-12-08 00:38:41.170] [debug] [streets_service.cpp:95] Consumed: {"timestep":200,"seq":3}
+[2023-12-08 00:38:41.170] [debug] [streets_service.cpp:95] Consumed: {"timestep":300,"seq":4}
+[2023-12-08 00:38:41.170] [debug] [streets_service.cpp:95] Consumed: {"timestep":400,"seq":5}
+[2023-12-08 00:38:41.170] [debug] [streets_service.cpp:95] Consumed: {"timestep":500,"seq":6}
+[2023-12-08 00:38:41.170] [debug] [streets_service.cpp:95] Consumed: {"timestep":600,"seq":7}
+[2023-12-08 00:38:41.170] [debug] [streets_service.cpp:95] Consumed: {"timestep":700,"seq":8}
+[2023-12-08 00:38:41.170] [debug] [streets_service.cpp:95] Consumed: {"timestep":800,"seq":9}
+[2023-12-08 00:38:41.170] [debug] [streets_service.cpp:95] Consumed: {"timestep":900,"seq":10}
+[2023-12-08 00:38:41.170] [debug] [streets_service.cpp:95] Consumed: {"timestep":1000,"seq":11}
+[2023-12-08 00:38:41.170] [debug] [streets_service.cpp:95] Consumed: {"timestep":1100,"seq":12}
+[2023-12-08 00:38:41.170] [debug] [streets_service.cpp:95] Consumed: {"timestep":1200,"seq":13}
+[2023-12-08 00:38:41.170] [debug] [streets_service.cpp:95] Consumed: {"timestep":1300,"seq":14}
+[2023-12-08 00:38:41.170] [debug] [streets_service.cpp:95] Consumed: {"timestep":1400,"seq":15}
+[2023-12-08 00:38:41.170] [debug] [streets_service.cpp:95] Consumed: {"timestep":1500,"seq":16}
+[2023-12-08 00:38:41.170] [debug] [streets_service.cpp:95] Consumed: {"timestep":1600,"seq":17}
+[2023-12-08 00:38:41.170] [debug] [streets_service.cpp:95] Consumed: {"timestep":1700,"seq":18}
+[2023-12-08 00:38:41.170] [debug] [streets_service.cpp:95] Consumed: {"timestep":1800,"seq":19}
+[2023-12-08 00:38:41.170] [debug] [streets_service.cpp:95] Consumed: {"timestep":1900,"seq":20}
+[2023-12-08 00:38:41.170] [debug] [streets_service.cpp:95] Consumed: {"timestep":2000,"seq":21}
+[2023-12-08 00:38:41.171] [debug] [streets_service.cpp:95] Consumed: {"timestep":2100,"seq":22}
+[2023-12-08 00:38:41.171] [debug] [streets_service.cpp:95] Consumed: {"timestep":2200,"seq":23}
+[2023-12-08 00:38:41.171] [debug] [streets_service.cpp:95] Consumed: {"timestep":2300,"seq":24}
+[2023-12-08 00:38:41.171] [debug] [streets_service.cpp:95] Consumed: {"timestep":2400,"seq":25}
+[2023-12-08 00:38:41.171] [debug] [streets_service.cpp:95] Consumed: {"timestep":2500,"seq":26}
+[2023-12-08 00:38:41.171] [debug] [streets_service.cpp:95] Consumed: {"timestep":2600,"seq":27}
+[2023-12-08 00:38:41.171] [debug] [streets_service.cpp:95] Consumed: {"timestep":2700,"seq":28}
+[2023-12-08 00:38:41.171] [debug] [streets_service.cpp:95] Consumed: {"timestep":2800,"seq":29}
+[2023-12-08 00:38:41.171] [debug] [streets_service.cpp:95] Consumed: {"timestep":2900,"seq":30}
+[2023-12-08 00:38:41.171] [debug] [streets_service.cpp:95] Consumed: {"timestep":3000,"seq":31}
+[2023-12-08 00:38:41.171] [debug] [streets_service.cpp:95] Consumed: {"timestep":3100,"seq":32}
+[2023-12-08 00:38:41.171] [debug] [streets_service.cpp:95] Consumed: {"timestep":3200,"seq":33}
+[2023-12-08 00:38:41.171] [debug] [streets_service.cpp:95] Consumed: {"timestep":3300,"seq":34}
+[2023-12-08 00:38:41.171] [debug] [streets_service.cpp:95] Consumed: {"timestep":3400,"seq":35}
+[2023-12-08 00:38:41.171] [debug] [streets_service.cpp:95] Consumed: {"timestep":3500,"seq":36}
+[2023-12-08 00:38:41.171] [debug] [streets_service.cpp:95] Consumed: {"timestep":3600,"seq":37}
+[2023-12-08 00:38:41.171] [debug] [streets_service.cpp:95] Consumed: {"timestep":3700,"seq":38}
+[2023-12-08 00:38:41.171] [debug] [streets_service.cpp:95] Consumed: {"timestep":3800,"seq":39}
+[2023-12-08 00:38:41.171] [debug] [streets_service.cpp:95] Consumed: {"timestep":3900,"seq":40}
+[2023-12-08 00:38:41.171] [debug] [streets_service.cpp:95] Consumed: {"timestep":4000,"seq":41}
+[2023-12-08 00:38:41.171] [debug] [streets_service.cpp:95] Consumed: {"timestep":4100,"seq":42}
+[2023-12-08 00:38:41.171] [debug] [streets_service.cpp:95] Consumed: {"timestep":4200,"seq":43}
+[2023-12-08 00:38:41.171] [debug] [streets_service.cpp:95] Consumed: {"timestep":4300,"seq":44}
+[2023-12-08 00:38:41.171] [debug] [streets_service.cpp:95] Consumed: {"timestep":4400,"seq":45}
+[2023-12-08 00:38:41.171] [debug] [streets_service.cpp:95] Consumed: {"timestep":4500,"seq":46}
+[2023-12-08 00:38:41.171] [debug] [streets_service.cpp:95] Consumed: {"timestep":4600,"seq":47}
+[2023-12-08 00:38:41.171] [debug] [streets_service.cpp:95] Consumed: {"timestep":4700,"seq":48}
+[2023-12-08 00:38:41.171] [debug] [streets_service.cpp:95] Consumed: {"timestep":4800,"seq":49}
+[2023-12-08 00:38:41.171] [debug] [streets_service.cpp:95] Consumed: {"timestep":4900,"seq":50}
+[2023-12-08 00:38:41.171] [debug] [streets_service.cpp:95] Consumed: {"timestep":5000,"seq":51}
+[2023-12-08 00:38:41.171] [debug] [streets_service.cpp:95] Consumed: {"timestep":5100,"seq":52}
+[2023-12-08 00:38:41.171] [debug] [streets_service.cpp:95] Consumed: {"timestep":5200,"seq":53}
+[2023-12-08 00:38:41.171] [debug] [streets_service.cpp:95] Consumed: {"timestep":5300,"seq":54}
+[2023-12-08 00:38:41.171] [debug] [streets_service.cpp:95] Consumed: {"timestep":5400,"seq":55}
+[2023-12-08 00:38:41.171] [debug] [streets_service.cpp:95] Consumed: {"timestep":5500,"seq":56}
+[2023-12-08 00:38:41.171] [debug] [streets_service.cpp:95] Consumed: {"timestep":5600,"seq":57}
+[2023-12-08 00:38:41.171] [debug] [streets_service.cpp:95] Consumed: {"timestep":5700,"seq":58}
+[2023-12-08 00:38:41.171] [debug] [streets_service.cpp:95] Consumed: {"timestep":5800,"seq":59}
+[2023-12-08 00:38:41.171] [debug] [streets_service.cpp:95] Consumed: {"timestep":5900,"seq":60}
+[2023-12-08 00:38:41.171] [debug] [streets_service.cpp:95] Consumed: {"timestep":6000,"seq":61}
+[2023-12-08 00:38:41.171] [debug] [streets_service.cpp:95] Consumed: {"timestep":6100,"seq":62}
+[2023-12-08 00:38:41.171] [debug] [streets_service.cpp:95] Consumed: {"timestep":6200,"seq":63}
+[2023-12-08 00:38:41.171] [debug] [streets_service.cpp:95] Consumed: {"timestep":6300,"seq":64}
+[2023-12-08 00:38:41.171] [debug] [streets_service.cpp:95] Consumed: {"timestep":6400,"seq":65}
+[2023-12-08 00:38:41.171] [debug] [streets_service.cpp:95] Consumed: {"timestep":6500,"seq":66}
+[2023-12-08 00:38:41.171] [debug] [streets_service.cpp:95] Consumed: {"timestep":6600,"seq":67}
+[2023-12-08 00:38:41.171] [debug] [streets_service.cpp:95] Consumed: {"timestep":6700,"seq":68}
+[2023-12-08 00:38:41.171] [debug] [streets_service.cpp:95] Consumed: {"timestep":6800,"seq":69}
+[2023-12-08 00:38:41.171] [debug] [streets_service.cpp:95] Consumed: {"timestep":6900,"seq":70}
+[2023-12-08 00:38:41.171] [debug] [streets_service.cpp:95] Consumed: {"timestep":7000,"seq":71}
+[2023-12-08 00:38:41.171] [debug] [streets_service.cpp:95] Consumed: {"timestep":7100,"seq":72}
+[2023-12-08 00:38:41.171] [debug] [streets_service.cpp:95] Consumed: {"timestep":7200,"seq":73}
+[2023-12-08 00:38:41.171] [debug] [streets_service.cpp:95] Consumed: {"timestep":7300,"seq":74}
+[2023-12-08 00:38:41.171] [debug] [streets_service.cpp:95] Consumed: {"timestep":7400,"seq":75}
+[2023-12-08 00:38:41.171] [debug] [streets_service.cpp:95] Consumed: {"timestep":7500,"seq":76}
+[2023-12-08 00:38:41.171] [debug] [streets_service.cpp:95] Consumed: {"timestep":7600,"seq":77}
+[2023-12-08 00:38:41.171] [debug] [streets_service.cpp:95] Consumed: {"timestep":7700,"seq":78}
+[2023-12-08 00:38:41.171] [debug] [streets_service.cpp:95] Consumed: {"timestep":7800,"seq":79}
+[2023-12-08 00:38:41.171] [debug] [streets_service.cpp:95] Consumed: {"timestep":7900,"seq":80}
+[2023-12-08 00:38:41.171] [debug] [streets_service.cpp:95] Consumed: {"timestep":8000,"seq":81}
+[2023-12-08 00:38:41.171] [debug] [streets_service.cpp:95] Consumed: {"timestep":8100,"seq":82}
+[2023-12-08 00:38:41.171] [debug] [streets_service.cpp:95] Consumed: {"timestep":8200,"seq":83}
+[2023-12-08 00:38:41.171] [debug] [streets_service.cpp:95] Consumed: {"timestep":8300,"seq":84}
+[2023-12-08 00:38:41.171] [debug] [streets_service.cpp:95] Consumed: {"timestep":8400,"seq":85}
+[2023-12-08 00:38:41.171] [debug] [streets_service.cpp:95] Consumed: {"timestep":8500,"seq":86}
+[2023-12-08 00:38:41.171] [debug] [streets_service.cpp:95] Consumed: {"timestep":8600,"seq":87}
+[2023-12-08 00:38:41.171] [debug] [streets_service.cpp:95] Consumed: {"timestep":8700,"seq":88}
+[2023-12-08 00:38:41.171] [debug] [streets_service.cpp:95] Consumed: {"timestep":8800,"seq":89}
+[2023-12-08 00:38:41.171] [debug] [streets_service.cpp:95] Consumed: {"timestep":8900,"seq":90}
+[2023-12-08 00:38:41.171] [debug] [streets_service.cpp:95] Consumed: {"timestep":9000,"seq":91}
+[2023-12-08 00:38:41.171] [debug] [streets_service.cpp:95] Consumed: {"timestep":9100,"seq":92}
+[2023-12-08 00:38:41.171] [debug] [streets_service.cpp:95] Consumed: {"timestep":9200,"seq":93}
+[2023-12-08 00:38:41.171] [debug] [streets_service.cpp:95] Consumed: {"timestep":9300,"seq":94}
+[2023-12-08 00:38:41.171] [debug] [streets_service.cpp:95] Consumed: {"timestep":9400,"seq":95}
+[2023-12-08 00:38:41.171] [debug] [streets_service.cpp:95] Consumed: {"timestep":9500,"seq":96}
+[2023-12-08 00:38:41.171] [debug] [streets_service.cpp:95] Consumed: {"timestep":9600,"seq":97}
+[2023-12-08 00:38:41.171] [debug] [streets_service.cpp:95] Consumed: {"timestep":9700,"seq":98}
+[2023-12-08 00:38:41.171] [debug] [streets_service.cpp:95] Consumed: {"timestep":9800,"seq":99}
+[2023-12-08 00:38:41.171] [debug] [streets_service.cpp:95] Consumed: {"timestep":9900,"seq":100}
+[2023-12-08 00:38:41.171] [debug] [streets_service.cpp:95] Consumed: {"timestep":10000,"seq":101}
+[2023-12-08 00:38:41.171] [debug] [streets_service.cpp:95] Consumed: {"timestep":10100,"seq":102}
+[2023-12-08 00:38:41.171] [debug] [streets_service.cpp:95] Consumed: {"timestep":10200,"seq":103}
+[2023-12-08 00:38:41.171] [debug] [streets_service.cpp:95] Consumed: {"timestep":10300,"seq":104}
+[2023-12-08 00:38:41.171] [debug] [streets_service.cpp:95] Consumed: {"timestep":10400,"seq":105}
+[2023-12-08 00:38:41.171] [debug] [streets_service.cpp:95] Consumed: {"timestep":10500,"seq":106}
+[2023-12-08 00:38:41.171] [debug] [streets_service.cpp:95] Consumed: {"timestep":10600,"seq":107}
+[2023-12-08 00:38:41.171] [debug] [streets_service.cpp:95] Consumed: {"timestep":10700,"seq":108}
+[2023-12-08 00:38:41.171] [debug] [streets_service.cpp:95] Consumed: {"timestep":10800,"seq":109}
+[2023-12-08 00:38:41.171] [debug] [streets_service.cpp:95] Consumed: {"timestep":10900,"seq":110}
+[2023-12-08 00:38:41.171] [debug] [streets_service.cpp:95] Consumed: {"timestep":11000,"seq":111}
+[2023-12-08 00:38:41.171] [debug] [streets_service.cpp:95] Consumed: {"timestep":11100,"seq":112}
+[2023-12-08 00:38:41.171] [debug] [streets_service.cpp:95] Consumed: {"timestep":11200,"seq":113}
+[2023-12-08 00:38:41.171] [debug] [streets_service.cpp:95] Consumed: {"timestep":11300,"seq":114}
+[2023-12-08 00:38:41.171] [debug] [streets_service.cpp:95] Consumed: {"timestep":11400,"seq":115}
+[2023-12-08 00:38:41.171] [debug] [streets_service.cpp:95] Consumed: {"timestep":11500,"seq":116}
+[2023-12-08 00:38:41.171] [debug] [streets_service.cpp:95] Consumed: {"timestep":11600,"seq":117}
+[2023-12-08 00:38:41.171] [debug] [streets_service.cpp:95] Consumed: {"timestep":11700,"seq":118}
+[2023-12-08 00:38:41.171] [debug] [streets_service.cpp:95] Consumed: {"timestep":11800,"seq":119}
+[2023-12-08 00:38:41.171] [debug] [streets_service.cpp:95] Consumed: {"timestep":11900,"seq":120}
+[2023-12-08 00:38:41.171] [debug] [streets_service.cpp:95] Consumed: {"timestep":12000,"seq":121}
+[2023-12-08 00:38:41.171] [debug] [streets_service.cpp:95] Consumed: {"timestep":12100,"seq":122}
+[2023-12-08 00:38:41.171] [debug] [streets_service.cpp:95] Consumed: {"timestep":12200,"seq":123}
+[2023-12-08 00:38:41.171] [debug] [streets_service.cpp:95] Consumed: {"timestep":12300,"seq":124}
+[2023-12-08 00:38:41.171] [debug] [streets_service.cpp:95] Consumed: {"timestep":12400,"seq":125}
+[2023-12-08 00:38:41.171] [debug] [streets_service.cpp:95] Consumed: {"timestep":12500,"seq":126}
+[2023-12-08 00:38:41.171] [debug] [streets_service.cpp:95] Consumed: {"timestep":12600,"seq":127}
+[2023-12-08 00:38:41.171] [debug] [streets_service.cpp:95] Consumed: {"timestep":12700,"seq":128}
+[2023-12-08 00:38:41.171] [debug] [streets_service.cpp:95] Consumed: {"timestep":12800,"seq":129}
+[2023-12-08 00:38:41.171] [debug] [streets_service.cpp:95] Consumed: {"timestep":12900,"seq":130}
+[2023-12-08 00:38:41.171] [debug] [streets_service.cpp:95] Consumed: {"timestep":13000,"seq":131}
+[2023-12-08 00:38:41.171] [debug] [streets_service.cpp:95] Consumed: {"timestep":13100,"seq":132}
+[2023-12-08 00:38:41.171] [debug] [streets_service.cpp:95] Consumed: {"timestep":13200,"seq":133}
+[2023-12-08 00:38:41.171] [debug] [streets_service.cpp:95] Consumed: {"timestep":13300,"seq":134}
+[2023-12-08 00:38:41.171] [debug] [streets_service.cpp:95] Consumed: {"timestep":13400,"seq":135}
+[2023-12-08 00:38:41.171] [debug] [streets_service.cpp:95] Consumed: {"timestep":13500,"seq":136}
+[2023-12-08 00:38:41.171] [debug] [streets_service.cpp:95] Consumed: {"timestep":13600,"seq":137}
+[2023-12-08 00:38:41.171] [debug] [streets_service.cpp:95] Consumed: {"timestep":13700,"seq":138}
+[2023-12-08 00:38:41.171] [debug] [streets_service.cpp:95] Consumed: {"timestep":13800,"seq":139}
+[2023-12-08 00:38:41.171] [debug] [streets_service.cpp:95] Consumed: {"timestep":13900,"seq":140}
+[2023-12-08 00:38:41.171] [debug] [streets_service.cpp:95] Consumed: {"timestep":14000,"seq":141}
+[2023-12-08 00:38:41.171] [debug] [streets_service.cpp:95] Consumed: {"timestep":14100,"seq":142}
+[2023-12-08 00:38:41.171] [debug] [streets_service.cpp:95] Consumed: {"timestep":14200,"seq":143}
+[2023-12-08 00:38:41.171] [debug] [streets_service.cpp:95] Consumed: {"timestep":14300,"seq":144}
+[2023-12-08 00:38:41.171] [debug] [streets_service.cpp:95] Consumed: {"timestep":14400,"seq":145}
+[2023-12-08 00:38:41.171] [debug] [streets_service.cpp:95] Consumed: {"timestep":14500,"seq":146}
+[2023-12-08 00:38:41.171] [debug] [streets_service.cpp:95] Consumed: {"timestep":14600,"seq":147}
+[2023-12-08 00:38:41.171] [debug] [streets_service.cpp:95] Consumed: {"timestep":14700,"seq":148}
+[2023-12-08 00:38:41.171] [debug] [streets_service.cpp:95] Consumed: {"timestep":14800,"seq":149}
+[2023-12-08 00:38:41.171] [debug] [streets_service.cpp:95] Consumed: {"timestep":14900,"seq":150}
+[2023-12-08 00:38:41.171] [debug] [streets_service.cpp:95] Consumed: {"timestep":15000,"seq":151}
+[2023-12-08 00:38:41.171] [debug] [streets_service.cpp:95] Consumed: {"timestep":15100,"seq":152}
+[2023-12-08 00:38:41.171] [debug] [streets_service.cpp:95] Consumed: {"timestep":15200,"seq":153}
+[2023-12-08 00:38:41.171] [debug] [streets_service.cpp:95] Consumed: {"timestep":15300,"seq":154}
+[2023-12-08 00:38:41.171] [debug] [streets_service.cpp:95] Consumed: {"timestep":15400,"seq":155}
+[2023-12-08 00:38:41.171] [debug] [streets_service.cpp:95] Consumed: {"timestep":15500,"seq":156}
+[2023-12-08 00:38:41.171] [debug] [streets_service.cpp:95] Consumed: {"timestep":15600,"seq":157}
+[2023-12-08 00:38:41.171] [debug] [streets_service.cpp:95] Consumed: {"timestep":15700,"seq":158}
+[2023-12-08 00:38:41.171] [debug] [streets_service.cpp:95] Consumed: {"timestep":15800,"seq":159}
+[2023-12-08 00:38:41.171] [debug] [streets_service.cpp:95] Consumed: {"timestep":15900,"seq":160}
+[2023-12-08 00:38:41.171] [debug] [streets_service.cpp:95] Consumed: {"timestep":16000,"seq":161}
+[2023-12-08 00:38:41.171] [debug] [streets_service.cpp:95] Consumed: {"timestep":16100,"seq":162}
+[2023-12-08 00:38:41.171] [debug] [streets_service.cpp:95] Consumed: {"timestep":16200,"seq":163}
+[2023-12-08 00:38:41.171] [debug] [streets_service.cpp:95] Consumed: {"timestep":16300,"seq":164}
+[2023-12-08 00:38:41.171] [debug] [streets_service.cpp:95] Consumed: {"timestep":16400,"seq":165}
+[2023-12-08 00:38:41.171] [debug] [streets_service.cpp:95] Consumed: {"timestep":16500,"seq":166}
+[2023-12-08 00:38:41.171] [debug] [streets_service.cpp:95] Consumed: {"timestep":16600,"seq":167}
+[2023-12-08 00:38:41.171] [debug] [streets_service.cpp:95] Consumed: {"timestep":16700,"seq":168}
+[2023-12-08 00:38:41.171] [debug] [streets_service.cpp:95] Consumed: {"timestep":16800,"seq":169}
+[2023-12-08 00:38:41.171] [debug] [streets_service.cpp:95] Consumed: {"timestep":16900,"seq":170}
+[2023-12-08 00:38:41.171] [debug] [streets_service.cpp:95] Consumed: {"timestep":17000,"seq":171}
+[2023-12-08 00:38:41.171] [debug] [streets_service.cpp:95] Consumed: {"timestep":17100,"seq":172}
+[2023-12-08 00:38:41.171] [debug] [streets_service.cpp:95] Consumed: {"timestep":17200,"seq":173}
+[2023-12-08 00:38:41.171] [debug] [streets_service.cpp:95] Consumed: {"timestep":17300,"seq":174}
+[2023-12-08 00:38:41.171] [debug] [streets_service.cpp:95] Consumed: {"timestep":17400,"seq":175}
+[2023-12-08 00:38:41.171] [debug] [streets_service.cpp:95] Consumed: {"timestep":17500,"seq":176}
+[2023-12-08 00:38:41.171] [debug] [streets_service.cpp:95] Consumed: {"timestep":17600,"seq":177}
+[2023-12-08 00:38:41.171] [debug] [streets_service.cpp:95] Consumed: {"timestep":17700,"seq":178}
+[2023-12-08 00:38:41.171] [debug] [streets_service.cpp:95] Consumed: {"timestep":17800,"seq":179}
+[2023-12-08 00:38:41.171] [debug] [streets_service.cpp:95] Consumed: {"timestep":17900,"seq":180}
+[2023-12-08 00:38:41.171] [debug] [streets_service.cpp:95] Consumed: {"timestep":18000,"seq":181}
+[2023-12-08 00:38:41.171] [debug] [streets_service.cpp:95] Consumed: {"timestep":18100,"seq":182}
+[2023-12-08 00:38:41.171] [debug] [streets_service.cpp:95] Consumed: {"timestep":18200,"seq":183}
+[2023-12-08 00:38:41.171] [debug] [streets_service.cpp:95] Consumed: {"timestep":18300,"seq":184}
+[2023-12-08 00:38:41.171] [debug] [streets_service.cpp:95] Consumed: {"timestep":18400,"seq":185}
+[2023-12-08 00:38:41.171] [debug] [streets_service.cpp:95] Consumed: {"timestep":18500,"seq":186}
+[2023-12-08 00:38:41.171] [debug] [streets_service.cpp:95] Consumed: {"timestep":18600,"seq":187}
+[2023-12-08 00:38:41.171] [debug] [streets_service.cpp:95] Consumed: {"timestep":18700,"seq":188}
+[2023-12-08 00:38:41.171] [debug] [streets_service.cpp:95] Consumed: {"timestep":18800,"seq":189}
+[2023-12-08 00:38:41.171] [debug] [streets_service.cpp:95] Consumed: {"timestep":18900,"seq":190}
+[2023-12-08 00:38:41.171] [debug] [streets_service.cpp:95] Consumed: {"timestep":19000,"seq":191}
+[2023-12-08 00:38:41.171] [debug] [streets_service.cpp:95] Consumed: {"timestep":19100,"seq":192}
+[2023-12-08 00:38:41.171] [debug] [streets_service.cpp:95] Consumed: {"timestep":19200,"seq":193}
+[2023-12-08 00:38:41.171] [debug] [streets_service.cpp:95] Consumed: {"timestep":19300,"seq":194}
+[2023-12-08 00:38:41.171] [debug] [streets_service.cpp:95] Consumed: {"timestep":19400,"seq":195}
+[2023-12-08 00:38:41.171] [debug] [streets_service.cpp:95] Consumed: {"timestep":19500,"seq":196}
+[2023-12-08 00:38:41.171] [debug] [streets_service.cpp:95] Consumed: {"timestep":19600,"seq":197}
+[2023-12-08 00:38:41.171] [debug] [streets_service.cpp:95] Consumed: {"timestep":19700,"seq":198}
+[2023-12-08 00:38:41.171] [debug] [streets_service.cpp:95] Consumed: {"timestep":19800,"seq":199}
+[2023-12-08 00:38:41.171] [debug] [streets_service.cpp:95] Consumed: {"timestep":19900,"seq":200}
+[2023-12-08 00:38:41.171] [debug] [streets_service.cpp:95] Consumed: {"timestep":20000,"seq":201}
+[2023-12-08 00:38:41.171] [debug] [streets_service.cpp:95] Consumed: {"timestep":20100,"seq":202}
+[2023-12-08 00:38:41.171] [debug] [streets_service.cpp:95] Consumed: {"timestep":20200,"seq":203}
+[2023-12-08 00:38:41.171] [debug] [streets_service.cpp:95] Consumed: {"timestep":20300,"seq":204}
+[2023-12-08 00:38:41.171] [debug] [streets_service.cpp:95] Consumed: {"timestep":20400,"seq":205}
+[2023-12-08 00:38:41.171] [debug] [streets_service.cpp:95] Consumed: {"timestep":20500,"seq":206}
+[2023-12-08 00:38:41.171] [debug] [streets_service.cpp:95] Consumed: {"timestep":20600,"seq":207}
+[2023-12-08 00:38:41.171] [debug] [streets_service.cpp:95] Consumed: {"timestep":20700,"seq":208}
+[2023-12-08 00:38:41.171] [debug] [streets_service.cpp:95] Consumed: {"timestep":20800,"seq":209}
+[2023-12-08 00:38:41.171] [debug] [streets_service.cpp:95] Consumed: {"timestep":20900,"seq":210}
+[2023-12-08 00:38:41.171] [debug] [streets_service.cpp:95] Consumed: {"timestep":21000,"seq":211}
+[2023-12-08 00:38:41.171] [debug] [streets_service.cpp:95] Consumed: {"timestep":21100,"seq":212}
+[2023-12-08 00:38:41.171] [debug] [streets_service.cpp:95] Consumed: {"timestep":21200,"seq":213}
+[2023-12-08 00:38:41.171] [debug] [streets_service.cpp:95] Consumed: {"timestep":21300,"seq":214}
+[2023-12-08 00:38:41.171] [debug] [streets_service.cpp:95] Consumed: {"timestep":21400,"seq":215}
+[2023-12-08 00:38:41.171] [debug] [streets_service.cpp:95] Consumed: {"timestep":21500,"seq":216}
+[2023-12-08 00:38:41.171] [debug] [streets_service.cpp:95] Consumed: {"timestep":21600,"seq":217}
+[2023-12-08 00:38:41.171] [debug] [streets_service.cpp:95] Consumed: {"timestep":21700,"seq":218}
+[2023-12-08 00:38:41.171] [debug] [streets_service.cpp:95] Consumed: {"timestep":21800,"seq":219}
+[2023-12-08 00:38:41.171] [debug] [streets_service.cpp:95] Consumed: {"timestep":21900,"seq":220}
+[2023-12-08 00:38:41.171] [debug] [streets_service.cpp:95] Consumed: {"timestep":22000,"seq":221}
+[2023-12-08 00:38:41.171] [debug] [streets_service.cpp:95] Consumed: {"timestep":22100,"seq":222}
+[2023-12-08 00:38:41.171] [debug] [streets_service.cpp:95] Consumed: {"timestep":22200,"seq":223}
+[2023-12-08 00:38:41.171] [debug] [streets_service.cpp:95] Consumed: {"timestep":22300,"seq":224}
+[2023-12-08 00:38:41.171] [debug] [streets_service.cpp:95] Consumed: {"timestep":22400,"seq":225}
+[2023-12-08 00:38:41.171] [debug] [streets_service.cpp:95] Consumed: {"timestep":22500,"seq":226}
+[2023-12-08 00:38:41.171] [debug] [streets_service.cpp:95] Consumed: {"timestep":22600,"seq":227}
+[2023-12-08 00:38:41.171] [debug] [streets_service.cpp:95] Consumed: {"timestep":22700,"seq":228}
+[2023-12-08 00:38:41.172] [debug] [streets_service.cpp:95] Consumed: {"timestep":22800,"seq":229}
+[2023-12-08 00:38:41.172] [debug] [streets_service.cpp:95] Consumed: {"timestep":22900,"seq":230}
+[2023-12-08 00:38:41.172] [debug] [streets_service.cpp:95] Consumed: {"timestep":23000,"seq":231}
+[2023-12-08 00:38:41.172] [debug] [streets_service.cpp:95] Consumed: {"timestep":23100,"seq":232}
+[2023-12-08 00:38:41.172] [debug] [streets_service.cpp:95] Consumed: {"timestep":23200,"seq":233}
+[2023-12-08 00:38:41.172] [debug] [streets_service.cpp:95] Consumed: {"timestep":23300,"seq":234}
+[2023-12-08 00:38:41.172] [debug] [streets_service.cpp:95] Consumed: {"timestep":23400,"seq":235}
+[2023-12-08 00:38:41.172] [debug] [streets_service.cpp:95] Consumed: {"timestep":23500,"seq":236}
+[2023-12-08 00:38:41.172] [debug] [streets_service.cpp:95] Consumed: {"timestep":23600,"seq":237}
+[2023-12-08 00:38:41.172] [debug] [streets_service.cpp:95] Consumed: {"timestep":23700,"seq":238}
+[2023-12-08 00:38:41.172] [debug] [streets_service.cpp:95] Consumed: {"timestep":23800,"seq":239}
+[2023-12-08 00:38:41.172] [debug] [streets_service.cpp:95] Consumed: {"timestep":23900,"seq":240}
+[2023-12-08 00:38:41.172] [debug] [streets_service.cpp:95] Consumed: {"timestep":24000,"seq":241}
+[2023-12-08 00:38:41.172] [debug] [streets_service.cpp:95] Consumed: {"timestep":24100,"seq":242}
+[2023-12-08 00:38:41.172] [debug] [streets_service.cpp:95] Consumed: {"timestep":24200,"seq":243}
+[2023-12-08 00:38:41.172] [debug] [streets_service.cpp:95] Consumed: {"timestep":24300,"seq":244}
+[2023-12-08 00:38:41.172] [debug] [streets_service.cpp:95] Consumed: {"timestep":24400,"seq":245}
+[2023-12-08 00:38:41.172] [debug] [streets_service.cpp:95] Consumed: {"timestep":24500,"seq":246}
+[2023-12-08 00:38:41.172] [debug] [streets_service.cpp:95] Consumed: {"timestep":24600,"seq":247}
+[2023-12-08 00:38:41.172] [debug] [streets_service.cpp:95] Consumed: {"timestep":24700,"seq":248}
+[2023-12-08 00:38:41.172] [debug] [streets_service.cpp:95] Consumed: {"timestep":24800,"seq":249}
+[2023-12-08 00:38:41.172] [debug] [streets_service.cpp:95] Consumed: {"timestep":24900,"seq":250}
+[2023-12-08 00:38:41.172] [debug] [streets_service.cpp:95] Consumed: {"timestep":25000,"seq":251}
+[2023-12-08 00:38:41.172] [debug] [streets_service.cpp:95] Consumed: {"timestep":25100,"seq":252}
+[2023-12-08 00:38:41.172] [debug] [streets_service.cpp:95] Consumed: {"timestep":25200,"seq":253}
+[2023-12-08 00:38:41.172] [debug] [streets_service.cpp:95] Consumed: {"timestep":25300,"seq":254}
+[2023-12-08 00:38:41.172] [debug] [streets_service.cpp:95] Consumed: {"timestep":25400,"seq":255}
+[2023-12-08 00:38:41.172] [debug] [streets_service.cpp:95] Consumed: {"timestep":25500,"seq":256}
+[2023-12-08 00:38:41.172] [debug] [streets_service.cpp:95] Consumed: {"timestep":25600,"seq":257}
+[2023-12-08 00:38:41.172] [debug] [streets_service.cpp:95] Consumed: {"timestep":25700,"seq":258}
+[2023-12-08 00:38:41.172] [debug] [streets_service.cpp:95] Consumed: {"timestep":25800,"seq":259}
+[2023-12-08 00:38:41.172] [debug] [streets_service.cpp:95] Consumed: {"timestep":25900,"seq":260}
+[2023-12-08 00:38:41.172] [debug] [streets_service.cpp:95] Consumed: {"timestep":26000,"seq":261}
+[2023-12-08 00:38:41.172] [debug] [streets_service.cpp:95] Consumed: {"timestep":26100,"seq":262}
+[2023-12-08 00:38:41.172] [debug] [streets_service.cpp:95] Consumed: {"timestep":26200,"seq":263}
+[2023-12-08 00:38:41.172] [debug] [streets_service.cpp:95] Consumed: {"timestep":26300,"seq":264}
+[2023-12-08 00:38:41.172] [debug] [streets_service.cpp:95] Consumed: {"timestep":26400,"seq":265}
+[2023-12-08 00:38:41.172] [debug] [streets_service.cpp:95] Consumed: {"timestep":26500,"seq":266}
+[2023-12-08 00:38:41.172] [debug] [streets_service.cpp:95] Consumed: {"timestep":26600,"seq":267}
+[2023-12-08 00:38:41.172] [debug] [streets_service.cpp:95] Consumed: {"timestep":26700,"seq":268}
+[2023-12-08 00:38:41.172] [debug] [streets_service.cpp:95] Consumed: {"timestep":26800,"seq":269}
+[2023-12-08 00:38:41.172] [debug] [streets_service.cpp:95] Consumed: {"timestep":26900,"seq":270}
+[2023-12-08 00:38:41.172] [debug] [streets_service.cpp:95] Consumed: {"timestep":27000,"seq":271}
+[2023-12-08 00:38:41.172] [debug] [streets_service.cpp:95] Consumed: {"timestep":27100,"seq":272}
+[2023-12-08 00:38:41.172] [debug] [streets_service.cpp:95] Consumed: {"timestep":27200,"seq":273}
+[2023-12-08 00:38:41.172] [debug] [streets_service.cpp:95] Consumed: {"timestep":27300,"seq":274}
+[2023-12-08 00:38:41.172] [debug] [streets_service.cpp:95] Consumed: {"timestep":27400,"seq":275}
+[2023-12-08 00:38:41.172] [debug] [streets_service.cpp:95] Consumed: {"timestep":27500,"seq":276}
+[2023-12-08 00:38:41.172] [debug] [streets_service.cpp:95] Consumed: {"timestep":27600,"seq":277}
+[2023-12-08 00:38:41.172] [debug] [streets_service.cpp:95] Consumed: {"timestep":27700,"seq":278}
+[2023-12-08 00:38:41.172] [debug] [streets_service.cpp:95] Consumed: {"timestep":27800,"seq":279}
+[2023-12-08 00:38:41.172] [debug] [streets_service.cpp:95] Consumed: {"timestep":27900,"seq":280}
+[2023-12-08 00:38:41.172] [debug] [streets_service.cpp:95] Consumed: {"timestep":28000,"seq":281}
+[2023-12-08 00:38:41.172] [debug] [streets_service.cpp:95] Consumed: {"timestep":28100,"seq":282}
+[2023-12-08 00:38:41.172] [debug] [streets_service.cpp:95] Consumed: {"timestep":28200,"seq":283}
+[2023-12-08 00:38:41.172] [debug] [streets_service.cpp:95] Consumed: {"timestep":28300,"seq":284}
+[2023-12-08 00:38:41.172] [debug] [streets_service.cpp:95] Consumed: {"timestep":28400,"seq":285}
+[2023-12-08 00:38:41.172] [debug] [streets_service.cpp:95] Consumed: {"timestep":28500,"seq":286}
+[2023-12-08 00:38:41.172] [debug] [streets_service.cpp:95] Consumed: {"timestep":28600,"seq":287}
+[2023-12-08 00:38:41.172] [debug] [streets_service.cpp:95] Consumed: {"timestep":28700,"seq":288}
+[2023-12-08 00:38:41.172] [debug] [streets_service.cpp:95] Consumed: {"timestep":28800,"seq":289}
+[2023-12-08 00:38:41.172] [debug] [streets_service.cpp:95] Consumed: {"timestep":28900,"seq":290}
+[2023-12-08 00:38:41.172] [debug] [streets_service.cpp:95] Consumed: {"timestep":29000,"seq":291}
+[2023-12-08 00:38:41.172] [debug] [streets_service.cpp:95] Consumed: {"timestep":29100,"seq":292}
+[2023-12-08 00:38:41.172] [debug] [streets_service.cpp:95] Consumed: {"timestep":29200,"seq":293}
+[2023-12-08 00:38:41.172] [debug] [streets_service.cpp:95] Consumed: {"timestep":29300,"seq":294}
+[2023-12-08 00:38:41.172] [debug] [streets_service.cpp:95] Consumed: {"timestep":29400,"seq":295}
+[2023-12-08 00:38:41.172] [debug] [streets_service.cpp:95] Consumed: {"timestep":29500,"seq":296}
+[2023-12-08 00:38:41.172] [debug] [streets_service.cpp:95] Consumed: {"timestep":29600,"seq":297}
+[2023-12-08 00:38:41.172] [debug] [streets_service.cpp:95] Consumed: {"timestep":29700,"seq":298}
+[2023-12-08 00:38:41.172] [debug] [streets_service.cpp:95] Consumed: {"timestep":29800,"seq":299}
+[2023-12-08 00:38:41.172] [debug] [streets_service.cpp:95] Consumed: {"timestep":29900,"seq":300}
+[2023-12-08 00:38:41.172] [debug] [streets_service.cpp:95] Consumed: {"timestep":30000,"seq":301}
+[2023-12-08 00:38:41.172] [debug] [streets_service.cpp:95] Consumed: {"timestep":30100,"seq":302}
+[2023-12-08 00:38:41.172] [debug] [streets_service.cpp:95] Consumed: {"timestep":30200,"seq":303}
+[2023-12-08 00:38:41.172] [debug] [streets_service.cpp:95] Consumed: {"timestep":30300,"seq":304}
+[2023-12-08 00:38:41.172] [debug] [streets_service.cpp:95] Consumed: {"timestep":30400,"seq":305}
+[2023-12-08 00:38:41.172] [debug] [streets_service.cpp:95] Consumed: {"timestep":30500,"seq":306}
+[2023-12-08 00:38:41.172] [debug] [streets_service.cpp:95] Consumed: {"timestep":30600,"seq":307}
+[2023-12-08 00:38:41.172] [debug] [streets_service.cpp:95] Consumed: {"timestep":30700,"seq":308}
+[2023-12-08 00:38:41.172] [debug] [streets_service.cpp:95] Consumed: {"timestep":30800,"seq":309}
+[2023-12-08 00:38:41.172] [debug] [streets_service.cpp:95] Consumed: {"timestep":30900,"seq":310}
+[2023-12-08 00:38:41.172] [debug] [streets_service.cpp:95] Consumed: {"timestep":31000,"seq":311}
+[2023-12-08 00:38:41.172] [debug] [streets_service.cpp:95] Consumed: {"timestep":31100,"seq":312}
+[2023-12-08 00:38:41.172] [debug] [streets_service.cpp:95] Consumed: {"timestep":31200,"seq":313}
+[2023-12-08 00:38:41.172] [debug] [streets_service.cpp:95] Consumed: {"timestep":31300,"seq":314}
+[2023-12-08 00:38:41.172] [debug] [streets_service.cpp:95] Consumed: {"timestep":31400,"seq":315}
+[2023-12-08 00:38:41.172] [debug] [streets_service.cpp:95] Consumed: {"timestep":31500,"seq":316}
+[2023-12-08 00:38:41.172] [debug] [streets_service.cpp:95] Consumed: {"timestep":31600,"seq":317}
+[2023-12-08 00:38:41.172] [debug] [streets_service.cpp:95] Consumed: {"timestep":31700,"seq":318}
+[2023-12-08 00:38:41.172] [debug] [streets_service.cpp:95] Consumed: {"timestep":31800,"seq":319}
+[2023-12-08 00:38:41.172] [debug] [streets_service.cpp:95] Consumed: {"timestep":31900,"seq":320}
+[2023-12-08 00:38:41.172] [debug] [streets_service.cpp:95] Consumed: {"timestep":32000,"seq":321}
+[2023-12-08 00:38:41.172] [debug] [streets_service.cpp:95] Consumed: {"timestep":32100,"seq":322}
+[2023-12-08 00:38:41.172] [debug] [streets_service.cpp:95] Consumed: {"timestep":32200,"seq":323}
+[2023-12-08 00:38:41.172] [debug] [streets_service.cpp:95] Consumed: {"timestep":32300,"seq":324}
+[2023-12-08 00:38:41.172] [debug] [streets_service.cpp:95] Consumed: {"timestep":32400,"seq":325}
+[2023-12-08 00:38:41.172] [debug] [streets_service.cpp:95] Consumed: {"timestep":32500,"seq":326}
+[2023-12-08 00:38:41.172] [debug] [streets_service.cpp:95] Consumed: {"timestep":32600,"seq":327}
+[2023-12-08 00:38:41.172] [debug] [streets_service.cpp:95] Consumed: {"timestep":32700,"seq":328}
+[2023-12-08 00:38:41.172] [debug] [streets_service.cpp:95] Consumed: {"timestep":32800,"seq":329}
+[2023-12-08 00:38:41.172] [debug] [streets_service.cpp:95] Consumed: {"timestep":32900,"seq":330}
+[2023-12-08 00:38:41.172] [debug] [streets_service.cpp:95] Consumed: {"timestep":33000,"seq":331}
+[2023-12-08 00:38:41.172] [debug] [streets_service.cpp:95] Consumed: {"timestep":33100,"seq":332}
+[2023-12-08 00:38:41.172] [debug] [streets_service.cpp:95] Consumed: {"timestep":33200,"seq":333}
+[2023-12-08 00:38:41.172] [debug] [streets_service.cpp:95] Consumed: {"timestep":33300,"seq":334}
+[2023-12-08 00:38:41.172] [debug] [streets_service.cpp:95] Consumed: {"timestep":33400,"seq":335}
+[2023-12-08 00:38:41.172] [debug] [streets_service.cpp:95] Consumed: {"timestep":33500,"seq":336}
+[2023-12-08 00:38:41.172] [debug] [streets_service.cpp:95] Consumed: {"timestep":33600,"seq":337}
+[2023-12-08 00:38:41.172] [debug] [streets_service.cpp:95] Consumed: {"timestep":33700,"seq":338}
+[2023-12-08 00:38:41.172] [debug] [streets_service.cpp:95] Consumed: {"timestep":33800,"seq":339}
+[2023-12-08 00:38:41.172] [debug] [streets_service.cpp:95] Consumed: {"timestep":33900,"seq":340}
+[2023-12-08 00:38:41.172] [debug] [streets_service.cpp:95] Consumed: {"timestep":34000,"seq":341}
+[2023-12-08 00:38:41.172] [debug] [streets_service.cpp:95] Consumed: {"timestep":34100,"seq":342}
+[2023-12-08 00:38:41.172] [debug] [streets_service.cpp:95] Consumed: {"timestep":34200,"seq":343}
+[2023-12-08 00:38:41.172] [debug] [streets_service.cpp:95] Consumed: {"timestep":34300,"seq":344}
+[2023-12-08 00:38:41.172] [debug] [streets_service.cpp:95] Consumed: {"timestep":34400,"seq":345}
+[2023-12-08 00:38:41.172] [debug] [streets_service.cpp:95] Consumed: {"timestep":34500,"seq":346}
+[2023-12-08 00:38:41.172] [debug] [streets_service.cpp:95] Consumed: {"timestep":34600,"seq":347}
+[2023-12-08 00:38:41.172] [debug] [streets_service.cpp:95] Consumed: {"timestep":34700,"seq":348}
+[2023-12-08 00:38:41.172] [debug] [streets_service.cpp:95] Consumed: {"timestep":34800,"seq":349}
+[2023-12-08 00:38:41.172] [debug] [streets_service.cpp:95] Consumed: {"timestep":34900,"seq":350}
+[2023-12-08 00:38:41.172] [debug] [streets_service.cpp:95] Consumed: {"timestep":35000,"seq":351}
+[2023-12-08 00:38:41.172] [debug] [streets_service.cpp:95] Consumed: {"timestep":35100,"seq":352}
+[2023-12-08 00:38:41.172] [debug] [streets_service.cpp:95] Consumed: {"timestep":35200,"seq":353}
+[2023-12-08 00:38:41.172] [debug] [streets_service.cpp:95] Consumed: {"timestep":35300,"seq":354}
+[2023-12-08 00:38:41.172] [debug] [streets_service.cpp:95] Consumed: {"timestep":35400,"seq":355}
+[2023-12-08 00:38:41.172] [debug] [streets_service.cpp:95] Consumed: {"timestep":35500,"seq":356}
+[2023-12-08 00:38:41.172] [debug] [streets_service.cpp:95] Consumed: {"timestep":35600,"seq":357}
+[2023-12-08 00:38:41.172] [debug] [streets_service.cpp:95] Consumed: {"timestep":35700,"seq":358}
+[2023-12-08 00:38:41.172] [debug] [streets_service.cpp:95] Consumed: {"timestep":35800,"seq":359}
+[2023-12-08 00:38:41.172] [debug] [streets_service.cpp:95] Consumed: {"timestep":35900,"seq":360}
+[2023-12-08 00:38:41.172] [debug] [streets_service.cpp:95] Consumed: {"timestep":36000,"seq":361}
+[2023-12-08 00:38:41.172] [debug] [streets_service.cpp:95] Consumed: {"timestep":36100,"seq":362}
+[2023-12-08 00:38:41.172] [debug] [streets_service.cpp:95] Consumed: {"timestep":36200,"seq":363}
+[2023-12-08 00:38:41.172] [debug] [streets_service.cpp:95] Consumed: {"timestep":36300,"seq":364}
+[2023-12-08 00:38:41.172] [debug] [streets_service.cpp:95] Consumed: {"timestep":36400,"seq":365}
+[2023-12-08 00:38:41.172] [debug] [streets_service.cpp:95] Consumed: {"timestep":36500,"seq":366}
+[2023-12-08 00:38:41.172] [debug] [streets_service.cpp:95] Consumed: {"timestep":36600,"seq":367}
+[2023-12-08 00:38:41.172] [debug] [streets_service.cpp:95] Consumed: {"timestep":36700,"seq":368}
+[2023-12-08 00:38:41.172] [debug] [streets_service.cpp:95] Consumed: {"timestep":36800,"seq":369}
+[2023-12-08 00:38:41.172] [debug] [streets_service.cpp:95] Consumed: {"timestep":36900,"seq":370}
+[2023-12-08 00:38:41.172] [debug] [streets_service.cpp:95] Consumed: {"timestep":37000,"seq":371}
+[2023-12-08 00:38:41.172] [debug] [streets_service.cpp:95] Consumed: {"timestep":37100,"seq":372}
+[2023-12-08 00:38:41.172] [debug] [streets_service.cpp:95] Consumed: {"timestep":37200,"seq":373}
+[2023-12-08 00:38:41.172] [debug] [streets_service.cpp:95] Consumed: {"timestep":37300,"seq":374}
+[2023-12-08 00:38:41.172] [debug] [streets_service.cpp:95] Consumed: {"timestep":37400,"seq":375}
+[2023-12-08 00:38:41.172] [debug] [streets_service.cpp:95] Consumed: {"timestep":37500,"seq":376}
+[2023-12-08 00:38:41.172] [debug] [streets_service.cpp:95] Consumed: {"timestep":37600,"seq":377}
+[2023-12-08 00:38:41.172] [debug] [streets_service.cpp:95] Consumed: {"timestep":37700,"seq":378}
+[2023-12-08 00:38:41.172] [debug] [streets_service.cpp:95] Consumed: {"timestep":37800,"seq":379}
+[2023-12-08 00:38:41.172] [debug] [streets_service.cpp:95] Consumed: {"timestep":37900,"seq":380}
+[2023-12-08 00:38:41.172] [debug] [streets_service.cpp:95] Consumed: {"timestep":38000,"seq":381}
+[2023-12-08 00:38:41.172] [debug] [streets_service.cpp:95] Consumed: {"timestep":38100,"seq":382}
+[2023-12-08 00:38:41.172] [debug] [streets_service.cpp:95] Consumed: {"timestep":38200,"seq":383}
+[2023-12-08 00:38:41.172] [debug] [streets_service.cpp:95] Consumed: {"timestep":38300,"seq":384}
+[2023-12-08 00:38:41.172] [debug] [streets_service.cpp:95] Consumed: {"timestep":38400,"seq":385}
+[2023-12-08 00:38:41.172] [debug] [streets_service.cpp:95] Consumed: {"timestep":38500,"seq":386}
+[2023-12-08 00:38:41.172] [debug] [streets_service.cpp:95] Consumed: {"timestep":38600,"seq":387}
+[2023-12-08 00:38:41.172] [debug] [streets_service.cpp:95] Consumed: {"timestep":38700,"seq":388}
+[2023-12-08 00:38:41.172] [debug] [streets_service.cpp:95] Consumed: {"timestep":38800,"seq":389}
+[2023-12-08 00:38:41.172] [debug] [streets_service.cpp:95] Consumed: {"timestep":38900,"seq":390}
+[2023-12-08 00:38:41.172] [debug] [streets_service.cpp:95] Consumed: {"timestep":39000,"seq":391}
+[2023-12-08 00:38:41.172] [debug] [streets_service.cpp:95] Consumed: {"timestep":39100,"seq":392}
+[2023-12-08 00:38:41.172] [debug] [streets_service.cpp:95] Consumed: {"timestep":39200,"seq":393}
+[2023-12-08 00:38:41.172] [debug] [streets_service.cpp:95] Consumed: {"timestep":39300,"seq":394}
+[2023-12-08 00:38:41.172] [debug] [streets_service.cpp:95] Consumed: {"timestep":39400,"seq":395}
+[2023-12-08 00:38:41.172] [debug] [streets_service.cpp:95] Consumed: {"timestep":39500,"seq":396}
+[2023-12-08 00:38:41.172] [debug] [streets_service.cpp:95] Consumed: {"timestep":39600,"seq":397}
+[2023-12-08 00:38:41.172] [debug] [streets_service.cpp:95] Consumed: {"timestep":39700,"seq":398}
+[2023-12-08 00:38:41.172] [debug] [streets_service.cpp:95] Consumed: {"timestep":39800,"seq":399}
+[2023-12-08 00:38:41.172] [debug] [streets_service.cpp:95] Consumed: {"timestep":39900,"seq":400}
+[2023-12-08 00:38:41.172] [debug] [streets_service.cpp:95] Consumed: {"timestep":40000,"seq":401}
+[2023-12-08 00:38:41.172] [debug] [streets_service.cpp:95] Consumed: {"timestep":40100,"seq":402}
+[2023-12-08 00:38:41.172] [debug] [streets_service.cpp:95] Consumed: {"timestep":40200,"seq":403}
+[2023-12-08 00:38:41.172] [debug] [streets_service.cpp:95] Consumed: {"timestep":40300,"seq":404}
+[2023-12-08 00:38:41.172] [debug] [streets_service.cpp:95] Consumed: {"timestep":40400,"seq":405}
+[2023-12-08 00:38:41.172] [debug] [streets_service.cpp:95] Consumed: {"timestep":40500,"seq":406}
+[2023-12-08 00:38:41.172] [debug] [streets_service.cpp:95] Consumed: {"timestep":40600,"seq":407}
+[2023-12-08 00:38:41.172] [debug] [streets_service.cpp:95] Consumed: {"timestep":40700,"seq":408}
+[2023-12-08 00:38:41.172] [debug] [streets_service.cpp:95] Consumed: {"timestep":40800,"seq":409}
+[2023-12-08 00:38:41.172] [debug] [streets_service.cpp:95] Consumed: {"timestep":40900,"seq":410}
+[2023-12-08 00:38:41.172] [debug] [streets_service.cpp:95] Consumed: {"timestep":41000,"seq":411}
+[2023-12-08 00:38:41.172] [debug] [streets_service.cpp:95] Consumed: {"timestep":41100,"seq":412}
+[2023-12-08 00:38:41.172] [debug] [streets_service.cpp:95] Consumed: {"timestep":41200,"seq":413}
+[2023-12-08 00:38:41.172] [debug] [streets_service.cpp:95] Consumed: {"timestep":41300,"seq":414}
+[2023-12-08 00:38:41.172] [debug] [streets_service.cpp:95] Consumed: {"timestep":41400,"seq":415}
+[2023-12-08 00:38:41.172] [debug] [streets_service.cpp:95] Consumed: {"timestep":41500,"seq":416}
+[2023-12-08 00:38:41.172] [debug] [streets_service.cpp:95] Consumed: {"timestep":41600,"seq":417}
+[2023-12-08 00:38:41.172] [debug] [streets_service.cpp:95] Consumed: {"timestep":41700,"seq":418}
+[2023-12-08 00:38:41.172] [debug] [streets_service.cpp:95] Consumed: {"timestep":41800,"seq":419}
+[2023-12-08 00:38:41.172] [debug] [streets_service.cpp:95] Consumed: {"timestep":41900,"seq":420}
+[2023-12-08 00:38:41.172] [debug] [streets_service.cpp:95] Consumed: {"timestep":42000,"seq":421}
+[2023-12-08 00:38:41.172] [debug] [streets_service.cpp:95] Consumed: {"timestep":42100,"seq":422}
+[2023-12-08 00:38:41.172] [debug] [streets_service.cpp:95] Consumed: {"timestep":42200,"seq":423}
+[2023-12-08 00:38:41.172] [debug] [streets_service.cpp:95] Consumed: {"timestep":42300,"seq":424}
+[2023-12-08 00:38:41.172] [debug] [streets_service.cpp:95] Consumed: {"timestep":42400,"seq":425}
+[2023-12-08 00:38:41.172] [debug] [streets_service.cpp:95] Consumed: {"timestep":42500,"seq":426}
+[2023-12-08 00:38:41.172] [debug] [streets_service.cpp:95] Consumed: {"timestep":42600,"seq":427}
+[2023-12-08 00:38:41.172] [debug] [streets_service.cpp:95] Consumed: {"timestep":42700,"seq":428}
+[2023-12-08 00:38:41.172] [debug] [streets_service.cpp:95] Consumed: {"timestep":42800,"seq":429}
+[2023-12-08 00:38:41.172] [debug] [streets_service.cpp:95] Consumed: {"timestep":42900,"seq":430}
+[2023-12-08 00:38:41.172] [debug] [streets_service.cpp:95] Consumed: {"timestep":43000,"seq":431}
+[2023-12-08 00:38:41.172] [debug] [streets_service.cpp:95] Consumed: {"timestep":43100,"seq":432}
+[2023-12-08 00:38:41.173] [debug] [streets_service.cpp:95] Consumed: {"timestep":43200,"seq":433}
+[2023-12-08 00:38:41.173] [debug] [streets_service.cpp:95] Consumed: {"timestep":43300,"seq":434}
+[2023-12-08 00:38:41.173] [debug] [streets_service.cpp:95] Consumed: {"timestep":43400,"seq":435}
+[2023-12-08 00:38:41.173] [debug] [streets_service.cpp:95] Consumed: {"timestep":43500,"seq":436}
+[2023-12-08 00:38:41.173] [debug] [streets_service.cpp:95] Consumed: {"timestep":43600,"seq":437}
+[2023-12-08 00:38:41.173] [debug] [streets_service.cpp:95] Consumed: {"timestep":43700,"seq":438}
+[2023-12-08 00:38:41.173] [debug] [streets_service.cpp:95] Consumed: {"timestep":43800,"seq":439}
+[2023-12-08 00:38:41.173] [debug] [streets_service.cpp:95] Consumed: {"timestep":43900,"seq":440}
+[2023-12-08 00:38:41.173] [debug] [streets_service.cpp:95] Consumed: {"timestep":44000,"seq":441}
+[2023-12-08 00:38:41.173] [debug] [streets_service.cpp:95] Consumed: {"timestep":44100,"seq":442}
+[2023-12-08 00:38:41.173] [debug] [streets_service.cpp:95] Consumed: {"timestep":44200,"seq":443}
+[2023-12-08 00:38:41.173] [debug] [streets_service.cpp:95] Consumed: {"timestep":44300,"seq":444}
+[2023-12-08 00:38:41.173] [debug] [streets_service.cpp:95] Consumed: {"timestep":44400,"seq":445}
+[2023-12-08 00:38:41.173] [debug] [streets_service.cpp:95] Consumed: {"timestep":44500,"seq":446}
+[2023-12-08 00:38:41.173] [debug] [streets_service.cpp:95] Consumed: {"timestep":44600,"seq":447}
+[2023-12-08 00:38:41.173] [debug] [streets_service.cpp:95] Consumed: {"timestep":44700,"seq":448}
+[2023-12-08 00:38:41.173] [debug] [streets_service.cpp:95] Consumed: {"timestep":44800,"seq":449}
+[2023-12-08 00:38:41.173] [debug] [streets_service.cpp:95] Consumed: {"timestep":44900,"seq":450}
+[2023-12-08 00:38:41.173] [debug] [streets_service.cpp:95] Consumed: {"timestep":45000,"seq":451}
+[2023-12-08 00:38:41.173] [debug] [streets_service.cpp:95] Consumed: {"timestep":45100,"seq":452}
+[2023-12-08 00:38:41.173] [debug] [streets_service.cpp:95] Consumed: {"timestep":45200,"seq":453}
+[2023-12-08 00:38:41.173] [debug] [streets_service.cpp:95] Consumed: {"timestep":45300,"seq":454}
+[2023-12-08 00:38:41.173] [debug] [streets_service.cpp:95] Consumed: {"timestep":45400,"seq":455}
+[2023-12-08 00:38:41.173] [debug] [streets_service.cpp:95] Consumed: {"timestep":45500,"seq":456}
+[2023-12-08 00:38:41.173] [debug] [streets_service.cpp:95] Consumed: {"timestep":45600,"seq":457}
+[2023-12-08 00:38:41.173] [debug] [streets_service.cpp:95] Consumed: {"timestep":45700,"seq":458}
+[2023-12-08 00:38:41.173] [debug] [streets_service.cpp:95] Consumed: {"timestep":45800,"seq":459}
+[2023-12-08 00:38:41.173] [debug] [streets_service.cpp:95] Consumed: {"timestep":45900,"seq":460}
+[2023-12-08 00:38:41.173] [debug] [streets_service.cpp:95] Consumed: {"timestep":46000,"seq":461}
+[2023-12-08 00:38:41.173] [debug] [streets_service.cpp:95] Consumed: {"timestep":46100,"seq":462}
+[2023-12-08 00:38:41.173] [debug] [streets_service.cpp:95] Consumed: {"timestep":46200,"seq":463}
+[2023-12-08 00:38:41.173] [debug] [streets_service.cpp:95] Consumed: {"timestep":46300,"seq":464}
+[2023-12-08 00:38:41.173] [debug] [streets_service.cpp:95] Consumed: {"timestep":46400,"seq":465}
+[2023-12-08 00:38:41.173] [debug] [streets_service.cpp:95] Consumed: {"timestep":46500,"seq":466}
+[2023-12-08 00:38:41.173] [debug] [streets_service.cpp:95] Consumed: {"timestep":46600,"seq":467}
+[2023-12-08 00:38:41.173] [debug] [streets_service.cpp:95] Consumed: {"timestep":46700,"seq":468}
+[2023-12-08 00:38:41.173] [debug] [streets_service.cpp:95] Consumed: {"timestep":46800,"seq":469}
+[2023-12-08 00:38:41.173] [debug] [streets_service.cpp:95] Consumed: {"timestep":46900,"seq":470}
+[2023-12-08 00:38:41.173] [debug] [streets_service.cpp:95] Consumed: {"timestep":47000,"seq":471}
+[2023-12-08 00:38:41.173] [debug] [streets_service.cpp:95] Consumed: {"timestep":47100,"seq":472}
+[2023-12-08 00:38:41.173] [debug] [streets_service.cpp:95] Consumed: {"timestep":47200,"seq":473}
+[2023-12-08 00:38:41.173] [debug] [streets_service.cpp:95] Consumed: {"timestep":47300,"seq":474}
+[2023-12-08 00:38:41.173] [debug] [streets_service.cpp:95] Consumed: {"timestep":47400,"seq":475}
+[2023-12-08 00:38:41.173] [debug] [streets_service.cpp:95] Consumed: {"timestep":47500,"seq":476}
+[2023-12-08 00:38:41.173] [debug] [streets_service.cpp:95] Consumed: {"timestep":47600,"seq":477}
+[2023-12-08 00:38:41.173] [debug] [streets_service.cpp:95] Consumed: {"timestep":47700,"seq":478}
+[2023-12-08 00:38:41.173] [debug] [streets_service.cpp:95] Consumed: {"timestep":47800,"seq":479}
+[2023-12-08 00:38:41.173] [debug] [streets_service.cpp:95] Consumed: {"timestep":47900,"seq":480}
+[2023-12-08 00:38:41.240] [debug] [streets_service.cpp:95] Consumed: {"timestep":48000,"seq":481}
+[2023-12-08 00:38:41.340] [debug] [streets_service.cpp:95] Consumed: {"timestep":48100,"seq":482}
+[2023-12-08 00:38:41.362] [debug] [intersection_state.cpp:220] Setting start time to current time
+[2023-12-08 00:38:41.362] [debug] [intersection_state.cpp:220] Setting start time to current time
+[2023-12-08 00:38:41.362] [debug] [intersection_state.cpp:236] Setting start time to current time
+[2023-12-08 00:38:41.362] [debug] [intersection_state.cpp:220] Setting start time to current time
+[2023-12-08 00:38:41.362] [debug] [intersection_state.cpp:220] Setting start time to current time
+[2023-12-08 00:38:41.362] [debug] [intersection_state.cpp:220] Setting start time to current time
+[2023-12-08 00:38:41.362] [debug] [intersection_state.cpp:236] Setting start time to current time
+[2023-12-08 00:38:41.362] [debug] [intersection_state.cpp:220] Setting start time to current time
+[2023-12-08 00:38:41.363] [debug] [tsc_service.cpp:204] Current SPaT : {"time_stamp":0,"name":"","intersections":[{"name":"Town04 Intersection 785","id":36243,"revision":1,"status":0,"moy":0,"time_stamp":48100,"states":[{"movement_name":"","signal_group":8,"state_time_speed":[{"event_state":3,"timing":{"start_time":481,"min_end_time":512,"max_end_time":512,"confidence":0}}]},{"movement_name":"","signal_group":7,"state_time_speed":[{"event_state":3,"timing":{"start_time":481,"min_end_time":481,"max_end_time":481,"confidence":0}}]},{"movement_name":"","signal_group":6,"state_time_speed":[{"event_state":8,"timing":{"start_time":481,"min_end_time":502,"max_end_time":502,"confidence":0}}]},{"movement_name":"","signal_group":5,"state_time_speed":[{"event_state":3,"timing":{"start_time":481,"min_end_time":481,"max_end_time":481,"confidence":0}}]},{"movement_name":"","signal_group":4,"state_time_speed":[{"event_state":3,"timing":{"start_time":481,"min_end_time":512,"max_end_time":512,"confidence":0}}]},{"movement_name":"","signal_group":3,"state_time_speed":[{"event_state":3,"timing":{"start_time":481,"min_end_time":481,"max_end_time":481,"confidence":0}}]},{"movement_name":"","signal_group":2,"state_time_speed":[{"event_state":8,"timing":{"start_time":481,"min_end_time":502,"max_end_time":502,"confidence":0}}]},{"movement_name":"","signal_group":1,"state_time_speed":[{"event_state":3,"timing":{"start_time":481,"min_end_time":481,"max_end_time":481,"confidence":0}}]}]}]} 
+[2023-12-08 00:38:41.363] [debug] [snmp_client.cpp:64] Attemping to GET value for: 1.3.6.1.4.1.1206.4.2.1.1.4.1.8.1
+[2023-12-08 00:38:41.363] [debug] [snmp_client.cpp:104] Created OID for input: 1.3.6.1.4.1.1206.4.2.1.1.4.1.8.1
+[2023-12-08 00:38:41.363] [debug] [snmp_client.cpp:113] STAT_SUCCESS, received a response
+[2023-12-08 00:38:41.363] [debug] [snmp_client.cpp:123] Integer value in object: 170
+[2023-12-08 00:38:41.363] [debug] [snmp_client.cpp:64] Attemping to GET value for: 1.3.6.1.4.1.1206.4.2.1.1.4.1.8.2
+[2023-12-08 00:38:41.363] [debug] [snmp_client.cpp:104] Created OID for input: 1.3.6.1.4.1.1206.4.2.1.1.4.1.8.2
+[2023-12-08 00:38:41.364] [debug] [snmp_client.cpp:113] STAT_SUCCESS, received a response
+[2023-12-08 00:38:41.364] [debug] [snmp_client.cpp:123] Integer value in object: 0
+[2023-12-08 00:38:41.364] [debug] [snmp_client.cpp:64] Attemping to GET value for: 1.3.6.1.4.1.1206.4.2.1.1.4.1.9.1
+[2023-12-08 00:38:41.364] [debug] [snmp_client.cpp:104] Created OID for input: 1.3.6.1.4.1.1206.4.2.1.1.4.1.9.1
+[2023-12-08 00:38:41.365] [debug] [snmp_client.cpp:113] STAT_SUCCESS, received a response
+[2023-12-08 00:38:41.365] [debug] [snmp_client.cpp:123] Integer value in object: 0
+[2023-12-08 00:38:41.365] [debug] [snmp_client.cpp:64] Attemping to GET value for: 1.3.6.1.4.1.1206.4.2.1.1.4.1.9.2
+[2023-12-08 00:38:41.365] [debug] [snmp_client.cpp:104] Created OID for input: 1.3.6.1.4.1.1206.4.2.1.1.4.1.9.2
+[2023-12-08 00:38:41.366] [debug] [snmp_client.cpp:113] STAT_SUCCESS, received a response
+[2023-12-08 00:38:41.366] [debug] [snmp_client.cpp:123] Integer value in object: 0
+[2023-12-08 00:38:41.366] [info] [monitor_tsc_state.cpp:187] Response Veh 170, 0 Response Ped 0, 0
+[2023-12-08 00:38:41.366] [info] [monitor_tsc_state.cpp:229] Adding phase 2
+[2023-12-08 00:38:41.366] [info] [monitor_tsc_state.cpp:229] Adding phase 4
+[2023-12-08 00:38:41.366] [info] [monitor_tsc_state.cpp:229] Adding phase 6
+[2023-12-08 00:38:41.366] [info] [monitor_tsc_state.cpp:229] Adding phase 8
+[2023-12-08 00:38:41.366] [info] [monitor_tsc_state.cpp:205] Pedestrian calls [], Vehicle calls, [2, 4, 6, 8]
+[2023-12-08 00:38:41.440] [debug] [streets_service.cpp:95] Consumed: {"timestep":48200,"seq":483}
+[2023-12-08 00:38:41.453] [debug] [tsc_service.cpp:204] Current SPaT : {"time_stamp":0,"name":"","intersections":[{"name":"Town04 Intersection 785","id":36243,"revision":1,"status":0,"moy":0,"time_stamp":48200,"states":[{"movement_name":"","signal_group":8,"state_time_speed":[{"event_state":3,"timing":{"start_time":481,"min_end_time":512,"max_end_time":512,"confidence":0}}]},{"movement_name":"","signal_group":7,"state_time_speed":[{"event_state":3,"timing":{"start_time":481,"min_end_time":482,"max_end_time":482,"confidence":0}}]},{"movement_name":"","signal_group":6,"state_time_speed":[{"event_state":8,"timing":{"start_time":481,"min_end_time":502,"max_end_time":502,"confidence":0}}]},{"movement_name":"","signal_group":5,"state_time_speed":[{"event_state":3,"timing":{"start_time":481,"min_end_time":482,"max_end_time":482,"confidence":0}}]},{"movement_name":"","signal_group":4,"state_time_speed":[{"event_state":3,"timing":{"start_time":481,"min_end_time":512,"max_end_time":512,"confidence":0}}]},{"movement_name":"","signal_group":3,"state_time_speed":[{"event_state":3,"timing":{"start_time":481,"min_end_time":482,"max_end_time":482,"confidence":0}}]},{"movement_name":"","signal_group":2,"state_time_speed":[{"event_state":8,"timing":{"start_time":481,"min_end_time":502,"max_end_time":502,"confidence":0}}]},{"movement_name":"","signal_group":1,"state_time_speed":[{"event_state":3,"timing":{"start_time":481,"min_end_time":482,"max_end_time":482,"confidence":0}}]}]}]} 
+[2023-12-08 00:38:41.453] [debug] [snmp_client.cpp:64] Attemping to GET value for: 1.3.6.1.4.1.1206.4.2.1.1.4.1.8.1
+[2023-12-08 00:38:41.453] [debug] [snmp_client.cpp:104] Created OID for input: 1.3.6.1.4.1.1206.4.2.1.1.4.1.8.1
+[2023-12-08 00:38:41.453] [debug] [snmp_client.cpp:113] STAT_SUCCESS, received a response
+[2023-12-08 00:38:41.453] [debug] [snmp_client.cpp:123] Integer value in object: 170
+[2023-12-08 00:38:41.453] [debug] [snmp_client.cpp:64] Attemping to GET value for: 1.3.6.1.4.1.1206.4.2.1.1.4.1.8.2
+[2023-12-08 00:38:41.453] [debug] [snmp_client.cpp:104] Created OID for input: 1.3.6.1.4.1.1206.4.2.1.1.4.1.8.2
+[2023-12-08 00:38:41.454] [debug] [snmp_client.cpp:113] STAT_SUCCESS, received a response
+[2023-12-08 00:38:41.454] [debug] [snmp_client.cpp:123] Integer value in object: 0
+[2023-12-08 00:38:41.454] [debug] [snmp_client.cpp:64] Attemping to GET value for: 1.3.6.1.4.1.1206.4.2.1.1.4.1.9.1
+[2023-12-08 00:38:41.454] [debug] [snmp_client.cpp:104] Created OID for input: 1.3.6.1.4.1.1206.4.2.1.1.4.1.9.1
+[2023-12-08 00:38:41.455] [debug] [snmp_client.cpp:113] STAT_SUCCESS, received a response
+[2023-12-08 00:38:41.456] [debug] [snmp_client.cpp:123] Integer value in object: 0
+[2023-12-08 00:38:41.456] [debug] [snmp_client.cpp:64] Attemping to GET value for: 1.3.6.1.4.1.1206.4.2.1.1.4.1.9.2
+[2023-12-08 00:38:41.456] [debug] [snmp_client.cpp:104] Created OID for input: 1.3.6.1.4.1.1206.4.2.1.1.4.1.9.2
+[2023-12-08 00:38:41.457] [debug] [snmp_client.cpp:113] STAT_SUCCESS, received a response
+[2023-12-08 00:38:41.457] [debug] [snmp_client.cpp:123] Integer value in object: 0
+[2023-12-08 00:38:41.457] [info] [monitor_tsc_state.cpp:187] Response Veh 170, 0 Response Ped 0, 0
+[2023-12-08 00:38:41.457] [info] [monitor_tsc_state.cpp:229] Adding phase 2
+[2023-12-08 00:38:41.457] [info] [monitor_tsc_state.cpp:229] Adding phase 4
+[2023-12-08 00:38:41.457] [info] [monitor_tsc_state.cpp:229] Adding phase 6
+[2023-12-08 00:38:41.457] [info] [monitor_tsc_state.cpp:229] Adding phase 8
+[2023-12-08 00:38:41.457] [info] [monitor_tsc_state.cpp:205] Pedestrian calls [], Vehicle calls, [2, 4, 6, 8]
+[2023-12-08 00:38:41.541] [debug] [streets_service.cpp:95] Consumed: {"timestep":48300,"seq":484}
+[2023-12-08 00:38:41.559] [debug] [tsc_service.cpp:204] Current SPaT : {"time_stamp":0,"name":"","intersections":[{"name":"Town04 Intersection 785","id":36243,"revision":1,"status":0,"moy":0,"time_stamp":48300,"states":[{"movement_name":"","signal_group":8,"state_time_speed":[{"event_state":3,"timing":{"start_time":481,"min_end_time":512,"max_end_time":512,"confidence":0}}]},{"movement_name":"","signal_group":7,"state_time_speed":[{"event_state":3,"timing":{"start_time":481,"min_end_time":483,"max_end_time":483,"confidence":0}}]},{"movement_name":"","signal_group":6,"state_time_speed":[{"event_state":8,"timing":{"start_time":481,"min_end_time":502,"max_end_time":502,"confidence":0}}]},{"movement_name":"","signal_group":5,"state_time_speed":[{"event_state":3,"timing":{"start_time":481,"min_end_time":483,"max_end_time":483,"confidence":0}}]},{"movement_name":"","signal_group":4,"state_time_speed":[{"event_state":3,"timing":{"start_time":481,"min_end_time":512,"max_end_time":512,"confidence":0}}]},{"movement_name":"","signal_group":3,"state_time_speed":[{"event_state":3,"timing":{"start_time":481,"min_end_time":483,"max_end_time":483,"confidence":0}}]},{"movement_name":"","signal_group":2,"state_time_speed":[{"event_state":8,"timing":{"start_time":481,"min_end_time":502,"max_end_time":502,"confidence":0}}]},{"movement_name":"","signal_group":1,"state_time_speed":[{"event_state":3,"timing":{"start_time":481,"min_end_time":483,"max_end_time":483,"confidence":0}}]}]}]} 
+[2023-12-08 00:38:41.559] [debug] [snmp_client.cpp:64] Attemping to GET value for: 1.3.6.1.4.1.1206.4.2.1.1.4.1.8.1
+[2023-12-08 00:38:41.559] [debug] [snmp_client.cpp:104] Created OID for input: 1.3.6.1.4.1.1206.4.2.1.1.4.1.8.1
+[2023-12-08 00:38:41.559] [debug] [snmp_client.cpp:113] STAT_SUCCESS, received a response
+[2023-12-08 00:38:41.559] [debug] [snmp_client.cpp:123] Integer value in object: 170
+[2023-12-08 00:38:41.559] [debug] [snmp_client.cpp:64] Attemping to GET value for: 1.3.6.1.4.1.1206.4.2.1.1.4.1.8.2
+[2023-12-08 00:38:41.559] [debug] [snmp_client.cpp:104] Created OID for input: 1.3.6.1.4.1.1206.4.2.1.1.4.1.8.2
+[2023-12-08 00:38:41.560] [debug] [snmp_client.cpp:113] STAT_SUCCESS, received a response
+[2023-12-08 00:38:41.560] [debug] [snmp_client.cpp:123] Integer value in object: 0
+[2023-12-08 00:38:41.560] [debug] [snmp_client.cpp:64] Attemping to GET value for: 1.3.6.1.4.1.1206.4.2.1.1.4.1.9.1
+[2023-12-08 00:38:41.560] [debug] [snmp_client.cpp:104] Created OID for input: 1.3.6.1.4.1.1206.4.2.1.1.4.1.9.1
+[2023-12-08 00:38:41.561] [debug] [snmp_client.cpp:113] STAT_SUCCESS, received a response
+[2023-12-08 00:38:41.561] [debug] [snmp_client.cpp:123] Integer value in object: 0
+[2023-12-08 00:38:41.561] [debug] [snmp_client.cpp:64] Attemping to GET value for: 1.3.6.1.4.1.1206.4.2.1.1.4.1.9.2
+[2023-12-08 00:38:41.561] [debug] [snmp_client.cpp:104] Created OID for input: 1.3.6.1.4.1.1206.4.2.1.1.4.1.9.2
+[2023-12-08 00:38:41.562] [debug] [snmp_client.cpp:113] STAT_SUCCESS, received a response
+[2023-12-08 00:38:41.562] [debug] [snmp_client.cpp:123] Integer value in object: 0
+[2023-12-08 00:38:41.562] [info] [monitor_tsc_state.cpp:187] Response Veh 170, 0 Response Ped 0, 0
+[2023-12-08 00:38:41.562] [info] [monitor_tsc_state.cpp:229] Adding phase 2
+[2023-12-08 00:38:41.562] [info] [monitor_tsc_state.cpp:229] Adding phase 4
+[2023-12-08 00:38:41.562] [info] [monitor_tsc_state.cpp:229] Adding phase 6
+[2023-12-08 00:38:41.562] [info] [monitor_tsc_state.cpp:229] Adding phase 8
+[2023-12-08 00:38:41.562] [info] [monitor_tsc_state.cpp:205] Pedestrian calls [], Vehicle calls, [2, 4, 6, 8]
+[2023-12-08 00:38:41.641] [debug] [streets_service.cpp:95] Consumed: {"timestep":48400,"seq":485}
+[2023-12-08 00:38:41.654] [debug] [tsc_service.cpp:204] Current SPaT : {"time_stamp":0,"name":"","intersections":[{"name":"Town04 Intersection 785","id":36243,"revision":1,"status":0,"moy":0,"time_stamp":48400,"states":[{"movement_name":"","signal_group":8,"state_time_speed":[{"event_state":3,"timing":{"start_time":481,"min_end_time":512,"max_end_time":512,"confidence":0}}]},{"movement_name":"","signal_group":7,"state_time_speed":[{"event_state":3,"timing":{"start_time":481,"min_end_time":484,"max_end_time":484,"confidence":0}}]},{"movement_name":"","signal_group":6,"state_time_speed":[{"event_state":8,"timing":{"start_time":481,"min_end_time":502,"max_end_time":502,"confidence":0}}]},{"movement_name":"","signal_group":5,"state_time_speed":[{"event_state":3,"timing":{"start_time":481,"min_end_time":484,"max_end_time":484,"confidence":0}}]},{"movement_name":"","signal_group":4,"state_time_speed":[{"event_state":3,"timing":{"start_time":481,"min_end_time":512,"max_end_time":512,"confidence":0}}]},{"movement_name":"","signal_group":3,"state_time_speed":[{"event_state":3,"timing":{"start_time":481,"min_end_time":484,"max_end_time":484,"confidence":0}}]},{"movement_name":"","signal_group":2,"state_time_speed":[{"event_state":8,"timing":{"start_time":481,"min_end_time":502,"max_end_time":502,"confidence":0}}]},{"movement_name":"","signal_group":1,"state_time_speed":[{"event_state":3,"timing":{"start_time":481,"min_end_time":484,"max_end_time":484,"confidence":0}}]}]}]} 
+[2023-12-08 00:38:41.654] [debug] [snmp_client.cpp:64] Attemping to GET value for: 1.3.6.1.4.1.1206.4.2.1.1.4.1.8.1
+[2023-12-08 00:38:41.654] [debug] [snmp_client.cpp:104] Created OID for input: 1.3.6.1.4.1.1206.4.2.1.1.4.1.8.1
+[2023-12-08 00:38:41.654] [debug] [snmp_client.cpp:113] STAT_SUCCESS, received a response
+[2023-12-08 00:38:41.654] [debug] [snmp_client.cpp:123] Integer value in object: 170
+[2023-12-08 00:38:41.654] [debug] [snmp_client.cpp:64] Attemping to GET value for: 1.3.6.1.4.1.1206.4.2.1.1.4.1.8.2
+[2023-12-08 00:38:41.654] [debug] [snmp_client.cpp:104] Created OID for input: 1.3.6.1.4.1.1206.4.2.1.1.4.1.8.2
+[2023-12-08 00:38:41.655] [debug] [snmp_client.cpp:113] STAT_SUCCESS, received a response
+[2023-12-08 00:38:41.655] [debug] [snmp_client.cpp:123] Integer value in object: 0
+[2023-12-08 00:38:41.655] [debug] [snmp_client.cpp:64] Attemping to GET value for: 1.3.6.1.4.1.1206.4.2.1.1.4.1.9.1
+[2023-12-08 00:38:41.655] [debug] [snmp_client.cpp:104] Created OID for input: 1.3.6.1.4.1.1206.4.2.1.1.4.1.9.1
+[2023-12-08 00:38:41.656] [debug] [snmp_client.cpp:113] STAT_SUCCESS, received a response
+[2023-12-08 00:38:41.656] [debug] [snmp_client.cpp:123] Integer value in object: 0
+[2023-12-08 00:38:41.656] [debug] [snmp_client.cpp:64] Attemping to GET value for: 1.3.6.1.4.1.1206.4.2.1.1.4.1.9.2
+[2023-12-08 00:38:41.656] [debug] [snmp_client.cpp:104] Created OID for input: 1.3.6.1.4.1.1206.4.2.1.1.4.1.9.2
+[2023-12-08 00:38:41.657] [debug] [snmp_client.cpp:113] STAT_SUCCESS, received a response
+[2023-12-08 00:38:41.657] [debug] [snmp_client.cpp:123] Integer value in object: 0
+[2023-12-08 00:38:41.657] [info] [monitor_tsc_state.cpp:187] Response Veh 170, 0 Response Ped 0, 0
+[2023-12-08 00:38:41.657] [info] [monitor_tsc_state.cpp:229] Adding phase 2
+[2023-12-08 00:38:41.657] [info] [monitor_tsc_state.cpp:229] Adding phase 4
+[2023-12-08 00:38:41.657] [info] [monitor_tsc_state.cpp:229] Adding phase 6
+[2023-12-08 00:38:41.657] [info] [monitor_tsc_state.cpp:229] Adding phase 8
+[2023-12-08 00:38:41.657] [info] [monitor_tsc_state.cpp:205] Pedestrian calls [], Vehicle calls, [2, 4, 6, 8]
+[2023-12-08 00:38:41.741] [debug] [streets_service.cpp:95] Consumed: {"timestep":48500,"seq":486}
+[2023-12-08 00:38:41.757] [debug] [tsc_service.cpp:204] Current SPaT : {"time_stamp":0,"name":"","intersections":[{"name":"Town04 Intersection 785","id":36243,"revision":1,"status":0,"moy":0,"time_stamp":48500,"states":[{"movement_name":"","signal_group":8,"state_time_speed":[{"event_state":3,"timing":{"start_time":481,"min_end_time":512,"max_end_time":512,"confidence":0}}]},{"movement_name":"","signal_group":7,"state_time_speed":[{"event_state":3,"timing":{"start_time":481,"min_end_time":485,"max_end_time":485,"confidence":0}}]},{"movement_name":"","signal_group":6,"state_time_speed":[{"event_state":8,"timing":{"start_time":481,"min_end_time":502,"max_end_time":502,"confidence":0}}]},{"movement_name":"","signal_group":5,"state_time_speed":[{"event_state":3,"timing":{"start_time":481,"min_end_time":485,"max_end_time":485,"confidence":0}}]},{"movement_name":"","signal_group":4,"state_time_speed":[{"event_state":3,"timing":{"start_time":481,"min_end_time":512,"max_end_time":512,"confidence":0}}]},{"movement_name":"","signal_group":3,"state_time_speed":[{"event_state":3,"timing":{"start_time":481,"min_end_time":485,"max_end_time":485,"confidence":0}}]},{"movement_name":"","signal_group":2,"state_time_speed":[{"event_state":8,"timing":{"start_time":481,"min_end_time":502,"max_end_time":502,"confidence":0}}]},{"movement_name":"","signal_group":1,"state_time_speed":[{"event_state":3,"timing":{"start_time":481,"min_end_time":485,"max_end_time":485,"confidence":0}}]}]}]} 
+[2023-12-08 00:38:41.757] [debug] [snmp_client.cpp:64] Attemping to GET value for: 1.3.6.1.4.1.1206.4.2.1.1.4.1.8.1
+[2023-12-08 00:38:41.757] [debug] [snmp_client.cpp:104] Created OID for input: 1.3.6.1.4.1.1206.4.2.1.1.4.1.8.1
+[2023-12-08 00:38:41.757] [debug] [snmp_client.cpp:113] STAT_SUCCESS, received a response
+[2023-12-08 00:38:41.757] [debug] [snmp_client.cpp:123] Integer value in object: 170
+[2023-12-08 00:38:41.757] [debug] [snmp_client.cpp:64] Attemping to GET value for: 1.3.6.1.4.1.1206.4.2.1.1.4.1.8.2
+[2023-12-08 00:38:41.757] [debug] [snmp_client.cpp:104] Created OID for input: 1.3.6.1.4.1.1206.4.2.1.1.4.1.8.2
+[2023-12-08 00:38:41.758] [debug] [snmp_client.cpp:113] STAT_SUCCESS, received a response
+[2023-12-08 00:38:41.758] [debug] [snmp_client.cpp:123] Integer value in object: 0
+[2023-12-08 00:38:41.758] [debug] [snmp_client.cpp:64] Attemping to GET value for: 1.3.6.1.4.1.1206.4.2.1.1.4.1.9.1
+[2023-12-08 00:38:41.758] [debug] [snmp_client.cpp:104] Created OID for input: 1.3.6.1.4.1.1206.4.2.1.1.4.1.9.1
+[2023-12-08 00:38:41.759] [debug] [snmp_client.cpp:113] STAT_SUCCESS, received a response
+[2023-12-08 00:38:41.759] [debug] [snmp_client.cpp:123] Integer value in object: 0
+[2023-12-08 00:38:41.759] [debug] [snmp_client.cpp:64] Attemping to GET value for: 1.3.6.1.4.1.1206.4.2.1.1.4.1.9.2
+[2023-12-08 00:38:41.759] [debug] [snmp_client.cpp:104] Created OID for input: 1.3.6.1.4.1.1206.4.2.1.1.4.1.9.2
+[2023-12-08 00:38:41.760] [debug] [snmp_client.cpp:113] STAT_SUCCESS, received a response
+[2023-12-08 00:38:41.760] [debug] [snmp_client.cpp:123] Integer value in object: 0
+[2023-12-08 00:38:41.760] [info] [monitor_tsc_state.cpp:187] Response Veh 170, 0 Response Ped 0, 0
+[2023-12-08 00:38:41.760] [info] [monitor_tsc_state.cpp:229] Adding phase 2
+[2023-12-08 00:38:41.760] [info] [monitor_tsc_state.cpp:229] Adding phase 4
+[2023-12-08 00:38:41.760] [info] [monitor_tsc_state.cpp:229] Adding phase 6
+[2023-12-08 00:38:41.760] [info] [monitor_tsc_state.cpp:229] Adding phase 8
+[2023-12-08 00:38:41.760] [info] [monitor_tsc_state.cpp:205] Pedestrian calls [], Vehicle calls, [2, 4, 6, 8]
+[2023-12-08 00:38:41.842] [debug] [streets_service.cpp:95] Consumed: {"timestep":48600,"seq":487}
+[2023-12-08 00:38:41.867] [debug] [tsc_service.cpp:204] Current SPaT : {"time_stamp":0,"name":"","intersections":[{"name":"Town04 Intersection 785","id":36243,"revision":1,"status":0,"moy":0,"time_stamp":48600,"states":[{"movement_name":"","signal_group":8,"state_time_speed":[{"event_state":3,"timing":{"start_time":481,"min_end_time":512,"max_end_time":512,"confidence":0}}]},{"movement_name":"","signal_group":7,"state_time_speed":[{"event_state":3,"timing":{"start_time":481,"min_end_time":486,"max_end_time":486,"confidence":0}}]},{"movement_name":"","signal_group":6,"state_time_speed":[{"event_state":8,"timing":{"start_time":481,"min_end_time":502,"max_end_time":502,"confidence":0}}]},{"movement_name":"","signal_group":5,"state_time_speed":[{"event_state":3,"timing":{"start_time":481,"min_end_time":486,"max_end_time":486,"confidence":0}}]},{"movement_name":"","signal_group":4,"state_time_speed":[{"event_state":3,"timing":{"start_time":481,"min_end_time":512,"max_end_time":512,"confidence":0}}]},{"movement_name":"","signal_group":3,"state_time_speed":[{"event_state":3,"timing":{"start_time":481,"min_end_time":486,"max_end_time":486,"confidence":0}}]},{"movement_name":"","signal_group":2,"state_time_speed":[{"event_state":8,"timing":{"start_time":481,"min_end_time":502,"max_end_time":502,"confidence":0}}]},{"movement_name":"","signal_group":1,"state_time_speed":[{"event_state":3,"timing":{"start_time":481,"min_end_time":486,"max_end_time":486,"confidence":0}}]}]}]} 
+[2023-12-08 00:38:41.867] [debug] [snmp_client.cpp:64] Attemping to GET value for: 1.3.6.1.4.1.1206.4.2.1.1.4.1.8.1
+[2023-12-08 00:38:41.867] [debug] [snmp_client.cpp:104] Created OID for input: 1.3.6.1.4.1.1206.4.2.1.1.4.1.8.1
+[2023-12-08 00:38:41.867] [debug] [snmp_client.cpp:113] STAT_SUCCESS, received a response
+[2023-12-08 00:38:41.867] [debug] [snmp_client.cpp:123] Integer value in object: 170
+[2023-12-08 00:38:41.867] [debug] [snmp_client.cpp:64] Attemping to GET value for: 1.3.6.1.4.1.1206.4.2.1.1.4.1.8.2
+[2023-12-08 00:38:41.867] [debug] [snmp_client.cpp:104] Created OID for input: 1.3.6.1.4.1.1206.4.2.1.1.4.1.8.2
+[2023-12-08 00:38:41.868] [debug] [snmp_client.cpp:113] STAT_SUCCESS, received a response
+[2023-12-08 00:38:41.868] [debug] [snmp_client.cpp:123] Integer value in object: 0
+[2023-12-08 00:38:41.868] [debug] [snmp_client.cpp:64] Attemping to GET value for: 1.3.6.1.4.1.1206.4.2.1.1.4.1.9.1
+[2023-12-08 00:38:41.868] [debug] [snmp_client.cpp:104] Created OID for input: 1.3.6.1.4.1.1206.4.2.1.1.4.1.9.1
+[2023-12-08 00:38:41.869] [debug] [snmp_client.cpp:113] STAT_SUCCESS, received a response
+[2023-12-08 00:38:41.869] [debug] [snmp_client.cpp:123] Integer value in object: 0
+[2023-12-08 00:38:41.869] [debug] [snmp_client.cpp:64] Attemping to GET value for: 1.3.6.1.4.1.1206.4.2.1.1.4.1.9.2
+[2023-12-08 00:38:41.869] [debug] [snmp_client.cpp:104] Created OID for input: 1.3.6.1.4.1.1206.4.2.1.1.4.1.9.2
+[2023-12-08 00:38:41.871] [debug] [snmp_client.cpp:113] STAT_SUCCESS, received a response
+[2023-12-08 00:38:41.871] [debug] [snmp_client.cpp:123] Integer value in object: 0
+[2023-12-08 00:38:41.871] [info] [monitor_tsc_state.cpp:187] Response Veh 170, 0 Response Ped 0, 0
+[2023-12-08 00:38:41.871] [info] [monitor_tsc_state.cpp:229] Adding phase 2
+[2023-12-08 00:38:41.871] [info] [monitor_tsc_state.cpp:229] Adding phase 4
+[2023-12-08 00:38:41.871] [info] [monitor_tsc_state.cpp:229] Adding phase 6
+[2023-12-08 00:38:41.871] [info] [monitor_tsc_state.cpp:229] Adding phase 8
+[2023-12-08 00:38:41.871] [info] [monitor_tsc_state.cpp:205] Pedestrian calls [], Vehicle calls, [2, 4, 6, 8]
+[2023-12-08 00:38:41.942] [debug] [streets_service.cpp:95] Consumed: {"timestep":48700,"seq":488}
+[2023-12-08 00:38:41.956] [debug] [tsc_service.cpp:204] Current SPaT : {"time_stamp":0,"name":"","intersections":[{"name":"Town04 Intersection 785","id":36243,"revision":1,"status":0,"moy":0,"time_stamp":48700,"states":[{"movement_name":"","signal_group":8,"state_time_speed":[{"event_state":3,"timing":{"start_time":481,"min_end_time":512,"max_end_time":512,"confidence":0}}]},{"movement_name":"","signal_group":7,"state_time_speed":[{"event_state":3,"timing":{"start_time":481,"min_end_time":487,"max_end_time":487,"confidence":0}}]},{"movement_name":"","signal_group":6,"state_time_speed":[{"event_state":8,"timing":{"start_time":481,"min_end_time":502,"max_end_time":502,"confidence":0}}]},{"movement_name":"","signal_group":5,"state_time_speed":[{"event_state":3,"timing":{"start_time":481,"min_end_time":487,"max_end_time":487,"confidence":0}}]},{"movement_name":"","signal_group":4,"state_time_speed":[{"event_state":3,"timing":{"start_time":481,"min_end_time":512,"max_end_time":512,"confidence":0}}]},{"movement_name":"","signal_group":3,"state_time_speed":[{"event_state":3,"timing":{"start_time":481,"min_end_time":487,"max_end_time":487,"confidence":0}}]},{"movement_name":"","signal_group":2,"state_time_speed":[{"event_state":8,"timing":{"start_time":481,"min_end_time":502,"max_end_time":502,"confidence":0}}]},{"movement_name":"","signal_group":1,"state_time_speed":[{"event_state":3,"timing":{"start_time":481,"min_end_time":487,"max_end_time":487,"confidence":0}}]}]}]} 
+[2023-12-08 00:38:41.956] [debug] [snmp_client.cpp:64] Attemping to GET value for: 1.3.6.1.4.1.1206.4.2.1.1.4.1.8.1
+[2023-12-08 00:38:41.956] [debug] [snmp_client.cpp:104] Created OID for input: 1.3.6.1.4.1.1206.4.2.1.1.4.1.8.1
+[2023-12-08 00:38:41.956] [debug] [snmp_client.cpp:113] STAT_SUCCESS, received a response
+[2023-12-08 00:38:41.956] [debug] [snmp_client.cpp:123] Integer value in object: 170
+[2023-12-08 00:38:41.956] [debug] [snmp_client.cpp:64] Attemping to GET value for: 1.3.6.1.4.1.1206.4.2.1.1.4.1.8.2
+[2023-12-08 00:38:41.956] [debug] [snmp_client.cpp:104] Created OID for input: 1.3.6.1.4.1.1206.4.2.1.1.4.1.8.2
+[2023-12-08 00:38:41.957] [debug] [snmp_client.cpp:113] STAT_SUCCESS, received a response
+[2023-12-08 00:38:41.957] [debug] [snmp_client.cpp:123] Integer value in object: 0
+[2023-12-08 00:38:41.957] [debug] [snmp_client.cpp:64] Attemping to GET value for: 1.3.6.1.4.1.1206.4.2.1.1.4.1.9.1
+[2023-12-08 00:38:41.957] [debug] [snmp_client.cpp:104] Created OID for input: 1.3.6.1.4.1.1206.4.2.1.1.4.1.9.1
+[2023-12-08 00:38:41.958] [debug] [snmp_client.cpp:113] STAT_SUCCESS, received a response
+[2023-12-08 00:38:41.958] [debug] [snmp_client.cpp:123] Integer value in object: 0
+[2023-12-08 00:38:41.958] [debug] [snmp_client.cpp:64] Attemping to GET value for: 1.3.6.1.4.1.1206.4.2.1.1.4.1.9.2
+[2023-12-08 00:38:41.958] [debug] [snmp_client.cpp:104] Created OID for input: 1.3.6.1.4.1.1206.4.2.1.1.4.1.9.2
+[2023-12-08 00:38:41.959] [debug] [snmp_client.cpp:113] STAT_SUCCESS, received a response
+[2023-12-08 00:38:41.959] [debug] [snmp_client.cpp:123] Integer value in object: 0
+[2023-12-08 00:38:41.959] [info] [monitor_tsc_state.cpp:187] Response Veh 170, 0 Response Ped 0, 0
+[2023-12-08 00:38:41.959] [info] [monitor_tsc_state.cpp:229] Adding phase 2
+[2023-12-08 00:38:41.959] [info] [monitor_tsc_state.cpp:229] Adding phase 4
+[2023-12-08 00:38:41.959] [info] [monitor_tsc_state.cpp:229] Adding phase 6
+[2023-12-08 00:38:41.959] [info] [monitor_tsc_state.cpp:229] Adding phase 8
+[2023-12-08 00:38:41.959] [info] [monitor_tsc_state.cpp:205] Pedestrian calls [], Vehicle calls, [2, 4, 6, 8]
+[2023-12-08 00:38:42.042] [debug] [streets_service.cpp:95] Consumed: {"timestep":48800,"seq":489}
+[2023-12-08 00:38:42.125] [debug] [tsc_service.cpp:204] Current SPaT : {"time_stamp":0,"name":"","intersections":[{"name":"Town04 Intersection 785","id":36243,"revision":1,"status":0,"moy":0,"time_stamp":48800,"states":[{"movement_name":"","signal_group":8,"state_time_speed":[{"event_state":3,"timing":{"start_time":481,"min_end_time":512,"max_end_time":512,"confidence":0}}]},{"movement_name":"","signal_group":7,"state_time_speed":[{"event_state":3,"timing":{"start_time":481,"min_end_time":488,"max_end_time":488,"confidence":0}}]},{"movement_name":"","signal_group":6,"state_time_speed":[{"event_state":8,"timing":{"start_time":481,"min_end_time":502,"max_end_time":502,"confidence":0}}]},{"movement_name":"","signal_group":5,"state_time_speed":[{"event_state":3,"timing":{"start_time":481,"min_end_time":488,"max_end_time":488,"confidence":0}}]},{"movement_name":"","signal_group":4,"state_time_speed":[{"event_state":3,"timing":{"start_time":481,"min_end_time":512,"max_end_time":512,"confidence":0}}]},{"movement_name":"","signal_group":3,"state_time_speed":[{"event_state":3,"timing":{"start_time":481,"min_end_time":488,"max_end_time":488,"confidence":0}}]},{"movement_name":"","signal_group":2,"state_time_speed":[{"event_state":8,"timing":{"start_time":481,"min_end_time":502,"max_end_time":502,"confidence":0}}]},{"movement_name":"","signal_group":1,"state_time_speed":[{"event_state":3,"timing":{"start_time":481,"min_end_time":488,"max_end_time":488,"confidence":0}}]}]}]} 
+[2023-12-08 00:38:42.125] [debug] [snmp_client.cpp:64] Attemping to GET value for: 1.3.6.1.4.1.1206.4.2.1.1.4.1.8.1
+[2023-12-08 00:38:42.125] [debug] [snmp_client.cpp:104] Created OID for input: 1.3.6.1.4.1.1206.4.2.1.1.4.1.8.1
+[2023-12-08 00:38:42.125] [debug] [snmp_client.cpp:113] STAT_SUCCESS, received a response
+[2023-12-08 00:38:42.125] [debug] [snmp_client.cpp:123] Integer value in object: 170
+[2023-12-08 00:38:42.125] [debug] [snmp_client.cpp:64] Attemping to GET value for: 1.3.6.1.4.1.1206.4.2.1.1.4.1.8.2
+[2023-12-08 00:38:42.125] [debug] [snmp_client.cpp:104] Created OID for input: 1.3.6.1.4.1.1206.4.2.1.1.4.1.8.2
+[2023-12-08 00:38:42.126] [debug] [snmp_client.cpp:113] STAT_SUCCESS, received a response
+[2023-12-08 00:38:42.126] [debug] [snmp_client.cpp:123] Integer value in object: 0
+[2023-12-08 00:38:42.126] [debug] [snmp_client.cpp:64] Attemping to GET value for: 1.3.6.1.4.1.1206.4.2.1.1.4.1.9.1
+[2023-12-08 00:38:42.126] [debug] [snmp_client.cpp:104] Created OID for input: 1.3.6.1.4.1.1206.4.2.1.1.4.1.9.1
+[2023-12-08 00:38:42.127] [debug] [snmp_client.cpp:113] STAT_SUCCESS, received a response
+[2023-12-08 00:38:42.127] [debug] [snmp_client.cpp:123] Integer value in object: 0
+[2023-12-08 00:38:42.127] [debug] [snmp_client.cpp:64] Attemping to GET value for: 1.3.6.1.4.1.1206.4.2.1.1.4.1.9.2
+[2023-12-08 00:38:42.127] [debug] [snmp_client.cpp:104] Created OID for input: 1.3.6.1.4.1.1206.4.2.1.1.4.1.9.2
+[2023-12-08 00:38:42.128] [debug] [snmp_client.cpp:113] STAT_SUCCESS, received a response
+[2023-12-08 00:38:42.128] [debug] [snmp_client.cpp:123] Integer value in object: 0
+[2023-12-08 00:38:42.128] [info] [monitor_tsc_state.cpp:187] Response Veh 170, 0 Response Ped 0, 0
+[2023-12-08 00:38:42.128] [info] [monitor_tsc_state.cpp:229] Adding phase 2
+[2023-12-08 00:38:42.128] [info] [monitor_tsc_state.cpp:229] Adding phase 4
+[2023-12-08 00:38:42.128] [info] [monitor_tsc_state.cpp:229] Adding phase 6
+[2023-12-08 00:38:42.128] [info] [monitor_tsc_state.cpp:229] Adding phase 8
+[2023-12-08 00:38:42.128] [info] [monitor_tsc_state.cpp:205] Pedestrian calls [], Vehicle calls, [2, 4, 6, 8]
+[2023-12-08 00:38:42.142] [debug] [streets_service.cpp:95] Consumed: {"timestep":48900,"seq":490}
+[2023-12-08 00:38:42.191] [debug] [tsc_service.cpp:204] Current SPaT : {"time_stamp":0,"name":"","intersections":[{"name":"Town04 Intersection 785","id":36243,"revision":1,"status":0,"moy":0,"time_stamp":48900,"states":[{"movement_name":"","signal_group":8,"state_time_speed":[{"event_state":3,"timing":{"start_time":481,"min_end_time":512,"max_end_time":512,"confidence":0}}]},{"movement_name":"","signal_group":7,"state_time_speed":[{"event_state":3,"timing":{"start_time":481,"min_end_time":489,"max_end_time":489,"confidence":0}}]},{"movement_name":"","signal_group":6,"state_time_speed":[{"event_state":8,"timing":{"start_time":481,"min_end_time":502,"max_end_time":502,"confidence":0}}]},{"movement_name":"","signal_group":5,"state_time_speed":[{"event_state":3,"timing":{"start_time":481,"min_end_time":489,"max_end_time":489,"confidence":0}}]},{"movement_name":"","signal_group":4,"state_time_speed":[{"event_state":3,"timing":{"start_time":481,"min_end_time":512,"max_end_time":512,"confidence":0}}]},{"movement_name":"","signal_group":3,"state_time_speed":[{"event_state":3,"timing":{"start_time":481,"min_end_time":489,"max_end_time":489,"confidence":0}}]},{"movement_name":"","signal_group":2,"state_time_speed":[{"event_state":8,"timing":{"start_time":481,"min_end_time":502,"max_end_time":502,"confidence":0}}]},{"movement_name":"","signal_group":1,"state_time_speed":[{"event_state":3,"timing":{"start_time":481,"min_end_time":489,"max_end_time":489,"confidence":0}}]}]}]} 
+[2023-12-08 00:38:42.191] [debug] [snmp_client.cpp:64] Attemping to GET value for: 1.3.6.1.4.1.1206.4.2.1.1.4.1.8.1
+[2023-12-08 00:38:42.191] [debug] [snmp_client.cpp:104] Created OID for input: 1.3.6.1.4.1.1206.4.2.1.1.4.1.8.1
+[2023-12-08 00:38:42.191] [debug] [snmp_client.cpp:113] STAT_SUCCESS, received a response
+[2023-12-08 00:38:42.191] [debug] [snmp_client.cpp:123] Integer value in object: 170
+[2023-12-08 00:38:42.191] [debug] [snmp_client.cpp:64] Attemping to GET value for: 1.3.6.1.4.1.1206.4.2.1.1.4.1.8.2
+[2023-12-08 00:38:42.191] [debug] [snmp_client.cpp:104] Created OID for input: 1.3.6.1.4.1.1206.4.2.1.1.4.1.8.2
+[2023-12-08 00:38:42.192] [debug] [snmp_client.cpp:113] STAT_SUCCESS, received a response
+[2023-12-08 00:38:42.192] [debug] [snmp_client.cpp:123] Integer value in object: 0
+[2023-12-08 00:38:42.192] [debug] [snmp_client.cpp:64] Attemping to GET value for: 1.3.6.1.4.1.1206.4.2.1.1.4.1.9.1
+[2023-12-08 00:38:42.192] [debug] [snmp_client.cpp:104] Created OID for input: 1.3.6.1.4.1.1206.4.2.1.1.4.1.9.1
+[2023-12-08 00:38:42.193] [debug] [snmp_client.cpp:113] STAT_SUCCESS, received a response
+[2023-12-08 00:38:42.193] [debug] [snmp_client.cpp:123] Integer value in object: 0
+[2023-12-08 00:38:42.193] [debug] [snmp_client.cpp:64] Attemping to GET value for: 1.3.6.1.4.1.1206.4.2.1.1.4.1.9.2
+[2023-12-08 00:38:42.193] [debug] [snmp_client.cpp:104] Created OID for input: 1.3.6.1.4.1.1206.4.2.1.1.4.1.9.2
+[2023-12-08 00:38:42.194] [debug] [snmp_client.cpp:113] STAT_SUCCESS, received a response
+[2023-12-08 00:38:42.194] [debug] [snmp_client.cpp:123] Integer value in object: 0
+[2023-12-08 00:38:42.194] [info] [monitor_tsc_state.cpp:187] Response Veh 170, 0 Response Ped 0, 0
+[2023-12-08 00:38:42.194] [info] [monitor_tsc_state.cpp:229] Adding phase 2
+[2023-12-08 00:38:42.194] [info] [monitor_tsc_state.cpp:229] Adding phase 4
+[2023-12-08 00:38:42.194] [info] [monitor_tsc_state.cpp:229] Adding phase 6
+[2023-12-08 00:38:42.194] [info] [monitor_tsc_state.cpp:229] Adding phase 8
+[2023-12-08 00:38:42.194] [info] [monitor_tsc_state.cpp:205] Pedestrian calls [], Vehicle calls, [2, 4, 6, 8]
+[2023-12-08 00:38:42.243] [debug] [streets_service.cpp:95] Consumed: {"timestep":49000,"seq":491}
+[2023-12-08 00:38:42.268] [debug] [tsc_service.cpp:204] Current SPaT : {"time_stamp":0,"name":"","intersections":[{"name":"Town04 Intersection 785","id":36243,"revision":1,"status":0,"moy":0,"time_stamp":49000,"states":[{"movement_name":"","signal_group":8,"state_time_speed":[{"event_state":3,"timing":{"start_time":481,"min_end_time":512,"max_end_time":512,"confidence":0}}]},{"movement_name":"","signal_group":7,"state_time_speed":[{"event_state":3,"timing":{"start_time":481,"min_end_time":490,"max_end_time":490,"confidence":0}}]},{"movement_name":"","signal_group":6,"state_time_speed":[{"event_state":8,"timing":{"start_time":481,"min_end_time":502,"max_end_time":502,"confidence":0}}]},{"movement_name":"","signal_group":5,"state_time_speed":[{"event_state":3,"timing":{"start_time":481,"min_end_time":490,"max_end_time":490,"confidence":0}}]},{"movement_name":"","signal_group":4,"state_time_speed":[{"event_state":3,"timing":{"start_time":481,"min_end_time":512,"max_end_time":512,"confidence":0}}]},{"movement_name":"","signal_group":3,"state_time_speed":[{"event_state":3,"timing":{"start_time":481,"min_end_time":490,"max_end_time":490,"confidence":0}}]},{"movement_name":"","signal_group":2,"state_time_speed":[{"event_state":8,"timing":{"start_time":481,"min_end_time":502,"max_end_time":502,"confidence":0}}]},{"movement_name":"","signal_group":1,"state_time_speed":[{"event_state":3,"timing":{"start_time":481,"min_end_time":490,"max_end_time":490,"confidence":0}}]}]}]} 
+[2023-12-08 00:38:42.268] [debug] [snmp_client.cpp:64] Attemping to GET value for: 1.3.6.1.4.1.1206.4.2.1.1.4.1.8.1
+[2023-12-08 00:38:42.268] [debug] [snmp_client.cpp:104] Created OID for input: 1.3.6.1.4.1.1206.4.2.1.1.4.1.8.1
+[2023-12-08 00:38:42.269] [debug] [snmp_client.cpp:113] STAT_SUCCESS, received a response
+[2023-12-08 00:38:42.269] [debug] [snmp_client.cpp:123] Integer value in object: 170
+[2023-12-08 00:38:42.269] [debug] [snmp_client.cpp:64] Attemping to GET value for: 1.3.6.1.4.1.1206.4.2.1.1.4.1.8.2
+[2023-12-08 00:38:42.269] [debug] [snmp_client.cpp:104] Created OID for input: 1.3.6.1.4.1.1206.4.2.1.1.4.1.8.2
+[2023-12-08 00:38:42.270] [debug] [snmp_client.cpp:113] STAT_SUCCESS, received a response
+[2023-12-08 00:38:42.270] [debug] [snmp_client.cpp:123] Integer value in object: 0
+[2023-12-08 00:38:42.270] [debug] [snmp_client.cpp:64] Attemping to GET value for: 1.3.6.1.4.1.1206.4.2.1.1.4.1.9.1
+[2023-12-08 00:38:42.270] [debug] [snmp_client.cpp:104] Created OID for input: 1.3.6.1.4.1.1206.4.2.1.1.4.1.9.1
+[2023-12-08 00:38:42.271] [debug] [snmp_client.cpp:113] STAT_SUCCESS, received a response
+[2023-12-08 00:38:42.271] [debug] [snmp_client.cpp:123] Integer value in object: 0
+[2023-12-08 00:38:42.271] [debug] [snmp_client.cpp:64] Attemping to GET value for: 1.3.6.1.4.1.1206.4.2.1.1.4.1.9.2
+[2023-12-08 00:38:42.271] [debug] [snmp_client.cpp:104] Created OID for input: 1.3.6.1.4.1.1206.4.2.1.1.4.1.9.2
+[2023-12-08 00:38:42.272] [debug] [snmp_client.cpp:113] STAT_SUCCESS, received a response
+[2023-12-08 00:38:42.272] [debug] [snmp_client.cpp:123] Integer value in object: 0
+[2023-12-08 00:38:42.272] [info] [monitor_tsc_state.cpp:187] Response Veh 170, 0 Response Ped 0, 0
+[2023-12-08 00:38:42.272] [info] [monitor_tsc_state.cpp:229] Adding phase 2
+[2023-12-08 00:38:42.272] [info] [monitor_tsc_state.cpp:229] Adding phase 4
+[2023-12-08 00:38:42.272] [info] [monitor_tsc_state.cpp:229] Adding phase 6
+[2023-12-08 00:38:42.272] [info] [monitor_tsc_state.cpp:229] Adding phase 8
+[2023-12-08 00:38:42.272] [info] [monitor_tsc_state.cpp:205] Pedestrian calls [], Vehicle calls, [2, 4, 6, 8]
+[2023-12-08 00:38:42.343] [debug] [streets_service.cpp:95] Consumed: {"timestep":49100,"seq":492}
+[2023-12-08 00:38:42.357] [debug] [tsc_service.cpp:204] Current SPaT : {"time_stamp":0,"name":"","intersections":[{"name":"Town04 Intersection 785","id":36243,"revision":1,"status":0,"moy":0,"time_stamp":49100,"states":[{"movement_name":"","signal_group":8,"state_time_speed":[{"event_state":3,"timing":{"start_time":481,"min_end_time":512,"max_end_time":512,"confidence":0}}]},{"movement_name":"","signal_group":7,"state_time_speed":[{"event_state":3,"timing":{"start_time":481,"min_end_time":491,"max_end_time":491,"confidence":0}}]},{"movement_name":"","signal_group":6,"state_time_speed":[{"event_state":8,"timing":{"start_time":481,"min_end_time":502,"max_end_time":502,"confidence":0}}]},{"movement_name":"","signal_group":5,"state_time_speed":[{"event_state":3,"timing":{"start_time":481,"min_end_time":491,"max_end_time":491,"confidence":0}}]},{"movement_name":"","signal_group":4,"state_time_speed":[{"event_state":3,"timing":{"start_time":481,"min_end_time":512,"max_end_time":512,"confidence":0}}]},{"movement_name":"","signal_group":3,"state_time_speed":[{"event_state":3,"timing":{"start_time":481,"min_end_time":491,"max_end_time":491,"confidence":0}}]},{"movement_name":"","signal_group":2,"state_time_speed":[{"event_state":8,"timing":{"start_time":481,"min_end_time":502,"max_end_time":502,"confidence":0}}]},{"movement_name":"","signal_group":1,"state_time_speed":[{"event_state":3,"timing":{"start_time":481,"min_end_time":491,"max_end_time":491,"confidence":0}}]}]}]} 
+[2023-12-08 00:38:42.357] [debug] [snmp_client.cpp:64] Attemping to GET value for: 1.3.6.1.4.1.1206.4.2.1.1.4.1.8.1
+[2023-12-08 00:38:42.357] [debug] [snmp_client.cpp:104] Created OID for input: 1.3.6.1.4.1.1206.4.2.1.1.4.1.8.1
+[2023-12-08 00:38:42.357] [debug] [snmp_client.cpp:113] STAT_SUCCESS, received a response
+[2023-12-08 00:38:42.357] [debug] [snmp_client.cpp:123] Integer value in object: 170
+[2023-12-08 00:38:42.357] [debug] [snmp_client.cpp:64] Attemping to GET value for: 1.3.6.1.4.1.1206.4.2.1.1.4.1.8.2
+[2023-12-08 00:38:42.357] [debug] [snmp_client.cpp:104] Created OID for input: 1.3.6.1.4.1.1206.4.2.1.1.4.1.8.2
+[2023-12-08 00:38:42.358] [debug] [snmp_client.cpp:113] STAT_SUCCESS, received a response
+[2023-12-08 00:38:42.358] [debug] [snmp_client.cpp:123] Integer value in object: 0
+[2023-12-08 00:38:42.358] [debug] [snmp_client.cpp:64] Attemping to GET value for: 1.3.6.1.4.1.1206.4.2.1.1.4.1.9.1
+[2023-12-08 00:38:42.358] [debug] [snmp_client.cpp:104] Created OID for input: 1.3.6.1.4.1.1206.4.2.1.1.4.1.9.1
+[2023-12-08 00:38:42.359] [debug] [snmp_client.cpp:113] STAT_SUCCESS, received a response
+[2023-12-08 00:38:42.359] [debug] [snmp_client.cpp:123] Integer value in object: 0
+[2023-12-08 00:38:42.359] [debug] [snmp_client.cpp:64] Attemping to GET value for: 1.3.6.1.4.1.1206.4.2.1.1.4.1.9.2
+[2023-12-08 00:38:42.359] [debug] [snmp_client.cpp:104] Created OID for input: 1.3.6.1.4.1.1206.4.2.1.1.4.1.9.2
+[2023-12-08 00:38:42.360] [debug] [snmp_client.cpp:113] STAT_SUCCESS, received a response
+[2023-12-08 00:38:42.360] [debug] [snmp_client.cpp:123] Integer value in object: 0
+[2023-12-08 00:38:42.360] [info] [monitor_tsc_state.cpp:187] Response Veh 170, 0 Response Ped 0, 0
+[2023-12-08 00:38:42.360] [info] [monitor_tsc_state.cpp:229] Adding phase 2
+[2023-12-08 00:38:42.360] [info] [monitor_tsc_state.cpp:229] Adding phase 4
+[2023-12-08 00:38:42.360] [info] [monitor_tsc_state.cpp:229] Adding phase 6
+[2023-12-08 00:38:42.360] [info] [monitor_tsc_state.cpp:229] Adding phase 8
+[2023-12-08 00:38:42.360] [info] [monitor_tsc_state.cpp:205] Pedestrian calls [], Vehicle calls, [2, 4, 6, 8]
+[2023-12-08 00:38:42.443] [debug] [streets_service.cpp:95] Consumed: {"timestep":49200,"seq":493}
+[2023-12-08 00:38:42.461] [debug] [tsc_service.cpp:204] Current SPaT : {"time_stamp":0,"name":"","intersections":[{"name":"Town04 Intersection 785","id":36243,"revision":1,"status":0,"moy":0,"time_stamp":49200,"states":[{"movement_name":"","signal_group":8,"state_time_speed":[{"event_state":3,"timing":{"start_time":481,"min_end_time":512,"max_end_time":512,"confidence":0}}]},{"movement_name":"","signal_group":7,"state_time_speed":[{"event_state":3,"timing":{"start_time":481,"min_end_time":492,"max_end_time":492,"confidence":0}}]},{"movement_name":"","signal_group":6,"state_time_speed":[{"event_state":8,"timing":{"start_time":481,"min_end_time":502,"max_end_time":502,"confidence":0}}]},{"movement_name":"","signal_group":5,"state_time_speed":[{"event_state":3,"timing":{"start_time":481,"min_end_time":492,"max_end_time":492,"confidence":0}}]},{"movement_name":"","signal_group":4,"state_time_speed":[{"event_state":3,"timing":{"start_time":481,"min_end_time":512,"max_end_time":512,"confidence":0}}]},{"movement_name":"","signal_group":3,"state_time_speed":[{"event_state":3,"timing":{"start_time":481,"min_end_time":492,"max_end_time":492,"confidence":0}}]},{"movement_name":"","signal_group":2,"state_time_speed":[{"event_state":8,"timing":{"start_time":481,"min_end_time":502,"max_end_time":502,"confidence":0}}]},{"movement_name":"","signal_group":1,"state_time_speed":[{"event_state":3,"timing":{"start_time":481,"min_end_time":492,"max_end_time":492,"confidence":0}}]}]}]} 
+[2023-12-08 00:38:42.461] [debug] [snmp_client.cpp:64] Attemping to GET value for: 1.3.6.1.4.1.1206.4.2.1.1.4.1.8.1
+[2023-12-08 00:38:42.461] [debug] [snmp_client.cpp:104] Created OID for input: 1.3.6.1.4.1.1206.4.2.1.1.4.1.8.1
+[2023-12-08 00:38:42.461] [debug] [snmp_client.cpp:113] STAT_SUCCESS, received a response
+[2023-12-08 00:38:42.461] [debug] [snmp_client.cpp:123] Integer value in object: 170
+[2023-12-08 00:38:42.461] [debug] [snmp_client.cpp:64] Attemping to GET value for: 1.3.6.1.4.1.1206.4.2.1.1.4.1.8.2
+[2023-12-08 00:38:42.461] [debug] [snmp_client.cpp:104] Created OID for input: 1.3.6.1.4.1.1206.4.2.1.1.4.1.8.2
+[2023-12-08 00:38:42.462] [debug] [snmp_client.cpp:113] STAT_SUCCESS, received a response
+[2023-12-08 00:38:42.462] [debug] [snmp_client.cpp:123] Integer value in object: 0
+[2023-12-08 00:38:42.462] [debug] [snmp_client.cpp:64] Attemping to GET value for: 1.3.6.1.4.1.1206.4.2.1.1.4.1.9.1
+[2023-12-08 00:38:42.462] [debug] [snmp_client.cpp:104] Created OID for input: 1.3.6.1.4.1.1206.4.2.1.1.4.1.9.1
+[2023-12-08 00:38:42.463] [debug] [snmp_client.cpp:113] STAT_SUCCESS, received a response
+[2023-12-08 00:38:42.463] [debug] [snmp_client.cpp:123] Integer value in object: 0
+[2023-12-08 00:38:42.463] [debug] [snmp_client.cpp:64] Attemping to GET value for: 1.3.6.1.4.1.1206.4.2.1.1.4.1.9.2
+[2023-12-08 00:38:42.463] [debug] [snmp_client.cpp:104] Created OID for input: 1.3.6.1.4.1.1206.4.2.1.1.4.1.9.2
+[2023-12-08 00:38:42.464] [debug] [snmp_client.cpp:113] STAT_SUCCESS, received a response
+[2023-12-08 00:38:42.464] [debug] [snmp_client.cpp:123] Integer value in object: 0
+[2023-12-08 00:38:42.464] [info] [monitor_tsc_state.cpp:187] Response Veh 170, 0 Response Ped 0, 0
+[2023-12-08 00:38:42.464] [info] [monitor_tsc_state.cpp:229] Adding phase 2
+[2023-12-08 00:38:42.464] [info] [monitor_tsc_state.cpp:229] Adding phase 4
+[2023-12-08 00:38:42.464] [info] [monitor_tsc_state.cpp:229] Adding phase 6
+[2023-12-08 00:38:42.464] [info] [monitor_tsc_state.cpp:229] Adding phase 8
+[2023-12-08 00:38:42.464] [info] [monitor_tsc_state.cpp:205] Pedestrian calls [], Vehicle calls, [2, 4, 6, 8]
+[2023-12-08 00:38:42.543] [debug] [streets_service.cpp:95] Consumed: {"timestep":49300,"seq":494}
+[2023-12-08 00:38:42.569] [debug] [tsc_service.cpp:204] Current SPaT : {"time_stamp":0,"name":"","intersections":[{"name":"Town04 Intersection 785","id":36243,"revision":1,"status":0,"moy":0,"time_stamp":49300,"states":[{"movement_name":"","signal_group":8,"state_time_speed":[{"event_state":3,"timing":{"start_time":481,"min_end_time":512,"max_end_time":512,"confidence":0}}]},{"movement_name":"","signal_group":7,"state_time_speed":[{"event_state":3,"timing":{"start_time":481,"min_end_time":493,"max_end_time":493,"confidence":0}}]},{"movement_name":"","signal_group":6,"state_time_speed":[{"event_state":8,"timing":{"start_time":481,"min_end_time":502,"max_end_time":502,"confidence":0}}]},{"movement_name":"","signal_group":5,"state_time_speed":[{"event_state":3,"timing":{"start_time":481,"min_end_time":493,"max_end_time":493,"confidence":0}}]},{"movement_name":"","signal_group":4,"state_time_speed":[{"event_state":3,"timing":{"start_time":481,"min_end_time":512,"max_end_time":512,"confidence":0}}]},{"movement_name":"","signal_group":3,"state_time_speed":[{"event_state":3,"timing":{"start_time":481,"min_end_time":493,"max_end_time":493,"confidence":0}}]},{"movement_name":"","signal_group":2,"state_time_speed":[{"event_state":8,"timing":{"start_time":481,"min_end_time":502,"max_end_time":502,"confidence":0}}]},{"movement_name":"","signal_group":1,"state_time_speed":[{"event_state":3,"timing":{"start_time":481,"min_end_time":493,"max_end_time":493,"confidence":0}}]}]}]} 
+[2023-12-08 00:38:42.569] [debug] [snmp_client.cpp:64] Attemping to GET value for: 1.3.6.1.4.1.1206.4.2.1.1.4.1.8.1
+[2023-12-08 00:38:42.569] [debug] [snmp_client.cpp:104] Created OID for input: 1.3.6.1.4.1.1206.4.2.1.1.4.1.8.1
+[2023-12-08 00:38:42.569] [debug] [snmp_client.cpp:113] STAT_SUCCESS, received a response
+[2023-12-08 00:38:42.569] [debug] [snmp_client.cpp:123] Integer value in object: 170
+[2023-12-08 00:38:42.569] [debug] [snmp_client.cpp:64] Attemping to GET value for: 1.3.6.1.4.1.1206.4.2.1.1.4.1.8.2
+[2023-12-08 00:38:42.569] [debug] [snmp_client.cpp:104] Created OID for input: 1.3.6.1.4.1.1206.4.2.1.1.4.1.8.2
+[2023-12-08 00:38:42.570] [debug] [snmp_client.cpp:113] STAT_SUCCESS, received a response
+[2023-12-08 00:38:42.570] [debug] [snmp_client.cpp:123] Integer value in object: 0
+[2023-12-08 00:38:42.570] [debug] [snmp_client.cpp:64] Attemping to GET value for: 1.3.6.1.4.1.1206.4.2.1.1.4.1.9.1
+[2023-12-08 00:38:42.570] [debug] [snmp_client.cpp:104] Created OID for input: 1.3.6.1.4.1.1206.4.2.1.1.4.1.9.1
+[2023-12-08 00:38:42.571] [debug] [snmp_client.cpp:113] STAT_SUCCESS, received a response
+[2023-12-08 00:38:42.571] [debug] [snmp_client.cpp:123] Integer value in object: 0
+[2023-12-08 00:38:42.571] [debug] [snmp_client.cpp:64] Attemping to GET value for: 1.3.6.1.4.1.1206.4.2.1.1.4.1.9.2
+[2023-12-08 00:38:42.571] [debug] [snmp_client.cpp:104] Created OID for input: 1.3.6.1.4.1.1206.4.2.1.1.4.1.9.2
+[2023-12-08 00:38:42.572] [debug] [snmp_client.cpp:113] STAT_SUCCESS, received a response
+[2023-12-08 00:38:42.572] [debug] [snmp_client.cpp:123] Integer value in object: 0
+[2023-12-08 00:38:42.572] [info] [monitor_tsc_state.cpp:187] Response Veh 170, 0 Response Ped 0, 0
+[2023-12-08 00:38:42.572] [info] [monitor_tsc_state.cpp:229] Adding phase 2
+[2023-12-08 00:38:42.572] [info] [monitor_tsc_state.cpp:229] Adding phase 4
+[2023-12-08 00:38:42.572] [info] [monitor_tsc_state.cpp:229] Adding phase 6
+[2023-12-08 00:38:42.572] [info] [monitor_tsc_state.cpp:229] Adding phase 8
+[2023-12-08 00:38:42.572] [info] [monitor_tsc_state.cpp:205] Pedestrian calls [], Vehicle calls, [2, 4, 6, 8]
+[2023-12-08 00:38:42.644] [debug] [streets_service.cpp:95] Consumed: {"timestep":49400,"seq":495}
+[2023-12-08 00:38:42.662] [debug] [tsc_service.cpp:204] Current SPaT : {"time_stamp":0,"name":"","intersections":[{"name":"Town04 Intersection 785","id":36243,"revision":1,"status":0,"moy":0,"time_stamp":49400,"states":[{"movement_name":"","signal_group":8,"state_time_speed":[{"event_state":3,"timing":{"start_time":481,"min_end_time":512,"max_end_time":512,"confidence":0}}]},{"movement_name":"","signal_group":7,"state_time_speed":[{"event_state":3,"timing":{"start_time":481,"min_end_time":494,"max_end_time":494,"confidence":0}}]},{"movement_name":"","signal_group":6,"state_time_speed":[{"event_state":8,"timing":{"start_time":481,"min_end_time":502,"max_end_time":502,"confidence":0}}]},{"movement_name":"","signal_group":5,"state_time_speed":[{"event_state":3,"timing":{"start_time":481,"min_end_time":494,"max_end_time":494,"confidence":0}}]},{"movement_name":"","signal_group":4,"state_time_speed":[{"event_state":3,"timing":{"start_time":481,"min_end_time":512,"max_end_time":512,"confidence":0}}]},{"movement_name":"","signal_group":3,"state_time_speed":[{"event_state":3,"timing":{"start_time":481,"min_end_time":494,"max_end_time":494,"confidence":0}}]},{"movement_name":"","signal_group":2,"state_time_speed":[{"event_state":8,"timing":{"start_time":481,"min_end_time":502,"max_end_time":502,"confidence":0}}]},{"movement_name":"","signal_group":1,"state_time_speed":[{"event_state":3,"timing":{"start_time":481,"min_end_time":494,"max_end_time":494,"confidence":0}}]}]}]} 
+[2023-12-08 00:38:42.662] [debug] [snmp_client.cpp:64] Attemping to GET value for: 1.3.6.1.4.1.1206.4.2.1.1.4.1.8.1
+[2023-12-08 00:38:42.662] [debug] [snmp_client.cpp:104] Created OID for input: 1.3.6.1.4.1.1206.4.2.1.1.4.1.8.1
+[2023-12-08 00:38:42.662] [debug] [snmp_client.cpp:113] STAT_SUCCESS, received a response
+[2023-12-08 00:38:42.662] [debug] [snmp_client.cpp:123] Integer value in object: 170
+[2023-12-08 00:38:42.662] [debug] [snmp_client.cpp:64] Attemping to GET value for: 1.3.6.1.4.1.1206.4.2.1.1.4.1.8.2
+[2023-12-08 00:38:42.662] [debug] [snmp_client.cpp:104] Created OID for input: 1.3.6.1.4.1.1206.4.2.1.1.4.1.8.2
+[2023-12-08 00:38:42.663] [debug] [snmp_client.cpp:113] STAT_SUCCESS, received a response
+[2023-12-08 00:38:42.663] [debug] [snmp_client.cpp:123] Integer value in object: 0
+[2023-12-08 00:38:42.663] [debug] [snmp_client.cpp:64] Attemping to GET value for: 1.3.6.1.4.1.1206.4.2.1.1.4.1.9.1
+[2023-12-08 00:38:42.663] [debug] [snmp_client.cpp:104] Created OID for input: 1.3.6.1.4.1.1206.4.2.1.1.4.1.9.1
+[2023-12-08 00:38:42.664] [debug] [snmp_client.cpp:113] STAT_SUCCESS, received a response
+[2023-12-08 00:38:42.664] [debug] [snmp_client.cpp:123] Integer value in object: 0
+[2023-12-08 00:38:42.664] [debug] [snmp_client.cpp:64] Attemping to GET value for: 1.3.6.1.4.1.1206.4.2.1.1.4.1.9.2
+[2023-12-08 00:38:42.664] [debug] [snmp_client.cpp:104] Created OID for input: 1.3.6.1.4.1.1206.4.2.1.1.4.1.9.2
+[2023-12-08 00:38:42.665] [debug] [snmp_client.cpp:113] STAT_SUCCESS, received a response
+[2023-12-08 00:38:42.665] [debug] [snmp_client.cpp:123] Integer value in object: 0
+[2023-12-08 00:38:42.665] [info] [monitor_tsc_state.cpp:187] Response Veh 170, 0 Response Ped 0, 0
+[2023-12-08 00:38:42.665] [info] [monitor_tsc_state.cpp:229] Adding phase 2
+[2023-12-08 00:38:42.665] [info] [monitor_tsc_state.cpp:229] Adding phase 4
+[2023-12-08 00:38:42.665] [info] [monitor_tsc_state.cpp:229] Adding phase 6
+[2023-12-08 00:38:42.665] [info] [monitor_tsc_state.cpp:229] Adding phase 8
+[2023-12-08 00:38:42.665] [info] [monitor_tsc_state.cpp:205] Pedestrian calls [], Vehicle calls, [2, 4, 6, 8]
+[2023-12-08 00:38:42.744] [debug] [streets_service.cpp:95] Consumed: {"timestep":49500,"seq":496}
+[2023-12-08 00:38:42.761] [debug] [tsc_service.cpp:204] Current SPaT : {"time_stamp":0,"name":"","intersections":[{"name":"Town04 Intersection 785","id":36243,"revision":1,"status":0,"moy":0,"time_stamp":49500,"states":[{"movement_name":"","signal_group":8,"state_time_speed":[{"event_state":3,"timing":{"start_time":481,"min_end_time":512,"max_end_time":512,"confidence":0}}]},{"movement_name":"","signal_group":7,"state_time_speed":[{"event_state":3,"timing":{"start_time":481,"min_end_time":495,"max_end_time":495,"confidence":0}}]},{"movement_name":"","signal_group":6,"state_time_speed":[{"event_state":8,"timing":{"start_time":481,"min_end_time":502,"max_end_time":502,"confidence":0}}]},{"movement_name":"","signal_group":5,"state_time_speed":[{"event_state":3,"timing":{"start_time":481,"min_end_time":495,"max_end_time":495,"confidence":0}}]},{"movement_name":"","signal_group":4,"state_time_speed":[{"event_state":3,"timing":{"start_time":481,"min_end_time":512,"max_end_time":512,"confidence":0}}]},{"movement_name":"","signal_group":3,"state_time_speed":[{"event_state":3,"timing":{"start_time":481,"min_end_time":495,"max_end_time":495,"confidence":0}}]},{"movement_name":"","signal_group":2,"state_time_speed":[{"event_state":8,"timing":{"start_time":481,"min_end_time":502,"max_end_time":502,"confidence":0}}]},{"movement_name":"","signal_group":1,"state_time_speed":[{"event_state":3,"timing":{"start_time":481,"min_end_time":495,"max_end_time":495,"confidence":0}}]}]}]} 
+[2023-12-08 00:38:42.761] [debug] [snmp_client.cpp:64] Attemping to GET value for: 1.3.6.1.4.1.1206.4.2.1.1.4.1.8.1
+[2023-12-08 00:38:42.761] [debug] [snmp_client.cpp:104] Created OID for input: 1.3.6.1.4.1.1206.4.2.1.1.4.1.8.1
+[2023-12-08 00:38:42.761] [debug] [snmp_client.cpp:113] STAT_SUCCESS, received a response
+[2023-12-08 00:38:42.761] [debug] [snmp_client.cpp:123] Integer value in object: 170
+[2023-12-08 00:38:42.761] [debug] [snmp_client.cpp:64] Attemping to GET value for: 1.3.6.1.4.1.1206.4.2.1.1.4.1.8.2
+[2023-12-08 00:38:42.761] [debug] [snmp_client.cpp:104] Created OID for input: 1.3.6.1.4.1.1206.4.2.1.1.4.1.8.2
+[2023-12-08 00:38:42.762] [debug] [snmp_client.cpp:113] STAT_SUCCESS, received a response
+[2023-12-08 00:38:42.762] [debug] [snmp_client.cpp:123] Integer value in object: 0
+[2023-12-08 00:38:42.762] [debug] [snmp_client.cpp:64] Attemping to GET value for: 1.3.6.1.4.1.1206.4.2.1.1.4.1.9.1
+[2023-12-08 00:38:42.762] [debug] [snmp_client.cpp:104] Created OID for input: 1.3.6.1.4.1.1206.4.2.1.1.4.1.9.1
+[2023-12-08 00:38:42.763] [debug] [snmp_client.cpp:113] STAT_SUCCESS, received a response
+[2023-12-08 00:38:42.763] [debug] [snmp_client.cpp:123] Integer value in object: 0
+[2023-12-08 00:38:42.763] [debug] [snmp_client.cpp:64] Attemping to GET value for: 1.3.6.1.4.1.1206.4.2.1.1.4.1.9.2
+[2023-12-08 00:38:42.763] [debug] [snmp_client.cpp:104] Created OID for input: 1.3.6.1.4.1.1206.4.2.1.1.4.1.9.2
+[2023-12-08 00:38:42.764] [debug] [snmp_client.cpp:113] STAT_SUCCESS, received a response
+[2023-12-08 00:38:42.764] [debug] [snmp_client.cpp:123] Integer value in object: 0
+[2023-12-08 00:38:42.764] [info] [monitor_tsc_state.cpp:187] Response Veh 170, 0 Response Ped 0, 0
+[2023-12-08 00:38:42.764] [info] [monitor_tsc_state.cpp:229] Adding phase 2
+[2023-12-08 00:38:42.764] [info] [monitor_tsc_state.cpp:229] Adding phase 4
+[2023-12-08 00:38:42.764] [info] [monitor_tsc_state.cpp:229] Adding phase 6
+[2023-12-08 00:38:42.764] [info] [monitor_tsc_state.cpp:229] Adding phase 8
+[2023-12-08 00:38:42.764] [info] [monitor_tsc_state.cpp:205] Pedestrian calls [], Vehicle calls, [2, 4, 6, 8]
+[2023-12-08 00:38:42.844] [debug] [streets_service.cpp:95] Consumed: {"timestep":49600,"seq":497}
+[2023-12-08 00:38:42.858] [debug] [tsc_service.cpp:204] Current SPaT : {"time_stamp":0,"name":"","intersections":[{"name":"Town04 Intersection 785","id":36243,"revision":1,"status":0,"moy":0,"time_stamp":49600,"states":[{"movement_name":"","signal_group":8,"state_time_speed":[{"event_state":3,"timing":{"start_time":481,"min_end_time":512,"max_end_time":512,"confidence":0}}]},{"movement_name":"","signal_group":7,"state_time_speed":[{"event_state":3,"timing":{"start_time":481,"min_end_time":496,"max_end_time":496,"confidence":0}}]},{"movement_name":"","signal_group":6,"state_time_speed":[{"event_state":8,"timing":{"start_time":481,"min_end_time":502,"max_end_time":502,"confidence":0}}]},{"movement_name":"","signal_group":5,"state_time_speed":[{"event_state":3,"timing":{"start_time":481,"min_end_time":496,"max_end_time":496,"confidence":0}}]},{"movement_name":"","signal_group":4,"state_time_speed":[{"event_state":3,"timing":{"start_time":481,"min_end_time":512,"max_end_time":512,"confidence":0}}]},{"movement_name":"","signal_group":3,"state_time_speed":[{"event_state":3,"timing":{"start_time":481,"min_end_time":496,"max_end_time":496,"confidence":0}}]},{"movement_name":"","signal_group":2,"state_time_speed":[{"event_state":8,"timing":{"start_time":481,"min_end_time":502,"max_end_time":502,"confidence":0}}]},{"movement_name":"","signal_group":1,"state_time_speed":[{"event_state":3,"timing":{"start_time":481,"min_end_time":496,"max_end_time":496,"confidence":0}}]}]}]} 
+[2023-12-08 00:38:42.858] [debug] [snmp_client.cpp:64] Attemping to GET value for: 1.3.6.1.4.1.1206.4.2.1.1.4.1.8.1
+[2023-12-08 00:38:42.858] [debug] [snmp_client.cpp:104] Created OID for input: 1.3.6.1.4.1.1206.4.2.1.1.4.1.8.1
+[2023-12-08 00:38:42.858] [debug] [snmp_client.cpp:113] STAT_SUCCESS, received a response
+[2023-12-08 00:38:42.858] [debug] [snmp_client.cpp:123] Integer value in object: 170
+[2023-12-08 00:38:42.858] [debug] [snmp_client.cpp:64] Attemping to GET value for: 1.3.6.1.4.1.1206.4.2.1.1.4.1.8.2
+[2023-12-08 00:38:42.858] [debug] [snmp_client.cpp:104] Created OID for input: 1.3.6.1.4.1.1206.4.2.1.1.4.1.8.2
+[2023-12-08 00:38:42.859] [debug] [snmp_client.cpp:113] STAT_SUCCESS, received a response
+[2023-12-08 00:38:42.859] [debug] [snmp_client.cpp:123] Integer value in object: 0
+[2023-12-08 00:38:42.859] [debug] [snmp_client.cpp:64] Attemping to GET value for: 1.3.6.1.4.1.1206.4.2.1.1.4.1.9.1
+[2023-12-08 00:38:42.859] [debug] [snmp_client.cpp:104] Created OID for input: 1.3.6.1.4.1.1206.4.2.1.1.4.1.9.1
+[2023-12-08 00:38:42.860] [debug] [snmp_client.cpp:113] STAT_SUCCESS, received a response
+[2023-12-08 00:38:42.860] [debug] [snmp_client.cpp:123] Integer value in object: 0
+[2023-12-08 00:38:42.860] [debug] [snmp_client.cpp:64] Attemping to GET value for: 1.3.6.1.4.1.1206.4.2.1.1.4.1.9.2
+[2023-12-08 00:38:42.860] [debug] [snmp_client.cpp:104] Created OID for input: 1.3.6.1.4.1.1206.4.2.1.1.4.1.9.2
+[2023-12-08 00:38:42.861] [debug] [snmp_client.cpp:113] STAT_SUCCESS, received a response
+[2023-12-08 00:38:42.861] [debug] [snmp_client.cpp:123] Integer value in object: 0
+[2023-12-08 00:38:42.861] [info] [monitor_tsc_state.cpp:187] Response Veh 170, 0 Response Ped 0, 0
+[2023-12-08 00:38:42.861] [info] [monitor_tsc_state.cpp:229] Adding phase 2
+[2023-12-08 00:38:42.861] [info] [monitor_tsc_state.cpp:229] Adding phase 4
+[2023-12-08 00:38:42.861] [info] [monitor_tsc_state.cpp:229] Adding phase 6
+[2023-12-08 00:38:42.861] [info] [monitor_tsc_state.cpp:229] Adding phase 8
+[2023-12-08 00:38:42.861] [info] [monitor_tsc_state.cpp:205] Pedestrian calls [], Vehicle calls, [2, 4, 6, 8]
+[2023-12-08 00:38:42.944] [debug] [streets_service.cpp:95] Consumed: {"timestep":49700,"seq":498}
+[2023-12-08 00:38:42.965] [debug] [tsc_service.cpp:204] Current SPaT : {"time_stamp":0,"name":"","intersections":[{"name":"Town04 Intersection 785","id":36243,"revision":1,"status":0,"moy":0,"time_stamp":49700,"states":[{"movement_name":"","signal_group":8,"state_time_speed":[{"event_state":3,"timing":{"start_time":481,"min_end_time":512,"max_end_time":512,"confidence":0}}]},{"movement_name":"","signal_group":7,"state_time_speed":[{"event_state":3,"timing":{"start_time":481,"min_end_time":497,"max_end_time":497,"confidence":0}}]},{"movement_name":"","signal_group":6,"state_time_speed":[{"event_state":8,"timing":{"start_time":481,"min_end_time":502,"max_end_time":502,"confidence":0}}]},{"movement_name":"","signal_group":5,"state_time_speed":[{"event_state":3,"timing":{"start_time":481,"min_end_time":497,"max_end_time":497,"confidence":0}}]},{"movement_name":"","signal_group":4,"state_time_speed":[{"event_state":3,"timing":{"start_time":481,"min_end_time":512,"max_end_time":512,"confidence":0}}]},{"movement_name":"","signal_group":3,"state_time_speed":[{"event_state":3,"timing":{"start_time":481,"min_end_time":497,"max_end_time":497,"confidence":0}}]},{"movement_name":"","signal_group":2,"state_time_speed":[{"event_state":8,"timing":{"start_time":481,"min_end_time":502,"max_end_time":502,"confidence":0}}]},{"movement_name":"","signal_group":1,"state_time_speed":[{"event_state":3,"timing":{"start_time":481,"min_end_time":497,"max_end_time":497,"confidence":0}}]}]}]} 
+[2023-12-08 00:38:42.965] [debug] [snmp_client.cpp:64] Attemping to GET value for: 1.3.6.1.4.1.1206.4.2.1.1.4.1.8.1
+[2023-12-08 00:38:42.965] [debug] [snmp_client.cpp:104] Created OID for input: 1.3.6.1.4.1.1206.4.2.1.1.4.1.8.1
+[2023-12-08 00:38:42.965] [debug] [snmp_client.cpp:113] STAT_SUCCESS, received a response
+[2023-12-08 00:38:42.965] [debug] [snmp_client.cpp:123] Integer value in object: 170
+[2023-12-08 00:38:42.965] [debug] [snmp_client.cpp:64] Attemping to GET value for: 1.3.6.1.4.1.1206.4.2.1.1.4.1.8.2
+[2023-12-08 00:38:42.965] [debug] [snmp_client.cpp:104] Created OID for input: 1.3.6.1.4.1.1206.4.2.1.1.4.1.8.2
+[2023-12-08 00:38:42.967] [debug] [snmp_client.cpp:113] STAT_SUCCESS, received a response
+[2023-12-08 00:38:42.967] [debug] [snmp_client.cpp:123] Integer value in object: 0
+[2023-12-08 00:38:42.967] [debug] [snmp_client.cpp:64] Attemping to GET value for: 1.3.6.1.4.1.1206.4.2.1.1.4.1.9.1
+[2023-12-08 00:38:42.967] [debug] [snmp_client.cpp:104] Created OID for input: 1.3.6.1.4.1.1206.4.2.1.1.4.1.9.1
+[2023-12-08 00:38:42.968] [debug] [snmp_client.cpp:113] STAT_SUCCESS, received a response
+[2023-12-08 00:38:42.968] [debug] [snmp_client.cpp:123] Integer value in object: 0
+[2023-12-08 00:38:42.968] [debug] [snmp_client.cpp:64] Attemping to GET value for: 1.3.6.1.4.1.1206.4.2.1.1.4.1.9.2
+[2023-12-08 00:38:42.968] [debug] [snmp_client.cpp:104] Created OID for input: 1.3.6.1.4.1.1206.4.2.1.1.4.1.9.2
+[2023-12-08 00:38:42.969] [debug] [snmp_client.cpp:113] STAT_SUCCESS, received a response
+[2023-12-08 00:38:42.969] [debug] [snmp_client.cpp:123] Integer value in object: 0
+[2023-12-08 00:38:42.969] [info] [monitor_tsc_state.cpp:187] Response Veh 170, 0 Response Ped 0, 0
+[2023-12-08 00:38:42.969] [info] [monitor_tsc_state.cpp:229] Adding phase 2
+[2023-12-08 00:38:42.969] [info] [monitor_tsc_state.cpp:229] Adding phase 4
+[2023-12-08 00:38:42.969] [info] [monitor_tsc_state.cpp:229] Adding phase 6
+[2023-12-08 00:38:42.969] [info] [monitor_tsc_state.cpp:229] Adding phase 8
+[2023-12-08 00:38:42.969] [info] [monitor_tsc_state.cpp:205] Pedestrian calls [], Vehicle calls, [2, 4, 6, 8]
+[2023-12-08 00:38:43.045] [debug] [streets_service.cpp:95] Consumed: {"timestep":49800,"seq":499}
+[2023-12-08 00:38:43.060] [debug] [tsc_service.cpp:204] Current SPaT : {"time_stamp":0,"name":"","intersections":[{"name":"Town04 Intersection 785","id":36243,"revision":1,"status":0,"moy":0,"time_stamp":49800,"states":[{"movement_name":"","signal_group":8,"state_time_speed":[{"event_state":3,"timing":{"start_time":481,"min_end_time":512,"max_end_time":512,"confidence":0}}]},{"movement_name":"","signal_group":7,"state_time_speed":[{"event_state":3,"timing":{"start_time":481,"min_end_time":498,"max_end_time":498,"confidence":0}}]},{"movement_name":"","signal_group":6,"state_time_speed":[{"event_state":8,"timing":{"start_time":481,"min_end_time":502,"max_end_time":502,"confidence":0}}]},{"movement_name":"","signal_group":5,"state_time_speed":[{"event_state":3,"timing":{"start_time":481,"min_end_time":498,"max_end_time":498,"confidence":0}}]},{"movement_name":"","signal_group":4,"state_time_speed":[{"event_state":3,"timing":{"start_time":481,"min_end_time":512,"max_end_time":512,"confidence":0}}]},{"movement_name":"","signal_group":3,"state_time_speed":[{"event_state":3,"timing":{"start_time":481,"min_end_time":498,"max_end_time":498,"confidence":0}}]},{"movement_name":"","signal_group":2,"state_time_speed":[{"event_state":8,"timing":{"start_time":481,"min_end_time":502,"max_end_time":502,"confidence":0}}]},{"movement_name":"","signal_group":1,"state_time_speed":[{"event_state":3,"timing":{"start_time":481,"min_end_time":498,"max_end_time":498,"confidence":0}}]}]}]} 
+[2023-12-08 00:38:43.060] [debug] [snmp_client.cpp:64] Attemping to GET value for: 1.3.6.1.4.1.1206.4.2.1.1.4.1.8.1
+[2023-12-08 00:38:43.060] [debug] [snmp_client.cpp:104] Created OID for input: 1.3.6.1.4.1.1206.4.2.1.1.4.1.8.1
+[2023-12-08 00:38:43.060] [debug] [snmp_client.cpp:113] STAT_SUCCESS, received a response
+[2023-12-08 00:38:43.060] [debug] [snmp_client.cpp:123] Integer value in object: 170
+[2023-12-08 00:38:43.060] [debug] [snmp_client.cpp:64] Attemping to GET value for: 1.3.6.1.4.1.1206.4.2.1.1.4.1.8.2
+[2023-12-08 00:38:43.060] [debug] [snmp_client.cpp:104] Created OID for input: 1.3.6.1.4.1.1206.4.2.1.1.4.1.8.2
+[2023-12-08 00:38:43.061] [debug] [snmp_client.cpp:113] STAT_SUCCESS, received a response
+[2023-12-08 00:38:43.061] [debug] [snmp_client.cpp:123] Integer value in object: 0
+[2023-12-08 00:38:43.061] [debug] [snmp_client.cpp:64] Attemping to GET value for: 1.3.6.1.4.1.1206.4.2.1.1.4.1.9.1
+[2023-12-08 00:38:43.061] [debug] [snmp_client.cpp:104] Created OID for input: 1.3.6.1.4.1.1206.4.2.1.1.4.1.9.1
+[2023-12-08 00:38:43.062] [debug] [snmp_client.cpp:113] STAT_SUCCESS, received a response
+[2023-12-08 00:38:43.062] [debug] [snmp_client.cpp:123] Integer value in object: 0
+[2023-12-08 00:38:43.062] [debug] [snmp_client.cpp:64] Attemping to GET value for: 1.3.6.1.4.1.1206.4.2.1.1.4.1.9.2
+[2023-12-08 00:38:43.062] [debug] [snmp_client.cpp:104] Created OID for input: 1.3.6.1.4.1.1206.4.2.1.1.4.1.9.2
+[2023-12-08 00:38:43.063] [debug] [snmp_client.cpp:113] STAT_SUCCESS, received a response
+[2023-12-08 00:38:43.063] [debug] [snmp_client.cpp:123] Integer value in object: 0
+[2023-12-08 00:38:43.063] [info] [monitor_tsc_state.cpp:187] Response Veh 170, 0 Response Ped 0, 0
+[2023-12-08 00:38:43.063] [info] [monitor_tsc_state.cpp:229] Adding phase 2
+[2023-12-08 00:38:43.063] [info] [monitor_tsc_state.cpp:229] Adding phase 4
+[2023-12-08 00:38:43.063] [info] [monitor_tsc_state.cpp:229] Adding phase 6
+[2023-12-08 00:38:43.063] [info] [monitor_tsc_state.cpp:229] Adding phase 8
+[2023-12-08 00:38:43.063] [info] [monitor_tsc_state.cpp:205] Pedestrian calls [], Vehicle calls, [2, 4, 6, 8]
+[2023-12-08 00:38:43.145] [debug] [streets_service.cpp:95] Consumed: {"timestep":49900,"seq":500}
+[2023-12-08 00:38:43.165] [debug] [tsc_service.cpp:204] Current SPaT : {"time_stamp":0,"name":"","intersections":[{"name":"Town04 Intersection 785","id":36243,"revision":1,"status":0,"moy":0,"time_stamp":49900,"states":[{"movement_name":"","signal_group":8,"state_time_speed":[{"event_state":3,"timing":{"start_time":481,"min_end_time":512,"max_end_time":512,"confidence":0}}]},{"movement_name":"","signal_group":7,"state_time_speed":[{"event_state":3,"timing":{"start_time":481,"min_end_time":499,"max_end_time":499,"confidence":0}}]},{"movement_name":"","signal_group":6,"state_time_speed":[{"event_state":8,"timing":{"start_time":481,"min_end_time":502,"max_end_time":502,"confidence":0}}]},{"movement_name":"","signal_group":5,"state_time_speed":[{"event_state":3,"timing":{"start_time":481,"min_end_time":499,"max_end_time":499,"confidence":0}}]},{"movement_name":"","signal_group":4,"state_time_speed":[{"event_state":3,"timing":{"start_time":481,"min_end_time":512,"max_end_time":512,"confidence":0}}]},{"movement_name":"","signal_group":3,"state_time_speed":[{"event_state":3,"timing":{"start_time":481,"min_end_time":499,"max_end_time":499,"confidence":0}}]},{"movement_name":"","signal_group":2,"state_time_speed":[{"event_state":8,"timing":{"start_time":481,"min_end_time":502,"max_end_time":502,"confidence":0}}]},{"movement_name":"","signal_group":1,"state_time_speed":[{"event_state":3,"timing":{"start_time":481,"min_end_time":499,"max_end_time":499,"confidence":0}}]}]}]} 
+[2023-12-08 00:38:43.165] [debug] [snmp_client.cpp:64] Attemping to GET value for: 1.3.6.1.4.1.1206.4.2.1.1.4.1.8.1
+[2023-12-08 00:38:43.165] [debug] [snmp_client.cpp:104] Created OID for input: 1.3.6.1.4.1.1206.4.2.1.1.4.1.8.1
+[2023-12-08 00:38:43.166] [debug] [snmp_client.cpp:113] STAT_SUCCESS, received a response
+[2023-12-08 00:38:43.166] [debug] [snmp_client.cpp:123] Integer value in object: 170
+[2023-12-08 00:38:43.166] [debug] [snmp_client.cpp:64] Attemping to GET value for: 1.3.6.1.4.1.1206.4.2.1.1.4.1.8.2
+[2023-12-08 00:38:43.166] [debug] [snmp_client.cpp:104] Created OID for input: 1.3.6.1.4.1.1206.4.2.1.1.4.1.8.2
+[2023-12-08 00:38:43.167] [debug] [snmp_client.cpp:113] STAT_SUCCESS, received a response
+[2023-12-08 00:38:43.167] [debug] [snmp_client.cpp:123] Integer value in object: 0
+[2023-12-08 00:38:43.167] [debug] [snmp_client.cpp:64] Attemping to GET value for: 1.3.6.1.4.1.1206.4.2.1.1.4.1.9.1
+[2023-12-08 00:38:43.167] [debug] [snmp_client.cpp:104] Created OID for input: 1.3.6.1.4.1.1206.4.2.1.1.4.1.9.1
+[2023-12-08 00:38:43.168] [debug] [snmp_client.cpp:113] STAT_SUCCESS, received a response
+[2023-12-08 00:38:43.168] [debug] [snmp_client.cpp:123] Integer value in object: 0
+[2023-12-08 00:38:43.168] [debug] [snmp_client.cpp:64] Attemping to GET value for: 1.3.6.1.4.1.1206.4.2.1.1.4.1.9.2
+[2023-12-08 00:38:43.168] [debug] [snmp_client.cpp:104] Created OID for input: 1.3.6.1.4.1.1206.4.2.1.1.4.1.9.2
+[2023-12-08 00:38:43.169] [debug] [snmp_client.cpp:113] STAT_SUCCESS, received a response
+[2023-12-08 00:38:43.169] [debug] [snmp_client.cpp:123] Integer value in object: 0
+[2023-12-08 00:38:43.169] [info] [monitor_tsc_state.cpp:187] Response Veh 170, 0 Response Ped 0, 0
+[2023-12-08 00:38:43.169] [info] [monitor_tsc_state.cpp:229] Adding phase 2
+[2023-12-08 00:38:43.169] [info] [monitor_tsc_state.cpp:229] Adding phase 4
+[2023-12-08 00:38:43.169] [info] [monitor_tsc_state.cpp:229] Adding phase 6
+[2023-12-08 00:38:43.169] [info] [monitor_tsc_state.cpp:229] Adding phase 8
+[2023-12-08 00:38:43.169] [info] [monitor_tsc_state.cpp:205] Pedestrian calls [], Vehicle calls, [2, 4, 6, 8]
+[2023-12-08 00:38:43.246] [debug] [streets_service.cpp:95] Consumed: {"timestep":50000,"seq":501}
+[2023-12-08 00:38:43.269] [debug] [tsc_service.cpp:204] Current SPaT : {"time_stamp":0,"name":"","intersections":[{"name":"Town04 Intersection 785","id":36243,"revision":1,"status":0,"moy":0,"time_stamp":50000,"states":[{"movement_name":"","signal_group":8,"state_time_speed":[{"event_state":3,"timing":{"start_time":481,"min_end_time":512,"max_end_time":512,"confidence":0}}]},{"movement_name":"","signal_group":7,"state_time_speed":[{"event_state":3,"timing":{"start_time":481,"min_end_time":500,"max_end_time":500,"confidence":0}}]},{"movement_name":"","signal_group":6,"state_time_speed":[{"event_state":8,"timing":{"start_time":481,"min_end_time":502,"max_end_time":502,"confidence":0}}]},{"movement_name":"","signal_group":5,"state_time_speed":[{"event_state":3,"timing":{"start_time":481,"min_end_time":500,"max_end_time":500,"confidence":0}}]},{"movement_name":"","signal_group":4,"state_time_speed":[{"event_state":3,"timing":{"start_time":481,"min_end_time":512,"max_end_time":512,"confidence":0}}]},{"movement_name":"","signal_group":3,"state_time_speed":[{"event_state":3,"timing":{"start_time":481,"min_end_time":500,"max_end_time":500,"confidence":0}}]},{"movement_name":"","signal_group":2,"state_time_speed":[{"event_state":8,"timing":{"start_time":481,"min_end_time":502,"max_end_time":502,"confidence":0}}]},{"movement_name":"","signal_group":1,"state_time_speed":[{"event_state":3,"timing":{"start_time":481,"min_end_time":500,"max_end_time":500,"confidence":0}}]}]}]} 
+[2023-12-08 00:38:43.269] [debug] [snmp_client.cpp:64] Attemping to GET value for: 1.3.6.1.4.1.1206.4.2.1.1.4.1.8.1
+[2023-12-08 00:38:43.269] [debug] [snmp_client.cpp:104] Created OID for input: 1.3.6.1.4.1.1206.4.2.1.1.4.1.8.1
+[2023-12-08 00:38:43.269] [debug] [snmp_client.cpp:113] STAT_SUCCESS, received a response
+[2023-12-08 00:38:43.269] [debug] [snmp_client.cpp:123] Integer value in object: 170
+[2023-12-08 00:38:43.269] [debug] [snmp_client.cpp:64] Attemping to GET value for: 1.3.6.1.4.1.1206.4.2.1.1.4.1.8.2
+[2023-12-08 00:38:43.269] [debug] [snmp_client.cpp:104] Created OID for input: 1.3.6.1.4.1.1206.4.2.1.1.4.1.8.2
+[2023-12-08 00:38:43.270] [debug] [snmp_client.cpp:113] STAT_SUCCESS, received a response
+[2023-12-08 00:38:43.270] [debug] [snmp_client.cpp:123] Integer value in object: 0
+[2023-12-08 00:38:43.270] [debug] [snmp_client.cpp:64] Attemping to GET value for: 1.3.6.1.4.1.1206.4.2.1.1.4.1.9.1
+[2023-12-08 00:38:43.270] [debug] [snmp_client.cpp:104] Created OID for input: 1.3.6.1.4.1.1206.4.2.1.1.4.1.9.1
+[2023-12-08 00:38:43.271] [debug] [snmp_client.cpp:113] STAT_SUCCESS, received a response
+[2023-12-08 00:38:43.271] [debug] [snmp_client.cpp:123] Integer value in object: 0
+[2023-12-08 00:38:43.271] [debug] [snmp_client.cpp:64] Attemping to GET value for: 1.3.6.1.4.1.1206.4.2.1.1.4.1.9.2
+[2023-12-08 00:38:43.271] [debug] [snmp_client.cpp:104] Created OID for input: 1.3.6.1.4.1.1206.4.2.1.1.4.1.9.2
+[2023-12-08 00:38:43.272] [debug] [snmp_client.cpp:113] STAT_SUCCESS, received a response
+[2023-12-08 00:38:43.272] [debug] [snmp_client.cpp:123] Integer value in object: 0
+[2023-12-08 00:38:43.272] [info] [monitor_tsc_state.cpp:187] Response Veh 170, 0 Response Ped 0, 0
+[2023-12-08 00:38:43.272] [info] [monitor_tsc_state.cpp:229] Adding phase 2
+[2023-12-08 00:38:43.272] [info] [monitor_tsc_state.cpp:229] Adding phase 4
+[2023-12-08 00:38:43.272] [info] [monitor_tsc_state.cpp:229] Adding phase 6
+[2023-12-08 00:38:43.272] [info] [monitor_tsc_state.cpp:229] Adding phase 8
+[2023-12-08 00:38:43.272] [info] [monitor_tsc_state.cpp:205] Pedestrian calls [], Vehicle calls, [2, 4, 6, 8]
+[2023-12-08 00:38:43.346] [debug] [streets_service.cpp:95] Consumed: {"timestep":50100,"seq":502}
+[2023-12-08 00:38:43.446] [debug] [streets_service.cpp:95] Consumed: {"timestep":5020

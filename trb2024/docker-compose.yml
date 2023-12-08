@@ -78,7 +78,6 @@ services:
       - /opt/carma/routes:/opt/carma/routes
       - /opt/carma/yolo:/opt/carma/yolo
       - ./inlanecruising_config/parameters.yaml:/opt/carma/install_ros2/inlanecruising_plugin/share/inlanecruising_plugin/config/parameters.yaml
-      - ./plan_delegator_config/plan_delegator_params.yaml:/opt/carma/install_ros2/plan_delegator/share/plan_delegator/config/plan_delegator_params.yaml
     command: >
       bash -c 'export RMW_IMPLEMENTATION=rmw_fastrtps_cpp
       && source /opt/carma/install_ros2/setup.bash
@@ -161,7 +160,7 @@ services:
       role_id:='carma_1'
       remap_ns:=/hardware_interface/comms"
 
-    zookeeper:
+  zookeeper:
     image: wurstmeister/zookeeper
     container_name: zookeeper
     networks:
@@ -288,7 +287,7 @@ services:
 
   tsc_service:
     image: usdotfhwastoldev/tsc_service:develop
-        container_name: tsc_service
+    container_name: tsc_service
     restart: always
     network_mode: service:zookeeper
     depends_on:
@@ -307,12 +306,12 @@ services:
     volumes:
       - ./tsc_client_service/manifest.json:/home/carma-streets/tsc_client_service/manifest.json
       - ./tsc_client_service/logs/:/home/carma-streets/tsc_client_service/logs/
-command: >
+    command: >
       sh -c "/wait
       && /home/carma-streets/tsc_client_service/build/traffic_signal_controller_service"
 
   econolite-virtual-controller:
-        image: usdotfhwastol/econolite-virtual-controller:latest
+    image: usdotfhwastol/econolite-virtual-controller:latest
     container_name: evc
     restart: always
     networks:
@@ -334,7 +333,7 @@ command: >
       --traci-ip 172.2.0.2"
 
   scenario-runner:
-    image: adam/carma-scenario-runner:trb2024
+    image: usdotfhwastol/carma-scenario-runner:trb2024
     container_name: carma-scenario-runner
     networks:
       - carma_sim_net

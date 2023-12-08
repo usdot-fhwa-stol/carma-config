@@ -1,0 +1,636 @@
+[2023-12-05 19:28:40.727] [info] [streets_configuration.cpp:198] Default Logger initialized!
+[2023-12-05 19:28:40.727] [info] [streets_configuration.cpp:177] Log Level set to debug!
+[2023-12-05 19:28:40.727] [debug] [streets_configuration.cpp:59] Updating Configuration Map
+[2023-12-05 19:28:40.727] [debug] [configuration.cpp:62] Create config name : target_ip, value : 172.4.0.4, description : Target device IP address 
+[2023-12-05 19:28:40.727] [debug] [configuration.cpp:62] Create config name : target_port, value : 5050, description : Target device NTCIP port 
+[2023-12-05 19:28:40.727] [debug] [configuration.cpp:62] Create config name : community, value : administrator, description : Target community for establishing snmp communication 
+[2023-12-05 19:28:40.727] [debug] [configuration.cpp:62] Create config name : snmp_version, value : 0, description : snmp version being used. net-snmp version definition: SNMP_VERSION_1:0 SNMP_VERSION_2c:1 SNMP_VERSION_2u:2 SNMP_VERSION_3:3 
+[2023-12-05 19:28:40.727] [debug] [configuration.cpp:62] Create config name : snmp_timeout, value : 1500000000, description : Time in microseconds after which the the snmp request times out 
+[2023-12-05 19:28:40.727] [debug] [configuration.cpp:62] Create config name : udp_socket_ip, value : 172.4.0.3, description : IP for UDP socket listener to listen on. Should be localhost IP of container or VM running TSC Service. 
+[2023-12-05 19:28:40.727] [debug] [configuration.cpp:62] Create config name : udp_socket_port, value : 6053, description : Port for UDP Socket Listener to list on. TSC configuration sets which port/host NTCIP SPaT data will be broadcast to. 
+[2023-12-05 19:28:40.727] [debug] [configuration.cpp:62] Create config name : socket_timeout, value : 100, description : Timeout in seconds for UDP Socket Listener. If UDP Socket Listener does not receive messages for this amount of time it will shutdown and thrown an exception.  
+[2023-12-05 19:28:40.727] [debug] [configuration.cpp:62] Create config name : bootstrap_server, value : 172.4.0.3:9092, description : Kafka Broker Server Address. 
+[2023-12-05 19:28:40.727] [debug] [configuration.cpp:62] Create config name : spat_producer_topic, value : modified_spat, description : Kafka topic for streets internal SPAT messages 
+[2023-12-05 19:28:40.727] [debug] [configuration.cpp:62] Create config name : desired_phase_plan_consumer_topic, value : desired_phase_plan, description : Kafka topic for streets internal desired phase plan messages 
+[2023-12-05 19:28:40.727] [debug] [configuration.cpp:62] Create config name : desired_phase_plan_consumer_group, value : desired_phase_plan_group, description : Kafka consumer group for desired phase plan topic 
+[2023-12-05 19:28:40.727] [debug] [configuration.cpp:62] Create config name : use_tsc_timestamp, value : false, description : If false will use host machine unix time for SPaT timestamp, If true will use ntcip message provided timestamp for SPaT timestamp. 
+[2023-12-05 19:28:40.727] [debug] [configuration.cpp:62] Create config name : spat_projection_mode, value : 0, description : Enumeration configuring SPat projection. 1 == DPP projection. 2 == Fixed Timing projection. Any other value will result in no projection of future 
+[2023-12-05 19:28:40.727] [debug] [configuration.cpp:62] Create config name : tsc_config_producer_topic, value : tsc_config_state, description : Kafka topic for streets internal Traffic Signal Controller config message 
+[2023-12-05 19:28:40.727] [debug] [configuration.cpp:62] Create config name : control_tsc_state_sleep_duration, value : 100, description : Sleep Duration for the control tsc state thread , in milliseconds, which makes Hold and Omit calls to the TSC. This sleep duration is the time between checking new events in queue, once it has been emptied 
+[2023-12-05 19:28:40.727] [debug] [configuration.cpp:62] Create config name : enable_snmp_cmd_logging, value : true, description : Bool flag to enable snmp commands logging. 
+[2023-12-05 19:28:40.727] [debug] [configuration.cpp:62] Create config name : snmp_cmd_log_path, value : ../logs/, description : File path where snmp commands log file will be written(Note: set enable_snmp_cmd_logging true). 
+[2023-12-05 19:28:40.727] [debug] [configuration.cpp:62] Create config name : snmp_cmd_log_filename, value : snmpcmdLogs, description : Filename for snmp commands logging (Note: set enable_snmp_cmd_logging true). 
+[2023-12-05 19:28:40.727] [debug] [configuration.cpp:62] Create config name : use_mmitss_mrp, value : false, description : If false, it will use carma-streets internal signal optimization service and its generated desired phase plan to schedule traffic signal controller. If true, it will use external MRP (MMITSS Roadside Processor, link: https://github.com/mmitss/mmitss-az) and its generated phase control schedule to schedule the traffic sginal controller. 
+[2023-12-05 19:28:40.727] [debug] [configuration.cpp:62] Create config name : use_desired_phase_plan_update, value : true, description : If true will enable monitor_desired_phase_plan to update incoming spat with calculated future movement events, using desired phase plan information from signal optimization service. If false will use TSC Configuration to predict future phases and append those to the spat based on default phase sequence. 
+[2023-12-05 19:28:40.727] [info] [streets_configuration.cpp:15] Printing Configuration Parameters ---------------------------------------
+[2023-12-05 19:28:40.727] [info] [streets_configuration.cpp:18] bootstrap_server : 172.4.0.3:9092 
+[2023-12-05 19:28:40.727] [info] [streets_configuration.cpp:18] community : administrator 
+[2023-12-05 19:28:40.727] [info] [streets_configuration.cpp:18] control_tsc_state_sleep_duration : 100 
+[2023-12-05 19:28:40.727] [info] [streets_configuration.cpp:18] desired_phase_plan_consumer_group : desired_phase_plan_group 
+[2023-12-05 19:28:40.727] [info] [streets_configuration.cpp:18] desired_phase_plan_consumer_topic : desired_phase_plan 
+[2023-12-05 19:28:40.727] [info] [streets_configuration.cpp:18] enable_snmp_cmd_logging : true 
+[2023-12-05 19:28:40.727] [info] [streets_configuration.cpp:18] snmp_cmd_log_filename : snmpcmdLogs 
+[2023-12-05 19:28:40.727] [info] [streets_configuration.cpp:18] snmp_cmd_log_path : ../logs/ 
+[2023-12-05 19:28:40.727] [info] [streets_configuration.cpp:18] snmp_timeout : 1500000000 
+[2023-12-05 19:28:40.727] [info] [streets_configuration.cpp:18] snmp_version : 0 
+[2023-12-05 19:28:40.727] [info] [streets_configuration.cpp:18] socket_timeout : 100 
+[2023-12-05 19:28:40.727] [info] [streets_configuration.cpp:18] spat_producer_topic : modified_spat 
+[2023-12-05 19:28:40.727] [info] [streets_configuration.cpp:18] spat_projection_mode : 0 
+[2023-12-05 19:28:40.727] [info] [streets_configuration.cpp:18] target_ip : 172.4.0.4 
+[2023-12-05 19:28:40.727] [info] [streets_configuration.cpp:18] target_port : 5050 
+[2023-12-05 19:28:40.727] [info] [streets_configuration.cpp:18] tsc_config_producer_topic : tsc_config_state 
+[2023-12-05 19:28:40.727] [info] [streets_configuration.cpp:18] udp_socket_ip : 172.4.0.3 
+[2023-12-05 19:28:40.727] [info] [streets_configuration.cpp:18] udp_socket_port : 6053 
+[2023-12-05 19:28:40.727] [info] [streets_configuration.cpp:18] use_desired_phase_plan_update : true 
+[2023-12-05 19:28:40.727] [info] [streets_configuration.cpp:18] use_mmitss_mrp : false 
+[2023-12-05 19:28:40.727] [info] [streets_configuration.cpp:18] use_tsc_timestamp : false 
+[2023-12-05 19:28:40.727] [debug] [streets_service.cpp:125] Reading system config SIMULATION_MODE as : TRUE!
+[2023-12-05 19:28:40.727] [info] [streets_singleton.tpp:27] Initializing Singleton of type PN9fwha_stol3lib4time10CarmaClockE!
+[2023-12-05 19:28:40.727] [info] [streets_service.cpp:20] Initializing snmp_client streets service in simulation mode : true!
+[2023-12-05 19:28:40.727] [debug] [streets_service.cpp:125] Reading system config TIME_SYNC_TOPIC as : time_sync!
+[2023-12-05 19:28:40.727] [info] [streets_configuration.cpp:177] Log Level set to debug!
+[2023-12-05 19:28:40.727] [debug] [streets_configuration.cpp:59] Updating Configuration Map
+[2023-12-05 19:28:40.727] [debug] [configuration.cpp:62] Create config name : target_ip, value : 172.4.0.4, description : Target device IP address 
+[2023-12-05 19:28:40.727] [debug] [configuration.cpp:62] Create config name : target_port, value : 5050, description : Target device NTCIP port 
+[2023-12-05 19:28:40.727] [debug] [configuration.cpp:62] Create config name : community, value : administrator, description : Target community for establishing snmp communication 
+[2023-12-05 19:28:40.727] [debug] [configuration.cpp:62] Create config name : snmp_version, value : 0, description : snmp version being used. net-snmp version definition: SNMP_VERSION_1:0 SNMP_VERSION_2c:1 SNMP_VERSION_2u:2 SNMP_VERSION_3:3 
+[2023-12-05 19:28:40.727] [debug] [configuration.cpp:62] Create config name : snmp_timeout, value : 1500000000, description : Time in microseconds after which the the snmp request times out 
+[2023-12-05 19:28:40.727] [debug] [configuration.cpp:62] Create config name : udp_socket_ip, value : 172.4.0.3, description : IP for UDP socket listener to listen on. Should be localhost IP of container or VM running TSC Service. 
+[2023-12-05 19:28:40.727] [debug] [configuration.cpp:62] Create config name : udp_socket_port, value : 6053, description : Port for UDP Socket Listener to list on. TSC configuration sets which port/host NTCIP SPaT data will be broadcast to. 
+[2023-12-05 19:28:40.727] [debug] [configuration.cpp:62] Create config name : socket_timeout, value : 100, description : Timeout in seconds for UDP Socket Listener. If UDP Socket Listener does not receive messages for this amount of time it will shutdown and thrown an exception.  
+[2023-12-05 19:28:40.727] [debug] [configuration.cpp:62] Create config name : bootstrap_server, value : 172.4.0.3:9092, description : Kafka Broker Server Address. 
+[2023-12-05 19:28:40.727] [debug] [configuration.cpp:62] Create config name : spat_producer_topic, value : modified_spat, description : Kafka topic for streets internal SPAT messages 
+[2023-12-05 19:28:40.727] [debug] [configuration.cpp:62] Create config name : desired_phase_plan_consumer_topic, value : desired_phase_plan, description : Kafka topic for streets internal desired phase plan messages 
+[2023-12-05 19:28:40.727] [debug] [configuration.cpp:62] Create config name : desired_phase_plan_consumer_group, value : desired_phase_plan_group, description : Kafka consumer group for desired phase plan topic 
+[2023-12-05 19:28:40.727] [debug] [configuration.cpp:62] Create config name : use_tsc_timestamp, value : false, description : If false will use host machine unix time for SPaT timestamp, If true will use ntcip message provided timestamp for SPaT timestamp. 
+[2023-12-05 19:28:40.727] [debug] [configuration.cpp:62] Create config name : spat_projection_mode, value : 0, description : Enumeration configuring SPat projection. 1 == DPP projection. 2 == Fixed Timing projection. Any other value will result in no projection of future 
+[2023-12-05 19:28:40.727] [debug] [configuration.cpp:62] Create config name : tsc_config_producer_topic, value : tsc_config_state, description : Kafka topic for streets internal Traffic Signal Controller config message 
+[2023-12-05 19:28:40.727] [debug] [configuration.cpp:62] Create config name : control_tsc_state_sleep_duration, value : 100, description : Sleep Duration for the control tsc state thread , in milliseconds, which makes Hold and Omit calls to the TSC. This sleep duration is the time between checking new events in queue, once it has been emptied 
+[2023-12-05 19:28:40.727] [debug] [configuration.cpp:62] Create config name : enable_snmp_cmd_logging, value : true, description : Bool flag to enable snmp commands logging. 
+[2023-12-05 19:28:40.727] [debug] [configuration.cpp:62] Create config name : snmp_cmd_log_path, value : ../logs/, description : File path where snmp commands log file will be written(Note: set enable_snmp_cmd_logging true). 
+[2023-12-05 19:28:40.727] [debug] [configuration.cpp:62] Create config name : snmp_cmd_log_filename, value : snmpcmdLogs, description : Filename for snmp commands logging (Note: set enable_snmp_cmd_logging [2023-12-05 19:39:00.719] [info] [streets_configuration.cpp:198] Default Logger initialized!
+[2023-12-05 19:39:00.719] [info] [streets_configuration.cpp:177] Log Level set to debug!
+[2023-12-05 19:39:00.719] [debug] [streets_configuration.cpp:59] Updating Configuration Map
+[2023-12-05 19:39:00.719] [debug] [configuration.cpp:62] Create config name : target_ip, value : 172.4.0.4, description : Target device IP address 
+[2023-12-05 19:39:00.719] [debug] [configuration.cpp:62] Create config name : target_port, value : 5050, description : Target device NTCIP port 
+[2023-12-05 19:39:00.719] [debug] [configuration.cpp:62] Create config name : community, value : administrator, description : Target community for establishing snmp communication 
+[2023-12-05 19:39:00.719] [debug] [configuration.cpp:62] Create config name : snmp_version, value : 0, description : snmp version being used. net-snmp version definition: SNMP_VERSION_1:0 SNMP_VERSION_2c:1 SNMP_VERSION_2u:2 SNMP_VERSION_3:3 
+[2023-12-05 19:39:00.719] [debug] [configuration.cpp:62] Create config name : snmp_timeout, value : 1500000000, description : Time in microseconds after which the the snmp request times out 
+[2023-12-05 19:39:00.719] [debug] [configuration.cpp:62] Create config name : udp_socket_ip, value : 172.4.0.3, description : IP for UDP socket listener to listen on. Should be localhost IP of container or VM running TSC Service. 
+[2023-12-05 19:39:00.719] [debug] [configuration.cpp:62] Create config name : udp_socket_port, value : 6053, description : Port for UDP Socket Listener to list on. TSC configuration sets which port/host NTCIP SPaT data will be broadcast to. 
+[2023-12-05 19:39:00.719] [debug] [configuration.cpp:62] Create config name : socket_timeout, value : 100, description : Timeout in seconds for UDP Socket Listener. If UDP Socket Listener does not receive messages for this amount of time it will shutdown and thrown an exception.  
+[2023-12-05 19:39:00.719] [debug] [configuration.cpp:62] Create config name : bootstrap_server, value : 172.4.0.3:9092, description : Kafka Broker Server Address. 
+[2023-12-05 19:39:00.719] [debug] [configuration.cpp:62] Create config name : spat_producer_topic, value : modified_spat, description : Kafka topic for streets internal SPAT messages 
+[2023-12-05 19:39:00.719] [debug] [configuration.cpp:62] Create config name : desired_phase_plan_consumer_topic, value : desired_phase_plan, description : Kafka topic for streets internal desired phase plan messages 
+[2023-12-05 19:39:00.719] [debug] [configuration.cpp:62] Create config name : desired_phase_plan_consumer_group, value : desired_phase_plan_group, description : Kafka consumer group for desired phase plan topic 
+[2023-12-05 19:39:00.719] [debug] [configuration.cpp:62] Create config name : use_tsc_timestamp, value : false, description : If false will use host machine unix time for SPaT timestamp, If true will use ntcip message provided timestamp for SPaT timestamp. 
+[2023-12-05 19:39:00.719] [debug] [configuration.cpp:62] Create config name : spat_projection_mode, value : 0, description : Enumeration configuring SPat projection. 1 == DPP projection. 2 == Fixed Timing projection. Any other value will result in no projection of future 
+[2023-12-05 19:39:00.719] [debug] [configuration.cpp:62] Create config name : tsc_config_producer_topic, value : tsc_config_state, description : Kafka topic for streets internal Traffic Signal Controller config message 
+[2023-12-05 19:39:00.719] [debug] [configuration.cpp:62] Create config name : control_tsc_state_sleep_duration, value : 100, description : Sleep Duration for the control tsc state thread , in milliseconds, which makes Hold and Omit calls to the TSC. This sleep duration is the time between checking new events in queue, once it has been emptied 
+[2023-12-05 19:39:00.719] [debug] [configuration.cpp:62] Create config name : enable_snmp_cmd_logging, value : true, description : Bool flag to enable snmp commands logging. 
+[2023-12-05 19:39:00.719] [debug] [configuration.cpp:62] Create config name : snmp_cmd_log_path, value : ../logs/, description : File path where snmp commands log file will be written(Note: set enable_snmp_cmd_logging true). 
+[2023-12-05 19:39:00.719] [debug] [configuration.cpp:62] Create config name : snmp_cmd_log_filename, value : snmpcmdLogs, description : Filename for snmp commands logging (Note: set enable_snmp_cmd_logging true). 
+[2023-12-05 19:39:00.719] [debug] [configuration.cpp:62] Create config name : use_mmitss_mrp, value : false, description : If false, it will use carma-streets internal signal optimization service and its generated desired phase plan to schedule traffic signal controller. If true, it will use external MRP (MMITSS Roadside Processor, link: https://github.com/mmitss/mmitss-az) and its generated phase control schedule to schedule the traffic sginal controller. 
+[2023-12-05 19:39:00.719] [debug] [configuration.cpp:62] Create config name : use_desired_phase_plan_update, value : true, description : If true will enable monitor_desired_phase_plan to update incoming spat with calculated future movement events, using desired phase plan information from signal optimization service. If false will use TSC Configuration to predict future phases and append those to the spat based on default phase sequence. 
+[2023-12-05 19:39:00.719] [info] [streets_configuration.cpp:15] Printing Configuration Parameters ---------------------------------------
+[2023-12-05 19:39:00.719] [info] [streets_configuration.cpp:18] bootstrap_server : 172.4.0.3:9092 
+[2023-12-05 19:39:00.719] [info] [streets_configuration.cpp:18] community : administrator 
+[2023-12-05 19:39:00.719] [info] [streets_configuration.cpp:18] control_tsc_state_sleep_duration : 100 
+[2023-12-05 19:39:00.719] [info] [streets_configuration.cpp:18] desired_phase_plan_consumer_group : desired_phase_plan_group 
+[2023-12-05 19:39:00.719] [info] [streets_configuration.cpp:18] desired_phase_plan_consumer_topic : desired_phase_plan 
+[2023-12-05 19:39:00.719] [info] [streets_configuration.cpp:18] enable_snmp_cmd_logging : true 
+[2023-12-05 19:39:00.719] [info] [streets_configuration.cpp:18] snmp_cmd_log_filename : snmpcmdLogs 
+[2023-12-05 19:39:00.719] [info] [streets_configuration.cpp:18] snmp_cmd_log_path : ../logs/ 
+[2023-12-05 19:39:00.719] [info] [streets_configuration.cpp:18] snmp_timeout : 1500000000 
+[2023-12-05 19:39:00.719] [info] [streets_configuration.cpp:18] snmp_version : 0 
+[2023-12-05 19:39:00.719] [info] [streets_configuration.cpp:18] socket_timeout : 100 
+[2023-12-05 19:39:00.719] [info] [streets_configuration.cpp:18] spat_producer_topic : modified_spat 
+[2023-12-05 19:39:00.719] [info] [streets_configuration.cpp:18] spat_projection_mode : 0 
+[2023-12-05 19:39:00.719] [info] [streets_configuration.cpp:18] target_ip : 172.4.0.4 
+[2023-12-05 19:39:00.719] [info] [streets_configuration.cpp:18] target_port : 5050 
+[2023-12-05 19:39:00.719] [info] [streets_configuration.cpp:18] tsc_config_producer_topic : tsc_config_state 
+[2023-12-05 19:39:00.719] [info] [streets_configuration.cpp:18] udp_socket_ip : 172.4.0.3 
+[2023-12-05 19:39:00.719] [info] [streets_configuration.cpp:18] udp_socket_port : 6053 
+[2023-12-05 19:39:00.719] [info] [streets_configuration.cpp:18] use_desired_phase_plan_update : true 
+[2023-12-05 19:39:00.719] [info] [streets_configuration.cpp:18] use_mmitss_mrp : false 
+[2023-12-05 19:39:00.719] [info] [streets_configuration.cpp:18] use_tsc_timestamp : false 
+[2023-12-05 19:39:00.719] [debug] [streets_service.cpp:125] Reading system config SIMULATION_MODE as : TRUE!
+[2023-12-05 19:39:00.719] [info] [streets_singleton.tpp:27] Initializing Singleton of type PN9fwha_stol3lib4time10CarmaClockE!
+[2023-12-05 19:39:00.719] [info] [streets_service.cpp:20] Initializing snmp_client streets service in simulation mode : true!
+[2023-12-05 19:39:00.719] [debug] [streets_service.cpp:125] Reading system config TIME_SYNC_TOPIC as : time_sync!
+[2023-12-05 19:39:00.719] [info] [streets_configuration.cpp:177] Log Level set to debug!
+[2023-12-05 19:39:00.719] [debug] [streets_configuration.cpp:59] Updating Configuration Map
+[2023-12-05 19:39:00.719] [debug] [configuration.cpp:62] Create config name : target_ip, value : 172.4.0.4, description : Target device IP address 
+[2023-12-05 19:39:00.719] [debug] [configuration.cpp:62] Create config name : target_port, value : 5050, description : Target device NTCIP port 
+[2023-12-05 19:39:00.719] [debug] [configuration.cpp:62] Create config name : community, value : administrator, description : Target community for establishing snmp communication 
+[2023-12-05 19:39:00.719] [debug] [configuration.cpp:62] Create config name : snmp_version, value : 0, description : snmp version being used. net-snmp version definition: SNMP_VERSION_1:0 SNMP_VERSION_2c:1 SNMP_VERSION_2u:2 SNMP_VERSION_3:3 
+[2023-12-05 19:39:00.719] [debug] [configuration.cpp:62] Create config name : snmp_timeout, value : 1500000000, description : Time in microseconds after which the the snmp request times out 
+[2023-12-05 19:39:00.719] [debug] [configuration.cpp:62] Create config name : udp_socket_ip, value : 172.4.0.3, description : IP for UDP socket listener to listen on. Should be localhost IP of container or VM running TSC Service. 
+[2023-12-05 19:39:00.719] [debug] [configuration.cpp:62] Create config name : udp_socket_port, value : 6053, description : Port for UDP Socket Listener to list on. TSC configuration sets which port/host NTCIP SPaT data will be broadcast to. 
+[2023-12-05 19:39:00.719] [debug] [configuration.cpp:62] Create config name : socket_timeout, value : 100, description : Timeout in seconds for UDP Socket Listener. If UDP Socket Listener does not receive messages for this amount of time it will shutdown and thrown an exception.  
+[2023-12-05 19:39:00.719] [debug] [configuration.cpp:62] Create config name : bootstrap_server, value : 172.4.0.3:9092, description : Kafka Broker Server Address. 
+[2023-12-05 19:39:00.719] [debug] [configuration.cpp:62] Create config name : spat_producer_topic, value : modified_spat, description : Kafka topic for streets internal SPAT messages 
+[2023-12-05 19:39:00.719] [debug] [configuration.cpp:62] Create config name : desired_phase_plan_consumer_topic, value : desired_phase_plan, description : Kafka topic for streets internal desired phase plan messages 
+[2023-12-05 19:39:00.719] [debug] [configuration.cpp:62] Create config name : desired_phase_plan_consumer_group, value : desired_phase_plan_group, description : Kafka consumer group for desired phase plan topic 
+[2023-12-05 19:39:00.719] [debug] [configuration.cpp:62] Create config name : use_tsc_timestamp, value : false, description : If false will use host machine unix time for SPaT timestamp, If true will use ntcip message provided timestamp for SPaT timestamp. 
+[2023-12-05 19:39:00.719] [debug] [configuration.cpp:62] Create config name : spat_projection_mode, value : 0, description : Enumeration configuring SPat projection. 1 == DPP projection. 2 == Fixed Timing projection. Any other value will result in no projection of future 
+[2023-12-05 19:39:00.719] [debug] [configuration.cpp:62] Create config name : tsc_config_producer_topic, value : tsc_config_state, description : Kafka topic for streets internal Traffic Signal Controller config message 
+[2023-12-05 19:39:00.719] [debug] [configuration.cpp:62] Create config name : control_tsc_state_sleep_duration, value : 100, description : Sleep Duration for the control tsc state thread , in milliseconds, which makes Hold and Omit calls to the TSC. This sleep duration is the time between checking new events in queue, once it has been emptied 
+[2023-12-05 19:39:00.719] [debug] [configuration.cpp:62] Create config name : enable_snmp_cmd_logging, value : true, description : Bool flag to enable snmp commands logging. 
+[2023-12-05 19:39:00.719] [debug] [configuration.cpp:62] Create config name : snmp_cmd_log_path, value : ../logs/, description : File path where snmp commands log file will be written(Note: set enable_snmp_cmd_logging true). 
+[2023-12-05 19:39:00.719] [debug] [configuration.cpp:62] Create config name : snmp_cmd_log_filename, value : snmpcmdLogs, description : Filename for snmp commands logging (Note: set enable_snmp_cmd_logging true). 
+[2023-12-05 19:39:00.719] [debug] [configuration.cpp:62] Create config name : use_mmitss_mrp, value : false, description : If false, it will use carma-streets internal signal optimization service and its generated desired phase plan to schedule traffic signal controller. If true, it will use external MRP (MMITSS Roadside Processor, link: https://github.com/mmitss/mmitss-az) and its generated phase control schedule to schedule the traffic sginal controller. 
+[2023-12-05 19:39:00.719] [debug] [configuration.cpp:62] Create config name : use_desired_phase_plan_update, value : true, description : If true will enable monitor_desired_phase_plan to update incoming spat with calculated future movement events, using desired phase plan information from signal optimization service. If false will use TSC Configuration to predict future phases and append those to the spat based on default phase sequence. 
+[2023-12-05 19:39:00.719] [info] [kafka_consumer_worker.cpp:22] kafka_consumer_worker init()... 
+[2023-12-05 19:39:00.720] [info] [kafka_consumer_worker.cpp:73] created consumer: rdkafka#consumer-1 
+[2023-12-05 19:39:00.720] [info] [kafka_consumer_worker.cpp:133] Consumer connect to bootstrap_server: 172.4.0.3:9092 , topic:  time_sync , partition:  0, group id: snmp_client 
+[2023-12-05 19:39:00.720] [debug] [streets_service.cpp:83] Initialized Kafka consumer!
+[2023-12-05 19:39:00.720] [debug] [streets_service.cpp:125] Reading system config LOGS_DIRECTORY as : /home/carma-streets/tsc_client_service/logs/!
+[2023-12-05 19:39:00.720] [debug] [snmp_client.cpp:10] Starting SNMP Client
+[2023-12-05 19:39:00.720] [debug] [snmp_client.cpp:11] Target device IP address: 172.4.0.4
+[2023-12-05 19:39:00.720] [debug] [snmp_client.cpp:12] Target device NTCIP port: 5050
+[2023-12-05 19:39:00.720] [critical] [kafka_consumer_worker.h:98] /home/carma-streets/kafka_clients/include/kafka_consumer_worker.h : Line 98. LOG:  3  FAIL [thrd:172.4.0.3:9092/bootstrap]: 172.4.0.3:9092/bootstrap: Connect to ipv4#172.4.0.3:9092 failed: Connection refused (after 0ms in state CONNECT)
+[2023-12-05 19:39:00.727] [info] [snmp_client.cpp:45] Established session with device at 172.4.0.4
+[2023-12-05 19:39:00.727] [debug] [tsc_service.cpp:135] SNMP Client initialized!
+[2023-12-05 19:39:00.727] [info] [kafka_producer_worker.cpp:8] kafka_producer_worker init()... 
+[2023-12-05 19:39:00.727] [info] [kafka_producer_worker.cpp:61] created producer:  rdkafka#producer-2 
+[2023-12-05 19:39:00.727] [info] [kafka_producer_worker.cpp:169] Producer connect to bootstrap_server: 172.4.0.3:9092, topic: tsc_config_state ,partition: 0 
+[2023-12-05 19:39:00.727] [debug] [streets_service.cpp:68] Initialized Kafka producer on topic tsc_config_state!
+[2023-12-05 19:39:00.727] [debug] [snmp_client.cpp:64] Attemping to GET value for: 1.3.6.1.4.1.1206.4.2.1.8.1.0
+[2023-12-05 19:39:00.727] [debug] [snmp_client.cpp:104] Created OID for input: 1.3.6.1.4.1.1206.4.2.1.8.1.0
+[2023-12-05 19:39:00.727] [critical] [kafka_producer_worker.h:57] LOG:  Success  [thrd:172.4.0.3:9092/bootstrap]: 172.4.0.3:9092/bootstrap: Connect to ipv4#172.4.0.3:9092 failed: Connection refused (after 0ms in state CONNECT)
+[2023-12-05 19:39:00.728] [debug] [snmp_client.cpp:113] STAT_SUCCESS, received a response
+[2023-12-05 19:39:00.728] [debug] [snmp_client.cpp:123] Integer value in object: 16
+[2023-12-05 19:39:00.728] [debug] [snmp_client.cpp:64] Attemping to GET value for: 1.3.6.1.4.1.1206.4.2.1.8.2.1.3.1
+[2023-12-05 19:39:00.728] [debug] [snmp_client.cpp:104] Created OID for input: 1.3.6.1.4.1.1206.4.2.1.8.2.1.3.1
+[2023-12-05 19:39:00.729] [debug] [snmp_client.cpp:113] STAT_SUCCESS, received a response
+[2023-12-05 19:39:00.729] [debug] [snmp_client.cpp:123] Integer value in object: 2
+[2023-12-05 19:39:00.729] [debug] [snmp_client.cpp:64] Attemping to GET value for: 1.3.6.1.4.1.1206.4.2.1.8.2.1.3.2
+[2023-12-05 19:39:00.729] [debug] [snmp_client.cpp:104] Created OID for input: 1.3.6.1.4.1.1206.4.2.1.8.2.1.3.2
+[2023-12-05 19:39:00.730] [debug] [snmp_client.cpp:113] STAT_SUCCESS, received a response
+[2023-12-05 19:39:00.730] [debug] [snmp_client.cpp:123] Integer value in object: 2
+[2023-12-05 19:39:00.730] [debug] [snmp_client.cpp:64] Attemping to GET value for: 1.3.6.1.4.1.1206.4.2.1.8.2.1.3.3
+[2023-12-05 19:39:00.730] [debug] [snmp_client.cpp:104] Created OID for input: 1.3.6.1.4.1.1206.4.2.1.8.2.1.3.3
+[2023-12-05 19:39:00.731] [debug] [snmp_client.cpp:113] STAT_SUCCESS, received a response
+[2023-12-05 19:39:00.731] [debug] [snmp_client.cpp:123] Integer value in object: 2
+[2023-12-05 19:39:00.731] [debug] [snmp_client.cpp:64] Attemping to GET value for: 1.3.6.1.4.1.1206.4.2.1.8.2.1.3.4
+[2023-12-05 19:39:00.731] [debug] [snmp_client.cpp:104] Created OID for input: 1.3.6.1.4.1.1206.4.2.1.8.2.1.3.4
+[2023-12-05 19:39:00.732] [debug] [snmp_client.cpp:113] STAT_SUCCESS, received a response
+[2023-12-05 19:39:00.732] [debug] [snmp_client.cpp:123] Integer value in object: 2
+[2023-12-05 19:39:00.732] [debug] [snmp_client.cpp:64] Attemping to GET value for: 1.3.6.1.4.1.1206.4.2.1.8.2.1.3.5
+[2023-12-05 19:39:00.732] [debug] [snmp_client.cpp:104] Created OID for input: 1.3.6.1.4.1.1206.4.2.1.8.2.1.3.5
+[2023-12-05 19:39:00.734] [debug] [snmp_client.cpp:113] STAT_SUCCESS, received a response
+[2023-12-05 19:39:00.734] [debug] [snmp_client.cpp:123] Integer value in object: 2
+[2023-12-05 19:39:00.734] [debug] [snmp_client.cpp:64] Attemping to GET value for: 1.3.6.1.4.1.1206.4.2.1.8.2.1.3.6
+[2023-12-05 19:39:00.734] [debug] [snmp_client.cpp:104] Created OID for input: 1.3.6.1.4.1.1206.4.2.1.8.2.1.3.6
+[2023-12-05 19:39:00.735] [debug] [snmp_client.cpp:113] STAT_SUCCESS, received a response
+[2023-12-05 19:39:00.735] [debug] [snmp_client.cpp:123] Integer value in object: 2
+[2023-12-05 19:39:00.735] [debug] [snmp_client.cpp:64] Attemping to GET value for: 1.3.6.1.4.1.1206.4.2.1.8.2.1.3.7
+[2023-12-05 19:39:00.735] [debug] [snmp_client.cpp:104] Created OID for input: 1.3.6.1.4.1.1206.4.2.1.8.2.1.3.7
+[2023-12-05 19:39:00.736] [debug] [snmp_client.cpp:113] STAT_SUCCESS, received a response
+[2023-12-05 19:39:00.736] [debug] [snmp_client.cpp:123] Integer value in object: 2
+[2023-12-05 19:39:00.736] [debug] [snmp_client.cpp:64] Attemping to GET value for: 1.3.6.1.4.1.1206.4.2.1.8.2.1.3.8
+[2023-12-05 19:39:00.736] [debug] [snmp_client.cpp:104] Created OID for input: 1.3.6.1.4.1.1206.4.2.1.8.2.1.3.8
+[2023-12-05 19:39:00.737] [debug] [snmp_client.cpp:113] STAT_SUCCESS, received a response
+[2023-12-05 19:39:00.737] [debug] [snmp_client.cpp:123] Integer value in object: 2
+[2023-12-05 19:39:00.737] [debug] [snmp_client.cpp:64] Attemping to GET value for: 1.3.6.1.4.1.1206.4.2.1.8.2.1.3.9
+[2023-12-05 19:39:00.737] [debug] [snmp_client.cpp:104] Created OID for input: 1.3.6.1.4.1.1206.4.2.1.8.2.1.3.9
+[2023-12-05 19:39:00.738] [debug] [snmp_client.cpp:113] STAT_SUCCESS, received a response
+[2023-12-05 19:39:00.738] [debug] [snmp_client.cpp:123] Integer value in object: 4
+[2023-12-05 19:39:00.738] [debug] [snmp_client.cpp:64] Attemping to GET value for: 1.3.6.1.4.1.1206.4.2.1.8.2.1.3.10
+[2023-12-05 19:39:00.738] [debug] [snmp_client.cpp:104] Created OID for input: 1.3.6.1.4.1.1206.4.2.1.8.2.1.3.10
+[2023-12-05 19:39:00.739] [debug] [snmp_client.cpp:113] STAT_SUCCESS, received a response
+[2023-12-05 19:39:00.739] [debug] [snmp_client.cpp:123] Integer value in object: 4
+[2023-12-05 19:39:00.739] [debug] [snmp_client.cpp:64] Attemping to GET value for: 1.3.6.1.4.1.1206.4.2.1.8.2.1.3.11
+[2023-12-05 19:39:00.739] [debug] [snmp_client.cpp:104] Created OID for input: 1.3.6.1.4.1.1206.4.2.1.8.2.1.3.11
+[2023-12-05 19:39:00.740] [debug] [snmp_client.cpp:113] STAT_SUCCESS, received a response
+[2023-12-05 19:39:00.740] [debug] [snmp_client.cpp:123] Integer value in object: 4
+[2023-12-05 19:39:00.740] [debug] [snmp_client.cpp:64] Attemping to GET value for: 1.3.6.1.4.1.1206.4.2.1.8.2.1.3.12
+[2023-12-05 19:39:00.740] [debug] [snmp_client.cpp:104] Created OID for input: 1.3.6.1.4.1.1206.4.2.1.8.2.1.3.12
+[2023-12-05 19:39:00.741] [debug] [snmp_client.cpp:113] STAT_SUCCESS, received a response
+[2023-12-05 19:39:00.741] [debug] [snmp_client.cpp:123] Integer value in object: 4
+[2023-12-05 19:39:00.741] [debug] [snmp_client.cpp:64] Attemping to GET value for: 1.3.6.1.4.1.1206.4.2.1.8.2.1.3.13
+[2023-12-05 19:39:00.741] [debug] [snmp_client.cpp:104] Created OID for input: 1.3.6.1.4.1.1206.4.2.1.8.2.1.3.13
+[2023-12-05 19:39:00.742] [debug] [snmp_client.cpp:113] STAT_SUCCESS, received a response
+[2023-12-05 19:39:00.742] [debug] [snmp_client.cpp:123] Integer value in object: 4
+[2023-12-05 19:39:00.742] [debug] [snmp_client.cpp:64] Attemping to GET value for: 1.3.6.1.4.1.1206.4.2.1.8.2.1.3.14
+[2023-12-05 19:39:00.742] [debug] [snmp_client.cpp:104] Created OID for input: 1.3.6.1.4.1.1206.4.2.1.8.2.1.3.14
+[2023-12-05 19:39:00.743] [debug] [snmp_client.cpp:113] STAT_SUCCESS, received a response
+[2023-12-05 19:39:00.743] [debug] [snmp_client.cpp:123] Integer value in object: 4
+[2023-12-05 19:39:00.743] [debug] [snmp_client.cpp:64] Attemping to GET value for: 1.3.6.1.4.1.1206.4.2.1.8.2.1.3.15
+[2023-12-05 19:39:00.743] [debug] [snmp_client.cpp:104] Created OID for input: 1.3.6.1.4.1.1206.4.2.1.8.2.1.3.15
+[2023-12-05 19:39:00.744] [debug] [snmp_client.cpp:113] STAT_SUCCESS, received a response
+[2023-12-05 19:39:00.744] [debug] [snmp_client.cpp:123] Integer value in object: 4
+[2023-12-05 19:39:00.744] [debug] [snmp_client.cpp:64] Attemping to GET value for: 1.3.6.1.4.1.1206.4.2.1.8.2.1.3.16
+[2023-12-05 19:39:00.744] [debug] [snmp_client.cpp:104] Created OID for input: 1.3.6.1.4.1.1206.4.2.1.8.2.1.3.16
+[2023-12-05 19:39:00.745] [debug] [snmp_client.cpp:113] STAT_SUCCESS, received a response
+[2023-12-05 19:39:00.745] [debug] [snmp_client.cpp:123] Integer value in object: 4
+[2023-12-05 19:39:00.745] [debug] [monitor_tsc_state.cpp:442] Found no ped phases
+[2023-12-05 19:39:00.745] [debug] [monitor_tsc_state.cpp:445] Number of vehicle phase channels found: 8
+[2023-12-05 19:39:00.745] [debug] [monitor_tsc_state.cpp:446] Number of ped phase channels found: 0
+[2023-12-05 19:39:00.745] [debug] [snmp_client.cpp:64] Attemping to GET value for: 1.3.6.1.4.1.1206.4.2.1.8.2.1.2.1
+[2023-12-05 19:39:00.745] [debug] [snmp_client.cpp:104] Created OID for input: 1.3.6.1.4.1.1206.4.2.1.8.2.1.2.1
+[2023-12-05 19:39:00.746] [debug] [snmp_client.cpp:113] STAT_SUCCESS, received a response
+[2023-12-05 19:39:00.746] [debug] [snmp_client.cpp:123] Integer value in object: 1
+[2023-12-05 19:39:00.746] [debug] [snmp_client.cpp:64] Attemping to GET value for: 1.3.6.1.4.1.1206.4.2.1.8.2.1.2.2
+[2023-12-05 19:39:00.747] [debug] [snmp_client.cpp:104] Created OID for input: 1.3.6.1.4.1.1206.4.2.1.8.2.1.2.2
+[2023-12-05 19:39:00.748] [debug] [snmp_client.cpp:113] STAT_SUCCESS, received a response
+[2023-12-05 19:39:00.748] [debug] [snmp_client.cpp:123] Integer value in object: 2
+[2023-12-05 19:39:00.748] [debug] [snmp_client.cpp:64] Attemping to GET value for: 1.3.6.1.4.1.1206.4.2.1.8.2.1.2.3
+[2023-12-05 19:39:00.748] [debug] [snmp_client.cpp:104] Created OID for input: 1.3.6.1.4.1.1206.4.2.1.8.2.1.2.3
+[2023-12-05 19:39:00.749] [debug] [snmp_client.cpp:113] STAT_SUCCESS, received a response
+[2023-12-05 19:39:00.749] [debug] [snmp_client.cpp:123] Integer value in object: 3
+[2023-12-05 19:39:00.749] [debug] [snmp_client.cpp:64] Attemping to GET value for: 1.3.6.1.4.1.1206.4.2.1.8.2.1.2.4
+[2023-12-05 19:39:00.749] [debug] [snmp_client.cpp:104] Created OID for input: 1.3.6.1.4.1.1206.4.2.1.8.2.1.2.4
+[2023-12-05 19:39:00.750] [debug] [snmp_client.cpp:113] STAT_SUCCESS, received a response
+[2023-12-05 19:39:00.750] [debug] [snmp_client.cpp:123] Integer value in object: 4
+[2023-12-05 19:39:00.750] [debug] [snmp_client.cpp:64] Attemping to GET value for: 1.3.6.1.4.1.1206.4.2.1.8.2.1.2.5
+[2023-12-05 19:39:00.750] [debug] [snmp_client.cpp:104] Created OID for input: 1.3.6.1.4.1.1206.4.2.1.8.2.1.2.5
+[2023-12-05 19:39:00.751] [debug] [snmp_client.cpp:113] STAT_SUCCESS, received a response
+[2023-12-05 19:39:00.751] [debug] [snmp_client.cpp:123] Integer value in object: 5
+[2023-12-05 19:39:00.751] [debug] [snmp_client.cpp:64] Attemping to GET value for: 1.3.6.1.4.1.1206.4.2.1.8.2.1.2.6
+[2023-12-05 19:39:00.751] [debug] [snmp_client.cpp:104] Created OID for input: 1.3.6.1.4.1.1206.4.2.1.8.2.1.2.6
+[2023-12-05 19:39:00.752] [debug] [snmp_client.cpp:113] STAT_SUCCESS, received a response
+[2023-12-05 19:39:00.752] [debug] [snmp_client.cpp:123] Integer value in object: 6
+[2023-12-05 19:39:00.752] [debug] [snmp_client.cpp:64] Attemping to GET value for: 1.3.6.1.4.1.1206.4.2.1.8.2.1.2.7
+[2023-12-05 19:39:00.752] [debug] [snmp_client.cpp:104] Created OID for input: 1.3.6.1.4.1.1206.4.2.1.8.2.1.2.7
+[2023-12-05 19:39:00.753] [debug] [snmp_client.cpp:113] STAT_SUCCESS, received a response
+[2023-12-05 19:39:00.753] [debug] [snmp_client.cpp:123] Integer value in object: 7
+[2023-12-05 19:39:00.753] [debug] [snmp_client.cpp:64] Attemping to GET value for: 1.3.6.1.4.1.1206.4.2.1.8.2.1.2.8
+[2023-12-05 19:39:00.753] [debug] [snmp_client.cpp:104] Created OID for input: 1.3.6.1.4.1.1206.4.2.1.8.2.1.2.8
+[2023-12-05 19:39:00.754] [debug] [snmp_client.cpp:113] STAT_SUCCESS, received a response
+[2023-12-05 19:39:00.754] [debug] [snmp_client.cpp:123] Integer value in object: 8
+[2023-12-05 19:39:00.754] [debug] [snmp_client.cpp:64] Attemping to GET value for: 1.3.6.1.4.1.1206.4.2.1.7.1.0
+[2023-12-05 19:39:00.754] [debug] [snmp_client.cpp:104] Created OID for input: 1.3.6.1.4.1.1206.4.2.1.7.1.0
+[2023-12-05 19:39:00.755] [debug] [snmp_client.cpp:113] STAT_SUCCESS, received a response
+[2023-12-05 19:39:00.755] [debug] [snmp_client.cpp:123] Integer value in object: 4
+[2023-12-05 19:39:00.755] [debug] [snmp_client.cpp:64] Attemping to GET value for: 1.3.6.1.4.1.1206.4.2.1.7.3.1.3.1.1
+[2023-12-05 19:39:00.755] [debug] [snmp_client.cpp:104] Created OID for input: 1.3.6.1.4.1.1206.4.2.1.7.3.1.3.1.1
+[2023-12-05 19:39:00.756] [debug] [snmp_client.cpp:113] STAT_SUCCESS, received a response
+[2023-12-05 19:39:00.756] [debug] [snmp_client.cpp:64] Attemping to GET value for: 1.3.6.1.4.1.1206.4.2.1.7.3.1.3.1.2
+[2023-12-05 19:39:00.756] [debug] [snmp_client.cpp:104] Created OID for input: 1.3.6.1.4.1.1206.4.2.1.7.3.1.3.1.2
+[2023-12-05 19:39:00.757] [debug] [snmp_client.cpp:113] STAT_SUCCESS, received a response
+[2023-12-05 19:39:00.757] [debug] [snmp_client.cpp:64] Attemping to GET value for: 1.3.6.1.4.1.1206.4.2.1.7.3.1.3.1.3
+[2023-12-05 19:39:00.757] [debug] [snmp_client.cpp:104] Created OID for input: 1.3.6.1.4.1.1206.4.2.1.7.3.1.3.1.3
+[2023-12-05 19:39:00.758] [debug] [snmp_client.cpp:113] STAT_SUCCESS, received a response
+[2023-12-05 19:39:00.758] [debug] [monitor_tsc_state.cpp:482] No phases found in sequence 1 for ring 3
+[2023-12-05 19:39:00.758] [debug] [snmp_client.cpp:64] Attemping to GET value for: 1.3.6.1.4.1.1206.4.2.1.7.3.1.3.1.4
+[2023-12-05 19:39:00.758] [debug] [snmp_client.cpp:104] Created OID for input: 1.3.6.1.4.1.1206.4.2.1.7.3.1.3.1.4
+[2023-12-05 19:39:00.759] [debug] [snmp_client.cpp:113] STAT_SUCCESS, received a response
+[2023-12-05 19:39:00.759] [debug] [monitor_tsc_state.cpp:482] No phases found in sequence 1 for ring 4
+[2023-12-05 19:39:00.759] [debug] [snmp_client.cpp:64] Attemping to GET value for: 1.3.6.1.4.1.1206.4.2.1.1.2.1.6.1
+[2023-12-05 19:39:00.759] [debug] [snmp_client.cpp:104] Created OID for input: 1.3.6.1.4.1.1206.4.2.1.1.2.1.6.1
+[2023-12-05 19:39:00.760] [debug] [snmp_client.cpp:113] STAT_SUCCESS, received a response
+[2023-12-05 19:39:00.760] [debug] [snmp_client.cpp:123] Integer value in object: 10
+[2023-12-05 19:39:00.760] [debug] [snmp_client.cpp:64] Attemping to GET value for: 1.3.6.1.4.1.1206.4.2.1.1.2.1.4.1
+[2023-12-05 19:39:00.760] [debug] [snmp_client.cpp:104] Created OID for input: 1.3.6.1.4.1.1206.4.2.1.1.2.1.4.1
+[2023-12-05 19:39:00.761] [debug] [snmp_client.cpp:113] STAT_SUCCESS, received a response
+[2023-12-05 19:39:00.761] [debug] [snmp_client.cpp:123] Integer value in object: 5
+[2023-12-05 19:39:00.761] [debug] [snmp_client.cpp:64] Attemping to GET value for: 1.3.6.1.4.1.1206.4.2.1.1.2.1.8.1
+[2023-12-05 19:39:00.761] [debug] [snmp_client.cpp:104] Created OID for input: 1.3.6.1.4.1.1206.4.2.1.1.2.1.8.1
+[2023-12-05 19:39:00.763] [debug] [snmp_client.cpp:113] STAT_SUCCESS, received a response
+[2023-12-05 19:39:00.763] [debug] [snmp_client.cpp:123] Integer value in object: 30
+[2023-12-05 19:39:00.763] [debug] [snmp_client.cpp:64] Attemping to GET value for: 1.3.6.1.4.1.1206.4.2.1.1.2.1.9.1
+[2023-12-05 19:39:00.763] [debug] [snmp_client.cpp:104] Created OID for input: 1.3.6.1.4.1.1206.4.2.1.1.2.1.9.1
+[2023-12-05 19:39:00.764] [debug] [snmp_client.cpp:113] STAT_SUCCESS, received a response
+[2023-12-05 19:39:00.764] [debug] [snmp_client.cpp:123] Integer value in object: 10
+[2023-12-05 19:39:00.764] [debug] [snmp_client.cpp:64] Attemping to GET value for: 1.3.6.1.4.1.1206.4.2.1.1.2.1.23.1
+[2023-12-05 19:39:00.764] [debug] [snmp_client.cpp:104] Created OID for input: 1.3.6.1.4.1.1206.4.2.1.1.2.1.23.1
+[2023-12-05 19:39:00.765] [debug] [snmp_client.cpp:113] STAT_SUCCESS, received a response
+[2023-12-05 19:39:00.765] [warning] [monitor_tsc_state.cpp:658] No concurrent signal groups found for phase 1
+[2023-12-05 19:39:00.765] [debug] [snmp_client.cpp:64] Attemping to GET value for: 1.3.6.1.4.1.1206.4.2.1.1.2.1.6.2
+[2023-12-05 19:39:00.765] [debug] [snmp_client.cpp:104] Created OID for input: 1.3.6.1.4.1.1206.4.2.1.1.2.1.6.2
+[2023-12-05 19:39:00.766] [debug] [snmp_client.cpp:113] STAT_SUCCESS, received a response
+[2023-12-05 19:39:00.766] [debug] [snmp_client.cpp:123] Integer value in object: 10
+[2023-12-05 19:39:00.766] [debug] [snmp_client.cpp:64] Attemping to GET value for: 1.3.6.1.4.1.1206.4.2.1.1.2.1.4.2
+[2023-12-05 19:39:00.766] [debug] [snmp_client.cpp:104] Created OID for input: 1.3.6.1.4.1.1206.4.2.1.1.2.1.4.2
+[2023-12-05 19:39:00.767] [debug] [snmp_client.cpp:113] STAT_SUCCESS, received a response
+[2023-12-05 19:39:00.767] [debug] [snmp_client.cpp:123] Integer value in object: 5
+[2023-12-05 19:39:00.767] [debug] [snmp_client.cpp:64] Attemping to GET value for: 1.3.6.1.4.1.1206.4.2.1.1.2.1.8.2
+[2023-12-05 19:39:00.767] [debug] [snmp_client.cpp:104] Created OID for input: 1.3.6.1.4.1.1206.4.2.1.1.2.1.8.2
+[2023-12-05 19:39:00.768] [debug] [snmp_client.cpp:113] STAT_SUCCESS, received a response
+[2023-12-05 19:39:00.768] [debug] [snmp_client.cpp:123] Integer value in object: 30
+[2023-12-05 19:39:00.768] [debug] [snmp_client.cpp:64] Attemping to GET value for: 1.3.6.1.4.1.1206.4.2.1.1.2.1.9.2
+[2023-12-05 19:39:00.768] [debug] [snmp_client.cpp:104] Created OID for input: 1.3.6.1.4.1.1206.4.2.1.1.2.1.9.2
+[2023-12-05 19:39:00.769] [debug] [snmp_client.cpp:113] STAT_SUCCESS, received a response
+[2023-12-05 19:39:00.769] [debug] [snmp_client.cpp:123] Integer value in object: 10
+[2023-12-05 19:39:00.769] [debug] [snmp_client.cpp:64] Attemping to GET value for: 1.3.6.1.4.1.1206.4.2.1.1.2.1.23.2
+[2023-12-05 19:39:00.769] [debug] [snmp_client.cpp:104] Created OID for input: 1.3.6.1.4.1.1206.4.2.1.1.2.1.23.2
+[2023-12-05 19:39:00.770] [debug] [snmp_client.cpp:113] STAT_SUCCESS, received a response
+[2023-12-05 19:39:00.770] [debug] [snmp_client.cpp:64] Attemping to GET value for: 1.3.6.1.4.1.1206.4.2.1.1.2.1.6.3
+[2023-12-05 19:39:00.770] [debug] [snmp_client.cpp:104] Created OID for input: 1.3.6.1.4.1.1206.4.2.1.1.2.1.6.3
+[2023-12-05 19:39:00.771] [debug] [snmp_client.cpp:113] STAT_SUCCESS, received a response
+[2023-12-05 19:39:00.771] [debug] [snmp_client.cpp:123] Integer value in object: 10
+[2023-12-05 19:39:00.771] [debug] [snmp_client.cpp:64] Attemping to GET value for: 1.3.6.1.4.1.1206.4.2.1.1.2.1.4.3
+[2023-12-05 19:39:00.771] [debug] [snmp_client.cpp:104] Created OID for input: 1.3.6.1.4.1.1206.4.2.1.1.2.1.4.3
+[2023-12-05 19:39:00.772] [debug] [snmp_client.cpp:113] STAT_SUCCESS, received a response
+[2023-12-05 19:39:00.772] [debug] [snmp_client.cpp:123] Integer value in object: 5
+[2023-12-05 19:39:00.772] [debug] [snmp_client.cpp:64] Attemping to GET value for: 1.3.6.1.4.1.1206.4.2.1.1.2.1.8.3
+[2023-12-05 19:39:00.772] [debug] [snmp_client.cpp:104] Created OID for input: 1.3.6.1.4.1.1206.4.2.1.1.2.1.8.3
+[2023-12-05 19:39:00.773] [debug] [snmp_client.cpp:113] STAT_SUCCESS, received a response
+[2023-12-05 19:39:00.773] [debug] [snmp_client.cpp:123] Integer value in object: 30
+[2023-12-05 19:39:00.773] [debug] [snmp_client.cpp:64] Attemping to GET value for: 1.3.6.1.4.1.1206.4.2.1.1.2.1.9.3
+[2023-12-05 19:39:00.773] [debug] [snmp_client.cpp:104] Created OID for input: 1.3.6.1.4.1.1206.4.2.1.1.2.1.9.3
+[2023-12-05 19:39:00.774] [debug] [snmp_client.cpp:113] STAT_SUCCESS, received a response
+[2023-12-05 19:39:00.774] [debug] [snmp_client.cpp:123] Integer value in object: 10
+[2023-12-05 19:39:00.774] [debug] [snmp_client.cpp:64] Attemping to GET value for: 1.3.6.1.4.1.1206.4.2.1.1.2.1.23.3
+[2023-12-05 19:39:00.774] [debug] [snmp_client.cpp:104] Created OID for input: 1.3.6.1.4.1.1206.4.2.1.1.2.1.23.3
+[2023-12-05 19:39:00.776] [debug] [snmp_client.cpp:113] STAT_SUCCESS, received a response
+[2023-12-05 19:39:00.776] [warning] [monitor_tsc_state.cpp:658] No concurrent signal groups found for phase 3
+[2023-12-05 19:39:00.776] [debug] [snmp_client.cpp:64] Attemping to GET value for: 1.3.6.1.4.1.1206.4.2.1.1.2.1.6.4
+[2023-12-05 19:39:00.776] [debug] [snmp_client.cpp:104] Created OID for input: 1.3.6.1.4.1.1206.4.2.1.1.2.1.6.4
+[2023-12-05 19:39:00.777] [debug] [snmp_client.cpp:113] STAT_SUCCESS, received a response
+[2023-12-05 19:39:00.777] [debug] [snmp_client.cpp:123] Integer value in object: 10
+[2023-12-05 19:39:00.777] [debug] [snmp_client.cpp:64] Attemping to GET value for: 1.3.6.1.4.1.1206.4.2.1.1.2.1.4.4
+[2023-12-05 19:39:00.777] [debug] [snmp_client.cpp:104] Created OID for input: 1.3.6.1.4.1.1206.4.2.1.1.2.1.4.4
+[2023-12-05 19:39:00.778] [debug] [snmp_client.cpp:113] STAT_SUCCESS, received a response
+[2023-12-05 19:39:00.778] [debug] [snmp_client.cpp:123] Integer value in object: 5
+[2023-12-05 19:39:00.778] [debug] [snmp_client.cpp:64] Attemping to GET value for: 1.3.6.1.4.1.1206.4.2.1.1.2.1.8.4
+[2023-12-05 19:39:00.778] [debug] [snmp_client.cpp:104] Created OID for input: 1.3.6.1.4.1.1206.4.2.1.1.2.1.8.4
+[2023-12-05 19:39:00.779] [debug] [snmp_client.cpp:113] STAT_SUCCESS, received a response
+[2023-12-05 19:39:00.779] [debug] [snmp_client.cpp:123] Integer value in object: 30
+[2023-12-05 19:39:00.779] [debug] [snmp_client.cpp:64] Attemping to GET value for: 1.3.6.1.4.1.1206.4.2.1.1.2.1.9.4
+[2023-12-05 19:39:00.779] [debug] [snmp_client.cpp:104] Created OID for input: 1.3.6.1.4.1.1206.4.2.1.1.2.1.9.4
+[2023-12-05 19:39:00.780] [debug] [snmp_client.cpp:113] STAT_SUCCESS, received a response
+[2023-12-05 19:39:00.780] [debug] [snmp_client.cpp:123] Integer value in object: 10
+[2023-12-05 19:39:00.780] [debug] [snmp_client.cpp:64] Attemping to GET value for: 1.3.6.1.4.1.1206.4.2.1.1.2.1.23.4
+[2023-12-05 19:39:00.780] [debug] [snmp_client.cpp:104] Created OID for input: 1.3.6.1.4.1.1206.4.2.1.1.2.1.23.4
+[2023-12-05 19:39:00.781] [debug] [snmp_client.cpp:113] STAT_SUCCESS, received a response
+[2023-12-05 19:39:00.781] [debug] [snmp_client.cpp:64] Attemping to GET value for: 1.3.6.1.4.1.1206.4.2.1.1.2.1.6.5
+[2023-12-05 19:39:00.781] [debug] [snmp_client.cpp:104] Created OID for input: 1.3.6.1.4.1.1206.4.2.1.1.2.1.6.5
+[2023-12-05 19:39:00.782] [debug] [snmp_client.cpp:113] STAT_SUCCESS, received a response
+[2023-12-05 19:39:00.782] [debug] [snmp_client.cpp:123] Integer value in object: 10
+[2023-12-05 19:39:00.782] [debug] [snmp_client.cpp:64] Attemping to GET value for: 1.3.6.1.4.1.1206.4.2.1.1.2.1.4.5
+[2023-12-05 19:39:00.782] [debug] [snmp_client.cpp:104] Created OID for input: 1.3.6.1.4.1.1206.4.2.1.1.2.1.4.5
+[2023-12-05 19:39:00.783] [debug] [snmp_client.cpp:113] STAT_SUCCESS, received a response
+[2023-12-05 19:39:00.783] [debug] [snmp_client.cpp:123] Integer value in object: 5
+[2023-12-05 19:39:00.783] [debug] [snmp_client.cpp:64] Attemping to GET value for: 1.3.6.1.4.1.1206.4.2.1.1.2.1.8.5
+[2023-12-05 19:39:00.783] [debug] [snmp_client.cpp:104] Created OID for input: 1.3.6.1.4.1.1206.4.2.1.1.2.1.8.5
+[2023-12-05 19:39:00.784] [debug] [snmp_client.cpp:113] STAT_SUCCESS, received a response
+[2023-12-05 19:39:00.784] [debug] [snmp_client.cpp:123] Integer value in object: 30
+[2023-12-05 19:39:00.784] [debug] [snmp_client.cpp:64] Attemping to GET value for: 1.3.6.1.4.1.1206.4.2.1.1.2.1.9.5
+[2023-12-05 19:39:00.784] [debug] [snmp_client.cpp:104] Created OID for input: 1.3.6.1.4.1.1206.4.2.1.1.2.1.9.5
+[2023-12-05 19:39:00.786] [debug] [snmp_client.cpp:113] STAT_SUCCESS, received a response
+[2023-12-05 19:39:00.786] [debug] [snmp_client.cpp:123] Integer value in object: 10
+[2023-12-05 19:39:00.786] [debug] [snmp_client.cpp:64] Attemping to GET value for: 1.3.6.1.4.1.1206.4.2.1.1.2.1.23.5
+[2023-12-05 19:39:00.786] [debug] [snmp_client.cpp:104] Created OID for input: 1.3.6.1.4.1.1206.4.2.1.1.2.1.23.5
+[2023-12-05 19:39:00.787] [debug] [snmp_client.cpp:113] STAT_SUCCESS, received a response
+[2023-12-05 19:39:00.787] [warning] [monitor_tsc_state.cpp:658] No concurrent signal groups found for phase 5
+[2023-12-05 19:39:00.787] [debug] [snmp_client.cpp:64] Attemping to GET value for: 1.3.6.1.4.1.1206.4.2.1.1.2.1.6.6
+[2023-12-05 19:39:00.787] [debug] [snmp_client.cpp:104] Created OID for input: 1.3.6.1.4.1.1206.4.2.1.1.2.1.6.6
+[2023-12-05 19:39:00.788] [debug] [snmp_client.cpp:113] STAT_SUCCESS, received a response
+[2023-12-05 19:39:00.788] [debug] [snmp_client.cpp:123] Integer value in object: 10
+[2023-12-05 19:39:00.788] [debug] [snmp_client.cpp:64] Attemping to GET value for: 1.3.6.1.4.1.1206.4.2.1.1.2.1.4.6
+[2023-12-05 19:39:00.788] [debug] [snmp_client.cpp:104] Created OID for input: 1.3.6.1.4.1.1206.4.2.1.1.2.1.4.6
+[2023-12-05 19:39:00.789] [debug] [snmp_client.cpp:113] STAT_SUCCESS, received a response
+[2023-12-05 19:39:00.789] [debug] [snmp_client.cpp:123] Integer value in object: 5
+[2023-12-05 19:39:00.789] [debug] [snmp_client.cpp:64] Attemping to GET value for: 1.3.6.1.4.1.1206.4.2.1.1.2.1.8.6
+[2023-12-05 19:39:00.789] [debug] [snmp_client.cpp:104] Created OID for input: 1.3.6.1.4.1.1206.4.2.1.1.2.1.8.6
+[2023-12-05 19:39:00.790] [debug] [snmp_client.cpp:113] STAT_SUCCESS, received a response
+[2023-12-05 19:39:00.790] [debug] [snmp_client.cpp:123] Integer value in object: 30
+[2023-12-05 19:39:00.790] [debug] [snmp_client.cpp:64] Attemping to GET value for: 1.3.6.1.4.1.1206.4.2.1.1.2.1.9.6
+[2023-12-05 19:39:00.790] [debug] [snmp_client.cpp:104] Created OID for input: 1.3.6.1.4.1.1206.4.2.1.1.2.1.9.6
+[2023-12-05 19:39:00.791] [debug] [snmp_client.cpp:113] STAT_SUCCESS, received a response
+[2023-12-05 19:39:00.791] [debug] [snmp_client.cpp:123] Integer value in object: 10
+[2023-12-05 19:39:00.791] [debug] [snmp_client.cpp:64] Attemping to GET value for: 1.3.6.1.4.1.1206.4.2.1.1.2.1.23.6
+[2023-12-05 19:39:00.791] [debug] [snmp_client.cpp:104] Created OID for input: 1.3.6.1.4.1.1206.4.2.1.1.2.1.23.6
+[2023-12-05 19:39:00.792] [debug] [snmp_client.cpp:113] STAT_SUCCESS, received a response
+[2023-12-05 19:39:00.792] [debug] [snmp_client.cpp:64] Attemping to GET value for: 1.3.6.1.4.1.1206.4.2.1.1.2.1.6.7
+[2023-12-05 19:39:00.792] [debug] [snmp_client.cpp:104] Created OID for input: 1.3.6.1.4.1.1206.4.2.1.1.2.1.6.7
+[2023-12-05 19:39:00.793] [debug] [snmp_client.cpp:113] STAT_SUCCESS, received a response
+[2023-12-05 19:39:00.793] [debug] [snmp_client.cpp:123] Integer value in object: 10
+[2023-12-05 19:39:00.793] [debug] [snmp_client.cpp:64] Attemping to GET value for: 1.3.6.1.4.1.1206.4.2.1.1.2.1.4.7
+[2023-12-05 19:39:00.793] [debug] [snmp_client.cpp:104] Created OID for input: 1.3.6.1.4.1.1206.4.2.1.1.2.1.4.7
+[2023-12-05 19:39:00.794] [debug] [snmp_client.cpp:113] STAT_SUCCESS, received a response
+[2023-12-05 19:39:00.794] [debug] [snmp_client.cpp:123] Integer value in object: 5
+[2023-12-05 19:39:00.794] [debug] [snmp_client.cpp:64] Attemping to GET value for: 1.3.6.1.4.1.1206.4.2.1.1.2.1.8.7
+[2023-12-05 19:39:00.794] [debug] [snmp_client.cpp:104] Created OID for input: 1.3.6.1.4.1.1206.4.2.1.1.2.1.8.7
+[2023-12-05 19:39:00.795] [debug] [snmp_client.cpp:113] STAT_SUCCESS, received a response
+[2023-12-05 19:39:00.795] [debug] [snmp_client.cpp:123] Integer value in object: 30
+[2023-12-05 19:39:00.795] [debug] [snmp_client.cpp:64] Attemping to GET value for: 1.3.6.1.4.1.1206.4.2.1.1.2.1.9.7
+[2023-12-05 19:39:00.795] [debug] [snmp_client.cpp:104] Created OID for input: 1.3.6.1.4.1.1206.4.2.1.1.2.1.9.7
+[2023-12-05 19:39:00.796] [debug] [snmp_client.cpp:113] STAT_SUCCESS, received a response
+[2023-12-05 19:39:00.796] [debug] [snmp_client.cpp:123] Integer value in object: 10
+[2023-12-05 19:39:00.796] [debug] [snmp_client.cpp:64] Attemping to GET value for: 1.3.6.1.4.1.1206.4.2.1.1.2.1.23.7
+[2023-12-05 19:39:00.796] [debug] [snmp_client.cpp:104] Created OID for input: 1.3.6.1.4.1.1206.4.2.1.1.2.1.23.7
+[2023-12-05 19:39:00.797] [debug] [snmp_client.cpp:113] STAT_SUCCESS, received a response
+[2023-12-05 19:39:00.797] [warning] [monitor_tsc_state.cpp:658] No concurrent signal groups found for phase 7
+[2023-12-05 19:39:00.797] [debug] [snmp_client.cpp:64] Attemping to GET value for: 1.3.6.1.4.1.1206.4.2.1.1.2.1.6.8
+[2023-12-05 19:39:00.797] [debug] [snmp_client.cpp:104] Created OID for input: 1.3.6.1.4.1.1206.4.2.1.1.2.1.6.8
+[2023-12-05 19:39:00.798] [debug] [snmp_client.cpp:113] STAT_SUCCESS, received a response
+[2023-12-05 19:39:00.798] [debug] [snmp_client.cpp:123] Integer value in object: 10
+[2023-12-05 19:39:00.798] [debug] [snmp_client.cpp:64] Attemping to GET value for: 1.3.6.1.4.1.1206.4.2.1.1.2.1.4.8
+[2023-12-05 19:39:00.798] [debug] [snmp_client.cpp:104] Created OID for input: 1.3.6.1.4.1.1206.4.2.1.1.2.1.4.8
+[2023-12-05 19:39:00.799] [debug] [snmp_client.cpp:113] STAT_SUCCESS, received a response
+[2023-12-05 19:39:00.799] [debug] [snmp_client.cpp:123] Integer value in object: 5
+[2023-12-05 19:39:00.799] [debug] [snmp_client.cpp:64] Attemping to GET value for: 1.3.6.1.4.1.1206.4.2.1.1.2.1.8.8
+[2023-12-05 19:39:00.799] [debug] [snmp_client.cpp:104] Created OID for input: 1.3.6.1.4.1.1206.4.2.1.1.2.1.8.8
+[2023-12-05 19:39:00.801] [debug] [snmp_client.cpp:113] STAT_SUCCESS, received a response
+[2023-12-05 19:39:00.801] [debug] [snmp_client.cpp:123] Integer value in object: 30
+[2023-12-05 19:39:00.801] [debug] [snmp_client.cpp:64] Attemping to GET value for: 1.3.6.1.4.1.1206.4.2.1.1.2.1.9.8
+[2023-12-05 19:39:00.801] [debug] [snmp_client.cpp:104] Created OID for input: 1.3.6.1.4.1.1206.4.2.1.1.2.1.9.8
+[2023-12-05 19:39:00.802] [debug] [snmp_client.cpp:113] STAT_SUCCESS, received a response
+[2023-12-05 19:39:00.802] [debug] [snmp_client.cpp:123] Integer value in object: 10
+[2023-12-05 19:39:00.802] [debug] [snmp_client.cpp:64] Attemping to GET value for: 1.3.6.1.4.1.1206.4.2.1.1.2.1.23.8
+[2023-12-05 19:39:00.802] [debug] [snmp_client.cpp:104] Created OID for input: 1.3.6.1.4.1.1206.4.2.1.1.2.1.23.8
+[2023-12-05 19:39:00.806] [debug] [snmp_client.cpp:113] STAT_SUCCESS, received a response
+[2023-12-05 19:39:00.806] [debug] [monitor_tsc_state.cpp:63] Signal group id: 1 phase: 1
+[2023-12-05 19:39:00.806] [debug] [monitor_tsc_state.cpp:63] Signal group id: 2 phase: 2
+[2023-12-05 19:39:00.806] [debug] [monitor_tsc_state.cpp:63] Signal group id: 3 phase: 3
+[2023-12-05 19:39:00.806] [debug] [monitor_tsc_state.cpp:63] Signal group id: 4 phase: 4
+[2023-12-05 19:39:00.806] [debug] [monitor_tsc_state.cpp:63] Signal group id: 5 phase: 5
+[2023-12-05 19:39:00.806] [debug] [monitor_tsc_state.cpp:63] Signal group id: 6 phase: 6
+[2023-12-05 19:39:00.806] [debug] [monitor_tsc_state.cpp:63] Signal group id: 7 phase: 7
+[2023-12-05 19:39:00.806] [debug] [monitor_tsc_state.cpp:63] Signal group id: 8 phase: 8
+[2023-12-05 19:39:00.806] [debug] [monitor_tsc_state.cpp:68] Signal group id: 8
+[2023-12-05 19:39:00.806] [debug] [monitor_tsc_state.cpp:69] Phase num: 8
+[2023-12-05 19:39:00.806] [debug] [monitor_tsc_state.cpp:70] Max green: 10000
+[2023-12-05 19:39:00.806] [debug] [monitor_tsc_state.cpp:71] Min green: 5000
+[2023-12-05 19:39:00.806] [debug] [monitor_tsc_state.cpp:72] Green Duration: 5000
+[2023-12-05 19:39:00.806] [debug] [monitor_tsc_state.cpp:73] yellow duration: 3000
+[2023-12-05 19:39:00.806] [debug] [monitor_tsc_state.cpp:74] Red clearance: 1000
+[2023-12-05 19:39:00.806] [debug] [monitor_tsc_state.cpp:75] Red duration: 28000
+[2023-12-05 19:39:00.806] [debug] [monitor_tsc_state.cpp:77] Phase sequence:
+[2023-12-05 19:39:00.806] [debug] [monitor_tsc_state.cpp:79] 8
+[2023-12-05 19:39:00.806] [debug] [monitor_tsc_state.cpp:79] 5
+[2023-12-05 19:39:00.806] [debug] [monitor_tsc_state.cpp:79] 6
+[2023-12-05 19:39:00.806] [debug] [monitor_tsc_state.cpp:79] 7
+[2023-12-05 19:39:00.806] [debug] [monitor_tsc_state.cpp:82] Concurrent Signal Groups:
+[2023-12-05 19:39:00.806] [debug] [monitor_tsc_state.cpp:84] 4
+[2023-12-05 19:39:00.806] [debug] [monitor_tsc_state.cpp:68] Signal group id: 7
+[2023-12-05 19:39:00.806] [debug] [monitor_tsc_state.cpp:69] Phase num: 7
+[2023-12-05 19:39:00.806] [debug] [monitor_tsc_state.cpp:70] Max green: 10000
+[2023-12-05 19:39:00.806] [debug] [monitor_tsc_state.cpp:71] Min green: 5000
+[2023-12-05 19:39:00.806] [debug] [monitor_tsc_state.cpp:72] Green Duration: 5000
+[2023-12-05 19:39:00.806] [debug] [monitor_tsc_state.cpp:73] yellow duration: 3000
+[2023-12-05 19:39:00.806] [debug] [monitor_tsc_state.cpp:74] Red clearance: 1000
+[2023-12-05 19:39:00.806] [debug] [monitor_tsc_state.cpp:75] Red duration: 28000
+[2023-12-05 19:39:00.806] [debug] [monitor_tsc_state.cpp:77] Phase sequence:
+[2023-12-05 19:39:00.806] [debug] [monitor_tsc_state.cpp:79] 7
+[2023-12-05 19:39:00.806] [debug] [monitor_tsc_state.cpp:79] 8
+[2023-12-05 19:39:00.806] [debug] [monitor_tsc_state.cpp:79] 5
+[2023-12-05 19:39:00.806] [debug] [monitor_tsc_state.cpp:79] 6
+[2023-12-05 19:39:00.806] [debug] [monitor_tsc_state.cpp:82] Concurrent Signal Groups:
+[2023-12-05 19:39:00.806] [debug] [monitor_tsc_state.cpp:68] Signal group id: 6
+[2023-12-05 19:39:00.806] [debug] [monitor_tsc_state.cpp:69] Phase num: 6
+[2023-12-05 19:39:00.806] [debug] [monitor_tsc_state.cpp:70] Max green: 10000
+[2023-12-05 19:39:00.806] [debug] [monitor_tsc_state.cpp:71] Min green: 5000
+[2023-12-05 19:39:00.806] [debug] [monitor_tsc_state.cpp:72] Green Duration: 5000
+[2023-12-05 19:39:00.806] [debug] [monitor_tsc_state.cpp:73] yellow duration: 3000
+[2023-12-05 19:39:00.806] [debug] [monitor_tsc_state.cpp:74] Red clearance: 1000
+[2023-12-05 19:39:00.806] [debug] [monitor_tsc_state.cpp:75] Red duration: 28000
+[2023-12-05 19:39:00.806] [debug] [monitor_tsc_state.cpp:77] Phase sequence:
+[2023-12-05 19:39:00.806] [debug] [monitor_tsc_state.cpp:79] 6
+[2023-12-05 19:39:00.806] [debug] [monitor_tsc_state.cpp:79] 7
+[2023-12-05 19:39:00.806] [debug] [monitor_tsc_state.cpp:79] 8
+[2023-12-05 19:39:00.806] [debug] [monitor_tsc_state.cpp:79] 5
+[2023-12-05 19:39:00.806] [debug] [monitor_tsc_state.cpp:82] Concurrent Signal Groups:
+[2023-12-05 19:39:00.806] [debug] [monitor_tsc_state.cpp:84] 2
+[2023-12-05 19:39:00.806] [debug] [monitor_tsc_state.cpp:68] Signal group id: 5
+[2023-12-05 19:39:00.806] [debug] [monitor_tsc_state.cpp:69] Phase num: 5
+[2023-12-05 19:39:00.806] [debug] [monitor_tsc_state.cpp:70] Max green: 10000
+[2023-12-05 19:39:00.806] [debug] [monitor_tsc_state.cpp:71] Min green: 5000
+[2023-12-05 19:39:00.806] [debug] [monitor_tsc_state.cpp:72] Green Duration: 5000
+[2023-12-05 19:39:00.806] [debug] [monitor_tsc_state.cpp:73] yellow duration: 3000
+[2023-12-05 19:39:00.806] [debug] [monitor_tsc_state.cpp:74] Red clearance: 1000
+[2023-12-05 19:39:00.806] [debug] [monitor_tsc_state.cpp:75] Red duration: 28000
+[2023-12-05 19:39:00.806] [debug] [monitor_tsc_state.cpp:77] Phase sequence:
+[2023-12-05 19:39:00.806] [debug] [monitor_tsc_state.cpp:79] 5
+[2023-12-05 19:39:00.806] [debug] [monitor_tsc_state.cpp:79] 6
+[2023-12-05 19:39:00.806] [debug] [monitor_tsc_state.cpp:79] 7
+[2023-12-05 19:39:00.806] [debug] [monitor_tsc_state.cpp:79] 8
+[2023-12-05 19:39:00.806] [debug] [monitor_tsc_state.cpp:82] Concurrent Signal Groups:
+[2023-12-05 19:39:00.806] [debug] [monitor_tsc_state.cpp:68] Signal group id: 4
+[2023-12-05 19:39:00.806] [debug] [monitor_tsc_state.cpp:69] Phase num: 4
+[2023-12-05 19:39:00.806] [debug] [monitor_tsc_state.cpp:70] Max green: 10000
+[2023-12-05 19:39:00.806] [debug] [monitor_tsc_state.cpp:71] Min green: 5000
+[2023-12-05 19:39:00.806] [debug] [monitor_tsc_state.cpp:72] Green Duration: 5000
+[2023-12-05 19:39:00.806] [debug] [monitor_tsc_state.cpp:73] yellow duration: 3000
+[2023-12-05 19:39:00.806] [debug] [monitor_tsc_state.cpp:74] Red clearance: 1000
+[2023-12-05 19:39:00.806] [debug] [monitor_tsc_state.cpp:75] Red duration: 28000
+[2023-12-05 19:39:00.806] [debug] [monitor_tsc_state.cpp:77] Phase sequence:
+[2023-12-05 19:39:00.806] [debug] [monitor_tsc_state.cpp:79] 4
+[2023-12-05 19:39:00.806] [debug] [monitor_tsc_state.cpp:79] 1
+[2023-12-05 19:39:00.806] [debug] [monitor_tsc_state.cpp:79] 2
+[2023-12-05 19:39:00.806] [debug] [monitor_tsc_state.cpp:79] 3
+[2023-12-05 19:39:00.806] [debug] [monitor_tsc_state.cpp:82] Concurrent Signal Groups:
+[2023-12-05 19:39:00.806] [debug] [monitor_tsc_state.cpp:84] 8
+[2023-12-05 19:39:00.806] [debug] [monitor_tsc_state.cpp:68] Signal group id: 3
+[2023-12-05 19:39:00.806] [debug] [monitor_tsc_state.cpp:69] Phase num: 3
+[2023-12-05 19:39:00.806] [debug] [monitor_tsc_state.cpp:70] Max green: 10000
+[2023-12-05 19:39:00.806] [debug] [monitor_tsc_state.cpp:71] Min green: 5000
+[2023-12-05 19:39:00.806] [debug] [monitor_tsc_state.cpp:72] Green Duration: 5000
+[2023-12-05 19:39:00.806] [debug] [monitor_tsc_state.cpp:73] yellow duration: 3000
+[2023-12-05 19:39:00.806] [debug] [monitor_tsc_state.cpp:74] Red clearance: 1000
+[2023-12-05 19:39:00.806] [debug] [monitor_tsc_state.cpp:75] Red duration: 28000
+[2023-12-05 19:39:00.806] [debug] [monitor_tsc_state.cpp:77] Phase sequence:
+[2023-12-05 19:39:00.806] [debug] [monitor_tsc_state.cpp:79] 3
+[2023-12-05 19:39:00.806] [debug] [monitor_tsc_state.cpp:79] 4
+[2023-12-05 19:39:00.806] [debug] [monitor_tsc_state.cpp:79] 1
+[2023-12-05 19:39:00.806] [debug] [monitor_tsc_state.cpp:79] 2
+[2023-12-05 19:39:00.806] [debug] [monitor_tsc_state.cpp:82] Concurrent Signal Groups:
+[2023-12-05 19:39:00.806] [debug] [monitor_tsc_state.cpp:68] Signal group id: 2
+[2023-12-05 19:39:00.806] [debug] [monitor_tsc_state.cpp:69] Phase num: 2
+[2023-12-05 19:39:00.806] [debug] [monitor_tsc_state.cpp:70] Max green: 10000
+[2023-12-05 19:39:00.806] [debug] [monitor_tsc_state.cpp:71] Min green: 5000
+[2023-12-05 19:39:00.806] [debug] [monitor_tsc_state.cpp:72] Green Duration: 5000
+[2023-12-05 19:39:00.806] [debug] [monitor_tsc_state.cpp:73] yellow duration: 3000
+[2023-12-05 19:39:00.806] [debug] [monitor_tsc_state.cpp:74] Red clearance: 1000
+[2023-12-05 19:39:00.806] [debug] [monitor_tsc_state.cpp:75] Red duration: 28000
+[2023-12-05 19:39:00.806] [debug] [monitor_tsc_state.cpp:77] Phase sequence:
+[2023-12-05 19:39:00.806] [debug] [monitor_tsc_state.cpp:79] 2
+[2023-12-05 19:39:00.806] [debug] [monitor_tsc_state.cpp:79] 3
+[2023-12-05 19:39:00.806] [debug] [monitor_tsc_state.cpp:79] 4
+[2023-12-05 19:39:00.806] [debug] [monitor_tsc_state.cpp:79] 1
+[2023-12-05 19:39:00.806] [debug] [monitor_tsc_state.cpp:82] Concurrent Signal Groups:
+[2023-12-05 19:39:00.806] [debug] [monitor_tsc_state.cpp:84] 6
+[2023-12-05 19:39:00.806] [debug] [monitor_tsc_state.cpp:68] Signal group id: 1
+[2023-12-05 19:39:00.806] [debug] [monitor_tsc_state.cpp:69] Phase num: 1
+[2023-12-05 19:39:00.806] [debug] [monitor_tsc_state.cpp:70] Max green: 10000
+[2023-12-05 19:39:00.806] [debug] [monitor_tsc_state.cpp:71] Min green: 5000
+[2023-12-05 19:39:00.806] [debug] [monitor_tsc_state.cpp:72] Green Duration: 5000
+[2023-12-05 19:39:00.806] [debug] [monitor_tsc_state.cpp:73] yellow duration: 3000
+[2023-12-05 19:39:00.806] [debug] [monitor_tsc_state.cpp:74] Red clearance: 1000
+[2023-12-05 19:39:00.806] [debug] [monitor_tsc_state.cpp:75] Red duration: 28000
+[2023-12-05 19:39:00.806] [debug] [monitor_tsc_state.cpp:77] Phase sequence:
+[2023-12-05 19:39:00.806] [debug] [monitor_tsc_state.cpp:79] 1
+[2023-12-05 19:39:00.806] [debug] [monitor_tsc_state.cpp:79] 2
+[2023-12-05 19:39:00.806] [debug] [monitor_tsc_state.cpp:79] 3
+[2023-12-05 19:39:00.806] [debug] [monitor_tsc_state.cpp:79] 4
+[2023-12-05 19:39:00.806] [debug] [monitor_tsc_state.cpp:82] Concurrent Signal Groups:
+[2023-12-05 19:39:00.806] [debug] [tsc_service.cpp:150] TSC State initialized!
+[2023-12-05 19:39:00.806] [info] [kafka_producer_worker.cpp:8] kafka_producer_worker init()... 
+[2023-12-05 19:39:00.806] [info] [kafka_producer_worker.cpp:61] created producer:  rdkafka#producer-3 
+[2023-12-05 19:39:00.806] [info] [kafka_producer_worker.cpp:169] Producer connect to bootstrap_server: 172.4.0.3:9092, topic: modified_spat ,partition: 0 
+[2023-12-05 19:39:00.806] [debug] [streets_service.cpp:68] Initialized Kafka producer on topic modified_spat!
+[2023-12-05 19:39:[2023-12-05 21:38:07.067] [info] [streets_configuration.cpp:198] Default Logger initialized!
+[2023-12-05 21:38:07.067] [info] [streets_configuration.cpp:177] Log Level set to debug!
+[2023-12-05 21:38:07.067] [debug] [streets_configuration.cpp:59] Updating Configuration Map
+[2023-12-05 21:38:07.067] [debug] [configuration.cpp:62] Create config name : target_ip, value : 172.4.0.4, description : Target device IP address 
+[2023-12-05 21:38:07.067] [debug] [configuration.cpp:62] Create config name : target_port, value : 5050, description : Target device NTCIP port 
+[2023-12-05 21:38:07.067] [debug] [configuration.cpp:62] Create config name : community, value : administrator, description : Target community for establishing snmp communication 
+[2023-12-05 21:38:07.067] [debug] [configuration.cpp:62] Create config name : snmp_version, value : 0, description : snmp version being used. net-snmp version definition: SNMP_VERSION_1:0 SNMP_VERSION_2c:1 SNMP_VERSION_2u:2 SNMP_VERSION_3:3 
+[2023-12-05 21:38:07.067] [debug] [configuration.cpp:62] Create config name : snmp_timeout, value : 1500000000, description : Time in microseconds after which the the snmp request times out 
+[2023-12-05 21:38:07.067] [debug] [configuration.cpp:62] Create config name : udp_socket_ip, value : 172.4.0.3, description : IP for UDP socket listener to listen on. Should be localhost IP of container or VM running TSC Service. 
+[2023-12-05 21:38:07.067] [debug] [configuration.cpp:62] Create config name : udp_socket_port, value : 6053, description : Port for UDP Socket Listener to list on. TSC configuration sets which port/host NTCIP SPaT data will be broadcast to. 
+[2023-12-05 21:38:07.067] [debug] [configuration.cpp:62] Create config name : socket_timeout, value : 100, description : Timeout in seconds for UDP Socket Listener. If UDP Socket Listener does not receive messages for this amount of time it will shutdown and thrown an exception.  
+[2023-12-05 21:38:07.067] [debug] [configuration.cpp:62] Create config name : bootstrap_server, value : 172.4.0.3:9092, description : Kafka Broker Server Address. 
+[2023-12-05 21:38:07.067] [debug] [configuration.cpp:62] Create config name : spat_producer_topic, value : modified_spat, description : Kafka topic for streets internal SPAT messages 
+[2023-12-05 21:38:07.067] [debug] [configuration.cpp:62] Create config name : desired_phase_plan_consumer_topic, value : desired_phase_plan, description : Kafka topic for streets internal desired phase plan messages 
+[2023-12-05 21:38:07.067] [debug] [configuration.cpp:62] Create config name : desired_phase_plan_consumer_group, value : desired_phase_plan_group, description : Kafka consumer group for desired phase plan topic 
+[2023-12-05 21:38:07.067] [debug] [configuration.cpp:62] Create config name : use_tsc_timestamp, value : false, description : If false will use host machine unix time for SPaT timestamp, If true will use ntcip message provided timestamp for SPaT timestamp. 
+[2023-12-05 21:38:07.067] [debug] [configuration.cpp:62] Create config name : spat_projection_mode, value : 0, description : Enumeration configuring SPat projection. 1 == DPP projection. 2 == Fixed Timing projection. Any other value will result in no projection of future 
+[2023-12-05 21:38:07.067] [debug] [configuration.cpp:62] Create config name : tsc_config_producer_topic, value : tsc_config_state, description : Kafka topic for streets internal Traffic Signal Controller config message 
+[2023-12-05 21:38:07.067] [debug] [configuration.cpp:62] Create config name : control_tsc_state_sleep_duration, value : 100, description : Sleep Duration for the control tsc state thread , in milliseconds, which makes Hold and Omit calls to the TSC. This sleep duration is the time between checking new events in queue, once it has been emptied 
+[2023-12-05 21:38:07.067] [debug] [configuration.cpp:62] Create config name : enable_snmp_cmd_logging, value : true, description : Bool flag to enable snmp commands logging. 
+[2023-12-05 21:38:07.067] [debug] [configuration.cpp:62] Create config name : snmp_cmd_log_path, value : ../logs/, description : File path where snmp commands log file will be written(Note: set enable_snmp_cmd_logging true). 
+[2023-12-05 21:38:07.067] [debug] [configuration.cpp:62] Create config name : snmp_cmd_log_filename, value : snmpcmdLogs, description : Filename for snmp commands logging (Note: set enable_snmp_cmd_logging true). 
+[2023-12-05 21:38:07.067] [debug] [configuration.cpp:62] Create config name : use_mmitss_mrp, value : false, description : If false, it will use carma-streets internal signal optimization service and its generated desired phase plan to schedule traffic signal controller. If true, it will use external MRP (MMITSS Roadside Processor, link: https://github.com/mmitss/mmitss-az) and its generated phase control schedule to schedule the traffic sginal controller. 
+[2023-12-05 21:38:07.067] [debug] [configuration.cpp:62] Create config name : use_desired_phase_plan_update, value : true, description : If true will enable monitor_desired_phase_plan to update incoming spat with calculated future movement events, using desired phase plan information from signal optimization service. If false will use TSC Configuration to predict future phases and append those to the spat based on default phase sequence. 
+[2023-12-05 21:38:07.067] [info] [streets_configuration.cpp:15] Printing Configuration Parameters ---------------------------------------
+[2023-12-05 21:38:07.067] [info] [streets_configuration.cpp:18] bootstrap_server : 172.4.0.3:9092 
+[2023-12-05 21:38:07.067] [info] [streets_configuration.cpp:18] community : administrator 
+[2023-12-05 21:38:07.067] [info] [streets_configuration.cpp:18] control_tsc_state_sleep_duration : 100 
+[2023-12-05 21:38:07.067] [info] [streets_configuration.cpp:18] desired_phase_plan_consumer_group : desired_phase_plan_group 
+[2023-12-05 21:38:07.067] [info] [streets_configuration.cpp:18] desired_phase_plan_consumer_topic : desired_phase_plan 
+[2023-12-05 21:38:07.067] [info] [streets_configuration.cpp:18] enable_snmp_cmd_logging : true 
+[2023-12-05 21:38:07.067] [info] [streets_configuration.cpp:18] snmp_cmd_log_filename : snmpcmdLogs 
+[2023-12-05 21:38:07.067] [info] [streets_configuration.cpp:18] snmp_cmd_log_path : ../logs/ 
+[2023-12-05 21:38:07.067] [info] [streets_configuration.cpp:18] snmp_timeout : 1500000000 
+[2023-12-05 21:38:07.067] [info] [streets_configuration.cpp:18] snmp_version : 0 
+[2023-12-05 21:38:07.067] [info] [streets_configuration.cpp:18] socket_timeout : 100 
+[2023-12-05 21:38:07.067] [info] [streets_configuration.cpp:18] spat_producer_topic : modified_spat 
+[2023-12-05 21:38:07.067] [info] [streets_configuration.cpp:18] spat_projection_mode : 0 
+[2023-12-05 21:38:07.067] [info] [streets_configuration.cpp:18] target_ip : 172.4.0.4 
+[2023-12-05 21:38:07.067] [info] [streets_configuration.cpp:18] target_port : 5050 
+[2023-12-05 21:38:07.067] [info] [streets_configuration.cpp:18] tsc_config_producer_topic : tsc_config_state 
+[2023-12-05 21:38:07.067] [info] [streets_configuration.cpp:18] udp_socket_ip : 172.4.0.3 
+[2023-12-05 21:38:07.067] [info] [streets_configuration.cpp:18] udp_socket_port : 6053 
+[2023-12-05 21:38:07.067] [info] [streets_configuration.cpp:18] use_desired_phase_plan_update : true 
+[2023-12-05 21:38:07.067] [info] [streets_configuration.cpp:18] use_mmitss_mrp : false 
+[2023-12-05 21:38:07.067] [info] [streets_configuration.cpp:18] use_tsc_timestamp : false 
+[2023-12-05 21:38:07.067] [debug] [streets_service.cpp:125] Reading system config SIMULATION_MODE as : TRUE!
+[2023-12-05 21:38:07.067] [info] [streets_singleton.tpp:27] Initializing Singleton of type PN9fwha_stol3lib4time10CarmaClockE!
+[2023-12-05 21:38:07.067] [info] [streets_service.cpp:20] Initializing snmp_client streets service in simulation mode : true!
+[2023-12-05 21:38:07.067] [debug] [streets_service.cpp:125] Reading system config TIME_SYNC_TOPIC as : time_sync!
+[2023-12-05 21:38:07.067] [info] [streets_configuration.cpp:177] Log Level set to debug!
+[2023-12-05 21:38:07.067] [debug] [streets_configuration.cpp:59] Updating Configuration Map
+[2023-12-05 21:38:07.067] [debug] [configuration.cpp:62] Create config name : target_ip, value : 172.4.0.4, description : Target device IP address 
+[2023-12-05 21:38:07.067] [debug] [configuration.cpp:62] Create config name : target_port, value : 5050, description : Target device NTCIP port 
+[2023-12-05 21:38:07.067] [debug] [configuration.cpp:62] Create config name : community, value : administrator, description : Target community for establishing snmp communication 
+[2023-12-05 21:38:07.067] [debug] [configuration.cpp:62] Create config name : snmp_version, value : 0, description : snmp version being used. net-snmp version definition: SNMP_VERSION_1:0 SNMP_VERSION_2c:1 SNMP_VERSION_2u:2 SNMP_VERSION_3:3 
+[2023-12-05 21:38:07.067] [debug] [configuration.cpp:62] Create config name : snmp_timeout, value : 1500000000, description : Time in microseconds after which the the snmp request times out 
+[2023-12-05 21:38:07.067] [debug] [configuration.cpp:62] Create config name : udp_socket_ip, value : 172.4.0.3, description : IP for UDP socket listener to listen on. Should be localhost IP of container or VM running TSC Service. 
+[2023-12-05 21:38:07.067] [debug] [configuration.cpp:62] Create config name : udp_socket_port, value : 6053, description : Port for UDP Socket Listener to list on. TSC configuration sets which port/host NTCIP SPaT data will be broadcast to. 
+[2023-12-05 21:38:07.067] [debug] [configuration.cpp:62] Create config name : socket_timeout, value : 100, description : Timeout in seconds for UDP Socket Listener. If UDP Socket Listener does not receive messages for this amount of time it will shutdown and thrown an exception.  
+[2023-12-05 21:38:07.067] [debug] [configuration.cpp:62] Create config name : bootstrap_server, value : 172.4.0.3:9092, description : Kafka Broker Server Address. 
+[2023-12-05 21:38:07.067] [debug] [configuration.cpp:62] Create config name : spat_producer_topic, value : modified_spat, description : Kafka topic for streets internal SPAT messages 
+[2023-12-05 21:38:07.067] [debug] [configuration.cpp:62] Create config name : desired_phase_plan_consumer_topic, value : desired_phase_plan, description : Kafka topic for streets internal desired phase plan messages 
+[2023-12-05 21:38:07.067] [debug] [configuration.cpp:62] Create config name : desired_phase_plan_consumer_group, value : desired_phase_plan_group, description : Kafka consumer group for desired phase plan topic 
+[2023-12-05 21:38:07.067] [debug] [configuration.cpp:62] Create config name : use_tsc_timestamp, value : false, description : If false will use host machine unix time for SPaT timestamp, If true will use ntcip message provided timestamp for SPaT timestamp. 
+[2023-12-05 21:38:07.067] [debug] [configuration.cpp:62] Create config name : spat_projection_mode, value : 0, description : Enumeration configuring SPat projection. 1 == DPP projection. 2 == Fixed Timing projection. Any other value will result in no projection of future 
+[2023-12-05 21:38:07.067] [debug] [configuration.cpp:62] Create config name : tsc_config_producer_topic, value : tsc_config_state, description : Kafka topic for streets internal Traffic Signal Controller config message 
+[2023-12-05 21:38:07.067] [debug] [configuration.cpp:62] Create config name : control_tsc_state_sleep_duration, value : 100, description : Sleep Duration for the control tsc state thread , in milliseconds, which makes Hold and Omit calls to the TSC. This sleep duration is the time between checking new events in queue, once it has been emptied 
+[2023-12-05 21:38:07.067] [debug] [configuration.cpp:62] Create config name : enable_snmp_cmd_logging, value : true, description : Bool flag to enable snmp commands logging. 
+[2023-12-05 21:38:07.067] [debug] [configuration.cpp:62] Create config name : snmp_cmd_log_path, value : ../logs/, description : File path where snmp commands log file will be written(Note: set enable_snmp_cmd_logging true). 
+[2023-12-05 21:38:07.067] [debug] [configuration.cpp:62] Create config name : snmp_cmd_log_filename, value : snmpcmdLogs, description : Filename for snmp commands logging (Note: set enable_snmp_cmd_logging 
