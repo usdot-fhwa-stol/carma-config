@@ -1,16 +1,21 @@
 # This file contains configurations for the subsystem_controllers which manage the lifecycle of each individual subsystem
-# For brevity the parameter descriptions are not provided here. The descriptions can be found in the default parameter files located 
+# For brevity the parameter descriptions are not provided here. The descriptions can be found in the default parameter files located
 # in the subsystem_controllers parameter directory here: https://github.com/usdot-fhwa-stol/carma-platform/tree/develop/subsystem_controllers/config
 # The parameters specified in this file override the parameters in the default parameter files.
 # NOTE: Due to a limitation in ROS2 empty arrays in this file should be denoted with ['']
+
+# NOTE: timeouts in the file are increased x10 from normal to fix carma-platform shutting down at the start of cdasim
+# https://github.com/usdot-fhwa-stol/carma-platform/issues/2186
 environment:
   environment_perception_controller:
     ros__parameters:
       subsystem_namespace: /environment
       required_subsystem_nodes: ['']
-      unmanaged_required_nodes: 
+      unmanaged_required_nodes:
         - /hardware_interface/velodyne_lidar_driver_wrapper_node
       full_subsystem_required: true
+      call_timeout_ms : 15000
+      service_timeout_ms : 2000
 
 hardware_interface:
   drivers_controller:
@@ -26,13 +31,19 @@ hardware_interface:
       ros1_camera_drivers:
         - /hardware_interface/carla_camera_driver
       full_subsystem_required: false
+      service_timeout_ms : 2000
+      call_timeout_ms : 10000
+      startup_duration: 300
+      required_driver_timeout: 30000.0
 
 message:
   v2x_controller:
     ros__parameters:
       subsystem_namespace: /message
+      service_timeout_ms : 2000
+      call_timeout_ms : 10000
       required_subsystem_nodes: ['']
-      unmanaged_required_nodes: 
+      unmanaged_required_nodes:
         - /hardware_interface/dsrc_driver_node
       full_subsystem_required: true
 
@@ -40,6 +51,8 @@ guidance:
   guidance_controller:
     ros__parameters:
       subsystem_namespace: /guidance
+      service_timeout_ms : 2000
+      call_timeout_ms : 10000
       required_subsystem_nodes: ['']
       unmanaged_required_nodes: [''] # TODO add the controller driver once it is integrated with ROS2
       full_subsystem_required: true
@@ -60,7 +73,7 @@ guidance:
         - /guidance/plugins/platooning_tactical_plugin_node
         - /guidance/plugins/yield_plugin
       ros2_initial_plugins:
-        - /guidance/plugins/inlanecruising_plugin          
+        - /guidance/plugins/inlanecruising_plugin
         - /guidance/plugins/platoon_strategic_ihp_node
         - /guidance/plugins/stop_and_wait_plugin
         - /guidance/plugins/route_following_plugin
@@ -79,6 +92,8 @@ localization:
   localization_controller:
     ros__parameters:
       subsystem_namespace: /localization
+      service_timeout_ms : 2000
+      call_timeout_ms : 10000
       required_subsystem_nodes: ['']
       unmanaged_required_nodes: ['']
       full_subsystem_required: true
@@ -87,7 +102,7 @@ localization:
       # TODO update the fault map once ros2 gps is integrated
       sensor_fault_map: '
         {
-          "sensor_fault_map": 
+          "sensor_fault_map":
           [
             [0,0]
           ]
