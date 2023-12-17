@@ -32,7 +32,6 @@ def is_using_sim_time(vehicle_config_param_file):
             if vehicle_config_params["use_sim_time"] == True:
                 print('Returning True')
                 return 'True'
-    print('Returning False')
     return 'False'
 
 def generate_launch_description():
