@@ -112,6 +112,10 @@ services:
     environment:
       - ROS_IP=172.3.0.6
       - ROS_MASTER_URI=http://172.3.0.2:11311/
+      - PYTHONUNBUFFERED=1
+    # sleep is for carla simulator to become available
+    # start_delay_in_seconds is carla game time seconds to adjust when to engage for the scenario
+    # and account for delay required for world model to fully update after route is selected
     command: bash -c "sleep 10;
                       export PYTHONPATH=$PYTHONPATH:~/PythonAPI/carla/dist/carla-0.9.10-py3.7-linux-x86_64.egg &&
                       source ~/carma_carla_ws/devel/setup.bash &&
@@ -426,7 +430,7 @@ services:
       DOCKER_HOST_IP:  172.4.0.3
       WAIT_HOSTS: 127.0.0.1:8080
       WAIT_HOSTS_TIMEOUT: 300
-      WAIT_SLEEP_INTERVAL: 30
+      WAIT_SLEEP_INTERVAL: 10
       WAIT_HOST_CONNECT_TIMEOUT: 30
       SIMULATION_MODE:  ${SIMULATION_MODE}
       TIME_SYNC_TOPIC: time_sync
