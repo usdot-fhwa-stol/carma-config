@@ -22,6 +22,16 @@ from launch.substitutions import LaunchConfiguration
 
 from carma_ros2_utils.launch.generate_log_levels import generate_log_levels
 import os
+import yaml
+def is_using_sim_time(vehicle_config_param_file):
+      # Open vehicle config params file to process various rosbag settings
+    with open(vehicle_config_param_file, 'r') as f:
+        vehicle_config_params = yaml.safe_load(f)
+
+        if "use_sim_time" in vehicle_config_params:
+            return str(vehicle_config_params["use_sim_time"])
+
+    return 'False'
 
 def generate_launch_description():
     """
@@ -29,8 +39,10 @@ def generate_launch_description():
     """
 
     # Parse the log config file and convert it to an environment variable
-    config_file_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'carma_rosconsole.conf')
-    logging_env_var = SetEnvironmentVariable('CARMA_ROS_LOGGING_CONFIG', generate_log_levels(config_file_path))
+    log_config_file_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'carma_rosconsole.conf')
+    vehicle_config_file_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'VehicleConfigParams.yaml')
+
+    logging_env_var = SetEnvironmentVariable('CARMA_ROS_LOGGING_CONFIG', generate_log_levels(log_config_file_path))
 
     # Declare the vehicle_calibration_dir launch argument
     vehicle_calibration_dir = LaunchConfiguration('vehicle_calibration_dir')
@@ -43,11 +55,14 @@ def generate_launch_description():
     declare_vehicle_config_dir_arg = DeclareLaunchArgument(
         name = 'vehicle_config_dir', default_value = '/opt/carma/vehicle/config', description = "Path to vehicle configuration directory"
     )
-    
-    # Declare the simuation_mode argument
-    simulation_mode = LaunchConfiguration('simulation_mode')
-    declare_simulation_mode = DeclareLaunchArgument(name='simulation_mode', default_value = 'True', description = 'True if CARMA Platform is launched with CARLA Simulator')
 
+    # Declare the simuation_mode argument
+    use_sim_time = LaunchConfiguration('use_sim_time')
+    declare_use_sim_time = DeclareLaunchArgument(
+        name='use_sim_time',
+        default_value=is_using_sim_time(vehicle_config_file_path),
+        description='True if CARMA Platform is launched with CARLA Simulator'
+    )
 
     # Declare launch arguments for points_map_loader
     load_type = LaunchConfiguration('load_type')
@@ -121,7 +136,7 @@ def generate_launch_description():
             'area' : area,
             'arealist_path' : arealist_path,
             'vector_map_file' : vector_map_file,
-            'simulation_mode' : simulation_mode
+            'use_sim_time' : use_sim_time
             }.items()
     )
 
@@ -139,6 +154,6 @@ def generate_launch_description():
         declare_area,
         declare_arealist_path,
         declare_vector_map_file,
-        declare_simulation_mode,
+        declare_use_sim_time,
         carma_src_launch
     ])
