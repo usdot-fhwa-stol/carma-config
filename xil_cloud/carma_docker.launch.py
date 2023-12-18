@@ -29,9 +29,8 @@ def is_using_sim_time(vehicle_config_param_file):
         vehicle_config_params = yaml.safe_load(f)
 
         if "use_sim_time" in vehicle_config_params:
-            if vehicle_config_params["use_sim_time"] == True:
-                print('Returning True')
-                return 'True'
+            return str(vehicle_config_params["use_sim_time"])
+
     return 'False'
 
 def generate_launch_description():
@@ -59,7 +58,11 @@ def generate_launch_description():
 
     # Declare the simuation_mode argument
     use_sim_time = LaunchConfiguration('use_sim_time')
-    declare_use_sim_time = DeclareLaunchArgument(name='use_sim_time', default_value = is_using_sim_time(vehicle_config_file_path), description = 'True if CARMA Platform is launched with CARLA Simulator')
+    declare_use_sim_time = DeclareLaunchArgument(
+        name='use_sim_time',
+        default_value=is_using_sim_time(vehicle_config_file_path),
+        description='True if CARMA Platform is launched with CARLA Simulator'
+    )
 
     # Declare launch arguments for points_map_loader
     load_type = LaunchConfiguration('load_type')
