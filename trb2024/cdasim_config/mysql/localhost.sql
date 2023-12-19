@@ -335,7 +335,6 @@ CREATE TABLE `user` (
   UNIQUE KEY `UQ_user_username` (`username`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1 COMMENT='The list of accounts that can access the IVP platform via the administrative portal is held in the users table.';
 /*!40101 SET character_set_client = @saved_cs_client */;
-
 --
 -- Dumping data for table `user`
 --
@@ -343,6 +342,8 @@ CREATE TABLE `user` (
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
 INSERT INTO `user` VALUES (1,'v2xuser','c566c1fa580531b161be0ffccb8f9986ab94e91d2a788e263d991c7b5f775a42',3);
+INSERT INTO `user` VALUES (2, 'user', '04f8996da763b7a969b1028ee3007569eaf3a635486ddab211d512c85b9df8fb', 3);
+
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
