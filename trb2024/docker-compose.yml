@@ -316,7 +316,7 @@ services:
       && /home/carma-streets/tsc_client_service/build/traffic_signal_controller_service"
   sensor_data_sharing_service:
     image: usdotfhwastoldev/sensor_data_sharing_service:develop
-    build: 
+    build:
       context: .
       dockerfile: sensor_data_sharing_service/Dockerfile
     container_name: sensor_data_sharing_service
@@ -332,7 +332,7 @@ services:
       LANELET2_MAP: /home/carma-streets/MAP/Town04_vector_map.osm
       INFRASTRUCTURE_ID: ${INFRASTRUCTURE_ID}
       SENSOR_JSON_FILE_PATH: /home/carma-streets/sensor_configurations/sensors.json
-    volumes: 
+    volumes:
       - ./sensor_data_sharing_service/manifest.json:/home/carma-streets/sensor_data_sharing_service/manifest.json
       - ./sensor_data_sharing_service/logs/:/home/carma-streets/sensor_data_sharing_service/logs/
       - ./MAP/:/home/carma-streets/MAP/
@@ -368,6 +368,8 @@ services:
       - carma_sim_net
     depends_on:
       - carma-simulation
+    volumes:
+      - ./scenario-runner/trb_2024.py:/app/scenario_runner/srunner/scenarios/trb_2024.py
     entrypoint: >
       bash -c "sleep 30
       && python3 scenario_runner.py
