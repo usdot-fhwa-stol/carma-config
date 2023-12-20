@@ -51,8 +51,7 @@ def generate_launch_description():
 
     drivers = LaunchConfiguration('drivers')
     declare_drivers_arg = DeclareLaunchArgument(
-        # name = 'drivers', default_value = 'dsrc_driver lidar_driver imu_driver vesc_driver joy_driver', description = "Desired drivers to launch specified by package name."
-        name = 'drivers', default_value = 'lidar_driver', description = "Desired drivers to launch specified by package name."
+        name = 'drivers', default_value = 'slamtec_lidar_driver_wrapper', description = "Desired drivers to launch specified by package name."
     )
 
     # Launch shutdown node which will ensure the launch file gets closed on system shutdown even if in a separate container
@@ -109,7 +108,7 @@ def generate_launch_description():
     # )
 
     lidar_group = GroupAction(
-        condition=IfCondition(PythonExpression(["'lidar_driver' in '", drivers, "'.split()"])),
+        condition=IfCondition(PythonExpression(["'slamtec_lidar_driver_wrapper' in '", drivers, "'.split()"])),
         actions=[
             PushRosNamespace(EnvironmentVariable('CARMA_INTR_NS', default_value='hardware_interface')),
             IncludeLaunchDescription(

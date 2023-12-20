@@ -155,15 +155,16 @@ services:
   #   command: bash -c 'export ROS_NAMESPACE=$${CARMA_INTR_NS} && wait-for-it.sh localhost:11311 -- roslaunch carma mock_drivers.launch mock_drivers:=lidar'
 
   velodyne_lidar_driver:
-    image: usdotfhwastol/c1t-slamtec-lidar-driver:develop
-    container_name: velodyne-lidar-driver
+    image: usdotfhwastol/carma-slamtec-lidar-driver:carma-system-4.2.0
+    container_name: slamtec-lidar-driver
     network_mode: host
     volumes_from:
       - container:carma-config:ro
     volumes:
       - /opt/carma/logs:/opt/carma/logs
       - /opt/carma/.ros:/home/carma/.ros
-    command: bash -c 'source /opt/carma/install/setup.bash && ros2 launch /opt/carma/vehicle/config/drivers.launch.py drivers:=velodyne_lidar_driver_wrapper'
+      - /opt/carma/vehicle/calibration:/opt/carma/vehicle/calibration
+    command: bash -c 'source /opt/carma/install/setup.bash && ros2 launch /opt/carma/vehicle/config/drivers.launch.py drivers:=slamtec_lidar_driver_wrapper'
   
   # # NOTE: This is a mock driver and not an actual camera
   # # It is being used instead as camera input is currently not supported in the Autoware.Auto
