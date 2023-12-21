@@ -160,6 +160,7 @@ services:
     network_mode: host
     volumes_from:
       - container:carma-config:ro
+    privileged: true
     volumes:
       - /opt/carma/logs:/opt/carma/logs
       - /opt/carma/.ros:/home/carma/.ros

@@ -112,7 +112,7 @@ def generate_launch_description():
         actions=[
             PushRosNamespace(EnvironmentVariable('CARMA_INTR_NS', default_value='hardware_interface')),
             IncludeLaunchDescription(
-                PythonLaunchDescriptionSource([ FindPackageShare('sllidar_ros2_driver_wrapper'), '/launch/sllidar_ros2_driver_wrapper.launch.py']),
+                PythonLaunchDescriptionSource([ FindPackageShare('slamtec_lidar_driver_wrapper'), '/launch/slamtec_lidar_driver_wrapper.launch.py']),
                 launch_arguments = { 
                     'composable' : 'False',
                 }.items()
