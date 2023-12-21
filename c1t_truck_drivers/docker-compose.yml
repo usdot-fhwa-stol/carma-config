@@ -165,6 +165,7 @@ services:
       - /opt/carma/logs:/opt/carma/logs
       - /opt/carma/.ros:/home/carma/.ros
       - /opt/carma/vehicle/calibration:/opt/carma/vehicle/calibration
+      - /dev/sensors/rplidar:/dev/sensors/rplidar
     command: bash -c 'source /opt/carma/install_ros2/setup.bash && ros2 launch /opt/carma/vehicle/config/drivers.launch.py drivers:=slamtec_lidar_driver_wrapper'
   
   # # NOTE: This is a mock driver and not an actual camera
