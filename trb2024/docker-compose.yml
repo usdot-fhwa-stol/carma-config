@@ -127,9 +127,9 @@ services:
     command: >
       bash -c "export RMW_IMPLEMENTATION=rmw_fastrtps_cpp
       && wait-for-it.sh 172.3.0.2:11311
-      && sleep 10
       && export PYTHONPATH=$PYTHONPATH:~/PythonAPI/carla/dist/carla-0.9.10-py3.7-linux-x86_64.egg:/home/carma/utils/carma-utils/sensorlib:/home/carma/utils/carma-utils/sensorlib/src
       && source ~/carma_carla_ws/devel/setup.bash
+      && python3 /home/carma/carma-carla-integration/carla-health-poll/src/wait_for_carla.py
       && roslaunch carma_carla_agent carma_carla_agent.launch
       role_name:='carma_1'
       host:='172.2.0.2'
