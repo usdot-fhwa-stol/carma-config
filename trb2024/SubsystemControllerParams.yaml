@@ -26,6 +26,8 @@ hardware_interface:
       ros1_camera_drivers:
         - /hardware_interface/carla_camera_driver
       full_subsystem_required: false
+      startup_duration: 60
+      required_driver_timeout: 30000.0
 
 message:
   v2x_controller:
