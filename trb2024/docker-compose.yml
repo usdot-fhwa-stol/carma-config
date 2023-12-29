@@ -352,7 +352,7 @@ services:
       - DISPLAY=${DISPLAY}
     volumes:
       - /tmp/.X11-unix:/tmp/.X11-unix
-      - ./evc_sumo/evc_sumo_cfg.json:/home/carma/src/resources/evc_sumo_cfg.json
+      - ./evc_sumo/:/home/carma/src/resources/
     depends_on:
       - carma-simulation
     command: >
