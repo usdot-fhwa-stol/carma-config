@@ -340,7 +340,7 @@ services:
       - /etc/localtime:/etc/localtime:ro
       - /etc/timezone:/etc/timezone:ro
   econolite-virtual-controller:
-    image: usdotfhwastol/econolite-virtual-controller:latest
+    image: usdotfhwastoldev/econolite-virtual-controller:develop
     container_name: evc
     restart: always
     networks:
