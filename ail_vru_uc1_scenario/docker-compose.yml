@@ -362,7 +362,7 @@ services:
       --traci-ip 172.2.0.2"
 
   scenario-runner:
-    image: usdotfhwastoldev/scenario-runner:vru_uc_1
+    image: usdotfhwastoldev/scenario-runner:develop
     container_name: scenario-runner
     networks:
       - carma_sim_net
@@ -370,6 +370,8 @@ services:
       - carma-simulation
     volumes:
       - ./scenario-runner/trb_2024.py:/app/scenario_runner/srunner/scenarios/trb_2024.py
+    # sleep is for mainly carma-platform's components to
+    # activate and be ready before scenario starts
     entrypoint: >
       bash -c "sleep 30
       && python3 scenario_runner.py
