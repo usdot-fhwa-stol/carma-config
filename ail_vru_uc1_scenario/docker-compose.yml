@@ -362,8 +362,8 @@ services:
       --traci-ip 172.2.0.2"
 
   scenario-runner:
-    image: usdotfhwastoldev/carma-scenario-runner:vru_uc_1
-    container_name: carma-scenario-runner
+    image: usdotfhwastoldev/scenario-runner:vru_uc_1
+    container_name: scenario-runner
     networks:
       - carma_sim_net
     depends_on:
