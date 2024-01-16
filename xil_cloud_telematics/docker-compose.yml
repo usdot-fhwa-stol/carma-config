@@ -458,8 +458,8 @@ services:
     command: bash -c "sleep 10;x-terminal-emulator -e python3.8 evc_sumo_bridge.py --asc3app-path '../evcfile/asc3app-application.zip' --traci-ip 172.2.0.2"
 
   # scenario-runner:
-  #   image: usdotfhwastoldev/carma-scenario-runner:develop
-  #   container_name: carma-scenario-runner
+  #   image: usdotfhwastoldev/scenario-runner:develop
+  #   container_name: scenario-runner
   #   networks:
   #     - carma_sim_net
   #   depends_on:
