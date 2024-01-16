@@ -445,6 +445,8 @@ services:
   #     - carma_sim_net
   #   depends_on:
   #     - carma-simulation
+  #   # sleep is for mainly carma-platform's components to
+  #   # activate and be ready before scenario starts
   #   entrypoint: >
   #     bash -c "sleep 30
   #     && python3 scenario_runner.py
