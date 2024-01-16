@@ -276,12 +276,12 @@ services:
       - ./intersection_model/logs:/home/carma-streets/intersection_model/logs
       - ./MAP:/home/carma-streets/intersection_model/MAP
 
-  sensorlib-xml-rpc:
-    image: usdotfhwastoldev/sensorlib-xml-rpc:develop
+  carla-sensor-lib:
+    image: usdotfhwastoldev/carla-sensor-lib:develop
     networks:
       carma_sim_net:
         ipv4_address: 172.2.0.5
-    container_name: sensorlib-xml-rpc
+    container_name: carla-sensor-lib
     restart: always
     environment:
       - LOAD_CARLA_EGG=True
