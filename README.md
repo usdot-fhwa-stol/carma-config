@@ -2,8 +2,6 @@
 |------|-----|-----|
 [![Docker Cloud Build Status](https://img.shields.io/docker/cloud/build/usdotfhwastol/carma-config?label=Docker%20Build&logo=232496ED)](https://hub.docker.com/repository/docker/usdotfhwastol/carma-config) | [![Docker Cloud Build Status](https://img.shields.io/docker/cloud/build/usdotfhwastolcandidate/carma-config?label=Docker%20Build&logo=232496ED)](https://hub.docker.com/repository/docker/usdotfhwastolcandidate/carma-config) | [![Docker Cloud Build Status](https://img.shields.io/docker/cloud/build/usdotfhwastoldev/carma-config?label=%20Carma-config)](https://hub.docker.com/repository/docker/usdotfhwastoldev/carma-config)
 
-
-
 # CARMAConfig
 The CARMAConfig repository stores the vehicle-specifc and vehicle-class specific configuration files (such as Docker Compose manifests, network configuration files, system parameters) for use with the different vehicles the CARMA Platform supports. A detailed breakdown of how CARMA treats vehicle configuration can be found on the confluence page: https://usdot-carma.atlassian.net/wiki/spaces/CAR/pages/196182019/CARMA3+Project+Documentation?preview=/196182019/198574135/CARMA%20Platform%20Detailed%20Design%20-%20Parameter%20and%20Launch%20Standards%20for%20Different%20Vehicle%20Configurations.docx
 
@@ -17,23 +15,7 @@ Some parameters are unique to individual vehicles such as precise sensor orienta
 
 The CARMA Platform requires that some files be located in the /opt/carma directory so they can be found at runtime. The example_opt_carma folder in this repository contains an example of this folder's structure though some files cannot be included in this repo due to size or license restrictions. Therefore, the installation instructions should be consulted for proper setup. The folder is presented here as a supporting reference and used by development setup scripts. 
 
-# CARMAPlatform
-The primary CARMAPlatform repository can be found [here](https://github.com/usdot-fhwa-stol/carma-platform) and is part of the [USDOT FHWA STOL](https://github.com/usdot-fhwa-stol/)
-github organization. Documentation on how the CARMAPlatform functions, how it will evolve over time, and how you can contribute can be found at the above links as well
 
-## Contribution
-Welcome to the CARMA contributing guide. Please read this guide to learn about our development process, how to propose pull requests and improvements, and how to build and test your changes to this project. [CARMA Contributing Guide](https://github.com/usdot-fhwa-stol/carma-platform/blob/develop/Contributing.md) 
+## Carla Recorder
 
-## Code of Conduct 
-Please read our [CARMA Code of Conduct](https://github.com/usdot-fhwa-stol/carma-platform/blob/develop/Code_of_Conduct.md) which outlines our expectations for participants within the CARMA community, as well as steps to reporting unacceptable behavior. We are committed to providing a welcoming and inspiring community for all and expect our code of conduct to be honored. Anyone who violates this code of conduct may be banned from the community.
-
-## Attribution
-The development team would like to acknowledge the people who have made direct contributions to the design and code in this repository. [CARMA Attribution](https://github.com/usdot-fhwa-stol/carma-platform/blob/develop/ATTRIBUTION.txt) 
-
-## License
-By contributing to the Federal Highway Administration (FHWA) Connected Automated Research Mobility Applications (CARMA), you agree that your contributions will be licensed under its Apache License 2.0 license. [CARMA License](https://github.com/usdot-fhwa-stol/carma-platform/blob/develop/docs/License.md) 
-
-## Contact
-Please click on the CARMA logo below to visit the Federal Highway Adminstration(FHWA) CARMA website.
-
-[![CARMA Image](https://raw.githubusercontent.com/usdot-fhwa-stol/carma-platform/develop/docs/image/CARMA_icon.png)](https://highways.dot.gov/research/research-programs/operations/CARMA)
+This **CARMA Config** includes volumes and images that will use **Carla's** [recorder](https://carla.readthedocs.io/en/0.9.10/adv_recorder/) functionality to record **CARLA** simulation data into a `carla-recorder/` directory. Included will be a `Trb2024_1.json` file and a `Trb2024_1.log` file. The name of the file comes from the scenario name define in the **scenario-runner** image. The `.json` file is a criteria file and the `.log` file the carla simulation recording (see https://carla-scenariorunner.readthedocs.io/en/latest/metrics_module/). Using the metrics module in carla-scenario-runner we can define metrics in carla and evaluate the metrics from the carla recordings. This works for collision monitoring and will be prototyped for a custom defined near miss metric.
