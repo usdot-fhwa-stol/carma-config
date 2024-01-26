@@ -19,6 +19,7 @@ This CARMA Configuration Image creates a **AIL** (Anything-In-the-Loop) scenario
 
 ## Deployment Instructions
 ### Deployment Steps
+TODO: Complete this section
 Copy all files in the route_config directory to `/opt/carma/routes/`
 ### Locally Built Docker Images
 The Virtual Signal Controller is built locally and currently only available to licenced users.
