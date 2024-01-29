@@ -13,6 +13,7 @@ services:
     volumes:
       - /tmp/.X11-unix:/tmp/.X11-unix
       - /opt/carma-simulation/logs:/opt/carma-simulation/logs
+      - ./carla-recorder/:/app/scenario_runner/metrics/data/
     deploy:
       resources:
         reservations:
@@ -370,12 +371,14 @@ services:
       - carma-simulation
     volumes:
       - ./scenario-runner/trb_2024.py:/app/scenario_runner/srunner/scenarios/trb_2024.py
+      - ./carla-recorder/:/app/scenario_runner/metrics/data/
     # sleep is for mainly carma-platform's components to
     # activate and be ready before scenario starts
     entrypoint: >
       bash -c "sleep 30
       && python3 scenario_runner.py
       --scenario Trb2024_1
+      --record metrics/data/
       --host 172.2.0.2"
 
 networks:
