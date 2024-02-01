@@ -288,6 +288,8 @@ services:
       - LOAD_CARLA_EGG=True
       - CARLA_VERSION=0.9.10
       - CARLA_EGG_DIR=/home/CarlaCDASimAdapter/
+    volumes:
+      - ./carla-sensor-lib/logs/:/home/CarlaCDASimAdapter/logs/
     command: bash -c "sleep 15;
       python3 -u /home/CarlaCDASimAdapter/src/CarlaCDASimAdapter.py --carla-host 172.2.0.2 --xmlrpc-server-host 172.2.0.5  --sensor-config-file ./config/simulated_sensor_config.yaml --noise-model-config-file ./config/noise_model_config.yaml"
 
