@@ -321,8 +321,12 @@ services:
     network_mode: service:zookeeper
     depends_on:
       kafka:
-        condition: service_healthy   
+        condition: service_healthy
+      # Every dependency describe with this notation needs a condition
+      # Condition service_started is the default for - notation
+      # TODO: Replace docker-compose-wait with intersection_model health check   
       intersection_model:
+        condition: service_started
     environment:
       DOCKER_HOST_IP: 172.4.0.3
       WAIT_HOSTS: 127.0.0.1:8080
