@@ -222,7 +222,8 @@ services:
     restart: on-failure
     network_mode: service:zookeeper
     depends_on:
-      - kafka
+      kafka:
+        condition: service_healthy      
     environment:
       CONFIG_FILEPATH: /etc/kowl/kowl.yaml
     volumes:
@@ -288,7 +289,8 @@ services:
     restart: always
     network_mode: service:zookeeper
     depends_on:
-      - kafka
+      kafka:
+        condition: service_healthy   
     environment:
       DOCKER_HOST_IP: 172.4.0.3
     volumes:
@@ -318,8 +320,9 @@ services:
     restart: always
     network_mode: service:zookeeper
     depends_on:
-      - kafka
-      - intersection_model
+      kafka:
+        condition: service_healthy   
+      intersection_model:
     environment:
       DOCKER_HOST_IP: 172.4.0.3
       WAIT_HOSTS: 127.0.0.1:8080
