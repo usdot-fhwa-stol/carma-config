@@ -181,11 +181,30 @@ services:
     depends_on:
       - zookeeper
     network_mode: service:zookeeper
+    # Health check to confirm kafka server is healthing (script is a client) and all topics 
+    # have been created (time_sync is last topic).
+    healthcheck:
+      test: ["CMD", "kafka-topics.sh", "--describe", "--bootstrap-server", "172.4.0.3:9092", "--topic", "time_sync"]
+      interval: 2s
+      timeout: 10s
+      retries: 10
     environment:
       DOCKER_HOST_IP: 172.4.0.3
       KAFKA_ADVERTISED_HOST_NAME: 172.4.0.3
       KAFKA_ADVERTISED_PORT: 9092
-      KAFKA_CREATE_TOPICS: "v2xhub_scheduling_plan_sub:1:1,v2xhub_bsm_in:1:1,v2xhub_mobility_operation_in:1:1,v2xhub_mobility_path_in:1:1,vehicle_status_intent_output:1:1,v2xhub_map_msg_in:1:1,modified_spat:1:1,desired_phase_plan:1:1, tsc_config_state:1:1, time_sync:1:1"
+      KAFKA_CREATE_TOPICS: "\
+        v2xhub_scheduling_plan_sub:1:1,\
+        v2xhub_bsm_in:1:1,\
+        v2xhub_mobility_operation_in:1:1,\
+        v2xhub_mobility_path_in:1:1,\
+        vehicle_status_intent_output:1:1,\
+        v2xhub_map_msg_in:1:1,\
+        modified_spat:1:1,\
+        desired_phase_plan:1:1,\
+        tsc_config_state:1:1,\
+        v2xhub_sim_sensor_detected_object:1:1,\
+        v2xhub_sdsm_sub,\
+        time_sync:1:1"
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
       KAFKA_LOG_DIRS: "/kafka/kafka-logs"
     volumes:
@@ -203,7 +222,8 @@ services:
     restart: on-failure
     network_mode: service:zookeeper
     depends_on:
-      - kafka
+      kafka:
+        condition: service_healthy      
     environment:
       CONFIG_FILEPATH: /etc/kowl/kowl.yaml
     volumes:
@@ -269,7 +289,8 @@ services:
     restart: always
     network_mode: service:zookeeper
     depends_on:
-      - kafka
+      kafka:
+        condition: service_healthy   
     environment:
       DOCKER_HOST_IP: 172.4.0.3
     volumes:
@@ -299,8 +320,13 @@ services:
     restart: always
     network_mode: service:zookeeper
     depends_on:
-      - kafka
-      - intersection_model
+      kafka:
+        condition: service_healthy
+      # Every dependency describe with this notation needs a condition
+      # Condition service_started is the default for - notation
+      # TODO: Replace docker-compose-wait with intersection_model health check   
+      intersection_model:
+        condition: service_started
     environment:
       DOCKER_HOST_IP: 172.4.0.3
       WAIT_HOSTS: 127.0.0.1:8080
@@ -326,7 +352,8 @@ services:
     restart: always
     network_mode: service:zookeeper
     depends_on:
-      - kafka
+      kafka:
+        condition: service_healthy
     environment:
       SIMULATION_MODE: ${SIMULATION_MODE}
       CONFIG_FILE_PATH: /home/carma-streets/sensor_data_sharing_service/manifest.json
