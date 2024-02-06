@@ -182,7 +182,7 @@ services:
       - zookeeper
     network_mode: service:zookeeper
     healthcheck:
-      test: ["CMD", "kafka-topics.sh", "--list", "--bootstrap-server", "host.docker.internal:9092"]
+      test: ["CMD", "kafka-topics.sh", "--list", "--bootstrap-server", "172.4.0.3:9092"]
       interval: 2s
       timeout: 10s
       retries: 10
