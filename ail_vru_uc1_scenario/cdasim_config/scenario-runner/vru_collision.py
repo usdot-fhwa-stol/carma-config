@@ -163,7 +163,6 @@ class VulnerableRoadUserCollision(BasicScenario):
 
         actor_behaviors = py_trees.composites.Parallel(name="actor_behaviors")
         actor_behaviors.add_child(walk_across_street)
-        #actor_behaviors.add_child(drive_through_intersection)
 
         end_condition = DriveDistance(carma_vehicle, 100)
 
