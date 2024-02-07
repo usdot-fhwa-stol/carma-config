@@ -1,4 +1,4 @@
-# Copyright 2023-2024 Leidos
+# Copyright 2024 Leidos
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -37,10 +37,10 @@ from srunner.scenarioconfigs.scenario_configuration import ScenarioConfiguration
 Configurations
 """
 
-WALKING_PERSON_SPEED_IN_MS = 1.34
-WALKING_PERSON_TRIGGER_WALKING_DISTANCE_IN_METERS = 20.0
+WALKING_PERSON_SPEED_IN_MS = 1.0
+WALKING_PERSON_TRIGGER_WALKING_DISTANCE_IN_METERS = 11.0
 
-class Trb2024(BasicScenario):
+class VulnerableRoadUserCollision(BasicScenario):
     def __init__(
         self,
         world,
@@ -67,8 +67,8 @@ class Trb2024(BasicScenario):
         # references is in its __init__() function.
         self.timeout = timeout
 
-        super(Trb2024, self).__init__(
-            "Trb2024",
+        super(VulnerableRoadUserCollision, self).__init__(
+            "VulnerableRoadUserCollision",
             ego_vehicles,
             config,
             world,
@@ -82,12 +82,11 @@ class Trb2024(BasicScenario):
         spectator = world.get_spectator()
         spectator.set_transform(
             carla.Transform(
-                carla.Location(266.4068, -160.1683, 16.2939),
-                carla.Rotation(-34.0360, -126.9920, 0.0),
+                carla.Location(265.4068, -160.1683, 21.2939),
+                carla.Rotation(-60.0360, -126.9920, 0.0),
             )
         )
 
-        # self.carma_vehicle = ego_vehicles[0]
         self.other_actors_dict = {}
 
     def _initialize_actors(self, config: ScenarioConfiguration) -> None:
@@ -149,13 +148,13 @@ class Trb2024(BasicScenario):
         CarlaDataProvider.register_actor(actor)
         crossing_person = self.other_actors_dict["crossing_person"]
 
-        # start_condition = Idle(5, name="start_condition")
+        start_condition = Idle(5, name="start_condition")
         start_condition = InTriggerDistanceToVehicle(
             crossing_person, carma_vehicle, WALKING_PERSON_TRIGGER_WALKING_DISTANCE_IN_METERS
         )
 
         walk_across_street = KeepVelocity(
-            crossing_person, WALKING_PERSON_SPEED_IN_MS, 10.0, name="walk_across_street"
+            crossing_person, WALKING_PERSON_SPEED_IN_MS, 100.0, name="walk_across_street"
         )
 
         dao = GlobalRoutePlannerDAO(CarlaDataProvider.get_map(), 2)
@@ -164,9 +163,8 @@ class Trb2024(BasicScenario):
 
         actor_behaviors = py_trees.composites.Parallel(name="actor_behaviors")
         actor_behaviors.add_child(walk_across_street)
-        # actor_behaviors.add_child(drive_through_intersection)
 
-        end_condition = DriveDistance(carma_vehicle, 10)
+        end_condition = DriveDistance(carma_vehicle, 100)
 
         root = py_trees.composites.Sequence(name="root_sequence")
         root.add_child(start_condition)

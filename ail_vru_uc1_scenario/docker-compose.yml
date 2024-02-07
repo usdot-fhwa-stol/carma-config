@@ -399,14 +399,15 @@ services:
     depends_on:
       - carma-simulation
     volumes:
-      - ./scenario-runner/trb_2024.py:/app/scenario_runner/srunner/scenarios/trb_2024.py
+      - ./scenario-runner/vru_collision.py:/app/scenario_runner/srunner/scenarios/vru_collision.py
+      - ./scenario-runner/vru_collision.xml:/app/scenario_runner/srunner/examples/vru_collision.xml
       - ./carla-recorder/:/app/scenario_runner/metrics/data/
     # sleep is for mainly carma-platform's components to
     # activate and be ready before scenario starts
     entrypoint: >
       bash -c "sleep 30
       && python3 scenario_runner.py
-      --scenario Trb2024_1
+      --scenario VulnerableRoadUserCollision_LeftTurn
       --record metrics/data/
       --host 172.2.0.2"
 
