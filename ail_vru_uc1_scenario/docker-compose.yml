@@ -373,6 +373,7 @@ services:
       - carma-simulation
     volumes:
       - ./scenario-runner/vru_collision.py:/app/scenario_runner/srunner/scenarios/vru_collision.py
+      - ./scenario-runner/vru_collision.xml:/app/scenario_runner/srunner/examples/vru_collision.xml
       - ./carla-recorder/:/app/scenario_runner/metrics/data/
     # sleep is for mainly carma-platform's components to
     # activate and be ready before scenario starts
