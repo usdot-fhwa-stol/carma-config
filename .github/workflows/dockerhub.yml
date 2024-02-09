@@ -22,4 +22,4 @@ jobs:
         with:
           context: ./xil_cloud
           push: true
-          tags: usdotfhwastolcandidate/${{ github.event.repository.name }}:k900-xil_cloud
+          tags: usdotfhwastolcandidate/${{ github.event.repository.name }}:lavida
