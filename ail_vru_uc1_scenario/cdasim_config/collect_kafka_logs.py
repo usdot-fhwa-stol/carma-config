@@ -128,8 +128,7 @@ def main():
     for topic in topics:
         ret = store_kafka_topic(topic, outfile, timeout, start_time, end_time)
         if ret != 0:
-            print('received error, stopping execution')
-            return
+            print(f'received error on topic {topic}, going to next topic')
 
     print('Available logs collected, zipping and removing the temporary folder')
     os.system(f'zip -r {outfile}.zip {outfile}')
