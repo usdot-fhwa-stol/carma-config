@@ -204,6 +204,8 @@ services:
         tsc_config_state:1:1,\
         v2xhub_sim_sensor_detected_object:1:1,\
         v2xhub_sdsm_sub,\
+        desire_phase_plan,\
+        v2xhub_sdsm_tra,\
         time_sync:1:1"
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
       KAFKA_LOG_DIRS: "/kafka/kafka-logs"
