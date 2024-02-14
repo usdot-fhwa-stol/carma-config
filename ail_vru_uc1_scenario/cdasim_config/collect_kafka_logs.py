@@ -79,15 +79,16 @@ def main():
     # Get arguments
     # The idea here was to give the user the bare minimum options, and make the default condition the most used.
     parser = argparse.ArgumentParser(description='Script to grab data from kafka')
-    parser.add_argument('outfile', help='Filename for the resulting zip file', type=str)  # Required argument
+    parser.add_argument('outfile', help='Folder name for the resulting folder logs are placed in', type=str)  # Required argument
     start_group = parser.add_mutually_exclusive_group()
     end_group = parser.add_mutually_exclusive_group()
     start_group.add_argument('--start_timestamp', help='Unix timestamp (seconds) for the first message to grab. Exclusive with start_hours_ago. ', type=int)
     end_group.add_argument('--end_timestamp', help='Unix timestamp (seconds) for the last message to grab. Exclusive with end_hours_ago. ', type=int)
     start_group.add_argument('--start_hours_ago', help='float hours before current time to grab first message. Exclusive with start_timestamp. ', type=float)
     end_group.add_argument('--end_hours_ago', help='float hours before current time to grab last message. Exclusive with start_timestamp. ', type=float)
-    parser.add_argument('--topics', type=str, nargs='+', help=f'list of topics to grab data from')
-    parser.add_argument('--timeout', type=float, help=f'timeout for receiving messages on a topic, default is 5 seconds')
+    parser.add_argument('--topics', type=str, nargs='+', help='list of topics to grab data from')
+    parser.add_argument('--timeout', type=float, help='timeout for receiving messages on a topic, default is 5 seconds')
+    parser.add_argument('--zip', type=bool,help='bool flag. When set to true, folder is compressed into a zip file.', default=False)
 
     args = parser.parse_args()
 
@@ -131,8 +132,9 @@ def main():
             print(f'received error on topic {topic}, going to next topic')
 
     print('Available logs collected, zipping and removing the temporary folder')
-    os.system(f'zip -r {outfile}.zip {outfile}')
-    os.system(f'rm -r {outfile}')
+    if args.zip:
+        os.system(f'zip -r {outfile}.zip {outfile}')
+        os.system(f'rm -r {outfile}')
 
 
 if __name__ == "__main__":
