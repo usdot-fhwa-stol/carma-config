@@ -131,8 +131,9 @@ def main():
         if ret != 0:
             print(f'received error on topic {topic}, going to next topic')
 
-    print('Available logs collected, zipping and removing the temporary folder')
+    print('Available logs collected')
     if args.zip:
+        print('Zipping and removing the temporary folder')
         os.system(f'zip -r {outfile}.zip {outfile}')
         os.system(f'rm -r {outfile}')
 
