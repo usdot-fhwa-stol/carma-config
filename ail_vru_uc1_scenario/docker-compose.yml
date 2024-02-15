@@ -2,7 +2,7 @@ version: "2"
 services:
   carma-simulation:
     privileged: true
-    image: usdotfhwastoldev/cdasim:develop
+    image: usdotfhwastolcandidate/cdasim:lavida
     networks:
       carma_sim_net:
         ipv4_address: 172.2.0.2
@@ -23,7 +23,7 @@ services:
 
   ## carma_1 vehicle
   roscore_1:
-    image: usdotfhwastoldev/carma-base:develop
+    image: usdotfhwastolcandidate/carma-base:lavida
     networks:
       carma_net_1:
         ipv4_address: 172.3.0.2
@@ -40,7 +40,7 @@ services:
     command: roscore
 
   platform_1:
-    image: usdotfhwastoldev/carma-platform:develop
+    image: usdotfhwastolcandidate/carma-platform:lavida
     networks:
       carma_net_1:
         ipv4_address: 172.3.0.3
@@ -64,7 +64,7 @@ services:
       && wait-for-it.sh 172.3.0.2:11311 -- roslaunch /opt/carma/vehicle/config/carma_docker.launch'
 
   platform_ros2_1:
-    image: usdotfhwastoldev/carma-platform:develop
+    image: usdotfhwastolcandidate/carma-platform:lavida
     networks:
       carma_net_1:
         ipv4_address: 172.3.0.4
@@ -85,7 +85,7 @@ services:
       && ros2 launch /opt/carma/vehicle/config/carma_docker.launch.py'
 
   ros1_bridge_1:
-    image: usdotfhwastoldev/carma-msgs:develop
+    image: usdotfhwastolcandidate/carma-msgs:lavida
     networks:
       carma_net_1:
         ipv4_address: 172.3.0.5
@@ -109,7 +109,7 @@ services:
       && ros2 run ros1_bridge dynamic_bridge --multi-threads'
 
   carma-carla-integration_1:
-    image: usdotfhwastoldev/carma-carla-integration:develop
+    image: usdotfhwastolcandidate/carma-carla-integration:lavida
     networks:
       carma_net_1:
         ipv4_address: 172.3.0.6
@@ -139,7 +139,7 @@ services:
       spawn_point:='215.21,-169.32,0,0,0,0'"
 
   ns3_adapter_1:
-    image: usdotfhwastoldev/carma-ns3-adapter:develop
+    image: usdotfhwastolcandidate/carma-ns3-adapter:lavida
     networks:
       carma_net_1:
         ipv4_address: 172.3.0.7
@@ -181,7 +181,7 @@ services:
     depends_on:
       - zookeeper
     network_mode: service:zookeeper
-    # Health check to confirm kafka server is healthy (script is a client) and all topics 
+    # Health check to confirm kafka server is healthy (script is a client) and all topics
     # have been created (time_sync is last topic).
     healthcheck:
       test: ["CMD", "kafka-topics.sh", "--describe", "--bootstrap-server", "172.4.0.3:9092", "--topic", "time_sync"]
@@ -223,7 +223,7 @@ services:
     network_mode: service:zookeeper
     depends_on:
       kafka:
-        condition: service_healthy      
+        condition: service_healthy
     environment:
       CONFIG_FILEPATH: /etc/kowl/kowl.yaml
     volumes:
@@ -249,7 +249,7 @@ services:
       - ./mysql:/docker-entrypoint-initdb.d
 
   php:
-    image: usdotfhwaops/php:develop
+    image: usdotfhwaops/php:lavida
     container_name: php
     network_mode: service:db
     depends_on:
@@ -258,7 +258,7 @@ services:
     tty: true
 
   v2xhub:
-    image: usdotfhwaops/v2xhubamd:develop
+    image: usdotfhwaops/v2xhubamd:lavida
     container_name: v2xhub
     network_mode: service:db
     restart: always
@@ -284,13 +284,13 @@ services:
       - ./sensor_configurations:/home/V2X-Hub/sensor_configurations/
 
   intersection_model:
-    image: usdotfhwastoldev/intersection_model:develop
+    image: usdotfhwastolcandidate/intersection_model:lavida
     container_name: intersection_model
     restart: always
     network_mode: service:zookeeper
     depends_on:
       kafka:
-        condition: service_healthy   
+        condition: service_healthy
     environment:
       DOCKER_HOST_IP: 172.4.0.3
     volumes:
@@ -299,7 +299,7 @@ services:
       - ./MAP:/home/carma-streets/intersection_model/MAP
 
   carla-sensor-lib:
-    image: usdotfhwastoldev/carla-sensor-lib:develop
+    image: usdotfhwastolcandidate/carla-sensor-lib:lavida
     networks:
       carma_sim_net:
         ipv4_address: 172.2.0.5
@@ -315,7 +315,7 @@ services:
       python3 -u /home/CarlaCDASimAdapter/src/CarlaCDASimAdapter.py --carla-host 172.2.0.2 --xmlrpc-server-host 172.2.0.5  --sensor-config-file ./config/simulated_sensor_config.yaml --noise-model-config-file ./config/noise_model_config.yaml"
 
   tsc_service:
-    image: usdotfhwastoldev/tsc_service:develop
+    image: usdotfhwastolcandidate/tsc_service:lavida
     container_name: tsc_service
     restart: always
     network_mode: service:zookeeper
@@ -324,7 +324,7 @@ services:
         condition: service_healthy
       # Every dependency describe with this notation needs a condition
       # Condition service_started is the default for - notation
-      # TODO: Replace docker-compose-wait with intersection_model health check   
+      # TODO: Replace docker-compose-wait with intersection_model health check
       intersection_model:
         condition: service_started
     environment:
@@ -344,7 +344,7 @@ services:
       sh -c "/wait
       && /home/carma-streets/tsc_client_service/build/traffic_signal_controller_service"
   sensor_data_sharing_service:
-    image: usdotfhwastoldev/sensor_data_sharing_service:develop
+    image: usdotfhwastolcandidate/sensor_data_sharing_service:lavida
     build:
       context: .
       dockerfile: sensor_data_sharing_service/Dockerfile
@@ -370,7 +370,7 @@ services:
       - /etc/localtime:/etc/localtime:ro
       - /etc/timezone:/etc/timezone:ro
   econolite-virtual-controller:
-    image: usdotfhwastoldev/econolite-virtual-controller:develop
+    image: usdotfhwastol/econolite-virtual-controller:latest
     container_name: evc
     restart: always
     networks:
@@ -392,7 +392,7 @@ services:
       --traci-ip 172.2.0.2"
 
   scenario-runner:
-    image: usdotfhwastoldev/scenario-runner:develop
+    image: usdotfhwastolcandidate/scenario-runner:lavida
     container_name: scenario-runner
     networks:
       - carma_sim_net
