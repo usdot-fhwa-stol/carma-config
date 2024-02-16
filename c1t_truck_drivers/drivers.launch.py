@@ -81,18 +81,18 @@ def generate_launch_description():
     #     ]
     # )
 
-    # vesc_group = GroupAction(
-    #     condition=IfCondition(PythonExpression(["'vesc_driver' in '", drivers, "'.split()"])),
-    #     actions=[
-    #         PushRosNamespace(EnvironmentVariable('CARMA_INTR_NS', default_value='hardware_interface')),
-    #         IncludeLaunchDescription(
-    #             PythonLaunchDescriptionSource([ FindPackageShare('vesc_ros2_driver_wrapper'), '/launch/vesc_ros2_driver_wrapper.launch.py']),
-    #             launch_arguments = { 
-    #                 'composable' : 'False',
-    #             }.items()
-    #         ),
-    #     ]
-    # )
+    vesc_group = GroupAction(
+        condition=IfCondition(PythonExpression(["'vesc_ssc_driver' in '", drivers, "'.split()"])),
+        actions=[
+            PushRosNamespace(EnvironmentVariable('CARMA_INTR_NS', default_value='hardware_interface')),
+            IncludeLaunchDescription(
+                PythonLaunchDescriptionSource([ FindPackageShare('vesc_ros2_driver_wrapper'), '/launch/vesc_ros2_driver_wrapper.launch.py']),
+                launch_arguments = { 
+                    'composable' : 'False',
+                }.items()
+            ),
+        ]
+    )
     
     # imu_group = GroupAction(
     #     condition=IfCondition(PythonExpression(["'imu_driver' in '", drivers, "'.split()"])),
