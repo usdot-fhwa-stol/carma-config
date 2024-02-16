@@ -409,7 +409,6 @@ services:
       && python3 scenario_runner.py
       --scenario VulnerableRoadUserCollision_LeftTurn
       --record metrics/data/
-      --output 
       --debug
       --host 172.2.0.2"
 
