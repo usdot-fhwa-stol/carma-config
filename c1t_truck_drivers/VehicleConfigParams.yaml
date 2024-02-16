@@ -1,0 +1,276 @@
+# Defines the ros parameters which define the characteristics of this host vehicle configuration
+# The value type field is used to indicate how the field should be set. 
+# Should it be treated as a measured value (Measured) or a desired behavior constraint (Desired)
+
+# String: Host vehicle make
+# Value type: Measured
+vehicle_make: 'C1Tenth'
+
+# String: Host vehicle model
+# Value type: Measured
+vehicle_model: 'Truck'
+
+# Integer: Host vehicle year
+# Value type: Measured
+# Units: Year
+vehicle_year: 2023
+
+# Double: Host vehicle length
+# Value type: Measured
+# Units: Meters
+vehicle_length: 0.52
+
+# Double: Host vehicle width
+# Value type: Measured
+# Units: Meters
+vehicle_width: 0.187
+
+# Double: Host vehicle height
+# Value type: Measured
+# Units: Meters
+vehicle_height: 0.293
+
+# Double: Distance from front axel to rear axel
+# Value type: Measured
+# Units: Meters
+vehicle_wheel_base: 0.447
+
+# Double: Radius of the tires
+# Value type: Measured
+# Units: Meters
+vehicle_tire_radius: 0.041
+
+# Acceleration limit
+# Value type: Desired
+# Units: m/s^2
+vehicle_acceleration_limit: 2.0
+
+# Deceleration limit
+# Value type: Desired
+# Units: m/s^2
+vehicle_deceleration_limit: 2.0
+
+# Lateral Acceleration Limit
+# Value type: Desired
+# Units: m/s^2
+vehicle_lateral_accel_limit: 2.5
+
+# Lateral Jerk Limit
+# Value type: Desired
+# Units: m/s^3
+vehicle_lateral_jerk_limit: 2.0
+
+# Max curvature rate
+# Value type: Desired
+# Units: (m^-1) / s
+vehicle_max_curvature_rate: 0.75
+
+# Ratio relating the steering wheel angle and the tire position on the road
+# Value type: Measured
+# (radians of a full steering wheel rotation) / (radians of tires with the longitudinal axis under full steer)
+vehicle_steering_gear_ratio: 16.863
+
+# Maximum steering angle of the wheel relative to the vehicle centerline.
+# Value type: Measured
+# Unit: deg
+vehicle_steer_lim_deg: 29.2
+
+# steering dynamics time constant 
+# Value type: Measured
+# Unit: s
+vehicle_model_steer_tau : 0.3
+
+# Parameter to switch between passenger car and truck
+# Value type: Measured
+truck: false
+car: true 
+
+# Required drivers for the vehicle to be functional
+required_drivers:
+  - /hardware_interface/vesc_ros2_driver_wrapper
+lidar_gps_drivers:
+  - /hardware_interface/sllidar_ros2_driver_wrapper
+  - /hardware_interface/bno055_ros2_driver_wrapper
+
+# Vehicle Participation Type corresponding to the Lanelet2 participant type standards. 
+# Used for interpreting traffic rules in world model instances
+vehicle_participant_type: "vehicle:car"
+
+# Parameter to enable configurable speed limit
+# Value type: Desired
+config_speed_limit: 45.0
+
+# Topics to exclude from rosbag recording
+exclude_default: true
+excluded_default_topics:
+  - /rosout(.*)
+  - (.*)/received_messages
+  - (.*)/sent_messages
+  - (.*)/scan
+  - (.*)/compressed(.*)
+  - /environment/base_map 
+  - /environment/external_object_predictions   
+  - /environment/external_objects_viz
+  - /environment/lanelet2_map_viz
+  - /environment/map_update 
+  - /environment/points_no_ground   
+  - /environment/roadway_objects  
+  - /environment/semantic_map 
+  - /environment/tcm_visualizer
+  - /environment/tcr_bounding_points 
+  - /guidance/angular_gravity  
+  - /guidance/deviation_of_current_position  
+  - /guidance/next_target_mark 
+  - /guidance/next_waypoint_mark 
+  - /guidance/node_status
+  - /guidance/platoon_info   
+  - /guidance/platooning_info   
+  - /guidance/plugin_discovery
+  - /guidance/route_marker 
+  - /guidance/search_circle_mark 
+  - /guidance/trajectory_circle_mark 
+  - /guidance/trajectory_visualizer
+  - /guidance/twist_cmd
+  - /guidance/twist_filter/limitation_debug/ctrl/lateral_accel  
+  - /guidance/twist_filter/limitation_debug/ctrl/lateral_jerk  
+  - /guidance/twist_filter/limitation_debug/twist/lateral_accel  
+  - /guidance/twist_filter/limitation_debug/twist/lateral_jerk  
+  - /guidance/twist_filter/result/ctrl/lateral_accel  
+  - /guidance/twist_filter/result/ctrl/lateral_jerk  
+  - /guidance/twist_filter/result/twist/lateral_accel  
+  - /guidance/twist_filter/result/twist/lateral_jerk  
+  - /guidance/twist_raw
+  - /guidance/upcoming_lane_change_status 
+  - /hardware_interface/brake_command_echo 
+  - /hardware_interface/comms/inbound_binary_msg
+  - /hardware_interface/comms/outbound_binary_msg
+  - /hardware_interface/curvature_feedback
+  - /hardware_interface/dbw_enabled_feedback 
+  - /hardware_interface/gear_command_echo  
+  - /hardware_interface/gear_estimation   
+  - /hardware_interface/gear_select  
+  - /hardware_interface/lightbar/light_bar_status   
+  - /hardware_interface/lightbar_manager/indicator_control 
+  - /hardware_interface/module_states 
+  - /hardware_interface/pacmod/as_rx/accel_cmd
+  - /hardware_interface/pacmod/as_rx/brake_cmd
+  - /hardware_interface/pacmod/as_rx/shift_cmd  
+  - /hardware_interface/pacmod/as_rx/steer_cmd
+  - /hardware_interface/pacmod/as_rx/turn_cmd  
+  - /hardware_interface/pacmod/as_tx/all_system_statuses 
+  - /hardware_interface/pacmod/as_tx/enabled 
+  - /hardware_interface/pacmod/as_tx/vehicle_speed  
+  - /hardware_interface/pacmod/can_rx
+  - /hardware_interface/pacmod/can_tx
+  - /hardware_interface/pacmod/parsed_tx/accel_aux_rpt   
+  - /hardware_interface/pacmod/parsed_tx/accel_rpt
+  - /hardware_interface/pacmod/parsed_tx/brake_aux_rpt   
+  - /hardware_interface/pacmod/parsed_tx/brake_rpt
+  - /hardware_interface/pacmod/parsed_tx/brake_rpt_detail_1 
+  - /hardware_interface/pacmod/parsed_tx/brake_rpt_detail_2 
+  - /hardware_interface/pacmod/parsed_tx/brake_rpt_detail_3 
+  - /hardware_interface/pacmod/parsed_tx/component_rpt  
+  - /hardware_interface/pacmod/parsed_tx/cruise_control_buttons_rpt  
+  - /hardware_interface/pacmod/parsed_tx/engine_brake_rpt  
+  - /hardware_interface/pacmod/parsed_tx/engine_rpt 
+  - /hardware_interface/pacmod/parsed_tx/global_rpt 
+  - /hardware_interface/pacmod/parsed_tx/hazard_lights_rpt 
+  - /hardware_interface/pacmod/parsed_tx/headlight_aux_rpt   
+  - /hardware_interface/pacmod/parsed_tx/headlight_rpt  
+  - /hardware_interface/pacmod/parsed_tx/horn_rpt 
+  - /hardware_interface/pacmod/parsed_tx/marker_lamp_rpt 
+  - /hardware_interface/pacmod/parsed_tx/parking_brake_status_rpt 
+  - /hardware_interface/pacmod/parsed_tx/shift_aux_rpt   
+  - /hardware_interface/pacmod/parsed_tx/shift_rpt  
+  - /hardware_interface/pacmod/parsed_tx/sprayer_rpt 
+  - /hardware_interface/pacmod/parsed_tx/steer_aux_rpt   
+  - /hardware_interface/pacmod/parsed_tx/steer_rpt
+  - /hardware_interface/pacmod/parsed_tx/steer_rpt_detail_1 
+  - /hardware_interface/pacmod/parsed_tx/steer_rpt_detail_2 
+  - /hardware_interface/pacmod/parsed_tx/steer_rpt_detail_3 
+  - /hardware_interface/pacmod/parsed_tx/turn_aux_rpt
+  - /hardware_interface/pacmod/parsed_tx/turn_rpt  
+  - /hardware_interface/pacmod/parsed_tx/vehicle_speed_rpt   
+  - /hardware_interface/pacmod/parsed_tx/vin_rpt
+  - /hardware_interface/pacmod/parsed_tx/wheel_speed_rpt 
+  - /hardware_interface/pacmod/parsed_tx/wiper_aux_rpt   
+  - /hardware_interface/pacmod/parsed_tx/wiper_rpt  
+  - /hardware_interface/speed_model_config   
+  - /hardware_interface/speed_pedals  
+  - /hardware_interface/steering_command_echo  
+  - /hardware_interface/steering_model_config   
+  - /hardware_interface/throttle_command_echo  
+  - /hardware_interface/turn_signal_command
+  - /hardware_interface/veh_controller_config   
+  - /hardware_interface/veh_interface_config   
+  - /hardware_interface/vehicle/engage 
+  - /hardware_interface/vehicle_platform   
+  - /hardware_interface/vehicle_status   
+  - /localization/config/random_filter   
+  - /localization/config/voxel_grid_filter
+  - /localization/current_pose_with_covariance   
+  - /localization/ekf_localizer/debug
+  - /localization/ekf_localizer/debug/measured_pose 
+  - /localization/ekf_localizer/estimated_yaw_bias  
+  - /localization/ekf_twist
+  - /localization/ekf_twist_with_covariance  
+  - /localization/estimate_twist
+  - /localization/estimated_vel  
+  - /localization/estimated_vel_kmph  
+  - /localization/estimated_vel_mps  
+  - /localization/filtered_points   
+  - /localization/gnss_pose 
+  - /localization/initialpose   
+  - /localization/localizer_pose 
+  - /localization/managed_initialpose   
+  - /localization/ndt_pose 
+  - /localization/ndt_reliability  
+  - /localization/ndt_stat 
+  - /localization/node_status   
+  - /localization/pmap_stat 
+  - /localization/points_downsampler_info   
+  - /localization/predict_pose 
+  - /localization/predict_pose_imu 
+  - /localization/predict_pose_imu_odom 
+  - /localization/predict_pose_odom 
+  - /localization/random_points   
+  - /localization/selected_pose 
+  - /localization/time_ndt_matching  
+  - /localization/vehicle/odom 
+  - /tf
+  - /tf_static 
+  - /ui/client_count
+  - /ui/connected_clients
+
+exclude_lidar: false
+excluded_lidar_topics:
+  - /detection/lidar_detector/objects
+  - /detection/lidar_detector/objects_markers
+  - /hardware_interface/lidar/points_raw
+  - /hardware_interface/camera/projection_matrix/detection/lidar_detector/cloud_clusters
+  - /environment/range_vision_fusion_01/detection/lidar_detector/objects
+  - /environment/detection/fusion_tools/objects
+  - /environment/detection/fusion_tools/objects_markers
+  - /environment/detection/object_tracker/objects
+  - /environment/detection/object_tracker/objects_markers
+  - /environment/detection/objects
+  
+exclude_camera: false
+excluded_camera_topics:
+  - /hardware_interface/camera/camera_info
+  - /hardware_interface/camera/image_raw
+  - /hardware_interface/camera/image_rect
+  - /hardware_interface/camera/image_rects
+  - /hardware_interface/camera/projection_matrix/detection/lidar_detector/cloud_clusters
+  - /environment/range_vision_fusion_01/detection/image_detector/objects
+  - /environment/vision_beyond_track_01/detection/image_detector/objects
+  - /environment/detection/fusion_tools/objects
+  - /environment/detection/fusion_tools/objects_markers
+  - /environment/detection/object_tracker/objects
+  - /environment/detection/object_tracker/objects_markers
+  - /environment/detection/objects
+
+exclude_can: false
+excluded_can_topics:
+  - /hardware_interface/ds_fusion/can_bus_dbw/can_rx 
+  - /hardware_interface/ds_fusion/can_bus_dbw/can_tx
