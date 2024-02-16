@@ -139,7 +139,7 @@ def generate_launch_description():
         declare_vehicle_config_dir_arg,
         driver_shutdown_group,
         # dsrc_group,
-        # vesc_group,
+        vesc_group,
         # imu_group,
         lidar_group,
         # joy_group,
