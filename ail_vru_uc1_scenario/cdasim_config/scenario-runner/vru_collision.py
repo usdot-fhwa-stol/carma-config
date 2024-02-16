@@ -26,7 +26,7 @@ from srunner.scenariomanager.scenarioatomics.atomic_behaviors import (
     WaypointFollower,
 )
 from srunner.scenariomanager.scenarioatomics.atomic_criteria import (
-    CollisionTest
+    CollisionTest,
     RunningRedLightTest
 )
 from srunner.scenariomanager.scenarioatomics.atomic_trigger_conditions import (
