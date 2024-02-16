@@ -185,7 +185,6 @@ class VulnerableRoadUserCollision(BasicScenario):
         :return: List of test criteria
         """
         return [
-            # This is an example usage for including test criteria in
             CollisionTest(self.carma_vehicle),
             RunningRedLightTest(self.carma_vehicle)
         ]
