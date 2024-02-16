@@ -26,5 +26,43 @@ The Virtual Signal Controller is built locally and currently only available to l
 
 ## Data Collection
 ### Carla Recorder
-This **CARMA Config** includes volumes and images that will use **Carla's** [recorder](https://carla.readthedocs.io/en/0.9.10/adv_recorder/) functionality to record **CARLA** simulation data into a `carla-recorder/` directory. Included will be a `Trb2024_1.json` file and a `Trb2024_1.log` file. The name of the file comes from the scenario name defined in the **scenario-runner** image. The `.json` file is a criteria file created by the **scenario runner** image and the `.log` file the carla simulation recording created by the carla server running in the **CDASim** image(see https://carla-scenariorunner.readthedocs.io/en/latest/metrics_module/). Using the metrics module in carla-scenario-runner we can define metrics in carla and evaluate the metrics from the carla recordings. This works for collision monitoring and will be prototyped for a custom defined near miss metric.
+This **CARMA Config** includes volumes and images that will use **Carla's** [recorder](https://carla.readthedocs.io/en/0.9.10/adv_recorder/) functionality to record **CARLA** simulation data into a `carla-recorder/` directory. Included will be a `Trb2024_1.json` file and a `Trb2024_1.log` file. The name of the file comes from the scenario name defined in the **scenario-runner** image. The `.json` file is a criteria file created by the **scenario runner** image and the `.log` file the carla simulation recording created by the carla server running in the **CDASim** image(see https://carla-scenariorunner.readthedocs.io/en/latest/metrics_module/).The criteria json for the VulnerableRoadUser scenarion should look something like this :
+```json
+{
+    "CollisionTest": {
+        "children": [],
+        "feedback_message": "",
+        "blackbox_level": 4,
+        "_terminate_on_failure": false,
+        "test_status": "FAILURE",
+        "expected_value_success": 0,
+        "expected_value_acceptable": null,
+        "actual_value": 1,
+        "optional": false,
+        "_collision_sensor": null,
+        "other_actor": null,
+        "other_actor_type": null,
+        "registered_collisions": [],
+        "last_id": null,
+        "collision_time": 27.05000040307641,
+        "terminate_on_failure": false
+    },
+    "RunningRedLightTest": {
+        "children": [],
+        "feedback_message": "",
+        "blackbox_level": 4,
+        "_terminate_on_failure": false,
+        "test_status": "SUCCESS",
+        "expected_value_success": 0,
+        "expected_value_acceptable": null,
+        "actual_value": 0,
+        "optional": false,
+        "list_traffic_events": [],
+        "_last_red_light_id": null,
+        "debug": false,
+        "terminate_on_failure": false
+    }
+}
+```
+This JSON file will provide information on whether any Collisions and RedLightRunning events took place during the run. Both are considered conditions for a test failure.The JSON should also provide information about the event that caused test failures like time, actor involved, and other event information althoguth this functionality seems to be currently broken, likely due to Carla Scenario Runner bugs.
 

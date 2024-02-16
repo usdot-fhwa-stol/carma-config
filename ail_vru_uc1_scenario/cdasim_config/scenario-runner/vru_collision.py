@@ -25,7 +25,10 @@ from srunner.scenariomanager.scenarioatomics.atomic_behaviors import (
     KeepVelocity,
     WaypointFollower,
 )
-from srunner.scenariomanager.scenarioatomics.atomic_criteria import CollisionTest
+from srunner.scenariomanager.scenarioatomics.atomic_criteria import (
+    CollisionTest,
+    RunningRedLightTest
+)
 from srunner.scenariomanager.scenarioatomics.atomic_trigger_conditions import (
     DriveDistance,
     InTriggerDistanceToVehicle,
@@ -132,7 +135,7 @@ class VulnerableRoadUserCollision(BasicScenario):
 
         :return: Behavior tree root
         """
-        carma_vehicle = None
+        self.carma_vehicle = None
         for actor in CarlaDataProvider.get_world().get_actors():
             if "role_name" in actor.attributes:
                 print(f"ACTOR ROLE: {actor.attributes['role_name']}")
@@ -142,7 +145,7 @@ class VulnerableRoadUserCollision(BasicScenario):
                 "role_name" in actor.attributes
                 and actor.attributes["role_name"] == "carma_1"
             ):
-                carma_vehicle = actor
+                self.carma_vehicle = actor
                 break
 
         CarlaDataProvider.register_actor(actor)
@@ -150,7 +153,7 @@ class VulnerableRoadUserCollision(BasicScenario):
 
         start_condition = Idle(5, name="start_condition")
         start_condition = InTriggerDistanceToVehicle(
-            crossing_person, carma_vehicle, WALKING_PERSON_TRIGGER_WALKING_DISTANCE_IN_METERS
+            crossing_person, self.carma_vehicle, WALKING_PERSON_TRIGGER_WALKING_DISTANCE_IN_METERS
         )
 
         walk_across_street = KeepVelocity(
@@ -164,7 +167,7 @@ class VulnerableRoadUserCollision(BasicScenario):
         actor_behaviors = py_trees.composites.Parallel(name="actor_behaviors")
         actor_behaviors.add_child(walk_across_street)
 
-        end_condition = DriveDistance(carma_vehicle, 100)
+        end_condition = DriveDistance(self.carma_vehicle, 100)
 
         root = py_trees.composites.Sequence(name="root_sequence")
         root.add_child(start_condition)
@@ -182,9 +185,8 @@ class VulnerableRoadUserCollision(BasicScenario):
         :return: List of test criteria
         """
         return [
-            # This is an example usage for including test criteria in
-            # ScenarioRunner.
-            # CollisionTest(self.carma_vehicle)
+            CollisionTest(self.carma_vehicle),
+            RunningRedLightTest(self.carma_vehicle)
         ]
 
     def __del__(self):
