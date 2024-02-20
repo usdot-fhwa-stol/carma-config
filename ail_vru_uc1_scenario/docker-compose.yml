@@ -2,7 +2,7 @@ version: "2"
 services:
   carma-simulation:
     privileged: true
-    image: usdotfhwastolcandidate/cdasim:lavida
+    image: usdotfhwastoldev/cdasim:remove_cv2x
     networks:
       carma_sim_net:
         ipv4_address: 172.2.0.2
@@ -13,6 +13,7 @@ services:
     volumes:
       - /tmp/.X11-unix:/tmp/.X11-unix
       - /opt/carma-simulation/logs:/opt/carma-simulation/logs
+      - ./logback.xml:/opt/carma-simulation/etc/logback.xml
       - ./carla-recorder/:/app/scenario_runner/metrics/data/
     deploy:
       resources:
@@ -40,7 +41,7 @@ services:
     command: roscore
 
   platform_1:
-    image: usdotfhwastolcandidate/carma-platform:lavida
+    image: local/carma-platform:SNAPSHOT
     networks:
       carma_net_1:
         ipv4_address: 172.3.0.3
@@ -64,7 +65,7 @@ services:
       && wait-for-it.sh 172.3.0.2:11311 -- roslaunch /opt/carma/vehicle/config/carma_docker.launch'
 
   platform_ros2_1:
-    image: usdotfhwastolcandidate/carma-platform:lavida
+    image: local/carma-platform:SNAPSHOT
     networks:
       carma_net_1:
         ipv4_address: 172.3.0.4
@@ -370,7 +371,7 @@ services:
       - /etc/localtime:/etc/localtime:ro
       - /etc/timezone:/etc/timezone:ro
   econolite-virtual-controller:
-    image: usdotfhwastoldev/econolite-virtual-controller:develop
+    image: usdotfhwastol/econolite-virtual-controller:latest
     container_name: evc
     restart: always
     networks:
