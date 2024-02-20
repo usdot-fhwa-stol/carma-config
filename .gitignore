@@ -1,3 +1,6 @@
+log
+logs
+carla-recorder
+
 #docker-compose env variables
 .env
-
