@@ -80,6 +80,8 @@ services:
       - /opt/carma/routes:/opt/carma/routes
       - /opt/carma/yolo:/opt/carma/yolo
       - ./inlanecruising_config/parameters.yaml:/opt/carma/install_ros2/inlanecruising_plugin/share/inlanecruising_plugin/config/parameters.yaml
+      - ./carma/launch/environment.launch.py:/opt/carma/install_ros2/carma/share/carma/launch/environment.launch.py
+      - ./yield_plugin/parameters.yaml:/opt/carma/install_ros2/yield_plugin/share/yield_plugin/config/parameters.yaml
     command: >
       bash -c 'export RMW_IMPLEMENTATION=rmw_fastrtps_cpp
       && source /opt/carma/install_ros2/setup.bash
@@ -117,6 +119,8 @@ services:
       carma_sim_net:
         ipv4_address: 172.2.0.6
     container_name: carma-carla-integration_1
+    volumes:
+      - ./carma-carla-integration/carma_carla_agent.launch:/home/carma-carla-integration/carma-carla-agent/launch/carma_carla_agent.launch
     volumes_from:
       - container:carma-config:ro
     environment:
