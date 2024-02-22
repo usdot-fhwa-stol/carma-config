@@ -123,6 +123,14 @@ topics:
     type: carma_v2x_msgs/msg/SensorDataSharingMessage
     queue_size: 1
 
+  - topic: /message/incoming_spat
+    type: carma_v2x_msgs/msg/SPAT
+    queue_size: 1
+
+  - topic: /message/incoming_map
+    type: carma_v2x_msgs/msg/MapData
+    queue_size: 1
+
   - topic: /environment/output/markers
     type: visualization_msgs/msg/MarkerArray
     queue_size: 1
@@ -131,9 +139,17 @@ topics:
     type: autoware_msgs/msg/ControlCommandStamped
     queue_size: 1
 
+  - topic: /guidance/ctrl_cmd
+    type: autoware_msgs/msg/ControlCommandStamped
+    queue_size: 1
+
   - topic: /guidance/final_maneuver_plan
     type: carma_planning_msgs/msg/ManeuverPlan
     queue_size: 1
+
+  - topic: /guidance/plugins/pure_pursuit/plan_trajectory
+    type: carma_planning_msgs/msg/TrajectoryPlan
+    queue_size: 10
 
   - topic: /guidance/route_state
     type: carma_planning_msgs/msg/RouteState
