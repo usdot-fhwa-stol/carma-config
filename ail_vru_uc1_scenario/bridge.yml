@@ -149,7 +149,7 @@ topics:
 
   - topic: /guidance/plugins/pure_pursuit/plan_trajectory
     type: carma_planning_msgs/msg/TrajectoryPlan
-    queue_size: 10
+    queue_size: 1
 
   - topic: /guidance/route_state
     type: carma_planning_msgs/msg/RouteState
