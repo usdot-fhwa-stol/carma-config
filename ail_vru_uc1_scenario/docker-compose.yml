@@ -139,7 +139,7 @@ services:
       && roslaunch carma_carla_agent carma_carla_agent.launch
       role_name:='carma_1'
       host:='172.2.0.2'
-      selected_route:='trb2024_left_turn'
+      selected_route:='vru_uc1_left_turn'
       start_delay_in_seconds:='35'
       spawn_point:='215.21,-169.32,0,0,0,0'"
 
