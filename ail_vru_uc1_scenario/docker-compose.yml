@@ -122,7 +122,7 @@ services:
         ipv4_address: 172.2.0.6
     container_name: carma-carla-integration_1
     volumes:
-      - ./carma-carla-integration/carma_carla_agent.launch:/home/carma-carla-integration/carma-carla-agent/launch/carma_carla_agent.launch
+      - ./carma-carla-integration/carma_carla_agent.launch:/home/carma/carma-carla-integration/carma-carla-agent/launch/carma_carla_agent.launch
     volumes_from:
       - container:carma-config:ro
     environment:
