@@ -144,6 +144,8 @@ services:
       selected_route:='vru_uc1_left_turn'
       start_delay_in_seconds:='35'
       spawn_point:='215.21,-169.32,0,0,0,0'"
+    # spawn_point:='258.21,-125.32,0,0,0,90'" for through
+    # spawn_point:='215.21,-169.32,0,0,0,0'" for left turn
 
   ns3_adapter_1:
     image: usdotfhwastolcandidate/carma-ns3-adapter:lavida
