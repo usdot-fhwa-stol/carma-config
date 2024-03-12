@@ -140,7 +140,8 @@
 
             <!-- new appenders for anything from Eclipse MOSAIC -->
             <logger name="SimulationProgress" additivity="false" level="INFO">
-                <appender-ref ref="MosiacLog"/>
+                <appender-ref ref="MosaicLog"/>
+                <appender-ref ref="STDOUT-Progress"/>
             </logger>
             <logger name="MosaicStarter" additivity="false" level="INFO">
                 <appender-ref ref="MosaicLog"/>
