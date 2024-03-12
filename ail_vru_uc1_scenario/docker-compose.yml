@@ -81,7 +81,6 @@ services:
       - /opt/carma/routes:/opt/carma/routes
       - /opt/carma/yolo:/opt/carma/yolo
       - ./inlanecruising_config/parameters.yaml:/opt/carma/install_ros2/inlanecruising_plugin/share/inlanecruising_plugin/config/parameters.yaml
-      - ./carma/launch/environment.launch.py:/opt/carma/install_ros2/carma/share/carma/launch/environment.launch.py
       - ./yield_plugin/parameters.yaml:/opt/carma/install_ros2/yield_plugin/share/yield_plugin/config/parameters.yaml
       - ./carma/VehicleConfigParams.yaml:/opt/carma/vehicle/config/VehicleConfigParams.yaml
     command: >
