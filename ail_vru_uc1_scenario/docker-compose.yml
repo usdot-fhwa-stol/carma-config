@@ -141,11 +141,11 @@ services:
       && roslaunch carma_carla_agent carma_carla_agent.launch
       role_name:='carma_1'
       host:='172.2.0.2'
-      selected_route:='vru_uc1_left_turn'
+      selected_route:='vru_uc1_north'
       start_delay_in_seconds:='35'
       spawn_point:='215.21,-169.32,0,0,0,0'"
-    # spawn_point:='258.21,-125.32,0,0,0,90'" for through
-    # spawn_point:='215.21,-169.32,0,0,0,0'" for left turn
+    # spawn_point:='258.21,-125.32,0,0,0,90'" for through scenario, north
+    # spawn_point:='215.21,-169.32,0,0,0,0'" for left turn scenario, north
 
   ns3_adapter_1:
     image: usdotfhwastolcandidate/carma-ns3-adapter:lavida
@@ -416,7 +416,7 @@ services:
     entrypoint: >
       bash -c "sleep 30
       && python3 scenario_runner.py
-      --scenario VulnerableRoadUserCollision_LeftTurn
+      --scenario VulnerableRoadUserCollision_North
       --record metrics/data/
       --host 172.2.0.2"
 
