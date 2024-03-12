@@ -2,10 +2,13 @@
 
 carma stop all
 
+export ROS_MASTER_URI=http://172.3.0.2:11311/
+
+bash -c 'sleep 35 && rviz -d ~/carma_ws/src/carma-platform/carma/rviz/carma_default.rviz' &
+
 docker volume rm \
   carma_kafka-datavolume \
   carma_mysql-datavolume \
   carma_zookeeper-datavolume
 
 carma start all
-

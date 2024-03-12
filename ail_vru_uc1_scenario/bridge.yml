@@ -3,6 +3,9 @@
 # NOTE: A custom dynamic_bridge is used in CARMA Platform which will automatically connect topics and services, but
 #       this file allows for certain topics to be pre-configured with specified QoS settings.
 topics:
+  - topic: /guidance/plugins/debug/trajectory_planning
+    type: carma_debug_ros2_msgs/msg/TrajectoryCurvatureSpeeds
+    queue_size: 1
   - topic: /guidance/trajectory_visualizer
     type: visualization_msgs/msg/MarkerArray
     queue_size: 1

@@ -19,11 +19,11 @@ min_obj_avoidance_plan_time_in_s: 2.0
 # Deceleration value used for yielding trajectories
 # Units: m/s^2
 # Value type: Desired
-yield_max_deceleration_in_ms2: 3.0
+yield_max_deceleration_in_ms2: 9.0
 # Minimum safety gap with an Object/Obstacle
 # Units: meters
 # Value type: Desired
-minimum_safety_gap_in_meters: 5.0
+minimum_safety_gap_in_meters: 10.0
 # Maximum speed value to consider the ego vehicle stopped
 # Units: m/s
 # Value type: Desired
@@ -37,6 +37,10 @@ always_accept_mobility_request: false
 # Acceptable number of timesteps to use the latest known mobility request before switching to yield
 # Value type: Desired
 acceptable_passed_timesteps: 5
+# Number of consecutive times the vehicle detects that the obstacle is behind
+# to confirm the obstacle is actually behind
+# Value type: Desired
+consecutive_clearance_count_for_obstacles_threshold: 20
 # Intervehicle distance that is considered a collision
 # Unit: m
 # Value type: Desired
