@@ -55,7 +55,7 @@ enable_object_avoidance: true
 # Acceleration limit
 # Value type: Desired
 # Units: m/s^2
-vehicle_acceleration_limit: 3.0
+vehicle_acceleration_limit: 2.0
 
 # Deceleration limit
 # Value type: Desired
@@ -94,6 +94,10 @@ vehicle_model_steer_tau : 0.3
 
 # Parameter to enable configurable speed limit
 # Value type: Desired
+# 15.65 ms = 35 mph
+# 11.18  ms = 25 mph
+# 5.25 ms = 11.75 mph
+# 4.25 ms = 9.5 mph
 config_speed_limit: 20.0
 
 # Vehicle Participation Type corresponding to the Lanelet2 participant type standards.
