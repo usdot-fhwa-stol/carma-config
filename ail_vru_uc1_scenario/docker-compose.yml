@@ -56,7 +56,6 @@ services:
       - /opt/carma/routes:/opt/carma/routes
       - /opt/carma/data:/opt/carma/data
       - /opt/carma/simulation:/opt/carma/simulation
-      - ./carma/VehicleConfigParams.yaml:/opt/carma/vehicle/config/VehicleConfigParams.yaml
     environment:
       - ROS_IP=172.3.0.3
       - ROS_MASTER_URI=http://172.3.0.2:11311/
@@ -81,7 +80,6 @@ services:
       - /opt/carma/yolo:/opt/carma/yolo
       - ./inlanecruising_config/parameters.yaml:/opt/carma/install_ros2/inlanecruising_plugin/share/inlanecruising_plugin/config/parameters.yaml
       - ./yield_plugin/parameters.yaml:/opt/carma/install_ros2/yield_plugin/share/yield_plugin/config/parameters.yaml
-      - ./carma/VehicleConfigParams.yaml:/opt/carma/vehicle/config/VehicleConfigParams.yaml
     command: >
       bash -c 'export RMW_IMPLEMENTATION=rmw_fastrtps_cpp
       && source /opt/carma/install_ros2/setup.bash
