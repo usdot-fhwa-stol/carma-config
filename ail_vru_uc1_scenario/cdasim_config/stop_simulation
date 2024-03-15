@@ -1,0 +1,17 @@
+#!/bin/bash
+# Script to stop simulation.
+# Pulls all Kafka message data
+# Stops and removes all docker containers
+# Prunes all Kafka related volumes
+if ! [ -f ./collect_kafka_logs.py ] ; then
+  echo "Installing collect_kafka_logs.py ...."
+  wget -q https://raw.githubusercontent.com/usdot-fhwa-stol/carma-streets/develop/collect_kafka_logs.py
+fi
+filename=$(date +%F_%H-%M-%S)
+python3 collect_kafka_logs.py --zip True "${filename}"
+carma stop all
+
+docker volume rm \
+  carma_kafka-datavolume \
+  carma_zookeeper-datavolume
+
