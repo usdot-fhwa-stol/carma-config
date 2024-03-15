@@ -199,7 +199,7 @@
                 <appender-ref ref="TrafficLog"/>
             </logger>
 
-            <logger name="org.eclipse.mosaic.fed.carla" additivity="false" level="DEBUG">
+            <logger name="org.eclipse.mosaic.fed.carla" additivity="false" level="TRACE">
                 <appender-ref ref="CarlaLog"/>
             </logger>
 
