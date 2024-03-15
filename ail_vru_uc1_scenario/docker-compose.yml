@@ -414,7 +414,7 @@ services:
     entrypoint: >
       bash -c "sleep 30
       && python3 scenario_runner.py
-      --scenario VulnerableRoadUserCollision_LeftTurn
+      --scenario VulnerableRoadUserCollision_North
       --record metrics/data/
       --host 172.2.0.2"
 
