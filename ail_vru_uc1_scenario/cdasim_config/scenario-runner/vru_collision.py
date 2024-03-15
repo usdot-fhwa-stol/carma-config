@@ -40,8 +40,8 @@ from srunner.scenarioconfigs.scenario_configuration import ScenarioConfiguration
 Configurations
 """
 
-WALKING_PERSON_SPEED_IN_MS = 1.0
-WALKING_PERSON_TRIGGER_WALKING_DISTANCE_IN_METERS = 11.0
+WALKING_PERSON_SPEED_IN_MS = 2.0
+WALKING_PERSON_TRIGGER_WALKING_DISTANCE_IN_METERS = 15.0
 
 class VulnerableRoadUserCollision(BasicScenario):
     def __init__(
