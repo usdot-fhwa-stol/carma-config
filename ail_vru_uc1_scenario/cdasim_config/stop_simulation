@@ -12,6 +12,9 @@ echo "Collecting CARMA Streets Kafka messages into ${filename}.zip"
 python3 collect_kafka_logs.py --zip True "${filename}"
 echo "Stopping simulation ..."
 carma stop all
+# Kafka message volumes retain messages and consumer offsets from previous run
+# Clearing volumes avoids consumer offsets and messages from previous runs impacting
+# current scenario preformance.
 echo "Clearing CARMA Streets Kafka message volumes ..."
 docker volume rm \
   carma_kafka-datavolume \

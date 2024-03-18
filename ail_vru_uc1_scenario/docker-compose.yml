@@ -405,6 +405,8 @@ services:
       - carma_sim_net
     depends_on:
       - carma-simulation
+    environment:
+      SIMULATION_SCENARIO: ${SIMULATION_SCENARIO}
     volumes:
       - ./scenario-runner/vru_collision.py:/app/scenario_runner/srunner/scenarios/vru_collision.py
       - ./scenario-runner/vru_collision.xml:/app/scenario_runner/srunner/examples/vru_collision.xml
@@ -414,7 +416,7 @@ services:
     entrypoint: >
       bash -c "sleep 30
       && python3 scenario_runner.py
-      --scenario VulnerableRoadUserCollision_North
+      --scenario ${SIMULATION_SCENARIO}
       --record metrics/data/
       --host 172.2.0.2"
 
