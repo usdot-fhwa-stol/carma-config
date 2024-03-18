@@ -17,13 +17,13 @@ limitations under the License.
 -->
 
 <scenarios>
-    <scenario name="VulnerableRoadUserCollision_North" type="VulnerableRoadUserCollision" town="Town04">
+    <scenario name="VulnerableRoadUserCollision_ThreeTrucks" type="VulnerableRoadUserCollision" town="Town04">
         <other_actor x="250.38" y="-179.00" z="1.0" model="walker.pedestrian.0002" rolename="crossing_person"/>
         <other_actor x="239.82" y="-173.39" z="0.2" yaw="180.0" model="vehicle.carlamotors.carlacola" rolename="heavy_vehicle_1"/>
         <other_actor x="245.82" y="-173.39" z="0.2" yaw="180.0" model="vehicle.carlamotors.carlacola" rolename="heavy_vehicle_2"/>
         <other_actor x="251.82" y="-175.00" z="0.2" yaw="145.0" model="vehicle.carlamotors.carlacola" rolename="heavy_vehicle_3"/>
     </scenario>
-    <scenario name="VulnerableRoadUserCollision_South" type="VulnerableRoadUserCollision" town="Town04">
+    <scenario name="VulnerableRoadUserCollision_TrafficSign" type="VulnerableRoadUserCollision" town="Town04">
         <other_actor x="250.38" y="-164.0" z="0.0" yaw="180.0" model="static.prop.trafficwarning" rolename="traffic_sign"/>
         <other_actor x="250.38" y="-164.0" z="0.5" yaw="180.0" model="static.prop.streetbarrier" rolename="streetbarrier"/>
         <other_actor x="250.30" y="-159.8" z="1.0" yaw="0.0" model="walker.pedestrian.0002" rolename="crossing_person"/>

@@ -13,9 +13,9 @@ This CARMA Configuration Image creates a **AIL** (Anything-In-the-Loop) scenario
 | ----------| ----------- |--------- |
 | 2,6 | 35 | TRUE |
 | 4,8 | 5 | TRUE|
-### Scenario: West to North Left Turn (north)
+### Scenario: West to North Left Turn (A)
 ![Alt text](docs/scenario_north.png)
-### Scenario: South to North Through (south)
+### Scenario: South to North Through (B)
 ![Alt text](docs/scenario_south.png)
 ## Simulators
 
