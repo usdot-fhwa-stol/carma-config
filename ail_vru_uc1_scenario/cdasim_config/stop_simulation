@@ -7,11 +7,12 @@ if ! [ -f ./collect_kafka_logs.py ] ; then
   echo "Installing collect_kafka_logs.py ...."
   wget -q https://raw.githubusercontent.com/usdot-fhwa-stol/carma-streets/release/lavida/collect_kafka_logs.py
 fi
-filename=$(date +%F_%H-%M-%S)
+filename=carma_streets_kafka_"$(date +%F_%H-%M-%S)"
+echo "Collecting CARMA Streets Kafka messages into ${filename}.zip"
 python3 collect_kafka_logs.py --zip True "${filename}"
+echo "Stopping simulation ..."
 carma stop all
-
+echo "Clearing CARMA Streets Kafka message volumes ..."
 docker volume rm \
   carma_kafka-datavolume \
   carma_zookeeper-datavolume
-
