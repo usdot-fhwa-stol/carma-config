@@ -13,9 +13,10 @@ This CARMA Configuration Image creates a **AIL** (Anything-In-the-Loop) scenario
 | ----------| ----------- |--------- |
 | 2,6 | 35 | TRUE |
 | 4,8 | 5 | TRUE|
-
-![Alt text](docs/scenario_diagram.png)
-
+### Scenario: West to North Left Turn (north)
+![Alt text](docs/scenario_north.png)
+### Scenario: South to North Through (south)
+![Alt text](docs/scenario_south.png)
 ## Simulators
 
 | Simulator      | Version |
@@ -27,6 +28,7 @@ This CARMA Configuration Image creates a **AIL** (Anything-In-the-Loop) scenario
 ### Deployment Steps
 1) Copy all files in the `ail_vru_uc1_scenario/cdasimconfig/route_config/` directory to `/opt/carma/routes/`
 2) Navigate to `ail_vru_uc1_scenario` and `./build_image.sh` to build CARMA Config image. (Optional if remote image exists)
+   1) `./build_image/sh` should print resulting image name
 3) Run `carma config set <carma-config-image-name>`
 4) Navigate to the `cdasim_config/` directory.
 5) `./run_simulation` script clears all necessary volumes and containers and runs `carma start all`
