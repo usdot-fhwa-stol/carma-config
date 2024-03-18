@@ -5,11 +5,12 @@
 # Prunes all Kafka related volumes
 if ! [ -f ./collect_kafka_logs.py ] ; then
   echo "Installing collect_kafka_logs.py ...."
-  wget -q https://raw.githubusercontent.com/usdot-fhwa-stol/carma-streets/release/lavida/collect_kafka_logs.py
+  wget -q https://raw.githubusercontent.com/usdot-fhwa-stol/carma-streets/release/lavida/collect_kafka_logs.py -O /opt/carma-streets/scripts/collect_kafka_logs
+  export PATH="/opt/carma-streets/scripts$PATH"
 fi
 filename=carma_streets_kafka_"$(date +%F_%H-%M-%S)"
 echo "Collecting CARMA Streets Kafka messages into ${filename}.zip"
-python3 collect_kafka_logs.py --zip True "${filename}"
+collect_kafka_logs --zip True "${filename}"
 echo "Stopping simulation ..."
 carma stop all
 # Kafka message volumes retain messages and consumer offsets from previous run
