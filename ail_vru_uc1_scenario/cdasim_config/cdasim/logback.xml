@@ -7,7 +7,7 @@
             <property name="logDirectory" value="${logDirectory}"/>
             <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
                 <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
-                    <pattern>%date %-5level %logger{0} - %msg%n</pattern>
+                    <pattern>%date %-5level %C{0}:%line - %msg%n</pattern>
                 </encoder>
             </appender>
             <appender name="STDOUT-Progress" class="ch.qos.logback.core.ConsoleAppender">
@@ -26,7 +26,7 @@
                 <charset>UTF-8</charset>
                 <file>${logDirectory}/MOSAIC.log</file>
                 <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
-                    <pattern>%date %-5level %logger{0} - %msg%n</pattern>
+                    <pattern>%date %-5level %C{0}:%line - %msg%n</pattern>
                 </encoder>
             </appender>
 
@@ -35,15 +35,16 @@
                 <charset>UTF-8</charset>
                 <file>${logDirectory}/Mapping.log</file>
                 <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
-                    <pattern>%date %-5level %logger{0} - %msg%n</pattern>
+                    <pattern>%date %-5level %C{0}:%line - %msg%n</pattern>
                 </encoder>
             </appender>
 
             <appender name="ApplicationLog" class="ch.qos.logback.core.FileAppender">
                 <charset>UTF-8</charset>
                 <file>${logDirectory}/Application.log</file>
+                <immediateFlush>true</immediateFlush>
                 <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
-                    <pattern>%date %-5level %logger{0} - %msg%n</pattern>
+                    <pattern>%date %-5level %C{0}:%line - %msg%n</pattern>
                 </encoder>
             </appender>
             <appender name="ApplicationLogDelegation" class="ch.qos.logback.classic.sift.SiftingAppender">
@@ -67,55 +68,55 @@
                 <immediateFlush>true</immediateFlush>
                 <file>${logDirectory}/Navigation.log</file>
                 <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
-                    <pattern>%date %-5level %logger{0} - %msg%n</pattern>
+                    <pattern>%date %-5level %C{0}:%line - %msg%n</pattern>
                 </encoder>
             </appender>
             <appender name="TrafficLog" class="ch.qos.logback.core.FileAppender">
                 <charset>UTF-8</charset>
                 <file>${logDirectory}/Traffic.log</file>
                 <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
-                    <pattern>%date %-5level %logger{0} - %msg%n</pattern>
+                    <pattern>%date %-5level %C{0}:%line - %msg%n</pattern>
                 </encoder>
             </appender>
             <appender name="CarlaLog" class="ch.qos.logback.core.FileAppender">
                 <charset>UTF-8</charset>
                 <file>${logDirectory}/Carla.log</file>
                 <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
-                    <pattern>%date %-5level %logger{0} - %msg%n</pattern>
+                    <pattern>%date %-5level %C{0}:%line - %msg%n</pattern>
                 </encoder>
             </appender>
             <appender name="CarmaLog" class="ch.qos.logback.core.FileAppender">
                 <charset>UTF-8</charset>
                 <file>${logDirectory}/Carma.log</file>
                 <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
-                    <pattern>%date %-5level %logger{0} - %msg%n</pattern>
+                    <pattern>%date %-5level %C{0}:%line - %msg%n</pattern>
                 </encoder>
             </appender>
             <appender name="InfrastructureLog" class="ch.qos.logback.core.FileAppender">
                 <charset>UTF-8</charset>
                 <file>${logDirectory}/Infrastructure.log</file>
                 <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
-                    <pattern>%date %-5level %logger{0} - %msg%n</pattern>
+                    <pattern>%date %-5level %C{0}:%line - %msg%n</pattern>
                 </encoder>
             </appender>
             <appender name="EnvironmentLog" class="ch.qos.logback.core.FileAppender">
                 <charset>UTF-8</charset>
                 <file>${logDirectory}/Environment.log</file>
                 <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
-                    <pattern>%date %-5level %logger{0} - %msg%n</pattern>
+                    <pattern>%date %-5level %C{0}:%line - %msg%n</pattern>
                 </encoder>
             </appender>
             <appender name="CommunicationLog" class="ch.qos.logback.core.FileAppender">
                 <charset>UTF-8</charset>
                 <file>${logDirectory}/Communication.log</file>
                 <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
-                    <pattern>%date %-5level %logger{0} - %msg%n</pattern>
+                    <pattern>%date %-5level %C{0}:%line - %msg%n</pattern>
                 </encoder>
             </appender>
             <appender name="CommunicationDetailsLog" class="ch.qos.logback.core.FileAppender">
                 <file>${logDirectory}/CommunicationDetails.log</file>
                 <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
-                    <pattern>%date %-5level %logger{0} - %msg%n</pattern>
+                    <pattern>%date %-5level %C{0}:%line - %msg%n</pattern>
                 </encoder>
                 <append>false</append>
             </appender>
@@ -123,7 +124,7 @@
                 <charset>UTF-8</charset>
                 <file>${logDirectory}/Cell.log</file>
                 <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
-                    <pattern>%date %-5level %logger{0} - %msg%n</pattern>
+                    <pattern>%date %-5level %C{0}:%line - %msg%n</pattern>
                 </encoder>
             </appender>
 
@@ -131,17 +132,18 @@
                 <charset>UTF-8</charset>
                 <file>${logDirectory}/RuntimeEvents.csv</file>
                 <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
-                    <pattern>%date %-5level %logger{0} [%thread] - %msg%n</pattern>
+                    <pattern>%date %-5level %C{0}:%line [%thread] - %msg%n</pattern>
                 </encoder>
             </appender>
 
             <!--######################## LOGGER ############################### -->
 
             <!-- new appenders for anything from Eclipse MOSAIC -->
-            <logger name="SimulationProgress" additivity="false" level="TRACE">
+            <logger name="SimulationProgress" additivity="false" level="INFO">
+                <appender-ref ref="MosaicLog"/>
                 <appender-ref ref="STDOUT-Progress"/>
             </logger>
-            <logger name="MosaicStarter" additivity="false" level="TRACE">
+            <logger name="MosaicStarter" additivity="false" level="INFO">
                 <appender-ref ref="MosaicLog"/>
             </logger>
             <logger name="org.eclipse.mosaic.rti" additivity="false" level="INFO">
@@ -175,25 +177,25 @@
                 <appender-ref ref="CellLog"/>
             </logger>
 
-            <logger name="org.eclipse.mosaic.fed.application.ambassador.navigation" additivity="false" level="TRACE">
+            <logger name="org.eclipse.mosaic.fed.application.ambassador.navigation" additivity="false" level="INFO">
                 <appender-ref ref="NavigationLog"/>
             </logger>
-            <logger name="org.eclipse.mosaic.lib.routing" additivity="false" level="TRACE">
+            <logger name="org.eclipse.mosaic.lib.routing" additivity="false" level="INFO">
                 <appender-ref ref="NavigationLog"/>
             </logger>
-            <logger name="com.graphhopper" additivity="false" level="TRACE">
+            <logger name="com.graphhopper" additivity="false" level="INFO">
                 <appender-ref ref="NavigationLog"/>
             </logger>
 
-            <logger name="org.eclipse.mosaic.fed.mapping" additivity="false" level="TRACE">
+            <logger name="org.eclipse.mosaic.fed.mapping" additivity="false" level="INFO">
                 <appender-ref ref="MappingLog"/>
             </logger>
 
-            <logger name="org.eclipse.mosaic.fed.environment" additivity="false" level="TRACE">
+            <logger name="org.eclipse.mosaic.fed.environment" additivity="false" level="INFO">
                 <appender-ref ref="EnvironmentLog"/>
             </logger>
 
-            <logger name="org.eclipse.mosaic.fed.sumo" additivity="false" level="TRACE">
+            <logger name="org.eclipse.mosaic.fed.sumo" additivity="false" level="INFO">
                 <appender-ref ref="TrafficLog"/>
             </logger>
 
@@ -201,11 +203,11 @@
                 <appender-ref ref="CarlaLog"/>
             </logger>
 
-            <logger name="org.eclipse.mosaic.fed.carma" additivity="false" level="TRACE">
+            <logger name="org.eclipse.mosaic.fed.carma" additivity="false" level="INFO">
                 <appender-ref ref="CarmaLog"/>
             </logger>
 
-            <logger name="org.eclipse.mosaic.fed.infrastructure" additivity="false" level="TRACE">
+            <logger name="org.eclipse.mosaic.fed.infrastructure" additivity="false" level="INFO">
                 <appender-ref ref="InfrastructureLog"/>
             </logger>
 
@@ -213,7 +215,7 @@
                 <appender-ref ref="MosaicLog"/>
             </logger>
 
-            <logger name="activities" additivity="false" level="TRACE">
+            <logger name="activities" additivity="false" level="INFO">
                 <appender-ref ref="ActivityLog"/>
             </logger>
 
@@ -224,7 +226,7 @@
             <logger name="org.eclipse.mosaic.fed.ns3.ambassador.Ns3AmbassadorError" additivity="false" level="INFO">
                 <appender-ref ref="CommunicationDetailsLog"/>
             </logger>
-            
+
             <logger name="org.eclipse.mosaic.fed.ns3.ambassador" additivity="false" level="DEBUG">
                 <appender-ref ref="CommunicationDetailsLog"/>
             </logger>
