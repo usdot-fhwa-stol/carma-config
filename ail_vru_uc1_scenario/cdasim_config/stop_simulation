@@ -1,0 +1,21 @@
+#!/bin/bash
+# Script to stop simulation.
+# Pulls all Kafka message data
+# Stops and removes all docker containers
+# Prunes all Kafka related volumes
+if ! [ -f /opt/carma-streets/scripts/collect_kafka_logs.py ] ; then
+  echo "Installing collect_kafka_logs.py into /opt/carma-streets/scripts/ ...."
+  wget -q https://raw.githubusercontent.com/usdot-fhwa-stol/carma-streets/release/lavida/collect_kafka_logs.py -P /opt/carma-streets/scripts
+fi
+filename=carma_streets_kafka_"$(date +%F_%H-%M-%S)"
+echo "Collecting CARMA Streets Kafka messages into ${filename}.zip"
+python3 /opt/carma-streets/scripts/collect_kafka_logs.py --zip True "${filename}"
+echo "Stopping simulation ..."
+carma stop all
+# Kafka message volumes retain messages and consumer offsets from previous run
+# Clearing volumes avoids consumer offsets and messages from previous runs impacting
+# current scenario preformance.
+echo "Clearing CARMA Streets Kafka message volumes ..."
+docker volume rm \
+  carma_kafka-datavolume \
+  carma_zookeeper-datavolume

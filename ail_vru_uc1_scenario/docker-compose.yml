@@ -123,9 +123,12 @@ services:
     volumes_from:
       - container:carma-config:ro
     environment:
-      - ROS_IP=172.3.0.6
-      - ROS_MASTER_URI=http://172.3.0.2:11311/
-      - PYTHONUNBUFFERED=1
+      ROS_IP: 172.3.0.6
+      ROS_MASTER_URI: http://172.3.0.2:11311/
+      PYTHONUNBUFFERED: 1
+      VEHICLE_SELECTED_ROUTE: ${VEHICLE_SELECTED_ROUTE}
+      VEHICLE_SPAWN_POINT: ${VEHICLE_SPAWN_POINT}
+
     # sleep is for carla simulator to become available
     # start_delay_in_seconds is carla game time seconds to adjust when to engage for the scenario
     # and account for delay required for world model to fully update after route is selected
@@ -138,9 +141,9 @@ services:
       && roslaunch carma_carla_agent carma_carla_agent.launch
       role_name:='carma_1'
       host:='172.2.0.2'
-      selected_route:='trb2024_left_turn'
+      selected_route:=${VEHICLE_SELECTED_ROUTE}
       start_delay_in_seconds:='35'
-      spawn_point:='215.21,-169.32,0,0,0,0'"
+      spawn_point:=${VEHICLE_SPAWN_POINT}"
 
   ns3_adapter_1:
     image: usdotfhwastolcandidate/carma-ns3-adapter:lavida
@@ -402,6 +405,8 @@ services:
       - carma_sim_net
     depends_on:
       - carma-simulation
+    environment:
+      SIMULATION_SCENARIO: ${SIMULATION_SCENARIO}
     volumes:
       - ./scenario-runner/vru_collision.py:/app/scenario_runner/srunner/scenarios/vru_collision.py
       - ./scenario-runner/vru_collision.xml:/app/scenario_runner/srunner/examples/vru_collision.xml
@@ -411,7 +416,7 @@ services:
     entrypoint: >
       bash -c "sleep 30
       && python3 scenario_runner.py
-      --scenario VulnerableRoadUserCollision_LeftTurn
+      --scenario ${SIMULATION_SCENARIO}
       --record metrics/data/
       --host 172.2.0.2"
 
