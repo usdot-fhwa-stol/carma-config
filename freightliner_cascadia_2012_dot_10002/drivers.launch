@@ -61,11 +61,11 @@ If not using simulated drivers they are activated if the respective mock argumen
 
   <!-- Velodyne Lidar Driver Nodes -->
   <!-- Lidar Concat -->
-  <include if="$(arg velodyne_lidar_driver_wrapper)" file="$(find points_preprocessor)/launch/points_concat_filter.launch">
+  <!-- <include if="$(arg velodyne_lidar_driver_wrapper)" file="$(find points_preprocessor)/launch/points_concat_filter.launch">
     <arg name="input_topics" default="[velodyne_1/lidar/points_raw, velodyne_2/lidar/points_raw]" />
     <arg name="output_topic" default="lidar/points_raw" />
     <arg name="output_frame_id" default="concat_velodyne" />
-  </include>
+  </include> -->
 
   <!-- Trailer Angle Sensor Driver -->
   <include if="$(arg lidar_lite_trailer_angle_driver)" file="$(find lidar_lite_v3hp)/launch/lidar_litev3hp.launch">
