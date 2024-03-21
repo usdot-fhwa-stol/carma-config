@@ -1,4 +1,2 @@
 #docker-compose env variables
 .env
-./**/logs/
-./**/log/
