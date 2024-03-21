@@ -128,6 +128,7 @@ services:
       PYTHONUNBUFFERED: 1
       VEHICLE_SELECTED_ROUTE: ${VEHICLE_SELECTED_ROUTE}
       VEHICLE_SPAWN_POINT: ${VEHICLE_SPAWN_POINT}
+      VEHICLE_SPAWN_POINT: ${VEHICLE_SPAWN_POINT}
 
     # sleep is for carla simulator to become available
     # start_delay_in_seconds is carla game time seconds to adjust when to engage for the scenario
@@ -142,7 +143,7 @@ services:
       role_name:='carma_1'
       host:='172.2.0.2'
       selected_route:=${VEHICLE_SELECTED_ROUTE}
-      start_delay_in_seconds:='35'
+      start_delay_in_seconds:=${VEHICLE_ENGAGE_DELAY}
       spawn_point:=${VEHICLE_SPAWN_POINT}"
 
   ns3_adapter_1:
