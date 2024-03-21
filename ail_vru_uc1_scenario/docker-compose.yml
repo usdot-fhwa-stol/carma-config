@@ -126,9 +126,6 @@ services:
       ROS_IP: 172.3.0.6
       ROS_MASTER_URI: http://172.3.0.2:11311/
       PYTHONUNBUFFERED: 1
-      VEHICLE_SELECTED_ROUTE: ${VEHICLE_SELECTED_ROUTE}
-      VEHICLE_SPAWN_POINT: ${VEHICLE_SPAWN_POINT}
-      VEHICLE_SPAWN_POINT: ${VEHICLE_SPAWN_POINT}
 
     # sleep is for carla simulator to become available
     # start_delay_in_seconds is carla game time seconds to adjust when to engage for the scenario
