@@ -40,8 +40,8 @@ from srunner.scenarioconfigs.scenario_configuration import ScenarioConfiguration
 Configurations
 """
 
-WALKING_PERSON_SPEED_IN_MS = 2.0
-WALKING_PERSON_TRIGGER_WALKING_DISTANCE_IN_METERS = 15.0
+WALKING_PERSON_SPEED_IN_MS = 0.91
+WALKING_PERSON_TRIGGER_WALKING_DISTANCE_IN_METERS = 27.5
 
 class VulnerableRoadUserCollision(BasicScenario):
     def __init__(
@@ -52,7 +52,7 @@ class VulnerableRoadUserCollision(BasicScenario):
         randomize: bool = False,
         debug_mode: bool = False,
         criteria_enable: bool = True,
-        timeout=60,
+        timeout=300, #5min
     ) -> None:
         """
         :param world: CARLA world in which the scenario is running
@@ -157,7 +157,7 @@ class VulnerableRoadUserCollision(BasicScenario):
         )
 
         walk_across_street = KeepVelocity(
-            crossing_person, WALKING_PERSON_SPEED_IN_MS, 100.0, name="walk_across_street"
+            crossing_person, WALKING_PERSON_SPEED_IN_MS, 200.0, name="walk_across_street"
         )
 
         dao = GlobalRoutePlannerDAO(CarlaDataProvider.get_map(), 2)
@@ -167,7 +167,7 @@ class VulnerableRoadUserCollision(BasicScenario):
         actor_behaviors = py_trees.composites.Parallel(name="actor_behaviors")
         actor_behaviors.add_child(walk_across_street)
 
-        end_condition = DriveDistance(self.carma_vehicle, 100)
+        end_condition = DriveDistance(self.carma_vehicle, 200)
 
         root = py_trees.composites.Sequence(name="root_sequence")
         root.add_child(start_condition)
