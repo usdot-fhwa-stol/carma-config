@@ -53,7 +53,7 @@
   <arg name='speed_Kd' default='0.0'/>
 
   <!-- vehicle acceleration PID -->
-  <arg name='accel_Kp' default='0.125'/>
+  <arg name='accel_Kp' default='0.1'/>
   <arg name='accel_Ki' default='0.0'/>
   <arg name='accel_Kd' default='0.05'/>
 
