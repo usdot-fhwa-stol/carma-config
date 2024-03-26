@@ -98,7 +98,7 @@ vehicle_model_steer_tau : 0.3
 # Used for interpreting traffic rules in world model instances
 vehicle_participant_type: "vehicle:truck"
 
-# Parameter to enable configurable speed limit
+# Maximum speed of the vehicle while engaged
 # Value type: Desired
 # Units: mph
 config_speed_limit: 15.0

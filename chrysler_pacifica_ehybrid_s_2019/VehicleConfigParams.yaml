@@ -97,7 +97,7 @@ vehicle_participant_type: "vehicle:car"
 
 
 
-# Parameter to enable configurable speed limit
+# Maximum speed of the vehicle while engaged
 # Value type: Desired
 # Units: mph
 config_speed_limit: 15.0
