@@ -23,7 +23,7 @@ topics:
       depth: 1
       durability: transient_local
   -
-    topic: /environment/base_map  
+    topic: /environment/base_map
     type: autoware_lanelet2_msgs/msg/MapBin
     queue_size: 1
     direction: 2to1
@@ -72,11 +72,7 @@ topics:
     topic: /system_alert
     type: carma_msgs/msg/SystemAlert
     queue_size: 5
-    qos:
-      history: keep_last
-      depth: 5
-      durability: transient_local
-  - 
+  -
     topic: /localization/vehicle/odom
     type: nav_msgs/msg/Odometry
     queue_size: 1

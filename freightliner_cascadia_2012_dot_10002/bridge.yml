@@ -1,7 +1,7 @@
-# This file contains explicit topic mappings between ROS1 and ROS2 portions of CARMA Platform while the 
+# This file contains explicit topic mappings between ROS1 and ROS2 portions of CARMA Platform while the
 # ROS2 migration is underway.
-# NOTE: A custom dynamic_bridge is used in CARMA Platform which will automatically connect topics and services, but 
-#       this file allows for certain topics to be pre-configured with specified QoS settings. 
+# NOTE: A custom dynamic_bridge is used in CARMA Platform which will automatically connect topics and services, but
+#       this file allows for certain topics to be pre-configured with specified QoS settings.
 topics:
   -
     topic: /environment/lanelet2_map_viz
@@ -23,7 +23,7 @@ topics:
       depth: 1
       durability: transient_local
   -
-    topic: /environment/base_map  
+    topic: /environment/base_map
     type: autoware_lanelet2_msgs/msg/MapBin
     queue_size: 1
     direction: 2to1
@@ -68,11 +68,7 @@ topics:
     topic: /system_alert
     type: carma_msgs/msg/SystemAlert
     queue_size: 5
-    qos:
-      history: keep_last
-      depth: 5
-      durability: transient_local
-  - 
+  -
     topic: /localization/vehicle/odom
     type: nav_msgs/msg/Odometry
     queue_size: 1
