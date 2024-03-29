@@ -94,7 +94,7 @@ def generate_launch_description():
                             'frame_id' : 'velodyne_1',
                             'device_ip' : '192.168.1.201',
                             'port' : '2368',
-                            'gps_time' : 'True'
+                            'gps_time' : 'False'
                             }.items()
                     ),
                 ]
@@ -109,10 +109,20 @@ def generate_launch_description():
                             'frame_id' : 'velodyne_2',
                             'device_ip' : '192.168.2.201',
                             'port' : '2369',
-                            'gps_time' : 'True'
+                            'gps_time' : 'False'
                             }.items()
                     ),
                 ]
+            )
+        ]
+    )
+
+    lidar_fusion_group = GroupAction(
+        condition=IfCondition(PythonExpression(["'lidar_fusion' in '", drivers, "'.split()"])),
+        actions=[
+            PushRosNamespace(EnvironmentVariable('CARMA_INTR_NS', default_value='hardware_interface')),
+            IncludeLaunchDescription(
+                PythonLaunchDescriptionSource([ FindPackageShare('point_cloud_fusion_nodes'), '/launch/point_cloud_fusion.launch.py']),
             ),
         ]
     )
@@ -156,6 +166,7 @@ def generate_launch_description():
         driver_shutdown_group,
         dsrc_group,
         lidar_group,
+        lidar_fusion_group,
         gnss_ins_group,
         lightbar_driver_group
     ])

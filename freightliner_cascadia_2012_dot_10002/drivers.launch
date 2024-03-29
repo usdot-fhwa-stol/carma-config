@@ -55,17 +55,9 @@ If not using simulated drivers they are activated if the respective mock argumen
   <arg name="avt_vimba_camera"               value="$(eval ('avt_vimba_camera' in arg('drivers').split()) and not arg('mock_camera'))"/>
 
   <!-- PACMOD Controller Driver Node -->
-  <include if="$(arg ssc_interface_wrapper)" file="$(find ssc_interface_wrapper)/launch/ssc_pm_cascadia_dot_10002_driver.launch">
+  <include if="$(arg ssc_interface_wrapper)" file="$(find ssc_interface_wrapper)/launch/ssc_pm_cascadia_dot_80550_driver.launch">
     <arg name="ssc_param_dir" value="$(arg vehicle_calibration_dir)/ssc_pm_cascadia"/>
   </include>
-
-  <!-- Velodyne Lidar Driver Nodes -->
-  <!-- Lidar Concat -->
-  <!-- <include if="$(arg velodyne_lidar_driver_wrapper)" file="$(find points_preprocessor)/launch/points_concat_filter.launch">
-    <arg name="input_topics" default="[velodyne_1/lidar/points_raw, velodyne_2/lidar/points_raw]" />
-    <arg name="output_topic" default="lidar/points_raw" />
-    <arg name="output_frame_id" default="concat_velodyne" />
-  </include> -->
 
   <!-- Trailer Angle Sensor Driver -->
   <include if="$(arg lidar_lite_trailer_angle_driver)" file="$(find lidar_lite_v3hp)/launch/lidar_litev3hp.launch">

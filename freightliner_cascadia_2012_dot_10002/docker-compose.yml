@@ -86,7 +86,7 @@ services:
     image: usdotfhwastoldev/carma-platform:develop
     network_mode: host
     container_name: carma-truck-inspection
-    volumes_from: 
+    volumes_from:
       - container:carma-config:ro
     volumes:
       - /opt/carma/logs:/opt/carma/logs
@@ -123,7 +123,7 @@ services:
       - /opt/carma/logs:/opt/carma/logs
       - /opt/carma/.ros:/home/carma/.ros
     command: bash -c 'source /opt/carma/install/setup.bash && ros2 launch /opt/carma/vehicle/config/drivers.launch.py drivers:=dsrc_driver'
-
+    
   ssc_controller_driver:
     image: usdotfhwastoldev/carma-ssc-interface-wrapper:develop
     container_name: ssc_controller_driver
@@ -173,7 +173,8 @@ services:
     volumes:
       - /opt/carma/logs:/opt/carma/logs
       - /opt/carma/.ros:/home/carma/.ros
-    command: bash -c 'export ROS_NAMESPACE=$${CARMA_INTR_NS} && wait-for-it.sh localhost:11311 -- ros2 launch /opt/carma/vehicle/config/drivers.launch.py drivers:=lidar_fusion'
+    command: bash -c 'source /opt/carma/install_ros2/setup.bash && ros2 launch /opt/carma/vehicle/config/drivers.launch.py drivers:=lidar_fusion'
+
 
   lidar_lite_trailer_angle_driver:
     image: usdotfhwastoldev/carma-garmin-lidar-lite-v3-driver-wrapper:develop
