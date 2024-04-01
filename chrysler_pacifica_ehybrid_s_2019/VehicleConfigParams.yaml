@@ -97,9 +97,10 @@ vehicle_participant_type: "vehicle:car"
 
 
 
-# Parameter to enable configurable speed limit
+# Maximum speed of the vehicle while engaged
 # Value type: Desired
-config_speed_limit: 45.0
+# Units: mph
+config_speed_limit: 15.0
 
 # Parameters to enable either ROS 1 or ROS 2 (or both) rosbag logging
 use_ros1_rosbag: true
