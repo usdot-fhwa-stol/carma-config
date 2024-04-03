@@ -82,6 +82,7 @@ services:
       - ./carma-platform/inlanecruising_plugin/parameters.yaml:/opt/carma/install_ros2/inlanecruising_plugin/share/inlanecruising_plugin/config/parameters.yaml
       - ./carma-platform/yield_plugin/parameters.yaml:/opt/carma/install_ros2/yield_plugin/share/yield_plugin/config/parameters.yaml
       - ./carma-platform/lci_strategic_plugin/parameters.yaml:/opt/carma/install_ros2/lci_strategic_plugin/share/lci_strategic_plugin/config/parameters.yaml
+      - ./carma-platform/motion_computation/parameters.yaml:/opt/carma/install_ros2/motion_computation/share/motion_computation/config/parameters.yaml
     command: >
       bash -c 'export RMW_IMPLEMENTATION=rmw_fastrtps_cpp
       && source /opt/carma/install_ros2/setup.bash
