@@ -55,7 +55,7 @@ enable_object_avoidance: true
 # Acceleration limit
 # Value type: Desired
 # Units: m/s^2
-vehicle_acceleration_limit: 2.5
+vehicle_acceleration_limit: 3.5
 
 # Deceleration limit
 # Value type: Desired
@@ -65,12 +65,12 @@ vehicle_deceleration_limit: 2.5
 # Lateral Acceleration Limit
 # Value type: Desired
 # Units: m/s^2
-vehicle_lateral_accel_limit: 2.0
+vehicle_lateral_accel_limit: 3.5
 
 # Lateral Jerk Limit
 # Value type: Desired
 # Units: m/s^3
-vehicle_lateral_jerk_limit:  2.0
+vehicle_lateral_jerk_limit:  3.5
 
 # Max curvature rate
 # Value type: Desired

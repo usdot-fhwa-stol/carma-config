@@ -31,7 +31,7 @@ services:
     command: roscore
 
   platform:
-    image: usdotfhwastoldev/carma-platform:develop
+    image: usdotfhwastolcandidate/carma-platform:lavida
     network_mode: host
     container_name: platform
     volumes_from:
@@ -49,7 +49,7 @@ services:
     command: bash -c 'wait-for-it.sh localhost:11311 -- roslaunch /opt/carma/vehicle/config/carma_docker.launch'
 
   platform_ros2:
-    image: usdotfhwastoldev/carma-platform:develop
+    image: usdotfhwastolcandidate/carma-platform:lavida
     network_mode: host
     container_name: platform_ros2
     volumes_from:
@@ -63,6 +63,7 @@ services:
       - /opt/carma/yolo:/opt/carma/yolo
       - /home/carma/carma_ws/src/carma-platform/carma/launch/environment.launch.py:/opt/carma/install_ros2/carma/share/carma/launch/environment.launch.py
       - /home/carma/carma_ws/src/carma-platform/inlanecruising_plugin/config:/opt/carma/install_ros2/inlanecruising_plugin/share/inlanecruising_plugin/config
+      - /home/carma/carma_ws/src/carma-platform/yield_plugin/config:/opt/carma/install_ros2/yield_plugin/share/yield_plugin/config
     command: bash -c 'source /opt/carma/install_ros2/setup.bash && ros2 launch /opt/carma/vehicle/config/carma_docker.launch.py'
 
   ros1_bridge:
