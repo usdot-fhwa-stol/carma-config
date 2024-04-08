@@ -17,17 +17,17 @@
 <!--
 	drivers.launch
 
-This file is used for vehicle configurations. The arguments from carma.launch should pass on to carma_src.launch, which should then pass those arguments to this file. The arguments in the carma.launch file will override all of the default values of the arguments being passed, so you should be making changes to the carma.launch to configure it to your vehicle. 
+This file is used for vehicle configurations. The arguments from carma.launch should pass on to carma_src.launch, which should then pass those arguments to this file. The arguments in the carma.launch file will override all of the default values of the arguments being passed, so you should be making changes to the carma.launch to configure it to your vehicle.
 
 If not using simulated drivers they are activated if the respective mock arguments being passed in are false. These lines below activate the respective actual driver if the respective mock argument being passed is false.
 
 -->
 
 <launch>
-  
+
   <!-- Shutdown node to shutsdown driver node with fatal message -->
   <node pkg="driver_shutdown" type="driver_shutdown" name="$(anon driver_shutdown)" required="true"/>
-  
+
   <arg name="vehicle_calibration_dir" default="/opt/carma/vehicle/calibration" doc="Folder containing vehicle calibration directories"/>
 
   <!-- Mock Drivers -->
@@ -55,7 +55,7 @@ If not using simulated drivers they are activated if the respective mock argumen
   <arg name="avt_vimba_camera"               value="$(eval ('avt_vimba_camera' in arg('drivers').split()) and not arg('mock_camera'))"/>
 
   <!-- PACMOD Controller Driver Node -->
-  <include if="$(arg ssc_interface_wrapper)" file="$(find ssc_interface_wrapper)/launch/ssc_pm_cascadia_dot_80550_driver.launch">
+  <include if="$(arg ssc_interface_wrapper)" file="$(find ssc_interface_wrapper)/launch/ssc_pm_cascadia_dot_10003_driver.launch">
     <arg name="ssc_param_dir" value="$(arg vehicle_calibration_dir)/ssc_pm_cascadia"/>
   </include>
 
@@ -80,8 +80,8 @@ If not using simulated drivers they are activated if the respective mock argumen
       <arg name="show_debug_prints" default="false"/>
     </include>
   </group>
-  
-  <!-- AVT Vimba Camera Right Driver Node 
+
+  <!-- AVT Vimba Camera Right Driver Node
     <include if="$(arg avt_vimba_camera)" ns="camera_right" file="$(find avt_vimba_camera)/launch/mono_camera.launch">
 	<arg name="guid" default=""/>
  	<arg name="ip" default="192.168.20.1"/>
@@ -90,7 +90,7 @@ If not using simulated drivers they are activated if the respective mock argumen
 	<arg name="trig_timestamp_topic" default=""/>
 	<arg name="show_debug_prints" default="true"/>
   </include>-->
-	
+
   <!-- TODO DelphiESR Front Driver Node -->
   <!-- TODO Delphi Srr2 Front Left Driver Node -->
   <!-- TODO Delphi Srr2 Front Right Driver Node -->
