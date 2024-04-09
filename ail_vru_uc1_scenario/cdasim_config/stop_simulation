@@ -6,12 +6,12 @@
 # Prunes all Kafka related volumes
 if ! [ -f /opt/carma-streets/scripts/collect_kafka_logs.py ] ; then
   echo "Installing collect_kafka_logs.py into /opt/carma-streets/scripts/ ...."
-  wget -q https://raw.githubusercontent.com/usdot-fhwa-stol/carma-streets/release/lavida/collect_kafka_logs.py -P /opt/carma-streets/scripts
+  wget -q https://raw.githubusercontent.com/usdot-fhwa-stol/carma-streets/master/collect_kafka_logs.py -P /opt/carma-streets/scripts
   sudo chmod 777 /opt/carma-streets/scripts/collect_kafka_logs.py
 fi
 if ! [ -f /opt/carma-simulation/scripts/extract_rtf_data ] ; then
   echo "Installing extract_rtf_data into /opt/carma-simulation/scripts/ ...."
-  wget -q https://raw.githubusercontent.com/usdot-fhwa-stol/carma-analytics-fotda/release/lavida/vru_use_case_scripts/extract_rtf_data -P /opt/carma-simulation/scripts
+  wget -q https://raw.githubusercontent.com/usdot-fhwa-stol/carma-analytics-fotda/master/vru_use_case_scripts/extract_rtf_data -P /opt/carma-simulation/scripts
   sudo chmod 777 /opt/carma-simulation/scripts/extract_rtf_data
 fi
 filename=carma_streets_kafka_"$(date +%F_%H-%M-%S)"
