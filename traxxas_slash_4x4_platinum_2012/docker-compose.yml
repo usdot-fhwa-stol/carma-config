@@ -50,7 +50,7 @@ services:
         command: bash -c 'wait-for-it.sh localhost:11311 -- roslaunch /opt/carma/vehicle/config/carma_docker.launch'
 
     platform_ros2:
-        image: usdotfhwastol/carma-platform:carma-system-4.4.2
+        image: usdotfhwastol/carma-platform:carma-system-4.5.0
         network_mode: host
         container_name: platform_ros2
         volumes_from:
@@ -65,7 +65,7 @@ services:
         command: bash -c 'source /opt/carma/install_ros2/setup.bash && ros2 launch /opt/carma/vehicle/config/carma_docker.launch.py'
 
     ros1_bridge:
-        image: usdotfhwastol/carma-msgs:carma-system-4.4.2
+        image: usdotfhwastol/carma-msgs:carma-system-4.5.0
         network_mode: host
         container_name: ros1_bridge
         volumes_from:

@@ -93,7 +93,8 @@ def generate_launch_description():
                             'log_level' : GetLogLevel('velodyne_lidar_driver_wrapper', env_log_levels),
                             'frame_id' : 'velodyne_1',
                             'device_ip' : '192.168.1.201',
-                            'port' : '2368'
+                            'port' : '2368',
+                            'gps_time' : 'False'
                             }.items()
                     ),
                 ]
@@ -107,7 +108,8 @@ def generate_launch_description():
                             'log_level' : GetLogLevel('velodyne_lidar_driver_wrapper', env_log_levels),
                             'frame_id' : 'velodyne_2',
                             'device_ip' : '192.168.2.201',
-                            'port' : '2369'
+                            'port' : '2369',
+                            'gps_time' : 'False'
                             }.items()
                     ),
                 ]

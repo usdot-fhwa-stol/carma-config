@@ -1,0 +1,31 @@
+#!/bin/bash
+# Script to stop simulation.
+# Pulls all Kafka message data
+# Pulls RTF data from MOSAIC in cdasim container
+# Stops and removes all docker containers
+# Prunes all Kafka related volumes
+if ! [ -f /opt/carma-streets/scripts/collect_kafka_logs.py ] ; then
+  echo "Installing collect_kafka_logs.py into /opt/carma-streets/scripts/ ...."
+  wget -q https://raw.githubusercontent.com/usdot-fhwa-stol/carma-streets/master/collect_kafka_logs.py -P /opt/carma-streets/scripts
+  sudo chmod 777 /opt/carma-streets/scripts/collect_kafka_logs.py
+fi
+if ! [ -f /opt/carma-simulation/scripts/extract_rtf_data ] ; then
+  echo "Installing extract_rtf_data into /opt/carma-simulation/scripts/ ...."
+  wget -q https://raw.githubusercontent.com/usdot-fhwa-stol/carma-analytics-fotda/master/vru_use_case_scripts/extract_rtf_data -P /opt/carma-simulation/scripts
+  sudo chmod 777 /opt/carma-simulation/scripts/extract_rtf_data
+fi
+filename=carma_streets_kafka_"$(date +%F_%H-%M-%S)"
+echo "Collecting CARMA Streets Kafka messages into ${filename}.zip"
+python3 /opt/carma-streets/scripts/collect_kafka_logs.py --zip True "${filename}"
+filename_rtf=cdasim_rtf_data_"$(date +%F_%H-%M-%S)"
+echo "Collecting RTF data into ${filename_rtf}.csv"
+docker logs carma-simulation 2>&1 |  /opt/carma-simulation/scripts/extract_rtf_data > ${filename_rtf}.csv
+echo "Stopping simulation ..."
+carma stop all
+# Kafka message volumes retain messages and consumer offsets from previous run
+# Clearing volumes avoids consumer offsets and messages from previous runs impacting
+# current scenario preformance.
+echo "Clearing CARMA Streets Kafka message volumes ..."
+docker volume rm \
+  carma_kafka-datavolume \
+  carma_zookeeper-datavolume

@@ -41,6 +41,17 @@ vehicle_wheel_base: 2.79
 # Units: Meters
 vehicle_tire_radius: 0.39
 
+# Int: The maximum duration that Plan Delegator will wait after calling a tactical plugin's trajectory planning service; if trajectory
+# generation takes longer than this, then trajectory planning will immediately end for the current trajectory planning iteration.
+# NOTE: It is highly desirable to maintain a timeout of 100 ms or less, but trajectory generation success cannot be guaranteed with this duration
+#       for tactical plugins (primarily cooperative_lanechange) in all test scenarios at this time.
+# Units: Milliseconds
+tactical_plugin_service_call_timeout: 100
+
+# Activates object avoidance logics in trajectory planning plugins
+# Units: Boolean
+enable_object_avoidance: false
+
 # Acceleration limit
 # Value type: Desired
 # Units: m/s^2
@@ -81,20 +92,6 @@ vehicle_steer_lim_deg: 29.2
 # Unit: s
 vehicle_model_steer_tau : 0.3
 
-# Parameter to switch between passenger car and truck
-# Value type: Measured
-truck: false
-car: true
-
-# Required drivers for the vehicle to be functional
-required_drivers:
-  - /hardware_interface/carla_driver
-lidar_gps_drivers:
-  - /hardware_interface/carla_lidar_driver
-  - /hardware_interface/carla_gnss_driver
-camera_drivers:
-  - /hardware_interface/carla_camera_driver
-
 # Parameter to enable configurable speed limit
 # Value type: Desired
 config_speed_limit: 20.0
@@ -103,10 +100,13 @@ config_speed_limit: 20.0
 # Used for interpreting traffic rules in world model instances
 vehicle_participant_type: "vehicle:car"
 
+# Parameters to enable either ROS 1 or ROS 2 (or both) rosbag logging
+use_ros1_rosbag: true
+use_ros2_rosbag: false
+
 # Topics to exclude from rosbag recording
 exclude_default: true
 excluded_default_topics:
-  - /rosout(.*)
   - (.*)/received_messages
   - (.*)/sent_messages
   - (.*)/scan
