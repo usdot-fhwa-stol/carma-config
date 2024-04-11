@@ -97,6 +97,9 @@ def generate_launch_description():
                             'gps_time' : 'True'
                             }.items()
                     ),
+                    IncludeLaunchDescription(
+                        PythonLaunchDescriptionSource([ FindPackageShare('point_type_adapter'), '/launch/carma_point_type_adapter.launch.py']),
+                    ),
                 ]
             ),
             GroupAction(
@@ -111,6 +114,9 @@ def generate_launch_description():
                             'port' : '2369',
                             'gps_time' : 'True'
                             }.items()
+                    ),
+                    IncludeLaunchDescription(
+                        PythonLaunchDescriptionSource([ FindPackageShare('point_type_adapter'), '/launch/carma_point_type_adapter.launch.py']),
                     ),
                 ]
             )
