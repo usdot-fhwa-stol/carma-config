@@ -355,7 +355,7 @@ services:
       - ./secrets:/secrets
       - ./mysql:/docker-entrypoint-initdb.d
   php:
-    image: usdotfhwaops/php:carma-system-4.5.0
+    image: usdotfhwaops/php:7.6.0
     container_name: php
     network_mode: service:db
     depends_on:
@@ -363,7 +363,7 @@ services:
     stdin_open: true
     tty: true
   v2xhub:
-    image: usdotfhwaops/v2xhubamd:carma-system-4.5.0
+    image: usdotfhwaops/v2xhubamd:7.6.0
     container_name: v2xhub
     network_mode: service:db
     restart: always
