@@ -73,7 +73,7 @@ def generate_launch_description():
             PushRosNamespace(EnvironmentVariable('CARMA_INTR_NS', default_value='hardware_interface')),
             IncludeLaunchDescription(
                 PythonLaunchDescriptionSource([ FindPackageShare('dsrc_driver'), '/launch/dsrc_driver.py']),
-                launch_arguments = { 
+                launch_arguments = {
                     'log_level' : GetLogLevel('dsrc_driver', env_log_levels),
                     }.items()
             ),
@@ -89,13 +89,16 @@ def generate_launch_description():
                     PushRosNamespace('velodyne_1'),
                     IncludeLaunchDescription(
                         PythonLaunchDescriptionSource([ FindPackageShare('velodyne_lidar_driver_wrapper'), '/launch/velodyne_lidar_driver_wrapper_launch.py']),
-                        launch_arguments = { 
+                        launch_arguments = {
                             'log_level' : GetLogLevel('velodyne_lidar_driver_wrapper', env_log_levels),
                             'frame_id' : 'velodyne_1',
                             'device_ip' : '192.168.1.201',
                             'port' : '2368',
                             'gps_time' : 'False'
                             }.items()
+                    ),
+                    IncludeLaunchDescription(
+                        PythonLaunchDescriptionSource([ FindPackageShare('point_type_adapter'), '/launch/carma_point_type_adapter.launch.py']),
                     ),
                 ]
             ),
@@ -104,13 +107,16 @@ def generate_launch_description():
                     PushRosNamespace('velodyne_2'),
                     IncludeLaunchDescription(
                         PythonLaunchDescriptionSource([ FindPackageShare('velodyne_lidar_driver_wrapper'), '/launch/velodyne_lidar_driver_wrapper_launch.py']),
-                        launch_arguments = { 
+                        launch_arguments = {
                             'log_level' : GetLogLevel('velodyne_lidar_driver_wrapper', env_log_levels),
                             'frame_id' : 'velodyne_2',
                             'device_ip' : '192.168.2.201',
                             'port' : '2369',
                             'gps_time' : 'False'
                             }.items()
+                    ),
+                    IncludeLaunchDescription(
+                        PythonLaunchDescriptionSource([ FindPackageShare('point_type_adapter'), '/launch/carma_point_type_adapter.launch.py']),
                     ),
                 ]
             )
@@ -133,7 +139,7 @@ def generate_launch_description():
             PushRosNamespace(EnvironmentVariable('CARMA_INTR_NS', default_value='hardware_interface')),
             IncludeLaunchDescription(
                 PythonLaunchDescriptionSource([ FindPackageShare('carma_novatel_driver_wrapper'), '/launch/carma-novatel-driver-wrapper-launch.py']),
-                launch_arguments = { 
+                launch_arguments = {
                     'log_level' : GetLogLevel('carma_novatel_driver_wrapper', env_log_levels),
                     'ip_addr' : '192.168.88.29',
                     'port' : '2000',
@@ -149,7 +155,7 @@ def generate_launch_description():
             PushRosNamespace(EnvironmentVariable('CARMA_INTR_NS', default_value='hardware_interface')),
             IncludeLaunchDescription(
                 PythonLaunchDescriptionSource([ FindPackageShare('lightbar_driver'), '/launch/lightbar_driver_node_launch.py']),
-                launch_arguments = { 
+                launch_arguments = {
                     'log_level' : GetLogLevel('lightbar_driver', env_log_levels),
                     'ip_addr' : '192.168.88.28',
                     'port' : '80',
