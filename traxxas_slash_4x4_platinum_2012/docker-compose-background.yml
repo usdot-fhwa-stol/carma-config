@@ -16,7 +16,7 @@ version: '2'
 
 services: 
     web-ui:
-        image: usdotfhwastoldev/carma-web-ui:noetic-f1tenth-develop
+        image: ${DOCKER_ORG}/carma-web-ui:noetic-f1tenth-develop
         network_mode: host
         container_name: web-ui
         environment: 

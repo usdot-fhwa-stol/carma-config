@@ -55,7 +55,7 @@ enable_object_avoidance: true
 # Acceleration limit
 # Value type: Desired
 # Units: m/s^2
-vehicle_acceleration_limit: 2.0
+vehicle_acceleration_limit: 8.0
 
 # Deceleration limit
 # Value type: Desired

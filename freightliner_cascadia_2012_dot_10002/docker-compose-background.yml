@@ -17,7 +17,7 @@ version: '2'
 
 services:
   web-ui:
-    image: usdotfhwastoldev/carma-web-ui:develop
+    image: ${DOCKER_ORG}/carma-web-ui:${DOCKER_TAG}
     network_mode: host
     container_name: web-ui
     environment:
