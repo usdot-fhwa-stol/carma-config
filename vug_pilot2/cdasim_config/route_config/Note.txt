@@ -1,0 +1,3 @@
+Release_test_case_1:spawn_point:='151.2,-305.9,0,0,0,0'
+
+Release_test_case_2:spawn_point:='201.4,-291.5,0,0,0,-90'
