@@ -2,7 +2,7 @@ version: "2"
 services:
   carma-simulation:
     privileged: true
-    image: usdotfhwastoldev/cdasim:develop
+    image: ${DOCKER_ORG:-usdotfhwastoldev}/cdasim:${DOCKER_TAG:develop}
     networks:
       carma_sim_net:
         ipv4_address: 172.2.0.2
@@ -139,7 +139,7 @@ services:
       spawn_point:='215.21,-169.32,0,0,0,0'"
 
   carma-cloud:
-    image: usdotfhwastol/carma-cloud:latest
+    image: ${DOCKER_ORG:-usdotfhwastoldev}/carma-cloud:${DOCKER_TAG:-develop}
     networks:
       carma_cloud_1:
         ipv4_address: 172.6.0.47
@@ -273,7 +273,7 @@ services:
     tty: true
 
   v2xhub:
-    image: usdotfhwaops/v2xhub:develop
+    image: ${OPS_DOCKER_ORG:-usdotfhwaops}/v2xhub:${OPS_DOCKER_TAG:-develop}
     container_name: v2xhub
     network_mode: service:db
     restart: always
@@ -387,7 +387,7 @@ services:
       - /etc/timezone:/etc/timezone:ro
       
   econolite-virtual-controller:
-    image: usdotfhwastoldev/econolite-virtual-controller:develop
+    image: ${DOCKER_ORG:-usdotfhwastoldev}/econolite-virtual-controller:${DOCKER_TAG}
     container_name: evc
     restart: always
     networks:
