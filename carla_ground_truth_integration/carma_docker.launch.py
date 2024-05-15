@@ -1,4 +1,4 @@
-# Copyright (C) 2021-2023 LEIDOS.
+# Copyright (C) 2021-2024 LEIDOS.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -22,6 +22,16 @@ from launch.substitutions import LaunchConfiguration
 
 from carma_ros2_utils.launch.generate_log_levels import generate_log_levels
 import os
+import yaml
+def is_using_sim_time(vehicle_config_param_file):
+      # Open vehicle config params file to process various rosbag settings
+    with open(vehicle_config_param_file, 'r') as f:
+        vehicle_config_params = yaml.safe_load(f)
+
+        if "use_sim_time" in vehicle_config_params:
+            return str(vehicle_config_params["use_sim_time"])
+
+    return 'False'
 
 def generate_launch_description():
     """
@@ -29,8 +39,10 @@ def generate_launch_description():
     """
 
     # Parse the log config file and convert it to an environment variable
-    config_file_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'carma_rosconsole.conf')
-    logging_env_var = SetEnvironmentVariable('CARMA_ROS_LOGGING_CONFIG', generate_log_levels(config_file_path))
+    log_config_file_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'carma_rosconsole.conf')
+    vehicle_config_file_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'VehicleConfigParams.yaml')
+
+    logging_env_var = SetEnvironmentVariable('CARMA_ROS_LOGGING_CONFIG', generate_log_levels(log_config_file_path))
 
     # Declare the vehicle_calibration_dir launch argument
     vehicle_calibration_dir = LaunchConfiguration('vehicle_calibration_dir')
@@ -42,6 +54,14 @@ def generate_launch_description():
     vehicle_config_dir = LaunchConfiguration('vehicle_config_dir')
     declare_vehicle_config_dir_arg = DeclareLaunchArgument(
         name = 'vehicle_config_dir', default_value = '/opt/carma/vehicle/config', description = "Path to vehicle configuration directory"
+    )
+
+    # Declare the simuation_mode argument
+    use_sim_time = LaunchConfiguration('use_sim_time')
+    declare_use_sim_time = DeclareLaunchArgument(
+        name='use_sim_time',
+        default_value=is_using_sim_time(vehicle_config_file_path),
+        description='True if CARMA Platform is launched with CARLA Simulator'
     )
 
     # Declare launch arguments for points_map_loader
@@ -80,7 +100,7 @@ def generate_launch_description():
     strategic_plugins_to_validate = LaunchConfiguration('strategic_plugins_to_validate')
     declare_strategic_plugins_to_validate = DeclareLaunchArgument(
         name = 'strategic_plugins_to_validate',
-        default_value = '[RouteFollowing]',
+        default_value = '[/guidance/plugins/route_following_plugin]',
         description = 'List of String: Guidance Strategic Plugins that will be validated by the Guidance Plugin Validator Node if enabled'
     )
 
@@ -88,7 +108,7 @@ def generate_launch_description():
     tactical_plugins_to_validate = LaunchConfiguration('tactical_plugins_to_validate')
     declare_tactical_plugins_to_validate = DeclareLaunchArgument(
         name = 'tactical_plugins_to_validate',
-        default_value='[InLaneCruisingPlugin, StopandWaitPlugin, CooperativeLaneChangePlugin, UnobstructedLaneChangePlugin, YieldPlugin]',
+        default_value='[/guidance/plugins/inlanecruising_plugin, /guidance/plugins/stop_and_wait_plugin, /guidance/plugins/cooperative_lanechange, /guidance/plugins/yield_plugin]',
         description='List of String: Guidance Tactical Plugins that will be validated by the Guidance Plugin Validator Node if enabled'
     )
 
@@ -96,19 +116,8 @@ def generate_launch_description():
     control_plugins_to_validate = LaunchConfiguration('control_plugins_to_validate')
     declare_control_plugins_to_validate = DeclareLaunchArgument(
         name = 'control_plugins_to_validate',
-        default_value= '[Pure Pursuit]',
+        default_value= '[/guidance/plugins/pure_pursuit_wrapper]',
         description='List of String: Guidance Control Plugins that will be validated by the Guidance Plugin Validator Node if enabled'
-    )
-
-    simulation_mode = LaunchConfiguration('simulation_mode')
-    declare_simulation_mode = DeclareLaunchArgument(name='simulation_mode', default_value = 'True', description = 'True if CARMA Platform is launched with CARLA Simulator')
-
-    # Declare is_ros2_tracing_enabled
-    is_ros2_tracing_enabled = LaunchConfiguration('is_ros2_tracing_enabled')
-    declare_is_ros2_tracing_enabled = DeclareLaunchArgument(
-        name='is_ros2_tracing_enabled', 
-        default_value = 'False', 
-        description = 'True if user wants ROS 2 Tracing logs to be generated from CARMA Platform'
     )
 
     # Launch the core carma launch file
@@ -127,7 +136,7 @@ def generate_launch_description():
             'area' : area,
             'arealist_path' : arealist_path,
             'vector_map_file' : vector_map_file,
-            'simulation_mode' : simulation_mode
+            'use_sim_time' : use_sim_time
             }.items()
     )
 
@@ -145,7 +154,6 @@ def generate_launch_description():
         declare_area,
         declare_arealist_path,
         declare_vector_map_file,
-        declare_simulation_mode,
-        declare_is_ros2_tracing_enabled,
+        declare_use_sim_time,
         carma_src_launch
     ])

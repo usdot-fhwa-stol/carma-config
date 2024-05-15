@@ -1,5 +1,5 @@
 # This file contains configurations for the subsystem_controllers which manage the lifecycle of each individual subsystem
-# For brevity the parameter descriptions are not provided here. The descriptions can be found in the default parameter files located 
+# For brevity the parameter descriptions are not provided here. The descriptions can be found in the default parameter files located
 # in the subsystem_controllers parameter directory here: https://github.com/usdot-fhwa-stol/carma-platform/tree/develop/subsystem_controllers/config
 # The parameters specified in this file override the parameters in the default parameter files.
 # NOTE: Due to a limitation in ROS2 empty arrays in this file should be denoted with ['']
@@ -8,7 +8,7 @@ environment:
     ros__parameters:
       subsystem_namespace: /environment
       required_subsystem_nodes: ['']
-      unmanaged_required_nodes: 
+      unmanaged_required_nodes:
         - /hardware_interface/velodyne_lidar_driver_wrapper_node
       full_subsystem_required: true
 
@@ -22,17 +22,19 @@ hardware_interface:
         - /hardware_interface/carla_lidar_driver
         - /hardware_interface/carla_gnss_driver
       ros1_required_drivers:
-       - /hardware_interface/carla_driver
+        - /hardware_interface/carla_driver
       ros1_camera_drivers:
-      - /hardware_interface/carla_camera_driver
+        - /hardware_interface/carla_camera_driver
       full_subsystem_required: false
+      startup_duration: 60
+      required_driver_timeout: 30000.0 #ROS1 bridge dropping message depending on computer
 
 message:
   v2x_controller:
     ros__parameters:
       subsystem_namespace: /message
       required_subsystem_nodes: ['']
-      unmanaged_required_nodes: 
+      unmanaged_required_nodes:
         - /hardware_interface/dsrc_driver_node
       full_subsystem_required: true
 
@@ -47,7 +49,6 @@ guidance:
         - /guidance/plugins/route_following_plugin
         - /guidance/plugins/pure_pursuit_wrapper
         - /guidance/plugins/inlanecruising_plugin
-        - /guidance/plugins/cooperative_lanechange
       auto_activated_plugins:
         - /guidance/plugins/lci_strategic_plugin
         - /guidance/plugins/intersection_transit_maneuvering
@@ -60,8 +61,7 @@ guidance:
         - /guidance/plugins/platooning_tactical_plugin_node
         - /guidance/plugins/yield_plugin
       ros2_initial_plugins:
-        - /guidance/plugins/lci_strategic_plugin
-        - /guidance/plugins/inlanecruising_plugin          
+        - /guidance/plugins/inlanecruising_plugin
         - /guidance/plugins/platoon_strategic_ihp_node
         - /guidance/plugins/stop_and_wait_plugin
         - /guidance/plugins/route_following_plugin
@@ -88,7 +88,7 @@ localization:
       # TODO update the fault map once ros2 gps is integrated
       sensor_fault_map: '
         {
-          "sensor_fault_map": 
+          "sensor_fault_map":
           [
             [0,0]
           ]

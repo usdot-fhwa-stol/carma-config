@@ -107,14 +107,15 @@ services:
     # start_delay_in_seconds is carla game time seconds to adjust when to engage for the scenario
     # and account for delay required for world model to fully update after route is selected
     command: >
-      bash -c "wait-for-it.sh 172.3.0.2:11311
+      bash -c "sleep 10
+      && wait-for-it.sh 172.3.0.2:11311
       && export PYTHONPATH=$PYTHONPATH:~/PythonAPI/carla/dist/carla-0.9.10-py3.7-linux-x86_64.egg:/home/carma/carla-sensor-lib/src
       && source ~/carma_carla_ws/devel/setup.bash
       && roslaunch carma_carla_agent carma_carla_agent.launch
       role_name:='carma_1'
       selected_route:='VOICES_Demo1_veh1_route'
       town:='TFHRC'
-      host:='127.0.0.1'
+      host:='192.168.55.85'
       port:='2000'
       start_delay_in_seconds:='40'
       spawn_point:='-174.9,-513.0,40,0,0,10'
