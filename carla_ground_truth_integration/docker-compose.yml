@@ -103,9 +103,10 @@ services:
       - ROS_IP=172.3.0.6
       - ROS_MASTER_URI=http://172.3.0.2:11311/
       - PYTHONUNBUFFERED=1
-    # sleep is for carla simulator to become available
+    # sleep is for carla simulator to become available & carma node lifecycles to get activated
     # start_delay_in_seconds is carla game time seconds to adjust when to engage for the scenario
     # and account for delay required for world model to fully update after route is selected
+    # be sure to change host IP to host machines IP if starting CARLA from host
     command: >
       bash -c "sleep 10
       && wait-for-it.sh 172.3.0.2:11311
@@ -115,12 +116,11 @@ services:
       role_name:='carma_1'
       selected_route:='VOICES_Demo1_veh1_route'
       town:='TFHRC'
-      host:='192.168.55.85'
+      host:='127.0.0.1'
       port:='2000'
       start_delay_in_seconds:='40'
       spawn_point:='-174.9,-513.0,40,0,0,10'
-      synchronous_mode:='true'
-      enable_sensor_objects:='false'"
+      synchronous_mode:='true'"
 
 networks:
 
