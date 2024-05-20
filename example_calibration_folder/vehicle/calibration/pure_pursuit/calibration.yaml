@@ -1,6 +1,17 @@
 # Pure pursuit lookahead calibration params
+minimum_lookahead_distance:      6.0
+maximum_lookahead_distance:      100.0
+speed_to_lookahead_ratio:        2.0
+is_interpolate_lookahead_point:  true
+is_delay_compensation:           false # not to be confused with vehicle_response_lag. This accounts for delay between when trajectory is generated and when cmd is generated. This should be set to false during carla simulation testing
 
-const_lookahead_distance: 4.0
-lookahead_ratio: 2.0
-minimum_lookahead_distance: 6.0
-vehicle_wheel_base: 2.7 # This is intentionally set independent of the carma-config value to allow it to be used as a tuning parameter
+emergency_stop_distance:         1.0
+speed_thres_traveling_direction: 0.3
+dist_front_rear_wheels:          2.7
+
+#Pure pursuit integrator calibration params
+dt:                    0.0333  #sec, 30HZ
+integrator_max_pp:     0.0
+integrator_min_pp:     0.0
+Ki_pp:                 0.0
+is_integrator_enabled: false
