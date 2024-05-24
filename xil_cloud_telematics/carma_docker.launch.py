@@ -1,4 +1,4 @@
-# Copyright (C) 2021-2022 LEIDOS.
+# Copyright (C) 2021-2024 LEIDOS.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -120,14 +120,6 @@ def generate_launch_description():
         description='List of String: Guidance Control Plugins that will be validated by the Guidance Plugin Validator Node if enabled'
     )
 
-    # Declare is_ros2_tracing_enabled
-    is_ros2_tracing_enabled = LaunchConfiguration('is_ros2_tracing_enabled')
-    declare_is_ros2_tracing_enabled = DeclareLaunchArgument(
-        name='is_ros2_tracing_enabled',
-        default_value = 'False',
-        description = 'True if user wants ROS 2 Tracing logs to be generated from CARMA Platform'
-    )
-
     # Launch the core carma launch file
     carma_src_launch = IncludeLaunchDescription(
         PythonLaunchDescriptionSource([ get_package_share_directory('carma'), '/launch/carma_src.launch.py']),
@@ -163,6 +155,5 @@ def generate_launch_description():
         declare_arealist_path,
         declare_vector_map_file,
         declare_use_sim_time,
-        declare_is_ros2_tracing_enabled,
         carma_src_launch
     ])
