@@ -145,7 +145,7 @@ services:
       start_delay_in_seconds:=${VEHICLE_ENGAGE_DELAY}
       spawn_point:=${VEHICLE_SPAWN_POINT}"
 
-  carma-vehicle-nats-bridge_1:
+  ros2-nats-bridge_1:
     image: ${DOCKER_ORG}/carma_vehicle_nats_bridge:${DOCKER_TAG}
     logging:
         options:
@@ -154,7 +154,7 @@ services:
     networks:
         carma_net_1:
           ipv4_address: 172.3.0.8
-    container_name: carma_vehicle_bridge_1
+    container_name: ros2_nats_bridge_1
     volumes:
       - /opt/carma/vehicle/calibration:/opt/carma/vehicle/calibration
     env_file:
@@ -438,7 +438,7 @@ services:
       --record metrics/data/
       --host 172.2.0.2"
 
-  carma-streets-nats-bridge_1:
+  kafka-nats-bridge_1:
     image: ${DOCKER_ORG}/carma_street_nats_bridge:${DOCKER_TAG}
     logging:
         options:
@@ -447,7 +447,7 @@ services:
     networks:
       carma_streets_net_1:
         ipv4_address: 172.4.0.17
-    container_name: carma_streets_nats_bridge_1
+    container_name: kafka_nats_bridge_1
     restart: always
     volumes:
       - /opt/carma/vehicle/calibration:/opt/carma/vehicle/calibration
