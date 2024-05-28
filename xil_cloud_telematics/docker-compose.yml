@@ -161,7 +161,7 @@ services:
       - /opt/carma/vehicle/calibration/telematics/telematics.env
     environment:
       - NATS_SERVER_IP_PORT=${NATS_SERVER_IP_PORT} # This variable needs to be explictly defined before bringing the container up. NATS_SERVER_IP_PORT referes to the IP:Port of the cloud instance running the telematic server.
-    command:  bash -c 'source /ws/install/setup.bash && ros2 launch ros2_nats_bridge ros2_nats_bridge_launch.py
+    command:  bash -c 'source /ws/install/setup.bash && ros2 launch ros2_nats_bridge ros2_nats_bridge_launch.py'
 
   ns3_adapter_1:
     image: ${DOCKER_ORG}/carma-ns3-adapter:${DOCKER_TAG}
