@@ -451,6 +451,7 @@ services:
     restart: always
     volumes:
       - /opt/carma/vehicle/calibration:/opt/carma/vehicle/calibration
+      - /var/logs:/var/logs
     env_file:
       - /opt/carma/vehicle/calibration/telematics/telematics.env
     environment:
