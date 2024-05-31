@@ -62,6 +62,9 @@ services:
       - /opt/carma/maps:/opt/carma/maps
       - /opt/carma/routes:/opt/carma/routes
       - /opt/carma/yolo:/opt/carma/yolo
+      - /home/dev/carma_ws/src/carma-platform/carma/launch:/opt/carma/install_ros2/carma/share/carma/launch
+      - /home/dev/carma_ws/src/carma-platform/localization_manager/config/parameters.yaml:/opt/carma/install_ros2/localization_manager/share/localization_manager/config/parameters.yaml
+      - ~/carma_ws/src/carma-platform/cooperative_lanechange/config:/opt/carma/install_ros2/cooperative_lanechange/share/cooperative_lanechange/config
     command: bash -c 'source /opt/carma/install_ros2/setup.bash && ros2 launch /opt/carma/vehicle/config/carma_docker.launch.py'
 
   ros1_bridge:
@@ -97,7 +100,7 @@ services:
     command: bash -c 'export ROS_NAMESPACE=$${CARMA_INTR_NS} && wait-for-it.sh localhost:11311 -- roslaunch /opt/carma/vehicle/config/drivers.launch drivers:=lightbar_driver'
 
   cohda_dsrc_driver:
-    image: usdotfhwastol/carma-cohda-dsrc-driver:carma-system-4.5.0
+    image: usdotfhwastoldev/carma-cohda-dsrc-driver:develop
     container_name: carma-cohda-dsrc-driver
     network_mode: host
     volumes_from:

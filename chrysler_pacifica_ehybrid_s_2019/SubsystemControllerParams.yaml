@@ -16,11 +16,13 @@ hardware_interface:
   drivers_controller:
     ros__parameters:
       subsystem_namespace: /hardware_interface
-      required_subsystem_nodes: ['']
+      required_subsystem_nodes:
+        - /hardware_interface/carma_novatel_driver_wrapper_node
       unmanaged_required_nodes: ['']
       excluded_namespace_nodes:
         - /hardware_interface/velodyne_lidar_driver_wrapper
         - /hardware_interface/carma_novatel_driver_wrapper_node
+      ros1_required_drivers: ['']
       ros1_required_drivers:
        - /hardware_interface/ssc_interface_wrapper
       ros1_camera_drivers:
@@ -79,7 +81,8 @@ localization:
   localization_controller:
     ros__parameters:
       subsystem_namespace: /localization
-      required_subsystem_nodes: ['']
+      required_subsystem_nodes:
+        - /hardware_interface/carma_novatel_driver_wrapper_node
       unmanaged_required_nodes: ['']
       full_subsystem_required: true
       sensor_nodes:
