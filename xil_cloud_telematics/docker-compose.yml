@@ -1,6 +1,5 @@
-version: '2'
+version: "2"
 services:
-
   carma-simulation:
     privileged: true
     image: ${DOCKER_ORG}/cdasim:${DOCKER_TAG}
@@ -14,6 +13,8 @@ services:
     volumes:
       - /tmp/.X11-unix:/tmp/.X11-unix
       - /opt/carma-simulation/logs:/opt/carma-simulation/logs
+      - ./carla-recorder/:/app/scenario_runner/metrics/data/
+      - ./cdasim/logback.xml:/opt/carma-simulation/etc/logback.xml
     deploy:
       resources:
         reservations:
@@ -21,7 +22,7 @@ services:
             - capabilities: [gpu]
     command: bash -c "./mosaic.sh -s Town04"
 
-## carma_1 vehicle
+  ## carma_1 vehicle
   roscore_1:
     image: ${DOCKER_ORG}/carma-base:${DOCKER_TAG}
     networks:
@@ -59,7 +60,9 @@ services:
     environment:
       - ROS_IP=172.3.0.3
       - ROS_MASTER_URI=http://172.3.0.2:11311/
-    command: bash -c 'wait-for-it.sh 172.3.0.2:11311 -- roslaunch /opt/carma/vehicle/config/carma_docker.launch'
+    command: >
+      bash -c 'export RMW_IMPLEMENTATION=rmw_cyclonedds_cpp
+      && wait-for-it.sh 172.3.0.2:11311 -- roslaunch /opt/carma/vehicle/config/carma_docker.launch'
 
   platform_ros2_1:
     image: ${DOCKER_ORG}/carma-platform:${DOCKER_TAG}
@@ -76,8 +79,14 @@ services:
       - /opt/carma/maps:/opt/carma/maps
       - /opt/carma/routes:/opt/carma/routes
       - /opt/carma/yolo:/opt/carma/yolo
-      - ./inlanecruising_config/parameters.yaml:/opt/carma/install_ros2/inlanecruising_plugin/share/inlanecruising_plugin/config/parameters.yaml
-    command: bash -c 'source /opt/carma/install_ros2/setup.bash && ros2 launch /opt/carma/vehicle/config/carma_docker.launch.py'
+      - ./carma-platform/inlanecruising_plugin/parameters.yaml:/opt/carma/install_ros2/inlanecruising_plugin/share/inlanecruising_plugin/config/parameters.yaml
+      - ./carma-platform/yield_plugin/parameters.yaml:/opt/carma/install_ros2/yield_plugin/share/yield_plugin/config/parameters.yaml
+      - ./carma-platform/lci_strategic_plugin/parameters.yaml:/opt/carma/install_ros2/lci_strategic_plugin/share/lci_strategic_plugin/config/parameters.yaml
+      - ./carma-platform/motion_computation/parameters.yaml:/opt/carma/install_ros2/motion_computation/share/motion_computation/config/parameters.yaml
+    command: >
+      bash -c 'export RMW_IMPLEMENTATION=rmw_cyclonedds_cpp
+      && source /opt/carma/install_ros2/setup.bash
+      && ros2 launch /opt/carma/vehicle/config/carma_docker.launch.py'
 
   ros1_bridge_1:
     image: ${DOCKER_ORG}/carma-msgs:${DOCKER_TAG}
@@ -97,7 +106,11 @@ services:
       - /opt/carma/maps:/opt/carma/maps
       - /opt/carma/routes:/opt/carma/routes
       - /opt/carma/yolo:/opt/carma/yolo
-    command: bash -c 'wait-for-it.sh 172.3.0.2:11311 -- rosparam load /opt/carma/vehicle/config/bridge.yml && source ~/.base-image/workspace/install/setup.bash && ros2 run ros1_bridge dynamic_bridge --multi-threads'
+    command: >
+      bash -c 'export RMW_IMPLEMENTATION=rmw_cyclonedds_cpp
+      && wait-for-it.sh 172.3.0.2:11311 -- rosparam load /opt/carma/vehicle/config/bridge.yml
+      && source ~/.base-image/workspace/install/setup.bash
+      && ros2 run ros1_bridge dynamic_bridge --multi-threads'
 
   carma-carla-integration_1:
     image: ${DOCKER_ORG}/carma-carla-integration:${DOCKER_TAG}
@@ -107,23 +120,48 @@ services:
       carma_sim_net:
         ipv4_address: 172.2.0.6
     container_name: carma-carla-integration_1
+    volumes:
+      - ./carma-carla-integration/carma_carla_agent.launch:/home/carma/carma-carla-integration/carma-carla-agent/launch/carma_carla_agent.launch
     volumes_from:
       - container:carma-config:ro
     environment:
-      - ROS_IP=172.3.0.6
-      - ROS_MASTER_URI=http://172.3.0.2:11311/
-      - PYTHONUNBUFFERED=1
+      ROS_IP: 172.3.0.6
+      ROS_MASTER_URI: http://172.3.0.2:11311/
+      PYTHONUNBUFFERED: 1
+
     # sleep is for carla simulator to become available
     # start_delay_in_seconds is carla game time seconds to adjust when to engage for the scenario
     # and account for delay required for world model to fully update after route is selected
-    command: bash -c "sleep 10;
-                      export PYTHONPATH=$PYTHONPATH:~/PythonAPI/carla/dist/carla-0.9.10-py3.7-linux-x86_64.egg &&
-                      source ~/carma_carla_ws/devel/setup.bash &&
-                      roslaunch carma_carla_agent carma_carla_agent.launch role_name:='carma_1'
-                                                                           host:='172.2.0.2'
-                                                                           selected_route:='Release_test_case_1'
-                                                                           start_delay_in_seconds:='15'
-                                                                           spawn_point:='151.2,-305.9,0,0,0,0'"
+    command: >
+      bash -c "export RMW_IMPLEMENTATION=rmw_cyclonedds_cpp
+      && wait-for-it.sh 172.3.0.2:11311
+      && export PYTHONPATH=$PYTHONPATH:~/PythonAPI/carla/dist/carla-0.9.10-py3.7-linux-x86_64.egg:/home/carma/carla-sensor-lib/src
+      && source ~/carma_carla_ws/devel/setup.bash
+      && python3 /home/carma/carma-carla-integration/carla-health-poll/src/wait_for_carla.py
+      && roslaunch carma_carla_agent carma_carla_agent.launch
+      role_name:='carma_1'
+      host:='172.2.0.2'
+      selected_route:=${VEHICLE_SELECTED_ROUTE}
+      start_delay_in_seconds:=${VEHICLE_ENGAGE_DELAY}
+      spawn_point:=${VEHICLE_SPAWN_POINT}"
+
+  ros2-nats-bridge_1:
+    image: ${DOCKER_ORG}/carma_vehicle_nats_bridge:${DOCKER_TAG}
+    logging:
+        options:
+          max-size: "10m"
+          max-file: "1"
+    networks:
+        carma_net_1:
+          ipv4_address: 172.3.0.8
+    container_name: ros2_nats_bridge_1
+    volumes:
+      - /opt/carma/vehicle/calibration:/opt/carma/vehicle/calibration
+    env_file:
+      - /opt/carma/vehicle/calibration/telematics/telematics.env
+    environment:
+      - NATS_SERVER_IP_PORT=${NATS_SERVER_IP_PORT} # This variable needs to be explictly defined before bringing the container up. NATS_SERVER_IP_PORT referes to the IP:Port of the cloud instance running the telematic server.
+    command:  bash -c 'source /ws/install/setup.bash && ros2 launch ros2_nats_bridge ros2_nats_bridge_launch.py'
 
   ns3_adapter_1:
     image: ${DOCKER_ORG}/carma-ns3-adapter:${DOCKER_TAG}
@@ -147,154 +185,11 @@ services:
       - /opt/carma/routes:/opt/carma/routes
       - /opt/carma/yolo:/opt/carma/yolo
       - ./ns3_adapter/adapter_1/parameters.yaml:/opt/carma/install/ns3_adapter/share/ns3_adapter/config/parameters.yaml
-    command: bash -c "wait-for-it.sh 172.3.0.2:11311 -- roslaunch ns3_adapter ns3_adapter.launch role_id:='carma_1' remap_ns:=/hardware_interface/comms"
-
-  carma-vehicle-nats-bridge_1:
-    image: ${DOCKER_ORG}/carma_vehicle_nats_bridge:${DOCKER_TAG}
-    logging:
-        options:
-          max-size: "10m"
-          max-file: "1"
-    networks:
-        carma_net_1:
-          ipv4_address: 172.3.0.8
-    container_name: carma_vehicle_bridge_1
-    volumes:
-      - /opt/carma/vehicle/calibration:/opt/carma/vehicle/calibration
-    env_file:
-      - /opt/carma/vehicle/calibration/telematics/telematics.env
-    environment:
-      - NATS_SERVER_IP_PORT=${NATS_SERVER_IP_PORT} # This variable needs to be explictly defined before bringing the container up. NATS_SERVER_IP_PORT referes to the IP:Port of the cloud instance running the telematic server.
-    command:  bash -c 'source /ws/install/setup.bash && ros2 launch ros2_nats_bridge ros2_nats_bridge_launch.py'
-
-#################
-# carma_2 vehicle
-
-  # roscore_2:
-  #   image: ${DOCKER_ORG}/carma-base:${DOCKER_TAG}
-  #   networks:
-  #     carma_net_2:
-  #       ipv4_address: 172.5.0.2
-  #   container_name: roscore_2
-  #   volumes_from:
-  #     - container:carma-config:ro
-  #   volumes:
-  #     - /opt/carma/.ros/:/home/carma/.ros
-  #     - /opt/carma/logs/carma_2:/opt/carma/logs
-  #   restart: always
-  #   environment:
-  #     - ROS_IP=172.5.0.2
-  #     - ROS_MASTER_URI=http://172.5.0.2:11311/
-  #   command: roscore
-
-  # platform_2:
-  #   image: ${DOCKER_ORG}/carma-platform:${DOCKER_TAG}
-  #   networks:
-  #     carma_net_2:
-  #       ipv4_address: 172.5.0.3
-  #   container_name: platform_2
-  #   volumes_from:
-  #     - container:carma-config:ro
-  #   volumes:
-  #     - /opt/carma/logs/carma_2:/opt/carma/logs
-  #     - /opt/carma/.ros:/home/carma/.ros
-  #     - /opt/carma/vehicle/calibration:/opt/carma/vehicle/calibration
-  #     - /opt/carma/yolo:/opt/carma/yolo
-  #     - /opt/carma/maps:/opt/carma/maps
-  #     - /opt/carma/routes:/opt/carma/routes
-  #     - /opt/carma/data:/opt/carma/data
-  #     - /opt/carma/simulation:/opt/carma/simulation
-  #   environment:
-  #     - ROS_IP=172.5.0.3
-  #     - ROS_MASTER_URI=http://172.5.0.2:11311/
-  #   command: bash -c 'wait-for-it.sh 172.3.0.2:11311 -- roslaunch /opt/carma/vehicle/config/carma_docker.launch'
-
-  # platform_ros2_2:
-  #   image: ${DOCKER_ORG}/carma-platform:${DOCKER_TAG}
-  #   networks:
-  #     carma_net_2:
-  #       ipv4_address: 172.5.0.4
-  #   container_name: platform_ros2_2
-  #   volumes_from:
-  #     - container:carma-config:ro
-  #   volumes:
-  #     - /opt/carma/logs/carma_2:/opt/carma/logs
-  #     - /opt/carma/.ros:/home/carma/.ros
-  #     - /opt/carma/vehicle/calibration:/opt/carma/vehicle/calibration
-  #     - /opt/carma/maps:/opt/carma/maps
-  #     - /opt/carma/routes:/opt/carma/routes
-  #     - /opt/carma/yolo:/opt/carma/yolo
-  #     - ./inlanecruising_config/parameters.yaml:/opt/carma/install/inlanecruising_plugin/share/inlanecruising_plugin/config/parameters.yaml
-  #   command: bash -c 'source /opt/carma/install_ros2/setup.bash && ros2 launch /opt/carma/vehicle/config/carma_docker.launch.py'
-
-  # ros1_bridge_2:
-  #   image: ${DOCKER_ORG}/carma-msgs:${DOCKER_TAG}
-  #   networks:
-  #     carma_net_2:
-  #       ipv4_address: 172.5.0.5
-  #   container_name: ros1_bridge_2
-  #   volumes_from:
-  #     - container:carma-config:ro
-  #   environment:
-  #     - ROS_IP=172.5.0.5
-  #     - ROS_MASTER_URI=http://172.5.0.2:11311/
-  #   volumes:
-  #     - /opt/carma/logs/carma_2:/opt/carma/logs
-  #     - /opt/carma/.ros:/home/carma/.ros
-  #     - /opt/carma/vehicle/calibration:/opt/carma/vehicle/calibration
-  #     - /opt/carma/maps:/opt/carma/maps
-  #     - /opt/carma/routes:/opt/carma/routes3
-  #     - /opt/carma/yolo:/opt/carma/yolo
-  #   command: bash -c 'wait-for-it.sh 172.5.0.2:11311 -- rosparam load /opt/carma/vehicle/config/bridge.yml && source ~/.base-image/workspace/install/setup.bash && ros2 run ros1_bridge dynamic_bridge --multi-threads'
-
-  # carma-carla-integration_2:
-  #   image: ${DOCKER_ORG}/carma-carla-integration:${DOCKER_TAG}
-  #   networks:
-  #     carma_net_2:
-  #       ipv4_address: 172.5.0.6
-  #     carma_sim_net:
-  #       ipv4_address: 172.2.0.10
-  #   container_name: carma-carla-integration_2
-  #   volumes_from:
-  #     - container:carma-config:ro
-  #   environment:
-  #     - ROS_IP=172.5.0.6
-  #     - ROS_MASTER_URI=http://172.5.0.2:11311/
-  #   command: bash -c "sleep 10;
-  #                     export PYTHONPATH=$PYTHONPATH:~/PythonAPI/carla/dist/carla-0.9.10-py3.7-linux-x86_64.egg &&
-  #                     source ~/carma_carla_ws/devel/setup.bash &&
-  #                     roslaunch carma_carla_agent carma_carla_agent.launch role_name:='carma_2'
-  #                                                                          host:='172.2.0.2'
-  #                                                                          selected_route:='Release_test_case_2'
-  #                                                                          start_delay_in_seconds:='15'
-  #                                                                          spawn_point:='201.4,-291.5,0,0,0,-90'"
-
-  # ns3_adapter_2:
-  #   image: ${DOCKER_ORG}/carma-ns3-adapter:${DOCKER_TAG}
-  #   networks:
-  #     carma_net_2:
-  #       ipv4_address: 172.5.0.7
-  #     carma_sim_net:
-  #       ipv4_address: 172.2.0.11
-  #   container_name: ns3_adapter_2
-  #   volumes_from:
-  #     - container:carma-config:ro
-  #   environment:
-  #     - ROS_IP=172.5.0.7
-  #     - ROS_MASTER_URI=http://172.5.0.2:11311/
-  #     - NVIDIA_VISIBLE_DEVICES=all
-  #   volumes:
-  #     - /opt/carma/logs/carma_2:/opt/carma/logs
-  #     - /opt/carma/.ros:/home/carma/.ros
-  #     - /opt/carma/vehicle/calibration:/opt/carma/vehicle/calibration
-  #     - /opt/carma/maps:/opt/carma/maps
-  #     - /opt/carma/routes:/opt/carma/routes
-  #     - /opt/carma/yolo:/opt/carma/yolo
-  #     - ./ns3_adapter/adapter_2/parameters.yaml:/opt/carma/install/ns3_adapter/share/ns3_adapter/config/parameters.yaml
-  #   command: bash -c "wait-for-it.sh 172.5.0.2:11311 -- roslaunch ns3_adapter ns3_adapter.launch role_id:='carma_2' remap_ns:=/hardware_interface/comms"
-
-#################
-
+    command: >
+      bash -c "export RMW_IMPLEMENTATION=rmw_fastrtps_cpp
+      && wait-for-it.sh 172.3.0.2:11311 -- roslaunch ns3_adapter ns3_adapter.launch
+      role_id:='carma_1'
+      remap_ns:=/hardware_interface/comms"
 
   zookeeper:
     image: wurstmeister/zookeeper
@@ -304,38 +199,61 @@ services:
         ipv4_address: 172.4.0.3
     volumes:
       - zookeeper-datavolume:/opt/zookeeper-3.4.13/data
+
   kafka:
     image: wurstmeister/kafka
     container_name: kafka
     depends_on:
       - zookeeper
     network_mode: service:zookeeper
+    # Health check to confirm kafka server is healthy (script is a client) and all topics
+    # have been created (time_sync is last topic).
+    healthcheck:
+      test: ["CMD", "kafka-topics.sh", "--describe", "--bootstrap-server", "172.4.0.3:9092", "--topic", "time_sync"]
+      interval: 2s
+      timeout: 10s
+      retries: 10
     environment:
-      DOCKER_HOST_IP:  172.4.0.3
-      KAFKA_ADVERTISED_HOST_NAME:  172.4.0.3
+      DOCKER_HOST_IP: 172.4.0.3
+      KAFKA_ADVERTISED_HOST_NAME: 172.4.0.3
       KAFKA_ADVERTISED_PORT: 9092
-      KAFKA_CREATE_TOPICS: "v2xhub_scheduling_plan_sub:1:1,v2xhub_bsm_in:1:1,v2xhub_mobility_operation_in:1:1,v2xhub_mobility_path_in:1:1,vehicle_status_intent_output:1:1,v2xhub_map_msg_in:1:1,modified_spat:1:1,desired_phase_plan:1:1, tsc_config_state:1:1, time_sync:1:1"
+      KAFKA_CREATE_TOPICS: "\
+        v2xhub_scheduling_plan_sub:1:1,\
+        v2xhub_bsm_in:1:1,\
+        v2xhub_mobility_operation_in:1:1,\
+        v2xhub_mobility_path_in:1:1,\
+        vehicle_status_intent_output:1:1,\
+        v2xhub_map_msg_in:1:1,\
+        modified_spat:1:1,\
+        desired_phase_plan:1:1,\
+        tsc_config_state:1:1,\
+        v2xhub_sim_sensor_detected_object:1:1,\
+        v2xhub_sdsm_sub,\
+        time_sync:1:1"
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
       KAFKA_LOG_DIRS: "/kafka/kafka-logs"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - kafka-datavolume:/kafka/kafka-logs
-##############################################################
-# Kafka Owl for monitoring kafka traffic. UI can be accessed on
-# configurable port set in performance/kowl.yaml NOTE: IS NOT
-# NECESSARY FOR DEPLOYMENT BUT HELFUL FOR DEBUGGING!
-################################################################
+
+  ##############################################################
+  # Kafka Owl for monitoring kafka traffic. UI can be accessed on
+  # configurable port set in performance/kowl.yaml NOTE: IS NOT
+  # NECESSARY FOR DEPLOYMENT BUT HELFUL FOR DEBUGGING!
+  ################################################################
   kowl:
     image: quay.io/cloudhut/kowl
     container_name: kowl
     restart: on-failure
     network_mode: service:zookeeper
     depends_on:
-      - kafka
+      kafka:
+        condition: service_healthy
     environment:
       CONFIG_FILEPATH: /etc/kowl/kowl.yaml
     volumes:
       - ./kowl:/etc/kowl/
+
   db:
     image: mysql:5.7
     container_name: mysql
@@ -354,6 +272,7 @@ services:
       - mysql-datavolume:/var/lib/mysql
       - ./secrets:/secrets
       - ./mysql:/docker-entrypoint-initdb.d
+
   php:
     image: usdotfhwaops/php:${OPS_DOCKER_TAG}
     container_name: php
@@ -362,6 +281,7 @@ services:
       - v2xhub
     stdin_open: true
     tty: true
+
   v2xhub:
     image: usdotfhwaops/v2xhubamd:${OPS_DOCKER_TAG}
     container_name: v2xhub
@@ -370,18 +290,18 @@ services:
     depends_on:
       - db
     environment:
-      - MYSQL_PASSWORD=/home/V2X-Hub/secrets/mysql_password.txt
-      - SIMULATION_MODE=${SIMULATION_MODE}
-      - SIMULATION_IP=172.2.0.2
-      - SIMULATION_REGISTRATION_PORT=1615
-      - LOCAL_IP=172.2.0.8
-      - TIME_SYNC_TOPIC=time_sync
-      - TIME_SYNC_PORT=7575
-      - SIM_V2X_PORT=1517
-      - SIM_INTERACTION_PORT=7576
-      - V2X_PORT=8686
-      - SENSOR_JSON_FILE_PATH=/home/V2X-Hub/sensor_configurations/sensors.json
-      - INFRASTRUCTURE_ID=rsu_15
+      MYSQL_PASSWORD: /home/V2X-Hub/secrets/mysql_password.txt
+      SIMULATION_MODE: ${SIMULATION_MODE}
+      SIMULATION_IP: 172.2.0.2
+      SIMULATION_REGISTRATION_PORT: 1615
+      LOCAL_IP: 172.2.0.8
+      TIME_SYNC_TOPIC: time_sync
+      TIME_SYNC_PORT: 7575
+      SIM_V2X_PORT: 1517
+      SIM_INTERACTION_PORT: 7576
+      V2X_PORT: 8686
+      SENSOR_JSON_FILE_PATH: /home/V2X-Hub/sensor_configurations/sensors.json
+      INFRASTRUCTURE_ID: ${INFRASTRUCTURE_ID}
     volumes:
       - ./logs:/var/log/tmx
       - ./MAP:/var/www/plugins/MAP
@@ -394,10 +314,10 @@ services:
     restart: always
     network_mode: service:zookeeper
     depends_on:
-      - kafka
+      kafka:
+        condition: service_healthy
     environment:
-      DOCKER_HOST_IP:  172.4.0.3
-
+      DOCKER_HOST_IP: 172.4.0.3
     volumes:
       - ./intersection_model/manifest.json:/home/carma-streets/intersection_model/manifest.json
       - ./intersection_model/logs:/home/carma-streets/intersection_model/logs
@@ -414,33 +334,68 @@ services:
       - LOAD_CARLA_EGG=True
       - CARLA_VERSION=0.9.10
       - CARLA_EGG_DIR=/home/CarlaCDASimAdapter/
+    volumes:
+      - ./carla-sensor-lib/logs/:/home/CarlaCDASimAdapter/logs/
     command: bash -c "sleep 15;
-                      python3 -u /home/CarlaCDASimAdapter/src/CarlaCDASimAdapter.py --carla-host 172.2.0.2 --xmlrpc-server-host 172.2.0.5  --sensor-config-file ./config/simulated_sensor_config.yaml --noise-model-config-file ./config/noise_model_config.yaml"
+      python3 -u /home/CarlaCDASimAdapter/src/CarlaCDASimAdapter.py --carla-host 172.2.0.2 --xmlrpc-server-host 172.2.0.5  --sensor-config-file ./config/simulated_sensor_config.yaml --noise-model-config-file ./config/noise_model_config.yaml"
 
   tsc_service:
     image: ${DOCKER_ORG}/tsc_service:${DOCKER_TAG}
-    command: sh -c "/wait && /home/carma-streets/tsc_client_service/build/traffic_signal_controller_service"
     container_name: tsc_service
     restart: always
     network_mode: service:zookeeper
     depends_on:
-      - kafka
-      - intersection_model
+      kafka:
+        condition: service_healthy
+      # Every dependency describe with this notation needs a condition
+      # Condition service_started is the default for - notation
+      # TODO: Replace docker-compose-wait with intersection_model health check
+      intersection_model:
+        condition: service_started
     environment:
-      DOCKER_HOST_IP:  172.4.0.3
+      DOCKER_HOST_IP: 172.4.0.3
       WAIT_HOSTS: 127.0.0.1:8080
       WAIT_HOSTS_TIMEOUT: 300
       WAIT_SLEEP_INTERVAL: 10
       WAIT_HOST_CONNECT_TIMEOUT: 30
-      SIMULATION_MODE:  ${SIMULATION_MODE}
+      SIMULATION_MODE: ${SIMULATION_MODE}
       TIME_SYNC_TOPIC: time_sync
       CONFIG_FILE_PATH: /home/carma-streets/tsc_client_service/manifest.json
       LOGS_DIRECTORY: /home/carma-streets/tsc_client_service/logs/
     volumes:
       - ./tsc_client_service/manifest.json:/home/carma-streets/tsc_client_service/manifest.json
       - ./tsc_client_service/logs/:/home/carma-streets/tsc_client_service/logs/
+    command: >
+      sh -c "/wait
+      && /home/carma-streets/tsc_client_service/build/traffic_signal_controller_service"
+  sensor_data_sharing_service:
+    image: ${DOCKER_ORG}/sensor_data_sharing_service:${DOCKER_TAG}
+    build:
+      context: .
+      dockerfile: sensor_data_sharing_service/Dockerfile
+    container_name: sensor_data_sharing_service
+    restart: always
+    network_mode: service:zookeeper
+    depends_on:
+      kafka:
+        condition: service_healthy
+    environment:
+      SIMULATION_MODE: ${SIMULATION_MODE}
+      CONFIG_FILE_PATH: /home/carma-streets/sensor_data_sharing_service/manifest.json
+      TIME_SYNC_TOPIC: ${TIME_SYNC_TOPIC}
+      LOGS_DIRECTORY: /home/carma-streets/sensor_data_sharing_service/logs/
+      LANELET2_MAP: /home/carma-streets/MAP/Town04_vector_map.osm
+      INFRASTRUCTURE_ID: ${INFRASTRUCTURE_ID}
+      SENSOR_JSON_FILE_PATH: /home/carma-streets/sensor_configurations/sensors.json
+    volumes:
+      - ./sensor_data_sharing_service/manifest.json:/home/carma-streets/sensor_data_sharing_service/manifest.json
+      - ./sensor_data_sharing_service/logs/:/home/carma-streets/sensor_data_sharing_service/logs/
+      - ./MAP/:/home/carma-streets/MAP/
+      - ./sensor_configurations/:/home/carma-streets/sensor_configurations/
+      - /etc/localtime:/etc/localtime:ro
+      - /etc/timezone:/etc/timezone:ro
   econolite-virtual-controller:
-    image: ${DOCKER_ORG}/econolite-virtual-controller:latest
+    image: ${DOCKER_ORG}/econolite-virtual-controller:${DOCKER_TAG}
     container_name: evc
     restart: always
     networks:
@@ -452,28 +407,38 @@ services:
       - DISPLAY=${DISPLAY}
     volumes:
       - /tmp/.X11-unix:/tmp/.X11-unix
-      - ./evc_sumo/evc_sumo_cfg.json:/home/carma/src/resources/evc_sumo_cfg.json
+      - ./evc_sumo/:/home/carma/src/resources/
     depends_on:
       - carma-simulation
-    command: bash -c "sleep 10;x-terminal-emulator -e python3.8 evc_sumo_bridge.py --asc3app-path '../evcfile/asc3app-application.zip' --traci-ip 172.2.0.2"
+    command: >
+      bash -c "sleep 10
+      && x-terminal-emulator -e python3.8 evc_sumo_bridge.py
+      --asc3app-path '../evcfile/asc3app-application.zip'
+      --traci-ip 172.2.0.2"
 
-  # scenario-runner:
-  #   image: ${DOCKER_ORG}/scenario-runner:${DOCKER_TAG}
-  #   container_name: scenario-runner
-  #   networks:
-  #     - carma_sim_net
-  #   depends_on:
-  #     - carma-simulation
-  #   # sleep is for mainly carma-platform's components to
-  #   # activate and be ready before scenario starts
-  #   entrypoint: >
-  #     bash -c "sleep 30
-  #     && python3 scenario_runner.py
-  #     --scenario MyScenario_1
-  #     --host 172.2.0.2"
+  scenario-runner:
+    image: ${DOCKER_ORG}/scenario-runner:${DOCKER_TAG}
+    container_name: scenario-runner
+    networks:
+      - carma_sim_net
+    depends_on:
+      - carma-simulation
+    environment:
+      SIMULATION_SCENARIO: ${SIMULATION_SCENARIO}
+    volumes:
+      - ./scenario-runner/vru_collision.py:/app/scenario_runner/srunner/scenarios/vru_collision.py
+      - ./scenario-runner/vru_collision.xml:/app/scenario_runner/srunner/examples/vru_collision.xml
+      - ./carla-recorder/:/app/scenario_runner/metrics/data/
+    # sleep is for mainly carma-platform's components to
+    # activate and be ready before scenario starts
+    entrypoint: >
+      bash -c "sleep 30
+      && python3 scenario_runner.py
+      --scenario ${SIMULATION_SCENARIO}
+      --record metrics/data/
+      --host 172.2.0.2"
 
-
-  carma-streets-nats-bridge_1:
+  kafka-nats-bridge_1:
     image: ${DOCKER_ORG}/carma_street_nats_bridge:${DOCKER_TAG}
     logging:
         options:
@@ -482,10 +447,11 @@ services:
     networks:
       carma_streets_net_1:
         ipv4_address: 172.4.0.17
-    container_name: carma_streets_nats_bridge_1
+    container_name: kafka_nats_bridge_1
     restart: always
     volumes:
       - /opt/carma/vehicle/calibration:/opt/carma/vehicle/calibration
+      - /var/logs:/var/logs
     env_file:
       - /opt/carma/vehicle/calibration/telematics/telematics.env
     environment:
@@ -513,6 +479,7 @@ networks:
     ipam:
       config:
         - subnet: 172.4.0.0/16
+
 volumes:
   mysql-datavolume:
   kafka-datavolume:
