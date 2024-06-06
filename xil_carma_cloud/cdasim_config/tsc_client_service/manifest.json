@@ -1,6 +1,6 @@
 {
     "service_name": "snmp_client",
-    "loglevel": "debug",
+    "loglevel": "info",
     "configurations": [
         {
             

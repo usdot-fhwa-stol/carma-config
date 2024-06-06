@@ -1,6 +1,6 @@
 {
     "service_name": "intersection_model",
-    "loglevel": "debug",
+    "loglevel": "info",
     "configurations": [
         {
             "name": "osm_file_path",

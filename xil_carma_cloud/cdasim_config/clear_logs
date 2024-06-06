@@ -1,0 +1,10 @@
+#!/bin/bash
+echo "Clearing CARMA Streets logs ..."
+rm -r tsc_client_service/logs/*
+rm -r intersection_model/logs/*
+rm -r sensor_data_sharing_service/logs/*
+echo "Clearing CDASim logs ..."
+rm -r /opt/carma-simulation/logs/*
+echo "Clearing CARMA Platform logs ..."
+rm -r /opt/carma/logs/carma_1/*
+rm -r /opt/carma/logs/carma_2/*
