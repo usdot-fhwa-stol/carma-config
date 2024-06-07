@@ -21,7 +21,8 @@ services:
             - capabilities: [gpu]
     command: bash -c "./mosaic.sh -s Town04"
 
-  ## carma_1 vehicle
+############################################################################
+# carma vehicle 1
   roscore_1:
     image: usdotfhwastol/carma-base:carma-system-4.5.0
     networks:
@@ -139,20 +140,7 @@ services:
       start_delay_in_seconds:='3'
       spawn_point:='151.2,-305.9,0,0,0,0'"
 
-  carma-cloud:
-    image: ${DOCKER_ORG:-usdotfhwastoldev}/carma-cloud:${DOCKER_TAG:-develop}
-    networks:
-      carma_cloud_1:
-        ipv4_address: 172.6.0.47
-      carma_sim_net:
-        ipv4_address: 172.2.0.47
-    container_name: carma-cloud
-    depends_on:
-      - carma-simulation
-    volumes:
-      - ./carmacloudvol/logs:/opt/tomcat/logs
-      - ./carmacloudvol/work:/opt/tomcat/work
-    command: bash -c "/opt/tomcat/bin/catalina.sh run"
+
 
   ns3_adapter_1:
     image: usdotfhwastol/carma-ns3-adapter:carma-system-4.5.0
@@ -181,9 +169,10 @@ services:
       && wait-for-it.sh 172.3.0.2:11311 -- roslaunch ns3_adapter ns3_adapter.launch
       role_id:='carma_1'
       remap_ns:=/hardware_interface/comms"
-#################
-# carma_2 vehicle
+#############################################################################
 
+#############################################################################
+# carma_2 vehicle
   roscore_2:
     image: usdotfhwastol/carma-base:carma-system-4.5.0
     networks:
@@ -311,8 +300,23 @@ services:
       - /opt/carma/yolo:/opt/carma/yolo
       - ./ns3_adapter/adapter_2/parameters.yaml:/opt/carma/install/ns3_adapter/share/ns3_adapter/config/parameters.yaml
     command: bash -c "wait-for-it.sh 172.5.0.2:11311 -- roslaunch ns3_adapter ns3_adapter.launch role_id:='carma_2' remap_ns:=/hardware_interface/comms"
+#############################################################################
 
-#################
+  carma-cloud:
+    image: ${DOCKER_ORG:-usdotfhwastoldev}/carma-cloud:${DOCKER_TAG:-develop}
+    networks:
+      carma_cloud_1:
+        ipv4_address: 172.6.0.47
+      carma_sim_net:
+        ipv4_address: 172.2.0.47
+    container_name: carma-cloud
+    depends_on:
+      - carma-simulation
+    volumes:
+      - ./carmacloudvol/logs:/opt/tomcat/logs
+      - ./carmacloudvol/work:/opt/tomcat/work
+    command: bash -c "/opt/tomcat/bin/catalina.sh run"
+
   zookeeper:
     image: wurstmeister/zookeeper
     container_name: zookeeper
