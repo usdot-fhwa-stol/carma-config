@@ -82,23 +82,6 @@ services:
       - /opt/carma/yolo:/opt/carma/yolo
     command: bash -c 'wait-for-it.sh localhost:11311 -- rosparam load /opt/carma/vehicle/config/bridge.yml && source ~/.base-image/workspace/install/setup.bash && ros2 run ros1_bridge dynamic_bridge --multi-threads'
     
-  truck-inspection:
-    image: ${DOCKER_ORG}/carma-platform:${DOCKER_TAG}
-    network_mode: host
-    container_name: carma-truck-inspection
-    volumes_from:
-      - container:carma-config:ro
-    volumes:
-      - /opt/carma/logs:/opt/carma/logs
-      - /opt/carma/.ros:/home/carma/.ros
-      - /opt/carma/vehicle/calibration:/opt/carma/vehicle/calibration
-      - /opt/carma/yolo:/opt/carma/yolo
-      - /opt/carma/maps:/opt/carma/maps
-      - /opt/carma/routes:/opt/carma/routes
-    environment:
-      - ROS_IP=192.168.88.10
-    command: wait-for-it.sh localhost:11311 -- roslaunch truck_inspection_client truck_inspection_client.launch truck_inspection_client_param_file:=/opt/carma/vehicle/calibration/truck_inspection_client/parameters.yaml
-
   lightbar-driver:
     image: ${DOCKER_ORG}/carma-lightbar-driver:${DOCKER_TAG}
     network_mode: host
