@@ -124,8 +124,8 @@ def generate_launch_description():
     enable_opening_tunnels = LaunchConfiguration('enable_opening_tunnels')
     declare_enable_opening_tunnels = DeclareLaunchArgument(
         name = 'enable_opening_tunnels',
-        default_value= 'False',
-        description='Flag to enable opening http tunnesl to CARMA Cloud'
+        default_value= 'True',
+        description='Flag to enable opening http tunnels to CARMA Cloud'
     )
 
     # Declare is_ros2_tracing_enabled
