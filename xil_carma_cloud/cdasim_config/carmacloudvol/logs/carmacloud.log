@@ -13,3 +13,9 @@
 [INFO  16:36:15.566 [RSUServlet] - bsm duration parameter (second):5
 [INFO  16:36:15.568 [RSUServlet] - bsm check period parameter (second):2
 [INFO  16:36:15.568 [RSUServlet] - RSU Boundingbox Radius:20.0
+[INFO  16:46:45.242 [RSUServlet] - bsm duration parameter (second):5
+[INFO  16:46:45.245 [RSUServlet] - bsm check period parameter (second):2
+[INFO  16:46:45.246 [RSUServlet] - RSU Boundingbox Radius:20.0
+[INFO  16:50:18.037 [RSUServlet] - bsm duration parameter (second):5
+[INFO  16:50:18.041 [RSUServlet] - bsm check period parameter (second):2
+[INFO  16:50:18.042 [RSUServlet] - RSU Boundingbox Radius:20.0
