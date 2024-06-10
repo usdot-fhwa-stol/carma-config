@@ -120,6 +120,14 @@ def generate_launch_description():
         description='List of String: Guidance Control Plugins that will be validated by the Guidance Plugin Validator Node if enabled'
     )
 
+    # Declare enable_opening_tunnels
+    enable_opening_tunnels = LaunchConfiguration('enable_opening_tunnels')
+    declare_enable_opening_tunnels = DeclareLaunchArgument(
+        name = 'enable_opening_tunnels',
+        default_value= 'False',
+        description='Flag to enable opening http tunnesl to CARMA Cloud'
+    )
+
     # Declare is_ros2_tracing_enabled
     is_ros2_tracing_enabled = LaunchConfiguration('is_ros2_tracing_enabled')
     declare_is_ros2_tracing_enabled = DeclareLaunchArgument(
@@ -157,6 +165,7 @@ def generate_launch_description():
         declare_strategic_plugins_to_validate,
         declare_tactical_plugins_to_validate,
         declare_control_plugins_to_validate,
+        declare_enable_opening_tunnels,
         declare_load_type,
         declare_single_pcd_path,
         declare_area,
