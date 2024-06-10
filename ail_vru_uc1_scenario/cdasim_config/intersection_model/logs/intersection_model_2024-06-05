@@ -1,0 +1,226 @@
+[2024-06-05 14:16:29.260] [info] [streets_configuration.cpp:198] Default Logger initialized!
+[2024-06-05 14:16:29.260] [info] [streets_configuration.cpp:177] Log Level set to debug!
+[2024-06-05 14:16:29.260] [debug] [streets_configuration.cpp:59] Updating Configuration Map
+[2024-06-05 14:16:29.260] [debug] [configuration.cpp:62] Create config name : osm_file_path, value : ../MAP/Town04_vector_map.osm, description : Path to lanelet2 osm map for a given intersection. 
+[2024-06-05 14:16:29.260] [debug] [configuration.cpp:62] Create config name : intersection_name, value : Town04 Intersection 785, description : Name of intersection. 
+[2024-06-05 14:16:29.260] [debug] [configuration.cpp:62] Create config name : intersection_id, value : 36243, description : Unique ID of intersection. 
+[2024-06-05 14:16:29.260] [debug] [configuration.cpp:62] Create config name : lane_to_lanelet_corr_thres, value : 7.500000, description : The lane (MAP) to lanelet (lanelet2 map) correlation threshold in meters. If the average distance between nodes in a lane of the MAP and the centerline of the any existing intersection lanelet described in the lanelet2 map exceeds lanewidth plus this threshold they will not correlate. 
+[2024-06-05 14:16:29.260] [debug] [configuration.cpp:62] Create config name : host_address, value : 127.0.0.1, description : Address to host intersection model REST server. 
+[2024-06-05 14:16:29.260] [debug] [configuration.cpp:62] Create config name : host_port, value : 8080, description : Port to host intersection model REST server 
+[2024-06-05 14:16:29.260] [debug] [configuration.cpp:62] Create config name : bootstrap_server, value : 172.4.0.3:9092, description : Kafka Broker Server Address. 
+[2024-06-05 14:16:29.260] [debug] [configuration.cpp:62] Create config name : map_msg_topic, value : v2xhub_map_msg_in, description : Kafka topic for vehicle status and intent messages 
+[2024-06-05 14:16:29.260] [debug] [configuration.cpp:62] Create config name : map_msg_group_id, value : map_msg_consumer, description : Kafka consumer group for BSM kafka consumer. 
+[2024-06-05 14:16:29.260] [info] [streets_configuration.cpp:15] Printing Configuration Parameters ---------------------------------------
+[2024-06-05 14:16:29.260] [info] [streets_configuration.cpp:18] bootstrap_server : 172.4.0.3:9092 
+[2024-06-05 14:16:29.260] [info] [streets_configuration.cpp:18] host_address : 127.0.0.1 
+[2024-06-05 14:16:29.260] [info] [streets_configuration.cpp:18] host_port : 8080 
+[2024-06-05 14:16:29.260] [info] [streets_configuration.cpp:18] intersection_id : 36243 
+[2024-06-05 14:16:29.260] [info] [streets_configuration.cpp:18] intersection_name : Town04 Intersection 785 
+[2024-06-05 14:16:29.260] [info] [streets_configuration.cpp:18] lane_to_lanelet_corr_thres : 7.500000 
+[2024-06-05 14:16:29.260] [info] [streets_configuration.cpp:18] map_msg_group_id : map_msg_consumer 
+[2024-06-05 14:16:29.260] [info] [streets_configuration.cpp:18] map_msg_topic : v2xhub_map_msg_in 
+[2024-06-05 14:16:29.260] [info] [streets_configuration.cpp:18] osm_file_path : ../MAP/Town04_vector_map.osm 
+[2024-06-05 14:20:17.890] [info] [streets_configuration.cpp:198] Default Logger initialized!
+[2024-06-05 14:20:17.890] [info] [streets_configuration.cpp:177] Log Level set to debug!
+[2024-06-05 14:20:17.890] [debug] [streets_configuration.cpp:59] Updating Configuration Map
+[2024-06-05 14:20:17.890] [debug] [configuration.cpp:62] Create config name : osm_file_path, value : ../MAP/Town04_vector_map.osm, description : Path to lanelet2 osm map for a given intersection. 
+[2024-06-05 14:20:17.890] [debug] [configuration.cpp:62] Create config name : intersection_name, value : Town04 Intersection 785, description : Name of intersection. 
+[2024-06-05 14:20:17.890] [debug] [configuration.cpp:62] Create config name : intersection_id, value : 36243, description : Unique ID of intersection. 
+[2024-06-05 14:20:17.890] [debug] [configuration.cpp:62] Create config name : lane_to_lanelet_corr_thres, value : 7.500000, description : The lane (MAP) to lanelet (lanelet2 map) correlation threshold in meters. If the average distance between nodes in a lane of the MAP and the centerline of the any existing intersection lanelet described in the lanelet2 map exceeds lanewidth plus this threshold they will not correlate. 
+[2024-06-05 14:20:17.890] [debug] [configuration.cpp:62] Create config name : host_address, value : 127.0.0.1, description : Address to host intersection model REST server. 
+[2024-06-05 14:20:17.890] [debug] [configuration.cpp:62] Create config name : host_port, value : 8080, description : Port to host intersection model REST server 
+[2024-06-05 14:20:17.890] [debug] [configuration.cpp:62] Create config name : bootstrap_server, value : 172.4.0.3:9092, description : Kafka Broker Server Address. 
+[2024-06-05 14:20:17.890] [debug] [configuration.cpp:62] Create config name : map_msg_topic, value : v2xhub_map_msg_in, description : Kafka topic for vehicle status and intent messages 
+[2024-06-05 14:20:17.890] [debug] [configuration.cpp:62] Create config name : map_msg_group_id, value : map_msg_consumer, description : Kafka consumer group for BSM kafka consumer. 
+[2024-06-05 14:20:17.890] [info] [streets_configuration.cpp:15] Printing Configuration Parameters ---------------------------------------
+[2024-06-05 14:20:17.890] [info] [streets_configuration.cpp:18] bootstrap_server : 172.4.0.3:9092 
+[2024-06-05 14:20:17.890] [info] [streets_configuration.cpp:18] host_address : 127.0.0.1 
+[2024-06-05 14:20:17.890] [info] [streets_configuration.cpp:18] host_port : 8080 
+[2024-06-05 14:20:17.890] [info] [streets_configuration.cpp:18] intersection_id : 36243 
+[2024-06-05 14:20:17.890] [info] [streets_configuration.cpp:18] intersection_name : Town04 Intersection 785 
+[2024-06-05 14:20:17.890] [info] [streets_configuration.cpp:18] lane_to_lanelet_corr_thres : 7.500000 
+[2024-06-05 14:20:17.890] [info] [streets_configuration.cpp:18] map_msg_group_id : map_msg_consumer 
+[2024-06-05 14:20:17.890] [info] [streets_configuration.cpp:18] map_msg_topic : v2xhub_map_msg_in 
+[2024-06-05 14:20:17.890] [info] [streets_configuration.cpp:18] osm_file_path : ../MAP/Town04_vector_map.osm 
+[2024-06-05 14:22:13.345] [info] [streets_configuration.cpp:198] Default Logger initialized!
+[2024-06-05 14:22:13.345] [info] [streets_configuration.cpp:177] Log Level set to debug!
+[2024-06-05 14:22:13.345] [debug] [streets_configuration.cpp:59] Updating Configuration Map
+[2024-06-05 14:22:13.345] [debug] [configuration.cpp:62] Create config name : osm_file_path, value : ../MAP/Town04_vector_map.osm, description : Path to lanelet2 osm map for a given intersection. 
+[2024-06-05 14:22:13.345] [debug] [configuration.cpp:62] Create config name : intersection_name, value : Town04 Intersection 785, description : Name of intersection. 
+[2024-06-05 14:22:13.345] [debug] [configuration.cpp:62] Create config name : intersection_id, value : 36243, description : Unique ID of intersection. 
+[2024-06-05 14:22:13.345] [debug] [configuration.cpp:62] Create config name : lane_to_lanelet_corr_thres, value : 7.500000, description : The lane (MAP) to lanelet (lanelet2 map) correlation threshold in meters. If the average distance between nodes in a lane of the MAP and the centerline of the any existing intersection lanelet described in the lanelet2 map exceeds lanewidth plus this threshold they will not correlate. 
+[2024-06-05 14:22:13.345] [debug] [configuration.cpp:62] Create config name : host_address, value : 127.0.0.1, description : Address to host intersection model REST server. 
+[2024-06-05 14:22:13.345] [debug] [configuration.cpp:62] Create config name : host_port, value : 8080, description : Port to host intersection model REST server 
+[2024-06-05 14:22:13.345] [debug] [configuration.cpp:62] Create config name : bootstrap_server, value : 172.4.0.3:9092, description : Kafka Broker Server Address. 
+[2024-06-05 14:22:13.345] [debug] [configuration.cpp:62] Create config name : map_msg_topic, value : v2xhub_map_msg_in, description : Kafka topic for vehicle status and intent messages 
+[2024-06-05 14:22:13.345] [debug] [configuration.cpp:62] Create config name : map_msg_group_id, value : map_msg_consumer, description : Kafka consumer group for BSM kafka consumer. 
+[2024-06-05 14:22:13.345] [info] [streets_configuration.cpp:15] Printing Configuration Parameters ---------------------------------------
+[2024-06-05 14:22:13.345] [info] [streets_configuration.cpp:18] bootstrap_server : 172.4.0.3:9092 
+[2024-06-05 14:22:13.345] [info] [streets_configuration.cpp:18] host_address : 127.0.0.1 
+[2024-06-05 14:22:13.345] [info] [streets_configuration.cpp:18] host_port : 8080 
+[2024-06-05 14:22:13.345] [info] [streets_configuration.cpp:18] intersection_id : 36243 
+[2024-06-05 14:22:13.345] [info] [streets_configuration.cpp:18] intersection_name : Town04 Intersection 785 
+[2024-06-05 14:22:13.345] [info] [streets_configuration.cpp:18] lane_to_lanelet_corr_thres : 7.500000 
+[2024-06-05 14:22:13.345] [info] [streets_configuration.cpp:18] map_msg_group_id : map_msg_consumer 
+[2024-06-05 14:22:13.345] [info] [streets_configuration.cpp:18] map_msg_topic : v2xhub_map_msg_in 
+[2024-06-05 14:22:13.345] [info] [streets_configuration.cpp:18] osm_file_path : ../MAP/Town04_vector_map.osm 
+[2024-06-05 14:22:57.907] [info] [streets_configuration.cpp:198] Default Logger initialized!
+[2024-06-05 14:22:57.907] [info] [streets_configuration.cpp:177] Log Level set to debug!
+[2024-06-05 14:22:57.907] [debug] [streets_configuration.cpp:59] Updating Configuration Map
+[2024-06-05 14:22:57.907] [debug] [configuration.cpp:62] Create config name : osm_file_path, value : ../MAP/Town04_vector_map.osm, description : Path to lanelet2 osm map for a given intersection. 
+[2024-06-05 14:22:57.907] [debug] [configuration.cpp:62] Create config name : intersection_name, value : Town04 Intersection 785, description : Name of intersection. 
+[2024-06-05 14:22:57.907] [debug] [configuration.cpp:62] Create config name : intersection_id, value : 36243, description : Unique ID of intersection. 
+[2024-06-05 14:22:57.907] [debug] [configuration.cpp:62] Create config name : lane_to_lanelet_corr_thres, value : 7.500000, description : The lane (MAP) to lanelet (lanelet2 map) correlation threshold in meters. If the average distance between nodes in a lane of the MAP and the centerline of the any existing intersection lanelet described in the lanelet2 map exceeds lanewidth plus this threshold they will not correlate. 
+[2024-06-05 14:22:57.907] [debug] [configuration.cpp:62] Create config name : host_address, value : 127.0.0.1, description : Address to host intersection model REST server. 
+[2024-06-05 14:22:57.907] [debug] [configuration.cpp:62] Create config name : host_port, value : 8080, description : Port to host intersection model REST server 
+[2024-06-05 14:22:57.907] [debug] [configuration.cpp:62] Create config name : bootstrap_server, value : 172.4.0.3:9092, description : Kafka Broker Server Address. 
+[2024-06-05 14:22:57.907] [debug] [configuration.cpp:62] Create config name : map_msg_topic, value : v2xhub_map_msg_in, description : Kafka topic for vehicle status and intent messages 
+[2024-06-05 14:22:57.907] [debug] [configuration.cpp:62] Create config name : map_msg_group_id, value : map_msg_consumer, description : Kafka consumer group for BSM kafka consumer. 
+[2024-06-05 14:22:57.907] [info] [streets_configuration.cpp:15] Printing Configuration Parameters ---------------------------------------
+[2024-06-05 14:22:57.907] [info] [streets_configuration.cpp:18] bootstrap_server : 172.4.0.3:9092 
+[2024-06-05 14:22:57.907] [info] [streets_configuration.cpp:18] host_address : 127.0.0.1 
+[2024-06-05 14:22:57.907] [info] [streets_configuration.cpp:18] host_port : 8080 
+[2024-06-05 14:22:57.907] [info] [streets_configuration.cpp:18] intersection_id : 36243 
+[2024-06-05 14:22:57.907] [info] [streets_configuration.cpp:18] intersection_name : Town04 Intersection 785 
+[2024-06-05 14:22:57.907] [info] [streets_configuration.cpp:18] lane_to_lanelet_corr_thres : 7.500000 
+[2024-06-05 14:22:57.907] [info] [streets_configuration.cpp:18] map_msg_group_id : map_msg_consumer 
+[2024-06-05 14:22:57.907] [info] [streets_configuration.cpp:18] map_msg_topic : v2xhub_map_msg_in 
+[2024-06-05 14:22:57.907] [info] [streets_configuration.cpp:18] osm_file_path : ../MAP/Town04_vector_map.osm 
+[2024-06-05 14:24:28.222] [info] [streets_configuration.cpp:198] Default Logger initialized!
+[2024-06-05 14:24:28.222] [info] [streets_configuration.cpp:177] Log Level set to debug!
+[2024-06-05 14:24:28.222] [debug] [streets_configuration.cpp:59] Updating Configuration Map
+[2024-06-05 14:24:28.222] [debug] [configuration.cpp:62] Create config name : osm_file_path, value : ../MAP/Town04_vector_map.osm, description : Path to lanelet2 osm map for a given intersection. 
+[2024-06-05 14:24:28.222] [debug] [configuration.cpp:62] Create config name : intersection_name, value : Town04 Intersection 785, description : Name of intersection. 
+[2024-06-05 14:24:28.222] [debug] [configuration.cpp:62] Create config name : intersection_id, value : 36243, description : Unique ID of intersection. 
+[2024-06-05 14:24:28.222] [debug] [configuration.cpp:62] Create config name : lane_to_lanelet_corr_thres, value : 7.500000, description : The lane (MAP) to lanelet (lanelet2 map) correlation threshold in meters. If the average distance between nodes in a lane of the MAP and the centerline of the any existing intersection lanelet described in the lanelet2 map exceeds lanewidth plus this threshold they will not correlate. 
+[2024-06-05 14:24:28.222] [debug] [configuration.cpp:62] Create config name : host_address, value : 127.0.0.1, description : Address to host intersection model REST server. 
+[2024-06-05 14:24:28.222] [debug] [configuration.cpp:62] Create config name : host_port, value : 8080, description : Port to host intersection model REST server 
+[2024-06-05 14:24:28.222] [debug] [configuration.cpp:62] Create config name : bootstrap_server, value : 172.4.0.3:9092, description : Kafka Broker Server Address. 
+[2024-06-05 14:24:28.222] [debug] [configuration.cpp:62] Create config name : map_msg_topic, value : v2xhub_map_msg_in, description : Kafka topic for vehicle status and intent messages 
+[2024-06-05 14:24:28.222] [debug] [configuration.cpp:62] Create config name : map_msg_group_id, value : map_msg_consumer, description : Kafka consumer group for BSM kafka consumer. 
+[2024-06-05 14:24:28.222] [info] [streets_configuration.cpp:15] Printing Configuration Parameters ---------------------------------------
+[2024-06-05 14:24:28.222] [info] [streets_configuration.cpp:18] bootstrap_server : 172.4.0.3:9092 
+[2024-06-05 14:24:28.222] [info] [streets_configuration.cpp:18] host_address : 127.0.0.1 
+[2024-06-05 14:24:28.222] [info] [streets_configuration.cpp:18] host_port : 8080 
+[2024-06-05 14:24:28.222] [info] [streets_configuration.cpp:18] intersection_id : 36243 
+[2024-06-05 14:24:28.222] [info] [streets_configuration.cpp:18] intersection_name : Town04 Intersection 785 
+[2024-06-05 14:24:28.222] [info] [streets_configuration.cpp:18] lane_to_lanelet_corr_thres : 7.500000 
+[2024-06-05 14:24:28.222] [info] [streets_configuration.cpp:18] map_msg_group_id : map_msg_consumer 
+[2024-06-05 14:24:28.222] [info] [streets_configuration.cpp:18] map_msg_topic : v2xhub_map_msg_in 
+[2024-06-05 14:24:28.222] [info] [streets_configuration.cpp:18] osm_file_path : ../MAP/Town04_vector_map.osm 
+[2024-06-05 14:29:23.372] [info] [streets_configuration.cpp:198] Default Logger initialized!
+[2024-06-05 14:29:23.372] [info] [streets_configuration.cpp:177] Log Level set to debug!
+[2024-06-05 14:29:23.372] [debug] [streets_configuration.cpp:59] Updating Configuration Map
+[2024-06-05 14:29:23.372] [debug] [configuration.cpp:62] Create config name : osm_file_path, value : ../MAP/Town04_vector_map.osm, description : Path to lanelet2 osm map for a given intersection. 
+[2024-06-05 14:29:23.372] [debug] [configuration.cpp:62] Create config name : intersection_name, value : Town04 Intersection 785, description : Name of intersection. 
+[2024-06-05 14:29:23.372] [debug] [configuration.cpp:62] Create config name : intersection_id, value : 36243, description : Unique ID of intersection. 
+[2024-06-05 14:29:23.372] [debug] [configuration.cpp:62] Create config name : lane_to_lanelet_corr_thres, value : 7.500000, description : The lane (MAP) to lanelet (lanelet2 map) correlation threshold in meters. If the average distance between nodes in a lane of the MAP and the centerline of the any existing intersection lanelet described in the lanelet2 map exceeds lanewidth plus this threshold they will not correlate. 
+[2024-06-05 14:29:23.372] [debug] [configuration.cpp:62] Create config name : host_address, value : 127.0.0.1, description : Address to host intersection model REST server. 
+[2024-06-05 14:29:23.372] [debug] [configuration.cpp:62] Create config name : host_port, value : 8080, description : Port to host intersection model REST server 
+[2024-06-05 14:29:23.372] [debug] [configuration.cpp:62] Create config name : bootstrap_server, value : 172.4.0.3:9092, description : Kafka Broker Server Address. 
+[2024-06-05 14:29:23.372] [debug] [configuration.cpp:62] Create config name : map_msg_topic, value : v2xhub_map_msg_in, description : Kafka topic for vehicle status and intent messages 
+[2024-06-05 14:29:23.372] [debug] [configuration.cpp:62] Create config name : map_msg_group_id, value : map_msg_consumer, description : Kafka consumer group for BSM kafka consumer. 
+[2024-06-05 14:29:23.372] [info] [streets_configuration.cpp:15] Printing Configuration Parameters ---------------------------------------
+[2024-06-05 14:29:23.372] [info] [streets_configuration.cpp:18] bootstrap_server : 172.4.0.3:9092 
+[2024-06-05 14:29:23.372] [info] [streets_configuration.cpp:18] host_address : 127.0.0.1 
+[2024-06-05 14:29:23.372] [info] [streets_configuration.cpp:18] host_port : 8080 
+[2024-06-05 14:29:23.372] [info] [streets_configuration.cpp:18] intersection_id : 36243 
+[2024-06-05 14:29:23.372] [info] [streets_configuration.cpp:18] intersection_name : Town04 Intersection 785 
+[2024-06-05 14:29:23.372] [info] [streets_configuration.cpp:18] lane_to_lanelet_corr_thres : 7.500000 
+[2024-06-05 14:29:23.372] [info] [streets_configuration.cpp:18] map_msg_group_id : map_msg_consumer 
+[2024-06-05 14:29:23.372] [info] [streets_configuration.cpp:18] map_msg_topic : v2xhub_map_msg_in 
+[2024-06-05 14:29:23.372] [info] [streets_configuration.cpp:18] osm_file_path : ../MAP/Town04_vector_map.osm 
+[2024-06-05 14:29:23.373] [info] [streets_configuration.cpp:198] Default Logger initialized!
+[2024-06-05 14:29:23.373] [info] [streets_configuration.cpp:177] Log Level set to debug!
+[2024-06-05 14:29:23.373] [info] [streets_configuration.cpp:177] Log Level set to debug!
+[2024-06-05 14:29:23.373] [debug] [streets_configuration.cpp:59] Updating Configuration Map
+[2024-06-05 14:29:23.373] [debug] [configuration.cpp:62] Create config name : osm_file_path, value : ../MAP/Town04_vector_map.osm, description : Path to lanelet2 osm map for a given intersection. 
+[2024-06-05 14:29:23.373] [debug] [configuration.cpp:62] Create config name : intersection_name, value : Town04 Intersection 785, description : Name of intersection. 
+[2024-06-05 14:29:23.373] [debug] [configuration.cpp:62] Create config name : intersection_id, value : 36243, description : Unique ID of intersection. 
+[2024-06-05 14:29:23.373] [debug] [configuration.cpp:62] Create config name : lane_to_lanelet_corr_thres, value : 7.500000, description : The lane (MAP) to lanelet (lanelet2 map) correlation threshold in meters. If the average distance between nodes in a lane of the MAP and the centerline of the any existing intersection lanelet described in the lanelet2 map exceeds lanewidth plus this threshold they will not correlate. 
+[2024-06-05 14:29:23.373] [debug] [configuration.cpp:62] Create config name : host_address, value : 127.0.0.1, description : Address to host intersection model REST server. 
+[2024-06-05 14:29:23.373] [debug] [configuration.cpp:62] Create config name : host_port, value : 8080, description : Port to host intersection model REST server 
+[2024-06-05 14:29:23.373] [debug] [configuration.cpp:62] Create config name : bootstrap_server, value : 172.4.0.3:9092, description : Kafka Broker Server Address. 
+[2024-06-05 14:29:23.373] [debug] [configuration.cpp:62] Create config name : map_msg_topic, value : v2xhub_map_msg_in, description : Kafka topic for vehicle status and intent messages 
+[2024-06-05 14:29:23.373] [debug] [configuration.cpp:62] Create config name : map_msg_group_id, value : map_msg_consumer, description : Kafka consumer group for BSM kafka consumer. 
+[2024-06-05 14:29:24.812] [info] [intersection_model.cpp:18] Map is loaded ...
+[2024-06-05 14:30:28.161] [info] [intersection_model.cpp:22] Intersection information is initialized ...
+[2024-06-05 14:30:28.161] [info] [intersection_model.cpp:34] Initialization Done!
+[2024-06-05 14:30:28.161] [debug] [IntersectionModelRouter.cpp:7] IntersectionModelRouter constructor called
+[2024-06-05 14:30:28.161] [debug] [IntersectionModelHandler.cpp:8] IntersectionModelHandler constructor called
+[2024-06-05 14:30:28.168] [info] [main.cpp:113] Serving on 127.0.0.1:8080
+[2024-06-05 14:30:28.168] [info] [kafka_consumer_worker.cpp:22] kafka_consumer_worker init()... 
+[2024-06-05 14:30:28.171] [info] [kafka_consumer_worker.cpp:73] created consumer: rdkafka#consumer-1 
+[2024-06-05 14:30:28.171] [info] [kafka_consumer_worker.cpp:134] Consumer connect to bootstrap_server: 172.4.0.3:9092 , topic:  v2xhub_map_msg_in , partition:  0, group id: map_msg_consumer 
+[2024-06-05 14:30:28.171] [info] [kafka_consumer_worker.cpp:114] rdkafka#consumer-1 Successfully to subscribe to   1 topics: Success 
+[2024-06-05 14:30:28.172] [info] [map_msg_worker.cpp:30] map_msg_worker constructor done
+[2024-06-05 14:30:28.172] [info] [main.cpp:61] _map_msg_consumer running true
+[2024-06-05 14:30:28.176] [info] [kafka_consumer_worker.h:42] RebalanceCb: Local: Assign partitions 
+[2024-06-05 14:30:28.176] [info] [kafka_consumer_worker.h:36] Topic v2xhub_map_msg_in , Partition 0
+[2024-06-05 14:30:42.243] [warning] [main.cpp:35] Quit the application by signal 15
+[2024-06-05 14:31:52.025] [info] [streets_configuration.cpp:198] Default Logger initialized!
+[2024-06-05 14:31:52.025] [info] [streets_configuration.cpp:177] Log Level set to debug!
+[2024-06-05 14:31:52.025] [debug] [streets_configuration.cpp:59] Updating Configuration Map
+[2024-06-05 14:31:52.026] [debug] [configuration.cpp:62] Create config name : osm_file_path, value : ../MAP/Town04_vector_map.osm, description : Path to lanelet2 osm map for a given intersection. 
+[2024-06-05 14:31:52.026] [debug] [configuration.cpp:62] Create config name : intersection_name, value : Town04 Intersection 785, description : Name of intersection. 
+[2024-06-05 14:31:52.026] [debug] [configuration.cpp:62] Create config name : intersection_id, value : 36243, description : Unique ID of intersection. 
+[2024-06-05 14:31:52.026] [debug] [configuration.cpp:62] Create config name : lane_to_lanelet_corr_thres, value : 7.500000, description : The lane (MAP) to lanelet (lanelet2 map) correlation threshold in meters. If the average distance between nodes in a lane of the MAP and the centerline of the any existing intersection lanelet described in the lanelet2 map exceeds lanewidth plus this threshold they will not correlate. 
+[2024-06-05 14:31:52.026] [debug] [configuration.cpp:62] Create config name : host_address, value : 127.0.0.1, description : Address to host intersection model REST server. 
+[2024-06-05 14:31:52.026] [debug] [configuration.cpp:62] Create config name : host_port, value : 8080, description : Port to host intersection model REST server 
+[2024-06-05 14:31:52.026] [debug] [configuration.cpp:62] Create config name : bootstrap_server, value : 172.4.0.3:9092, description : Kafka Broker Server Address. 
+[2024-06-05 14:31:52.026] [debug] [configuration.cpp:62] Create config name : map_msg_topic, value : v2xhub_map_msg_in, description : Kafka topic for vehicle status and intent messages 
+[2024-06-05 14:31:52.026] [debug] [configuration.cpp:62] Create config name : map_msg_group_id, value : map_msg_consumer, description : Kafka consumer group for BSM kafka consumer. 
+[2024-06-05 14:31:52.026] [info] [streets_configuration.cpp:15] Printing Configuration Parameters ---------------------------------------
+[2024-06-05 14:31:52.026] [info] [streets_configuration.cpp:18] bootstrap_server : 172.4.0.3:9092 
+[2024-06-05 14:31:52.026] [info] [streets_configuration.cpp:18] host_address : 127.0.0.1 
+[2024-06-05 14:31:52.026] [info] [streets_configuration.cpp:18] host_port : 8080 
+[2024-06-05 14:31:52.026] [info] [streets_configuration.cpp:18] intersection_id : 36243 
+[2024-06-05 14:31:52.026] [info] [streets_configuration.cpp:18] intersection_name : Town04 Intersection 785 
+[2024-06-05 14:31:52.026] [info] [streets_configuration.cpp:18] lane_to_lanelet_corr_thres : 7.500000 
+[2024-06-05 14:31:52.026] [info] [streets_configuration.cpp:18] map_msg_group_id : map_msg_consumer 
+[2024-06-05 14:31:52.026] [info] [streets_configuration.cpp:18] map_msg_topic : v2xhub_map_msg_in 
+[2024-06-05 14:31:52.026] [info] [streets_configuration.cpp:18] osm_file_path : ../MAP/Town04_vector_map.osm 
+[2024-06-05 14:34:46.222] [info] [streets_configuration.cpp:198] Default Logger initialized!
+[2024-06-05 14:34:46.222] [info] [streets_configuration.cpp:177] Log Level set to debug!
+[2024-06-05 14:34:46.222] [debug] [streets_configuration.cpp:59] Updating Configuration Map
+[2024-06-05 14:34:46.222] [debug] [configuration.cpp:62] Create config name : osm_file_path, value : ../MAP/Town04_vector_map.osm, description : Path to lanelet2 osm map for a given intersection. 
+[2024-06-05 14:34:46.222] [debug] [configuration.cpp:62] Create config name : intersection_name, value : Town04 Intersection 785, description : Name of intersection. 
+[2024-06-05 14:34:46.222] [debug] [configuration.cpp:62] Create config name : intersection_id, value : 36243, description : Unique ID of intersection. 
+[2024-06-05 14:34:46.222] [debug] [configuration.cpp:62] Create config name : lane_to_lanelet_corr_thres, value : 7.500000, description : The lane (MAP) to lanelet (lanelet2 map) correlation threshold in meters. If the average distance between nodes in a lane of the MAP and the centerline of the any existing intersection lanelet described in the lanelet2 map exceeds lanewidth plus this threshold they will not correlate. 
+[2024-06-05 14:34:46.222] [debug] [configuration.cpp:62] Create config name : host_address, value : 127.0.0.1, description : Address to host intersection model REST server. 
+[2024-06-05 14:34:46.222] [debug] [configuration.cpp:62] Create config name : host_port, value : 8080, description : Port to host intersection model REST server 
+[2024-06-05 14:34:46.222] [debug] [configuration.cpp:62] Create config name : bootstrap_server, value : 172.4.0.3:9092, description : Kafka Broker Server Address. 
+[2024-06-05 14:34:46.222] [debug] [configuration.cpp:62] Create config name : map_msg_topic, value : v2xhub_map_msg_in, description : Kafka topic for vehicle status and intent messages 
+[2024-06-05 14:34:46.222] [debug] [configuration.cpp:62] Create config name : map_msg_group_id, value : map_msg_consumer, description : Kafka consumer group for BSM kafka consumer. 
+[2024-06-05 14:34:46.222] [info] [streets_configuration.cpp:15] Printing Configuration Parameters ---------------------------------------
+[2024-06-05 14:34:46.222] [info] [streets_configuration.cpp:18] bootstrap_server : 172.4.0.3:9092 
+[2024-06-05 14:34:46.222] [info] [streets_configuration.cpp:18] host_address : 127.0.0.1 
+[2024-06-05 14:34:46.222] [info] [streets_configuration.cpp:18] host_port : 8080 
+[2024-06-05 14:34:46.222] [info] [streets_configuration.cpp:18] intersection_id : 36243 
+[2024-06-05 14:34:46.222] [info] [streets_configuration.cpp:18] intersection_name : Town04 Intersection 785 
+[2024-06-05 14:34:46.222] [info] [streets_configuration.cpp:18] lane_to_lanelet_corr_thres : 7.500000 
+[2024-06-05 14:34:46.222] [info] [streets_configuration.cpp:18] map_msg_group_id : map_msg_consumer 
+[2024-06-05 14:34:46.222] [info] [streets_configuration.cpp:18] map_msg_topic : v2xhub_map_msg_in 
+[2024-06-05 14:34:46.222] [info] [streets_configuration.cpp:18] osm_file_path : ../MAP/Town04_vector_map.osm 
+[2024-06-05 14:39:01.486] [info] [streets_configuration.cpp:198] Default Logger initialized!
+[2024-06-05 14:39:01.486] [info] [streets_configuration.cpp:177] Log Level set to debug!
+[2024-06-05 14:39:01.486] [debug] [streets_configuration.cpp:59] Updating Configuration Map
+[2024-06-05 14:39:01.486] [debug] [configuration.cpp:62] Create config name : osm_file_path, value : ../MAP/Town04_vector_map.osm, description : Path to lanelet2 osm map for a given intersection. 
+[2024-06-05 14:39:01.486] [debug] [configuration.cpp:62] Create config name : intersection_name, value : Town04 Intersection 785, description : Name of intersection. 
+[2024-06-05 14:39:01.486] [debug] [configuration.cpp:62] Create config name : intersection_id, value : 36243, description : Unique ID of intersection. 
+[2024-06-05 14:39:01.486] [debug] [configuration.cpp:62] Create config name : lane_to_lanelet_corr_thres, value : 7.500000, description : The lane (MAP) to lanelet (lanelet2 map) correlation threshold in meters. If the average distance between nodes in a lane of the MAP and the centerline of the any existing intersection lanelet described in the lanelet2 map exceeds lanewidth plus this threshold they will not correlate. 
+[2024-06-05 14:39:01.486] [debug] [configuration.cpp:62] Create config name : host_address, value : 127.0.0.1, description : Address to host intersection model REST server. 
+[2024-06-05 14:39:01.486] [debug] [configuration.cpp:62] Create config name : host_port, value : 8080, description : Port to host intersection model REST server 
+[2024-06-05 14:39:01.486] [debug] [configuration.cpp:62] Create config name : bootstrap_server, value : 172.4.0.3:9092, description : Kafka Broker Server Address. 
+[2024-06-05 14:39:01.486] [debug] [configuration.cpp:62] Create config name : map_msg_topic, value : v2xhub_map_msg_in, description : Kafka topic for vehicle status and intent messages 
+[2024-06-05 14:39:01.486] [debug] [configuration.cpp:62] Create config name : map_msg_group_id, value : map_msg_consumer, description : Kafka consumer group for BSM kafka consumer. 
+[2024-06-05 14:39:01.486] [info] [streets_configuration.cpp:15] Printing Configuration Parameters ---------------------------------------
+[2024-06-05 14:39:01.486] [info] [streets_configuration.cpp:18] bootstrap_server : 172.4.0.3:9092 
+[2024-06-05 14:39:01.486] [info] [streets_configuration.cpp:18] host_address : 127.0.0.1 
+[2024-06-05 14:39:01.486] [info] [streets_configuration.cpp:18] host_port : 8080 
+[2024-06-05 14:39:01.486] [info] [streets_configuration.cpp:18] intersection_id : 36243 
+[2024-06-05 14:39:01.486] [info] [streets_configuration.cpp:18] intersection_name : Town04 Intersection 785 
+[2024-06-05 14:39:01.486] [info] [streets_configuration.cpp:18] lane_to_lanelet_corr_thres : 7.500000 
+[2024-06-05 14:39:01.486] [info] [streets_configuration.cpp:18] map_msg_group_id : map_msg_consumer 
+[2024-06-05 14:39:01.486] [info] [streets_configuration.cpp:18] map_msg_topic : v2xhub_map_msg_in 
+[2024-06-05 14:39:01.486] [info] [streets_configuration.cpp:18] osm_file_path : ../MAP/Town04_vector_map.osm 

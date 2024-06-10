@@ -1,0 +1,695 @@
+[2024-06-10 16:06:55.027] [info] [streets_configuration.cpp:198] Default Logger initialized!
+[2024-06-10 16:06:55.027] [info] [streets_configuration.cpp:177] Log Level set to info!
+[2024-06-10 16:06:55.027] [info] [streets_configuration.cpp:15] Printing Configuration Parameters ---------------------------------------
+[2024-06-10 16:06:55.027] [info] [streets_configuration.cpp:18] bootstrap_server : 172.4.0.3:9092 
+[2024-06-10 16:06:55.027] [info] [streets_configuration.cpp:18] host_address : 127.0.0.1 
+[2024-06-10 16:06:55.027] [info] [streets_configuration.cpp:18] host_port : 8080 
+[2024-06-10 16:06:55.027] [info] [streets_configuration.cpp:18] intersection_id : 36243 
+[2024-06-10 16:06:55.027] [info] [streets_configuration.cpp:18] intersection_name : Town04 Intersection 785 
+[2024-06-10 16:06:55.027] [info] [streets_configuration.cpp:18] lane_to_lanelet_corr_thres : 7.500000 
+[2024-06-10 16:06:55.027] [info] [streets_configuration.cpp:18] map_msg_group_id : map_msg_consumer 
+[2024-06-10 16:06:55.027] [info] [streets_configuration.cpp:18] map_msg_topic : v2xhub_map_msg_in 
+[2024-06-10 16:06:55.027] [info] [streets_configuration.cpp:18] osm_file_path : ../MAP/Town04_vector_map.osm 
+[2024-06-10 16:06:55.028] [info] [streets_configuration.cpp:198] Default Logger initialized!
+[2024-06-10 16:06:55.028] [info] [streets_configuration.cpp:177] Log Level set to info!
+[2024-06-10 16:06:55.028] [info] [streets_configuration.cpp:177] Log Level set to info!
+[2024-06-10 16:06:56.243] [info] [intersection_model.cpp:18] Map is loaded ...
+[2024-06-10 16:08:01.801] [info] [intersection_model.cpp:22] Intersection information is initialized ...
+[2024-06-10 16:08:01.801] [info] [intersection_model.cpp:34] Initialization Done!
+[2024-06-10 16:08:01.804] [info] [main.cpp:113] Serving on 127.0.0.1:8080
+[2024-06-10 16:08:01.805] [info] [kafka_consumer_worker.cpp:22] kafka_consumer_worker init()... 
+[2024-06-10 16:08:01.806] [info] [kafka_consumer_worker.cpp:73] created consumer: rdkafka#consumer-1 
+[2024-06-10 16:08:01.806] [info] [kafka_consumer_worker.cpp:134] Consumer connect to bootstrap_server: 172.4.0.3:9092 , topic:  v2xhub_map_msg_in , partition:  0, group id: map_msg_consumer 
+[2024-06-10 16:08:01.806] [info] [kafka_consumer_worker.cpp:114] rdkafka#consumer-1 Successfully to subscribe to   1 topics: Success 
+[2024-06-10 16:08:01.806] [info] [map_msg_worker.cpp:30] map_msg_worker constructor done
+[2024-06-10 16:08:01.806] [info] [main.cpp:61] _map_msg_consumer running true
+[2024-06-10 16:08:01.811] [info] [kafka_consumer_worker.h:42] RebalanceCb: Local: Assign partitions 
+[2024-06-10 16:08:01.811] [info] [kafka_consumer_worker.h:36] Topic v2xhub_map_msg_in , Partition 0
+[2024-06-10 16:10:53.902] [warning] [main.cpp:35] Quit the application by signal 15
+[2024-06-10 16:11:31.815] [info] [streets_configuration.cpp:198] Default Logger initialized!
+[2024-06-10 16:11:31.815] [info] [streets_configuration.cpp:177] Log Level set to info!
+[2024-06-10 16:11:31.815] [info] [streets_configuration.cpp:15] Printing Configuration Parameters ---------------------------------------
+[2024-06-10 16:11:31.815] [info] [streets_configuration.cpp:18] bootstrap_server : 172.4.0.3:9092 
+[2024-06-10 16:11:31.815] [info] [streets_configuration.cpp:18] host_address : 127.0.0.1 
+[2024-06-10 16:11:31.815] [info] [streets_configuration.cpp:18] host_port : 8080 
+[2024-06-10 16:11:31.815] [info] [streets_configuration.cpp:18] intersection_id : 36243 
+[2024-06-10 16:11:31.815] [info] [streets_configuration.cpp:18] intersection_name : Town04 Intersection 785 
+[2024-06-10 16:11:31.815] [info] [streets_configuration.cpp:18] lane_to_lanelet_corr_thres : 7.500000 
+[2024-06-10 16:11:31.815] [info] [streets_configuration.cpp:18] map_msg_group_id : map_msg_consumer 
+[2024-06-10 16:11:31.815] [info] [streets_configuration.cpp:18] map_msg_topic : v2xhub_map_msg_in 
+[2024-06-10 16:11:31.815] [info] [streets_configuration.cpp:18] osm_file_path : ../MAP/Town04_vector_map.osm 
+[2024-06-10 16:11:31.816] [info] [streets_configuration.cpp:198] Default Logger initialized!
+[2024-06-10 16:11:31.816] [info] [streets_configuration.cpp:177] Log Level set to info!
+[2024-06-10 16:11:31.816] [info] [streets_configuration.cpp:177] Log Level set to info!
+[2024-06-10 16:11:33.092] [info] [intersection_model.cpp:18] Map is loaded ...
+[2024-06-10 16:12:39.333] [info] [intersection_model.cpp:22] Intersection information is initialized ...
+[2024-06-10 16:12:39.333] [info] [intersection_model.cpp:34] Initialization Done!
+[2024-06-10 16:12:39.343] [info] [main.cpp:113] Serving on 127.0.0.1:8080
+[2024-06-10 16:12:39.344] [info] [kafka_consumer_worker.cpp:22] kafka_consumer_worker init()... 
+[2024-06-10 16:12:39.345] [info] [kafka_consumer_worker.cpp:73] created consumer: rdkafka#consumer-1 
+[2024-06-10 16:12:39.345] [info] [kafka_consumer_worker.cpp:134] Consumer connect to bootstrap_server: 172.4.0.3:9092 , topic:  v2xhub_map_msg_in , partition:  0, group id: map_msg_consumer 
+[2024-06-10 16:12:39.345] [info] [kafka_consumer_worker.cpp:114] rdkafka#consumer-1 Successfully to subscribe to   1 topics: Success 
+[2024-06-10 16:12:39.345] [info] [map_msg_worker.cpp:30] map_msg_worker constructor done
+[2024-06-10 16:12:39.345] [info] [main.cpp:61] _map_msg_consumer running true
+[2024-06-10 16:12:39.349] [info] [kafka_consumer_worker.h:42] RebalanceCb: Local: Assign partitions 
+[2024-06-10 16:12:39.349] [info] [kafka_consumer_worker.h:36] Topic v2xhub_map_msg_in , Partition 0
+[2024-06-10 16:12:39.832] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:12:39.864] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:12:41.052] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:12:41.084] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:12:42.053] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:12:42.085] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:12:43.393] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:12:43.430] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:12:44.576] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:12:44.613] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:12:45.834] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:12:45.872] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:12:46.766] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:12:46.803] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:12:47.983] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:12:48.020] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:12:49.187] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:12:49.223] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:12:50.620] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:12:50.657] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:12:51.824] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:12:51.861] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:12:52.917] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:12:52.954] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:12:54.352] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:12:54.389] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:12:55.432] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:12:55.469] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:12:56.663] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:12:56.694] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:12:57.831] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:12:57.863] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:12:59.172] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:12:59.205] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:13:00.547] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:13:00.578] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:13:01.568] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:13:01.603] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:13:02.588] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:13:02.621] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:13:03.952] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:13:03.985] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:13:05.120] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:13:05.151] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:13:06.380] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:13:06.413] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:13:07.585] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:13:07.617] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:13:08.882] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:13:08.917] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:13:10.034] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:13:10.072] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:13:11.274] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:13:11.311] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:13:12.548] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:13:12.585] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:13:13.742] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:13:13.779] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:13:14.932] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:13:14.969] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:13:16.188] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:13:16.225] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:13:17.315] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:13:17.352] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:13:18.468] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:13:18.504] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:13:19.744] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:13:19.776] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:13:20.710] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:13:20.747] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:13:22.242] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:13:22.275] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:13:23.491] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:13:23.523] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:13:24.568] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:13:24.605] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:13:25.566] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:13:25.603] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:13:26.864] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:13:26.901] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:13:27.805] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:13:27.842] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:13:29.046] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:13:29.083] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:13:30.166] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:13:30.203] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:13:31.216] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:13:31.253] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:13:32.401] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:13:32.439] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:13:33.513] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:13:33.547] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:13:34.936] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:13:34.968] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:13:36.176] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:13:36.207] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:13:37.444] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:13:37.477] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:13:38.412] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:13:38.443] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:13:39.505] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:13:39.537] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:13:40.592] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:13:40.623] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:13:41.922] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:13:41.959] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:13:43.199] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:13:43.236] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:13:44.360] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:13:44.397] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:13:45.563] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:13:45.600] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:13:46.737] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:13:46.775] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:13:47.972] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:13:48.008] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:13:49.183] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:13:49.216] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:13:50.268] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:13:50.300] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:13:51.599] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:13:51.632] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:13:52.863] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:13:52.896] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:13:54.136] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:13:54.172] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:13:55.253] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:13:55.290] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:13:56.511] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:13:56.549] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:13:58.024] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:13:58.061] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:13:59.152] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:13:59.189] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:14:00.292] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:14:00.328] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:14:01.334] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:14:01.366] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:14:02.500] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:14:02.531] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:14:03.610] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:14:03.642] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:14:04.632] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:14:04.664] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:14:06.248] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:14:06.281] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:14:07.325] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:14:07.357] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:14:08.392] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:14:08.423] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:14:09.667] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:14:09.699] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:14:10.687] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:14:10.719] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:14:11.810] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:14:11.847] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:14:13.021] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:14:13.058] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:14:14.104] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:14:14.141] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:14:15.292] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:14:15.329] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:14:16.484] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:14:16.521] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:14:17.832] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:14:17.870] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:14:19.124] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:14:19.161] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:14:20.184] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:14:20.221] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:14:21.490] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:14:21.527] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:14:22.498] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:14:22.534] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:14:23.649] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:14:23.681] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:14:24.732] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:14:24.769] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:14:25.871] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:14:25.909] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:14:26.952] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:14:26.993] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:14:28.140] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:14:28.177] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:14:29.348] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:14:29.385] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:14:30.496] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:14:30.533] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:14:31.699] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:14:31.736] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:14:32.721] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:14:32.758] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:14:33.956] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:14:33.993] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:14:34.971] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:14:35.008] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:14:36.228] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:14:36.265] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:14:37.484] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:14:37.521] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:14:38.465] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:14:38.502] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:14:39.748] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:14:39.782] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:14:40.843] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:14:40.880] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:14:41.966] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:14:42.001] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:14:43.279] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:14:43.311] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:14:44.341] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:14:44.373] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:14:45.607] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:14:45.639] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:14:46.742] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:14:46.773] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:14:48.000] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:14:48.035] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:14:48.935] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:14:48.967] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:14:50.447] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:14:50.480] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:14:51.589] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:14:51.622] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:14:52.606] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:14:52.638] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:14:53.896] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:14:53.933] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:14:54.908] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:14:54.943] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:14:56.136] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:14:56.167] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:14:57.416] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:14:57.453] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:14:58.659] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:14:58.691] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:14:59.840] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:14:59.871] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:15:01.137] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:15:01.170] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:15:02.472] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:15:02.505] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:15:03.495] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:15:03.527] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:15:04.574] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:15:04.606] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:15:05.878] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:15:05.911] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:15:06.899] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:15:06.931] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:15:08.068] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:15:08.100] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:15:09.140] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:15:09.173] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:15:10.304] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:15:10.336] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:15:11.407] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:15:11.440] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:15:12.633] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:15:12.666] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:15:13.596] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:15:13.627] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:15:14.760] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:15:14.791] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:15:16.020] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:15:16.051] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:15:17.036] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:15:17.067] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:15:18.280] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:15:18.312] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:15:19.265] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:15:19.297] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:15:20.602] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:15:20.634] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:15:21.668] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:15:21.701] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:15:23.068] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:15:23.101] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:15:24.202] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:15:24.235] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:15:25.360] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:15:25.393] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:15:26.548] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:15:26.580] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:15:27.616] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:15:27.647] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:15:28.829] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:15:28.861] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:15:29.947] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:15:29.979] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:15:31.080] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:15:31.111] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:15:32.150] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:15:32.181] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:15:33.439] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:15:33.472] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:15:34.562] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:15:34.594] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:15:35.844] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:15:35.876] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:15:37.004] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:15:37.038] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:15:38.039] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:15:38.076] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:15:39.234] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:15:39.271] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:15:40.369] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:15:40.406] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:15:41.527] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:15:41.560] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:15:52.076] [warning] [main.cpp:35] Quit the application by signal 15
+[2024-06-10 16:16:30.460] [info] [streets_configuration.cpp:198] Default Logger initialized!
+[2024-06-10 16:16:30.460] [info] [streets_configuration.cpp:177] Log Level set to info!
+[2024-06-10 16:16:30.461] [info] [streets_configuration.cpp:15] Printing Configuration Parameters ---------------------------------------
+[2024-06-10 16:16:30.461] [info] [streets_configuration.cpp:18] bootstrap_server : 172.4.0.3:9092 
+[2024-06-10 16:16:30.461] [info] [streets_configuration.cpp:18] host_address : 127.0.0.1 
+[2024-06-10 16:16:30.461] [info] [streets_configuration.cpp:18] host_port : 8080 
+[2024-06-10 16:16:30.461] [info] [streets_configuration.cpp:18] intersection_id : 36243 
+[2024-06-10 16:16:30.461] [info] [streets_configuration.cpp:18] intersection_name : Town04 Intersection 785 
+[2024-06-10 16:16:30.461] [info] [streets_configuration.cpp:18] lane_to_lanelet_corr_thres : 7.500000 
+[2024-06-10 16:16:30.461] [info] [streets_configuration.cpp:18] map_msg_group_id : map_msg_consumer 
+[2024-06-10 16:16:30.461] [info] [streets_configuration.cpp:18] map_msg_topic : v2xhub_map_msg_in 
+[2024-06-10 16:16:30.461] [info] [streets_configuration.cpp:18] osm_file_path : ../MAP/Town04_vector_map.osm 
+[2024-06-10 16:26:42.220] [info] [streets_configuration.cpp:198] Default Logger initialized!
+[2024-06-10 16:26:42.220] [info] [streets_configuration.cpp:177] Log Level set to info!
+[2024-06-10 16:26:42.220] [info] [streets_configuration.cpp:15] Printing Configuration Parameters ---------------------------------------
+[2024-06-10 16:26:42.220] [info] [streets_configuration.cpp:18] bootstrap_server : 172.4.0.3:9092 
+[2024-06-10 16:26:42.220] [info] [streets_configuration.cpp:18] host_address : 127.0.0.1 
+[2024-06-10 16:26:42.220] [info] [streets_configuration.cpp:18] host_port : 8080 
+[2024-06-10 16:26:42.220] [info] [streets_configuration.cpp:18] intersection_id : 36243 
+[2024-06-10 16:26:42.220] [info] [streets_configuration.cpp:18] intersection_name : Town04 Intersection 785 
+[2024-06-10 16:26:42.220] [info] [streets_configuration.cpp:18] lane_to_lanelet_corr_thres : 7.500000 
+[2024-06-10 16:26:42.220] [info] [streets_configuration.cpp:18] map_msg_group_id : map_msg_consumer 
+[2024-06-10 16:26:42.220] [info] [streets_configuration.cpp:18] map_msg_topic : v2xhub_map_msg_in 
+[2024-06-10 16:26:42.220] [info] [streets_configuration.cpp:18] osm_file_path : ../MAP/Town04_vector_map.osm 
+[2024-06-10 16:26:42.228] [info] [streets_configuration.cpp:198] Default Logger initialized!
+[2024-06-10 16:26:42.228] [info] [streets_configuration.cpp:177] Log Level set to info!
+[2024-06-10 16:26:42.228] [info] [streets_configuration.cpp:177] Log Level set to info!
+[2024-06-10 16:26:43.856] [info] [intersection_model.cpp:18] Map is loaded ...
+[2024-06-10 16:27:50.239] [info] [intersection_model.cpp:22] Intersection information is initialized ...
+[2024-06-10 16:27:50.239] [info] [intersection_model.cpp:34] Initialization Done!
+[2024-06-10 16:27:50.243] [info] [main.cpp:113] Serving on 127.0.0.1:8080
+[2024-06-10 16:27:50.243] [info] [kafka_consumer_worker.cpp:22] kafka_consumer_worker init()... 
+[2024-06-10 16:27:50.246] [info] [kafka_consumer_worker.cpp:73] created consumer: rdkafka#consumer-1 
+[2024-06-10 16:27:50.246] [info] [kafka_consumer_worker.cpp:134] Consumer connect to bootstrap_server: 172.4.0.3:9092 , topic:  v2xhub_map_msg_in , partition:  0, group id: map_msg_consumer 
+[2024-06-10 16:27:50.246] [info] [kafka_consumer_worker.cpp:114] rdkafka#consumer-1 Successfully to subscribe to   1 topics: Success 
+[2024-06-10 16:27:50.246] [info] [map_msg_worker.cpp:30] map_msg_worker constructor done
+[2024-06-10 16:27:50.246] [info] [main.cpp:61] _map_msg_consumer running true
+[2024-06-10 16:27:50.250] [info] [kafka_consumer_worker.h:42] RebalanceCb: Local: Assign partitions 
+[2024-06-10 16:27:50.250] [info] [kafka_consumer_worker.h:36] Topic v2xhub_map_msg_in , Partition 0
+[2024-06-10 16:27:51.657] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:27:51.695] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:27:53.445] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:27:53.478] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:27:55.109] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:27:55.141] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:27:56.849] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:27:56.883] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:27:58.454] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:27:58.486] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:28:00.267] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:28:00.302] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:28:01.837] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:28:01.870] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:28:03.581] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:28:03.618] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:28:05.329] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:28:05.366] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:28:06.922] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:28:06.959] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:28:08.699] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:28:08.736] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:28:10.468] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:28:10.505] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:28:12.049] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:28:12.086] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:28:13.769] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:28:13.802] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:28:15.559] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:28:15.592] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:28:17.064] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:28:17.096] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:28:18.626] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:28:18.664] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:28:20.160] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:28:20.197] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:28:21.945] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:28:21.983] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:28:23.375] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:28:23.412] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:28:25.270] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:28:25.307] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:28:26.812] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:28:26.848] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:28:28.605] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:28:28.643] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:28:30.360] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:28:30.397] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:28:32.126] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:28:32.164] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:28:33.704] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:28:33.742] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:28:35.200] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:28:35.232] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:28:36.889] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:28:36.926] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:28:38.483] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:28:38.520] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:28:40.237] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:28:40.274] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:28:41.864] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:28:41.901] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:28:43.637] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:28:43.674] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:28:45.115] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:28:45.152] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:28:47.020] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:28:47.057] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:28:48.536] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:28:48.574] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:28:50.211] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:28:50.248] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:28:51.796] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:28:51.833] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:28:53.413] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:28:53.446] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:28:54.868] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:28:54.901] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:28:56.488] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:28:56.525] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:28:58.184] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:28:58.221] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:28:59.880] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:28:59.912] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:29:01.493] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:29:01.530] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:29:02.949] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:29:02.986] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:29:04.643] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:29:04.681] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:29:06.325] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:29:06.363] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:29:08.010] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:29:08.047] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:29:18.622] [warning] [main.cpp:35] Quit the application by signal 15
+[2024-06-10 16:36:24.395] [info] [streets_configuration.cpp:198] Default Logger initialized!
+[2024-06-10 16:36:24.395] [info] [streets_configuration.cpp:177] Log Level set to info!
+[2024-06-10 16:36:24.395] [info] [streets_configuration.cpp:15] Printing Configuration Parameters ---------------------------------------
+[2024-06-10 16:36:24.395] [info] [streets_configuration.cpp:18] bootstrap_server : 172.4.0.3:9092 
+[2024-06-10 16:36:24.395] [info] [streets_configuration.cpp:18] host_address : 127.0.0.1 
+[2024-06-10 16:36:24.395] [info] [streets_configuration.cpp:18] host_port : 8080 
+[2024-06-10 16:36:24.395] [info] [streets_configuration.cpp:18] intersection_id : 36243 
+[2024-06-10 16:36:24.395] [info] [streets_configuration.cpp:18] intersection_name : Town04 Intersection 785 
+[2024-06-10 16:36:24.395] [info] [streets_configuration.cpp:18] lane_to_lanelet_corr_thres : 7.500000 
+[2024-06-10 16:36:24.395] [info] [streets_configuration.cpp:18] map_msg_group_id : map_msg_consumer 
+[2024-06-10 16:36:24.395] [info] [streets_configuration.cpp:18] map_msg_topic : v2xhub_map_msg_in 
+[2024-06-10 16:36:24.395] [info] [streets_configuration.cpp:18] osm_file_path : ../MAP/Town04_vector_map.osm 
+[2024-06-10 16:36:24.397] [info] [streets_configuration.cpp:198] Default Logger initialized!
+[2024-06-10 16:36:24.397] [info] [streets_configuration.cpp:177] Log Level set to info!
+[2024-06-10 16:36:24.397] [info] [streets_configuration.cpp:177] Log Level set to info!
+[2024-06-10 16:36:25.924] [info] [intersection_model.cpp:18] Map is loaded ...
+[2024-06-10 16:37:32.348] [info] [intersection_model.cpp:22] Intersection information is initialized ...
+[2024-06-10 16:37:32.348] [info] [intersection_model.cpp:34] Initialization Done!
+[2024-06-10 16:37:32.352] [info] [main.cpp:113] Serving on 127.0.0.1:8080
+[2024-06-10 16:37:32.352] [info] [kafka_consumer_worker.cpp:22] kafka_consumer_worker init()... 
+[2024-06-10 16:37:32.355] [info] [kafka_consumer_worker.cpp:73] created consumer: rdkafka#consumer-1 
+[2024-06-10 16:37:32.355] [info] [kafka_consumer_worker.cpp:134] Consumer connect to bootstrap_server: 172.4.0.3:9092 , topic:  v2xhub_map_msg_in , partition:  0, group id: map_msg_consumer 
+[2024-06-10 16:37:32.355] [info] [kafka_consumer_worker.cpp:114] rdkafka#consumer-1 Successfully to subscribe to   1 topics: Success 
+[2024-06-10 16:37:32.355] [info] [map_msg_worker.cpp:30] map_msg_worker constructor done
+[2024-06-10 16:37:32.357] [info] [main.cpp:61] _map_msg_consumer running true
+[2024-06-10 16:37:32.362] [info] [kafka_consumer_worker.h:42] RebalanceCb: Local: Assign partitions 
+[2024-06-10 16:37:32.362] [info] [kafka_consumer_worker.h:36] Topic v2xhub_map_msg_in , Partition 0
+[2024-06-10 16:37:32.941] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:37:32.978] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:37:34.748] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:37:34.783] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:37:36.522] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:37:36.556] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:37:38.468] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:37:38.505] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:37:40.396] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:37:40.433] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:37:42.296] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:37:42.328] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:37:44.111] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:37:44.150] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:37:46.193] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:37:46.231] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:37:48.184] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:37:48.218] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:37:50.089] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:37:50.124] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:37:52.112] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:37:52.149] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:37:53.985] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:37:54.018] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:37:55.940] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:37:55.978] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:37:57.898] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:37:57.936] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:37:59.809] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:37:59.846] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:38:01.809] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:38:01.843] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:38:03.809] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:38:03.847] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:38:05.704] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:38:05.742] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:38:07.682] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:38:07.719] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:38:09.668] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:38:09.705] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:38:11.693] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:38:11.727] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:38:13.833] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:38:13.865] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:38:15.548] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:38:15.580] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:38:17.388] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:38:17.422] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:38:19.568] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:38:19.606] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:38:21.420] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:38:21.454] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:38:23.296] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:38:23.330] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:38:25.483] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:38:25.516] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:38:27.250] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:38:27.286] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:38:29.547] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:38:29.585] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:38:31.461] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:38:31.499] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:38:33.564] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:38:33.601] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:38:35.476] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:38:35.513] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:38:37.571] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:38:37.608] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:38:39.205] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:38:39.242] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:38:41.190] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:38:41.235] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:38:43.240] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:38:43.278] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:38:45.189] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:38:45.227] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:38:47.216] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:38:47.253] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:38:49.084] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:38:49.121] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:38:50.932] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:38:50.969] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:38:52.860] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:38:52.897] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:38:54.735] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:38:54.772] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:38:56.686] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:38:56.723] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:38:58.722] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:38:58.760] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:39:00.722] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:39:00.760] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:39:02.866] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:39:02.904] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:39:04.859] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:39:04.896] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:39:06.829] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:39:06.864] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:39:08.528] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:39:08.560] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:39:10.358] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:39:10.396] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:39:12.469] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:39:12.507] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:39:14.360] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:39:14.397] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:39:16.115] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:39:16.152] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:39:18.160] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:39:18.197] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:39:20.237] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:39:20.271] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:39:22.113] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:39:22.145] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:39:23.997] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:39:24.030] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:39:26.118] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:39:26.151] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:39:27.890] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:39:27.928] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:39:30.018] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:39:30.056] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:39:31.738] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:39:31.774] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:39:33.671] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:39:33.707] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:39:35.626] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:39:35.664] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:39:37.844] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:39:37.876] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:39:39.896] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:39:39.933] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:39:41.727] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:39:41.760] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:39:43.495] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:39:43.532] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:39:45.487] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:39:45.524] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:39:47.504] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:39:47.537] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:39:49.576] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:39:49.613] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:39:51.476] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:39:51.513] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:39:53.465] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:39:53.498] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:39:55.238] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:39:55.275] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:39:57.321] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:39:57.356] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:39:59.335] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:39:59.367] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:40:01.365] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:40:01.398] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:40:03.272] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:40:03.310] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:40:05.208] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:40:05.246] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:40:07.186] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:40:07.224] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:40:09.181] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:40:09.219] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:40:11.190] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:40:11.227] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:40:13.404] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:40:13.441] [info] [intersection_model.cpp:454] Intersection info is updated with signal group ids.
+[2024-06-10 16:40:15.331] [info] [intersection_model.cpp:377] Intersection id 36243 has 1 number of geometries.
+[2024-06-10 16:40:15.368] [info] [intersection_model.cpp:454] Intersection info is updated with signal group 
