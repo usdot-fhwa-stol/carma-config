@@ -205,7 +205,7 @@
                 <appender-ref ref="CarmaLog"/>
             </logger>
 
-            <logger name="org.eclipse.mosaic.fed.infrastructure" additivity="false" level="INFO">
+            <logger name="org.eclipse.mosaic.fed.infrastructure" additivity="false" level="TRACE">
                 <appender-ref ref="InfrastructureLog"/>
             </logger>
 
@@ -224,8 +224,8 @@
             <logger name="org.eclipse.mosaic.fed.ns3.ambassador.Ns3AmbassadorError" additivity="false" level="INFO">
                 <appender-ref ref="CommunicationDetailsLog"/>
             </logger>
-            
-            <logger name="org.eclipse.mosaic.fed.ns3.ambassador" additivity="false" level="INFO">
+
+            <logger name="org.eclipse.mosaic.fed.ns3.ambassador" additivity="false" level="DEBUG">
                 <appender-ref ref="CommunicationDetailsLog"/>
             </logger>
             <!-- All other stuff, which was not logged by other loggers before goes

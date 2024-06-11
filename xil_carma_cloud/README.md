@@ -19,12 +19,12 @@ TODO Add diagram of RSU location (VRU location currently)
 
 ## Deployment Instructions
 
-1) Copy all files in the `cdasim_config/routes` directory to  directory to `/opt/carma/routes/`
+1) Copy all files in the `cdasim_config/route_config` directory to  directory to `/opt/carma/routes/`
 2) Copy the osm map in `cdasim_config/carma/` directory to `/opt/carma/maps/` and create a symbolic link to it named `vector_map.osm`
-3) Build Virtual Signal Controller image locally 
+3) Build Virtual Signal Controller image locally
 4) Install carma-script extension
 5) Build or pull carma-config image and run `carma config set <image_name>`
 6) Navigate to the `cdasim_config/` directory and run the `start_simulation` script
 7) To stop the simulation simply run the `stop_simulation` script in the same directory (ensure any kafka data from carma streets is collected before stopping simulation)
-8) This scenario can generate a lot of logged data, using the `clear_logs` script in the same directory will clear **CDASim**, **CARMA Streets**, and **CARMA Platform Logs** 
+8) This scenario can generate a lot of logged data, using the `clear_logs` script in the same directory will clear **CDASim**, **CARMA Streets**, and **CARMA Platform Logs**
 
