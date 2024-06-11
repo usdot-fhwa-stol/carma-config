@@ -82,8 +82,8 @@ class VulnerableRoadUserCollision(BasicScenario):
         spectator = world.get_spectator()
         spectator.set_transform(
             carla.Transform(
-                carla.Location(265.4068, -160.1683, 21.2939),
-                carla.Rotation(-60.0360, -126.9920, 0.0),
+                carla.Location(200.0, -250.0, 200.0),
+                carla.Rotation(-90.0, -90.0, 0.0),
             )
         )
 

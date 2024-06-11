@@ -58,8 +58,8 @@ services:
       - /opt/carma/data:/opt/carma/data
       - /opt/carma/simulation:/opt/carma/simulation
     environment:
-      - ROS_IP=172.3.0.3
-      - ROS_MASTER_URI=http://172.3.0.2:11311/
+      ROS_IP: 172.3.0.3
+      ROS_MASTER_URI: http://172.3.0.2:11311/
     command: >
       bash -c 'wait-for-it.sh 172.3.0.2:11311 -- roslaunch /opt/carma/vehicle/config/carma_docker.launch'
 
@@ -70,7 +70,7 @@ services:
         ipv4_address: 172.3.0.4
     container_name: platform_ros2_1
     environment:
-      - RMW_IMPLEMENTATION=${RMW_IMPLEMENTATION}
+      RMW_IMPLEMENTATION_OVERWRITE: ${RMW_IMPLEMENTATION}
     volumes_from:
       - container:carma-config:ro
     volumes:
@@ -83,7 +83,7 @@ services:
       - ./carma/inlanecruising_config/parameters.yaml:/opt/carma/install_ros2/inlanecruising_plugin/share/inlanecruising_plugin/config/parameters.yaml
       - ./carma/environment.launch.py:/opt/carma/install_ros2/carma/share/carma/launch/environment.launch.py
     command: >
-      bash -c 'source /opt/carma/install_ros2/setup.bash
+      bash -c 'export RMW_IMPLEMENTATION=${RMW_IMPLEMENTATION_OVERWRITE} && source /opt/carma/install_ros2/setup.bash
       && ros2 launch /opt/carma/vehicle/config/carma_docker.launch.py'
 
   ros1_bridge_1:
@@ -95,9 +95,9 @@ services:
     volumes_from:
       - container:carma-config:ro
     environment:
-      - ROS_IP=172.3.0.5
-      - ROS_MASTER_URI=http://172.3.0.2:11311/
-      - RMW_IMPLEMENTATION=${RMW_IMPLEMENTATION}
+      ROS_IP: 172.3.0.5
+      ROS_MASTER_URI: http://172.3.0.2:11311/
+      RMW_IMPLEMENTATION_OVERWRITE: ${RMW_IMPLEMENTATION}
     volumes:
       - /opt/carma/logs/carma_1:/opt/carma/logs
       - /opt/carma/.ros:/home/carma/.ros
@@ -106,7 +106,7 @@ services:
       - /opt/carma/routes:/opt/carma/routes
       - /opt/carma/yolo:/opt/carma/yolo
     command: >
-      bash -c 'wait-for-it.sh 172.3.0.2:11311 -- rosparam load /opt/carma/vehicle/config/bridge.yml
+      bash -c 'export RMW_IMPLEMENTATION=${RMW_IMPLEMENTATION_OVERWRITE} && wait-for-it.sh 172.3.0.2:11311 -- rosparam load /opt/carma/vehicle/config/bridge.yml
       && source ~/.base-image/workspace/install/setup.bash
       && ros2 run ros1_bridge dynamic_bridge --multi-threads'
 
@@ -121,9 +121,9 @@ services:
     volumes_from:
       - container:carma-config:ro
     environment:
-      - ROS_IP=172.3.0.6
-      - ROS_MASTER_URI=http://172.3.0.2:11311/
-      - PYTHONUNBUFFERED=1
+      ROS_IP: 172.3.0.6
+      ROS_MASTER_URI: http://172.3.0.2:11311/
+      PYTHONUNBUFFERED: 1
     # sleep is for carla simulator to become available
     # start_delay_in_seconds is carla game time seconds to adjust when to engage for the scenario
     # and account for delay required for world model to fully update after route is selected
@@ -152,9 +152,9 @@ services:
     volumes_from:
       - container:carma-config:ro
     environment:
-      - ROS_IP=172.3.0.7
-      - ROS_MASTER_URI=http://172.3.0.2:11311/
-      - NVIDIA_VISIBLE_DEVICES=all
+      ROS_IP: 172.3.0.7
+      ROS_MASTER_URI: http://172.3.0.2:11311/
+      NVIDIA_VISIBLE_DEVICES: all
     volumes:
       - /opt/carma/logs/carma_1:/opt/carma/logs
       - /opt/carma/.ros:/home/carma/.ros
@@ -184,8 +184,8 @@ services:
       - /opt/carma/logs/carma_2:/opt/carma/logs
     restart: always
     environment:
-      - ROS_IP=172.5.0.2
-      - ROS_MASTER_URI=http://172.5.0.2:11311/
+      ROS_IP: 172.5.0.2
+      ROS_MASTER_URI: http://172.5.0.2:11311/
     command: roscore
 
   platform_2:
@@ -228,8 +228,8 @@ services:
       - ./carma/inlanecruising_config/parameters.yaml:/opt/carma/install_ros2/inlanecruising_plugin/share/inlanecruising_plugin/config/parameters.yaml
       - ./carma/environment.launch.py:/opt/carma/install_ros2/carma/share/carma/launch/environment.launch.py
     environment:
-      - RMW_IMPLEMENTATION=${RMW_IMPLEMENTATION}
-    command: bash -c 'source /opt/carma/install_ros2/setup.bash && ros2 launch /opt/carma/vehicle/config/carma_docker.launch.py'
+      RMW_IMPLEMENTATION_OVERWRITE: ${RMW_IMPLEMENTATION}
+    command: bash -c 'export RMW_IMPLEMENTATION=${RMW_IMPLEMENTATION_OVERWRITE} && source /opt/carma/install_ros2/setup.bash && ros2 launch /opt/carma/vehicle/config/carma_docker.launch.py'
 
   ros1_bridge_2:
     image: usdotfhwastol/carma-msgs:carma-system-4.5.0
@@ -240,9 +240,9 @@ services:
     volumes_from:
       - container:carma-config:ro
     environment:
-      - ROS_IP=172.5.0.5
-      - ROS_MASTER_URI=http://172.5.0.2:11311/
-      - RMW_IMPLEMENTATION=${RMW_IMPLEMENTATION}
+      ROS_IP: 172.5.0.5
+      ROS_MASTER_URI: http://172.5.0.2:11311/
+      RMW_IMPLEMENTATION_OVERWRITE: ${RMW_IMPLEMENTATION}
     volumes:
       - /opt/carma/logs/carma_2:/opt/carma/logs
       - /opt/carma/.ros:/home/carma/.ros
@@ -250,7 +250,7 @@ services:
       - /opt/carma/maps:/opt/carma/maps
       - /opt/carma/routes:/opt/carma/routes3
       - /opt/carma/yolo:/opt/carma/yolo
-    command: bash -c 'wait-for-it.sh 172.5.0.2:11311 -- rosparam load /opt/carma/vehicle/config/bridge.yml && source ~/.base-image/workspace/install/setup.bash && ros2 run ros1_bridge dynamic_bridge --multi-threads'
+    command: bash -c 'export RMW_IMPLEMENTATION=${RMW_IMPLEMENTATION_OVERWRITE} && wait-for-it.sh 172.5.0.2:11311 -- rosparam load /opt/carma/vehicle/config/bridge.yml && source ~/.base-image/workspace/install/setup.bash && ros2 run ros1_bridge dynamic_bridge --multi-threads'
 
   carma-carla-integration_2:
     image: usdotfhwastol/carma-carla-integration:carma-system-4.5.0
@@ -263,14 +263,14 @@ services:
     volumes_from:
       - container:carma-config:ro
     environment:
-      - ROS_IP=172.5.0.6
-      - ROS_MASTER_URI=http://172.5.0.2:11311/
+      ROS_IP: 172.5.0.6
+      ROS_MASTER_URI: http://172.5.0.2:11311/
     command: >
               bash -c "wait-for-it.sh 172.5.0.2:11311
               && export PYTHONPATH=$PYTHONPATH:~/PythonAPI/carla/dist/carla-0.9.10-py3.7-linux-x86_64.egg:/home/carma/carla-sensor-lib/src
               && source ~/carma_carla_ws/devel/setup.bash
               && python3 /home/carma/carma-carla-integration/carla-health-poll/src/wait_for_carla.py
-              && roslaunch carma_carla_agent carma_carla_agent.launch 
+              && roslaunch carma_carla_agent carma_carla_agent.launch
               role_name:='carma_2'
               host:='172.2.0.2'
               selected_route:='Release_test_case_2'
@@ -288,9 +288,9 @@ services:
     volumes_from:
       - container:carma-config:ro
     environment:
-      - ROS_IP=172.5.0.7
-      - ROS_MASTER_URI=http://172.5.0.2:11311/
-      - NVIDIA_VISIBLE_DEVICES=all
+      ROS_IP: 172.5.0.7
+      ROS_MASTER_URI: http://172.5.0.2:11311/
+      NVIDIA_VISIBLE_DEVICES: all
     volumes:
       - /opt/carma/logs/carma_2:/opt/carma/logs
       - /opt/carma/.ros:/home/carma/.ros
@@ -521,7 +521,7 @@ services:
       - ./sensor_configurations/:/home/carma-streets/sensor_configurations/
       - /etc/localtime:/etc/localtime:ro
       - /etc/timezone:/etc/timezone:ro
-      
+
   econolite-virtual-controller:
     image: usdotfhwastol/econolite-virtual-controller:latest
     container_name: evc

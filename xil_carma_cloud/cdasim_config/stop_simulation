@@ -2,4 +2,4 @@
 echo "Stopping simulation ..."
 carma stop all
 echo "Clearing CARMA Streets Kafka Message Volumes"
-docker volume rm carma_kafka-datavolume carma_zookeeper-datavolume
+docker volume rm carma_kafka-datavolume carma_zookeeper-datavolume carma_mysql-datavolume
