@@ -8,8 +8,12 @@ This **CARMA Config** includes the docker-compose and configuration file setup f
 
 This CARMA Configuration Image creates a **XIL** (Anything-In-the-Loop) scenario which includes **CARLA**, **SUMO** , **NS3** (CV2X Model), a **Virtual Signal Controller**, **CARMA Streets** and **CARMA Platform**. The scenario configured is meant to show base basic CDASim functionality along with the new developed **CARMA Cloud** integration. **CARMA Cloud** is a cloud application used to maintain and provide traffic controls for autonomous vehicles to use to update their local maps. The diagrams below illustrate the configured scenario including vehicle routes and infrastructure location.
 
-![Alt text](docs/carma_1_route.png)![Alt text](docs/carma_2_route.png)
-TODO Add diagram of RSU location (VRU location currently)
+
+![Alt text](docs/town04_diagram.png)
+
+
+![Alt text](docs/scenario_diagram.png)
+
 ## Simulators
 
 | Simulator      | Version |
