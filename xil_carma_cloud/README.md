@@ -25,7 +25,7 @@ This CARMA Configuration Image creates a **XIL** (Anything-In-the-Loop) scenario
 
 1) Copy all files in the `cdasim_config/route_config` directory to  directory to `/opt/carma/routes/`
 2) Copy the osm map in `cdasim_config/carma/` directory to `/opt/carma/maps/` and create a symbolic link to it named `vector_map.osm`
-3) Unzip <folder_name and or link> in `cdasim_config/` to create `cdasim_config/carmacloudvol/` with traffic controls and xodr map
+3) Unzip [carmacloud.zip](https://leidoscorpus.sharepoint.us/sites/STR/TODevelopmentLibrary/Forms/AllItems.aspx?OR=Teams%2DHL&CT=1718132983172&clickparams=eyJBcHBOYW1lIjoiVGVhbXMtRGVza3RvcCIsIkFwcFZlcnNpb24iOiI0OS8yNDA1MDMwNzYxNCIsIkhhc0ZlZGVyYXRlZFVzZXIiOmZhbHNlfQ%3D%3D&id=%2Fsites%2FSTR%2FTODevelopmentLibrary%2F22%2D241%20CARMA%20XIL%202%2FWork%2DIn%2DProgress%2FTask%202%20CARMA%20Cloud%20Integration%2Fcarmacloud%2Ezip&viewid=203b55b8%2D6a07%2D4b3b%2D8097%2D4a10dba36afb&parent=%2Fsites%2FSTR%2FTODevelopmentLibrary%2F22%2D241%20CARMA%20XIL%202%2FWork%2DIn%2DProgress%2FTask%202%20CARMA%20Cloud%20Integration) in `cdasim_config/` to create `cdasim_config/carmacloudvol/` with traffic controls and xodr map. The default traffic controls setting for carma-cloud in zip file is specifically for Town04.
 4) Build Virtual Signal Controller image locally
 5) Install carma-script extension
 6) Build or pull carma-config image and run `carma config set <image_name>`
