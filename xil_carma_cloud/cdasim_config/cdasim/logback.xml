@@ -201,7 +201,7 @@
                 <appender-ref ref="CarlaLog"/>
             </logger>
 
-            <logger name="org.eclipse.mosaic.fed.carma" additivity="false" level="INFO">
+            <logger name="org.eclipse.mosaic.fed.carma" additivity="false" level="TRACE">
                 <appender-ref ref="CarmaLog"/>
             </logger>
 
