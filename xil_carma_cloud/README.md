@@ -11,7 +11,6 @@ This CARMA Configuration Image creates a **XIL** (Anything-In-the-Loop) scenario
 
 ![Alt text](docs/town04_diagram.png)
 
-
 ![Alt text](docs/scenario_diagram.png)
 
 ## Simulators
