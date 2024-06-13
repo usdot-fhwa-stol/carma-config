@@ -135,7 +135,7 @@ services:
       && roslaunch carma_carla_agent carma_carla_agent.launch
       role_name:='carma_1'
       host:='172.2.0.2'
-      selected_route:='Release_test_case_1'
+      selected_route:='carma_1_route'
       start_delay_in_seconds:='3'
       spawn_point:='151.2,-305.9,0,0,0,0'"
 
@@ -273,9 +273,9 @@ services:
               && roslaunch carma_carla_agent carma_carla_agent.launch
               role_name:='carma_2'
               host:='172.2.0.2'
-              selected_route:='Release_test_case_2'
+              selected_route:='carma_2_route'
               start_delay_in_seconds:='15'
-              spawn_point:='201.4,-291.5,0,0,0,-90'"
+              spawn_point:='148.12,-170,0,0,0,0'"
 
   ns3_adapter_2:
     image: usdotfhwastol/carma-ns3-adapter:carma-system-4.5.0
