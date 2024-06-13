@@ -136,7 +136,7 @@ services:
       role_name:='carma_1'
       host:='172.2.0.2'
       selected_route:='carma_1_route'
-      start_delay_in_seconds:='3'
+      start_delay_in_seconds:=${VEHICLE_ENGAGE_DELAY}
       spawn_point:='151.2,-305.9,0,0,0,0'"
 
 
@@ -274,7 +274,7 @@ services:
               role_name:='carma_2'
               host:='172.2.0.2'
               selected_route:='carma_2_route'
-              start_delay_in_seconds:='15'
+              start_delay_in_seconds:=${VEHICLE_ENGAGE_DELAY}
               spawn_point:='148.12,-170,0,0,0,0'"
 
   ns3_adapter_2:
@@ -381,7 +381,7 @@ services:
       - ./kowl:/etc/kowl/
 
   db:
-    image: mysql:5.7
+    image: mysql:8.0
     container_name: mysql
     restart: always
     environment:
