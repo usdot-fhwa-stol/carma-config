@@ -122,6 +122,10 @@ topics:
     type: visualization_msgs/msg/MarkerArray
     queue_size: 1
 
+  - topic: /environment/tcm_visualizer
+    type: visualization_msgs/msg/MarkerArray
+    queue_size: 1
+
   - topic: /message/incoming_sdsm
     type: carma_v2x_msgs/msg/SensorDataSharingMessage
     queue_size: 1
