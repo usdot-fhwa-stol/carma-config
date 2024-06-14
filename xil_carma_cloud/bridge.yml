@@ -39,7 +39,7 @@ topics:
       durability: transient_local
 
   - topic: /hardware_interface/controller/robot_status
-    type: carma_perception_msgs/msg/RobotEnabled
+    type: carma_driver_msgs/msg/RobotEnabled
     queue_size: 10
 
   - topic: /environment/external_objects
