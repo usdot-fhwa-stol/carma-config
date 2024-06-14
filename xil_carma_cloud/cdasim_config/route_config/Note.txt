@@ -1,3 +1,5 @@
-Release_test_case_1:spawn_point:='151.2,-305.9,0,0,0,0'
+carma_1_route:spawn_point:='151.2,-305.9,0,0,0,0'
 
-Release_test_case_2:spawn_point:='201.4,-291.5,0,0,0,-90'
+carma_2_route:spawn_point:='148.12,-170,0,0,0,0'
+
+carma_2_route_prev:spawn_point:='201.4,-291.5,0,0,0,-90'

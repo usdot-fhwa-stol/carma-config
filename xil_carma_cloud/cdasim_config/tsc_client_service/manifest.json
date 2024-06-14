@@ -3,52 +3,52 @@
     "loglevel": "info",
     "configurations": [
         {
-            
+
             "name": "target_ip",
             "value": "172.4.0.4",
             "description": "Target device IP address",
             "type": "STRING"
-        }, 
+        },
         {
            "name": "target_port",
            "value": 5050,
            "description": "Target device NTCIP port",
-           "type": "INTEGER" 
+           "type": "INTEGER"
         },
         {
             "name": "community",
             "value": "administrator",
             "description": "Target community for establishing snmp communication",
-            "type": "STRING"  
+            "type": "STRING"
         },
         {
             "name": "snmp_version",
             "value": 0,
             "description": "snmp version being used. net-snmp version definition: SNMP_VERSION_1:0 SNMP_VERSION_2c:1 SNMP_VERSION_2u:2 SNMP_VERSION_3:3",
-            "type": "INTEGER" 
+            "type": "INTEGER"
         },
         {
             "name": "snmp_timeout",
             "value": 1500000000,
             "description": "Time in microseconds after which the the snmp request times out",
-            "type": "INTEGER" 
+            "type": "INTEGER"
         },
         {
-            
+
             "name": "udp_socket_ip",
             "value": "172.4.0.3",
             "description": "IP for UDP socket listener to listen on. Should be localhost IP of container or VM running TSC Service.",
             "type": "STRING"
         },
         {
-            
+
             "name": "udp_socket_port",
             "value": 6053,
             "description": "Port for UDP Socket Listener to list on. TSC configuration sets which port/host NTCIP SPaT data will be broadcast to.",
             "type": "INTEGER"
         },
         {
-            
+
             "name": "socket_timeout",
             "value": 100,
             "description": "Timeout in seconds for UDP Socket Listener. If UDP Socket Listener does not receive messages for this amount of time it will shutdown and thrown an exception. ",
@@ -86,7 +86,7 @@
         },
         {
             "name": "spat_projection_mode",
-            "value": 0,
+            "value": 2,
             "description": "Enumeration configuring SPat projection. 1 == DPP projection. 2 == Fixed Timing projection. Any other value will result in no projection of future",
             "type": "INTEGER"
         },
@@ -107,7 +107,7 @@
             "value": true,
             "description": "Bool flag to enable snmp commands logging.",
             "type": "BOOL"
-        }, 
+        },
         {
             "name": "snmp_cmd_log_path",
             "value": "../logs/",
@@ -132,6 +132,6 @@
             "description": "If true will enable monitor_desired_phase_plan to update incoming spat with calculated future movement events, using desired phase plan information from signal optimization service. If false will use TSC Configuration to predict future phases and append those to the spat based on default phase sequence.",
             "type": "BOOL"
         }
-        
+
     ]
 }
