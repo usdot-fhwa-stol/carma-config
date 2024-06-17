@@ -34,6 +34,6 @@ LABEL org.label-schema.vcs-ref=${VCS_REF}
 LABEL org.label-schema.build-date=${BUILD_DATE}
 
 ADD . /root/vehicle/config
-VOLUME /opt/carma/vehicle/config
 
-CMD  cp /root/vehicle/config/. /opt/carma/vehicle/config
+VOLUME /opt/carma/vehicle/config
+CMD cp -R /root/vehicle/config/. /opt/carma/vehicle/config

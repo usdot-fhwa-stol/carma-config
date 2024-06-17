@@ -35,5 +35,4 @@ LABEL org.label-schema.build-date=${BUILD_DATE}
 
 ADD . /root/vehicle/config
 VOLUME /opt/carma/vehicle/config
-
 CMD cp -R /root/vehicle/config/. /opt/carma/vehicle/config
