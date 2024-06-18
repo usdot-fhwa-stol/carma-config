@@ -1,11 +1,11 @@
 #  Copyright (C) 2018-2021 LEIDOS.
-# 
+#
 #  Licensed under the Apache License, Version 2.0 (the "License"); you may not
 #  use this file except in compliance with the License. You may obtain a copy of
 #  the License at
-# 
+#
 #  http://www.apache.org/licenses/LICENSE-2.0
-# 
+#
 #  Unless required by applicable law or agreed to in writing, software
 #  distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
 #  WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
@@ -13,14 +13,13 @@
 #  the License.
 
 # Docker Compose Spec Version
-version: '2'
 
 services:
   roscore:
     image: ${DOCKER_ORG}/carma-base:${DOCKER_TAG}
     network_mode: host
     container_name: roscore
-    volumes_from: 
+    volumes_from:
       - container:carma-config:ro
     volumes:
       - /opt/carma/.ros:/home/carma/.ros
@@ -34,7 +33,7 @@ services:
     image: ${DOCKER_ORG}/carma-platform:${DOCKER_TAG}
     network_mode: host
     container_name: platform
-    volumes_from: 
+    volumes_from:
       - container:carma-config:ro
     volumes:
       - /opt/carma/logs:/opt/carma/logs
@@ -85,7 +84,7 @@ services:
     image: ${DOCKER_ORG}/carma-platform:${DOCKER_TAG}
     network_mode: host
     container_name: carma-mock-lightbar-driver
-    volumes_from: 
+    volumes_from:
       - container:carma-config:ro
     volumes:
       - /opt/carma/logs:/opt/carma/logs
@@ -100,7 +99,7 @@ services:
     image: ${DOCKER_ORG}/carma-platform:${DOCKER_TAG}
     network_mode: host
     container_name: carma-mock-can-driver
-    volumes_from: 
+    volumes_from:
       - container:carma-config:ro
     volumes:
       - /opt/carma/logs:/opt/carma/logs
@@ -114,7 +113,7 @@ services:
     image: ${DOCKER_ORG}/carma-platform:${DOCKER_TAG}
     network_mode: host
     container_name: carma-mock-comms-driver
-    volumes_from: 
+    volumes_from:
       - container:carma-config:ro
     volumes:
       - /opt/carma/logs:/opt/carma/logs
@@ -128,7 +127,7 @@ services:
     image: ${DOCKER_ORG}/carma-platform:${DOCKER_TAG}
     network_mode: host
     container_name: carma-srx-controller-driver
-    volumes_from: 
+    volumes_from:
       - container:carma-config:ro
     volumes:
       - /opt/carma/logs:/opt/carma/logs
@@ -142,7 +141,7 @@ services:
     image: ${DOCKER_ORG}/carma-platform:${DOCKER_TAG}
     network_mode: host
     container_name: carma-mock-radar-driver
-    volumes_from: 
+    volumes_from:
       - container:carma-config:ro
     volumes:
       - /opt/carma/logs:/opt/carma/logs
@@ -156,7 +155,7 @@ services:
     image: ${DOCKER_ORG}/carma-platform:${DOCKER_TAG}
     network_mode: host
     container_name: carma-mock-gnss-driver
-    volumes_from: 
+    volumes_from:
       - container:carma-config:ro
     volumes:
       - /opt/carma/logs:/opt/carma/logs
@@ -170,7 +169,7 @@ services:
     image: ${DOCKER_ORG}/carma-platform:${DOCKER_TAG}
     network_mode: host
     container_name: carma-mock-imu-driver
-    volumes_from: 
+    volumes_from:
       - container:carma-config:ro
     volumes:
       - /opt/carma/logs:/opt/carma/logs
@@ -184,7 +183,7 @@ services:
     image: ${DOCKER_ORG}/carma-platform:${DOCKER_TAG}
     network_mode: host
     container_name: carma-mock-lidar-driver
-    volumes_from: 
+    volumes_from:
       - container:carma-config:ro
     volumes:
       - /opt/carma/logs:/opt/carma/logs
@@ -198,7 +197,7 @@ services:
     image: ${DOCKER_ORG}/carma-platform:${DOCKER_TAG}
     network_mode: host
     container_name: carma-mock-camera-driver
-    volumes_from: 
+    volumes_from:
       - container:carma-config:ro
     volumes:
       - /opt/carma/logs:/opt/carma/logs
@@ -207,12 +206,12 @@ services:
     environment:
       - ROS_IP=127.0.0.1
     command: bash -c 'export ROS_NAMESPACE=$${CARMA_INTR_NS} && wait-for-it.sh localhost:11311 -- roslaunch carma mock_drivers.launch mock_drivers:=camera'
-    
+
   mock-roadway-sensor-driver:
     image: ${DOCKER_ORG}/carma-platform:${DOCKER_TAG}
     network_mode: host
     container_name: carma-mock-roadway-sensor-driver
-    volumes_from: 
+    volumes_from:
       - container:carma-config:ro
     volumes:
       - /opt/carma/logs:/opt/carma/logs
