@@ -24,7 +24,7 @@ This CARMA Configuration Image creates a **XIL** (Anything-In-the-Loop) scenario
 
 1) Copy all files in the `cdasim_config/route_config` directory to  directory to `/opt/carma/routes/`
 2) Copy the osm map in `cdasim_config/carma/` directory to `/opt/carma/maps/` and create a symbolic link to it named `vector_map.osm`
-3) Unzip [carmacloudvol.zip](https://leidoscorpus.sharepoint.us/:u:/r/sites/STR/TODevelopmentLibrary/22-241%20CARMA%20XIL%202/Work-In-Progress/Task%202%20CARMA%20Cloud%20Integration/carmacloudvol.zip?csf=1&web=1&e=3TRaJg) in `cdasim_config/` to create `cdasim_config/carmacloudvol/` with traffic controls and xodr map.
+3) ***Optional:*** Unzip [carmacloudvol.zip](https://leidoscorpus.sharepoint.us/:u:/r/sites/STR/TODevelopmentLibrary/22-241%20CARMA%20XIL%202/Work-In-Progress/Task%202%20CARMA%20Cloud%20Integration/carmacloudvol.zip?csf=1&web=1&e=3TRaJg) in `cdasim_config/` to replace `carmacloudvol` if you want to incldue all traffic control config from Town04.
 
 > [!NOTE]  
 > These **CARMA Cloud** traffic controls and xodr map only for CARLA Town04. New ones must be generated for other CARLA Maps.
@@ -39,4 +39,3 @@ This CARMA Configuration Image creates a **XIL** (Anything-In-the-Loop) scenario
 7) Navigate to the `cdasim_config/` directory and run the `start_simulation` script
 8) To stop the simulation simply run the `stop_simulation` script in the same directory (ensure any kafka data from carma streets is collected before stopping simulation)
 9) This scenario can generate a lot of logged data, using the `clear_logs` script in the same directory will clear **CDASim**, **CARMA Streets**, and **CARMA Platform Logs**
-
