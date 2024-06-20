@@ -1,3 +1,4 @@
+version: "2"
 services:
   carma-simulation:
     privileged: true
@@ -18,7 +19,7 @@ services:
       resources:
         reservations:
           devices:
-            - capabilities: [ gpu ]
+            - capabilities: [gpu]
     command: bash -c "./mosaic.sh -s Town04"
 
   ## carma_1 vehicle
@@ -60,7 +61,8 @@ services:
       - ROS_IP=172.3.0.3
       - ROS_MASTER_URI=http://172.3.0.2:11311/
     command: >
-      bash -c 'export RMW_IMPLEMENTATION=rmw_fastrtps_cpp && wait-for-it.sh 172.3.0.2:11311 -- roslaunch /opt/carma/vehicle/config/carma_docker.launch'
+      bash -c 'export RMW_IMPLEMENTATION=rmw_fastrtps_cpp
+      && wait-for-it.sh 172.3.0.2:11311 -- roslaunch /opt/carma/vehicle/config/carma_docker.launch'
 
   platform_ros2_1:
     image: ${DOCKER_ORG}/carma-platform:${DOCKER_TAG}
@@ -82,7 +84,9 @@ services:
       - ./carma-platform/lci_strategic_plugin/parameters.yaml:/opt/carma/install_ros2/lci_strategic_plugin/share/lci_strategic_plugin/config/parameters.yaml
       - ./carma-platform/motion_computation/parameters.yaml:/opt/carma/install_ros2/motion_computation/share/motion_computation/config/parameters.yaml
     command: >
-      bash -c 'export RMW_IMPLEMENTATION=rmw_fastrtps_cpp && source /opt/carma/install_ros2/setup.bash && ros2 launch /opt/carma/vehicle/config/carma_docker.launch.py'
+      bash -c 'export RMW_IMPLEMENTATION=rmw_fastrtps_cpp
+      && source /opt/carma/install_ros2/setup.bash
+      && ros2 launch /opt/carma/vehicle/config/carma_docker.launch.py'
 
   ros1_bridge_1:
     image: ${DOCKER_ORG}/carma-msgs:${DOCKER_TAG}
@@ -103,7 +107,10 @@ services:
       - /opt/carma/routes:/opt/carma/routes
       - /opt/carma/yolo:/opt/carma/yolo
     command: >
-      bash -c 'export RMW_IMPLEMENTATION=rmw_fastrtps_cpp && wait-for-it.sh 172.3.0.2:11311 -- rosparam load /opt/carma/vehicle/config/bridge.yml && source ~/.base-image/workspace/install/setup.bash && ros2 run ros1_bridge dynamic_bridge --multi-threads'
+      bash -c 'export RMW_IMPLEMENTATION=rmw_fastrtps_cpp
+      && wait-for-it.sh 172.3.0.2:11311 -- rosparam load /opt/carma/vehicle/config/bridge.yml
+      && source ~/.base-image/workspace/install/setup.bash
+      && ros2 run ros1_bridge dynamic_bridge --multi-threads'
 
   carma-carla-integration_1:
     image: ${DOCKER_ORG}/carma-carla-integration:${DOCKER_TAG}
@@ -126,7 +133,17 @@ services:
     # start_delay_in_seconds is carla game time seconds to adjust when to engage for the scenario
     # and account for delay required for world model to fully update after route is selected
     command: >
-      bash -c "export RMW_IMPLEMENTATION=rmw_fastrtps_cpp && wait-for-it.sh 172.3.0.2:11311 && export PYTHONPATH=$PYTHONPATH:~/PythonAPI/carla/dist/carla-0.9.10-py3.7-linux-x86_64.egg:/home/carma/carla-sensor-lib/src && source ~/carma_carla_ws/devel/setup.bash && python3 /home/carma/carma-carla-integration/carla-health-poll/src/wait_for_carla.py && roslaunch carma_carla_agent carma_carla_agent.launch role_name:='carma_1' host:='172.2.0.2' selected_route:=${VEHICLE_SELECTED_ROUTE} start_delay_in_seconds:=${VEHICLE_ENGAGE_DELAY} spawn_point:=${VEHICLE_SPAWN_POINT}"
+      bash -c "export RMW_IMPLEMENTATION=rmw_fastrtps_cpp
+      && wait-for-it.sh 172.3.0.2:11311
+      && export PYTHONPATH=$PYTHONPATH:~/PythonAPI/carla/dist/carla-0.9.10-py3.7-linux-x86_64.egg:/home/carma/carla-sensor-lib/src
+      && source ~/carma_carla_ws/devel/setup.bash
+      && python3 /home/carma/carma-carla-integration/carla-health-poll/src/wait_for_carla.py
+      && roslaunch carma_carla_agent carma_carla_agent.launch
+      role_name:='carma_1'
+      host:='172.2.0.2'
+      selected_route:=${VEHICLE_SELECTED_ROUTE}
+      start_delay_in_seconds:=${VEHICLE_ENGAGE_DELAY}
+      spawn_point:=${VEHICLE_SPAWN_POINT}"
 
   ns3_adapter_1:
     image: ${DOCKER_ORG}/carma-ns3-adapter:${DOCKER_TAG}
@@ -151,7 +168,10 @@ services:
       - /opt/carma/yolo:/opt/carma/yolo
       - ./ns3_adapter/adapter_1/parameters.yaml:/opt/carma/install/ns3_adapter/share/ns3_adapter/config/parameters.yaml
     command: >
-      bash -c "export RMW_IMPLEMENTATION=rmw_fastrtps_cpp && wait-for-it.sh 172.3.0.2:11311 -- roslaunch ns3_adapter ns3_adapter.launch role_id:='carma_1' remap_ns:=/hardware_interface/comms"
+      bash -c "export RMW_IMPLEMENTATION=rmw_fastrtps_cpp
+      && wait-for-it.sh 172.3.0.2:11311 -- roslaunch ns3_adapter ns3_adapter.launch
+      role_id:='carma_1'
+      remap_ns:=/hardware_interface/comms"
 
   zookeeper:
     image: wurstmeister/zookeeper
@@ -171,16 +191,7 @@ services:
     # Health check to confirm kafka server is healthy (script is a client) and all topics
     # have been created (time_sync is last topic).
     healthcheck:
-      test:
-        [
-          "CMD",
-          "kafka-topics.sh",
-          "--describe",
-          "--bootstrap-server",
-          "172.4.0.3:9092",
-          "--topic",
-          "time_sync"
-        ]
+      test: ["CMD", "kafka-topics.sh", "--describe", "--bootstrap-server", "172.4.0.3:9092", "--topic", "time_sync"]
       interval: 2s
       timeout: 10s
       retries: 10
@@ -188,7 +199,19 @@ services:
       DOCKER_HOST_IP: 172.4.0.3
       KAFKA_ADVERTISED_HOST_NAME: 172.4.0.3
       KAFKA_ADVERTISED_PORT: 9092
-      KAFKA_CREATE_TOPICS: "v2xhub_scheduling_plan_sub:1:1,v2xhub_bsm_in:1:1,v2xhub_mobility_operation_in:1:1,v2xhub_mobility_path_in:1:1,vehicle_status_intent_output:1:1,v2xhub_map_msg_in:1:1,modified_spat:1:1,desired_phase_plan:1:1,tsc_config_state:1:1,v2xhub_sim_sensor_detected_object:1:1,v2xhub_sdsm_sub,time_sync:1:1"
+      KAFKA_CREATE_TOPICS: "\
+        v2xhub_scheduling_plan_sub:1:1,\
+        v2xhub_bsm_in:1:1,\
+        v2xhub_mobility_operation_in:1:1,\
+        v2xhub_mobility_path_in:1:1,\
+        vehicle_status_intent_output:1:1,\
+        v2xhub_map_msg_in:1:1,\
+        modified_spat:1:1,\
+        desired_phase_plan:1:1,\
+        tsc_config_state:1:1,\
+        v2xhub_sim_sensor_detected_object:1:1,\
+        v2xhub_sdsm_sub,\
+        time_sync:1:1"
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
       KAFKA_LOG_DIRS: "/kafka/kafka-logs"
     volumes:
@@ -295,7 +318,8 @@ services:
       - CARLA_EGG_DIR=/home/CarlaCDASimAdapter/
     volumes:
       - ./carla-sensor-lib/logs/:/home/CarlaCDASimAdapter/logs/
-    command: bash -c "sleep 15; python3 -u /home/CarlaCDASimAdapter/src/CarlaCDASimAdapter.py --carla-host 172.2.0.2 --xmlrpc-server-host 172.2.0.5  --sensor-config-file ./config/simulated_sensor_config.yaml --noise-model-config-file ./config/noise_model_config.yaml"
+    command: bash -c "sleep 15;
+      python3 -u /home/CarlaCDASimAdapter/src/CarlaCDASimAdapter.py --carla-host 172.2.0.2 --xmlrpc-server-host 172.2.0.5  --sensor-config-file ./config/simulated_sensor_config.yaml --noise-model-config-file ./config/noise_model_config.yaml"
 
   tsc_service:
     image: ${DOCKER_ORG}/tsc_service:${DOCKER_TAG}
@@ -324,7 +348,8 @@ services:
       - ./tsc_client_service/manifest.json:/home/carma-streets/tsc_client_service/manifest.json
       - ./tsc_client_service/logs/:/home/carma-streets/tsc_client_service/logs/
     command: >
-      sh -c "/wait && /home/carma-streets/tsc_client_service/build/traffic_signal_controller_service"
+      sh -c "/wait
+      && /home/carma-streets/tsc_client_service/build/traffic_signal_controller_service"
   sensor_data_sharing_service:
     image: ${DOCKER_ORG}/sensor_data_sharing_service:${DOCKER_TAG}
     build:
@@ -368,7 +393,10 @@ services:
     depends_on:
       - carma-simulation
     command: >
-      bash -c "sleep 10 && x-terminal-emulator -e python3.8 evc_sumo_bridge.py --asc3app-path '../evcfile/asc3app-application.zip' --traci-ip 172.2.0.2"
+      bash -c "sleep 10
+      && x-terminal-emulator -e python3.8 evc_sumo_bridge.py
+      --asc3app-path '../evcfile/asc3app-application.zip'
+      --traci-ip 172.2.0.2"
 
   scenario-runner:
     image: ${DOCKER_ORG}/scenario-runner:${DOCKER_TAG}
@@ -386,7 +414,11 @@ services:
     # sleep is for mainly carma-platform's components to
     # activate and be ready before scenario starts
     entrypoint: >
-      bash -c "sleep 30 && python3 scenario_runner.py --scenario ${SIMULATION_SCENARIO} --record metrics/data/ --host 172.2.0.2"
+      bash -c "sleep 30
+      && python3 scenario_runner.py
+      --scenario ${SIMULATION_SCENARIO}
+      --record metrics/data/
+      --host 172.2.0.2"
 
 networks:
   carma_sim_net:

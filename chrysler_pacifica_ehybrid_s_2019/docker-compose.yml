@@ -13,6 +13,7 @@
 #  the License.
 
 # Docker Compose Spec Version
+version: '2'
 
 services:
   roscore:
@@ -80,12 +81,12 @@ services:
       - /opt/carma/routes:/opt/carma/routes
       - /opt/carma/yolo:/opt/carma/yolo
     command: bash -c 'wait-for-it.sh localhost:11311 -- rosparam load /opt/carma/vehicle/config/bridge.yml && source ~/.base-image/workspace/install/setup.bash && ros2 run ros1_bridge dynamic_bridge --multi-threads'
-
+    
   lightbar-driver:
     image: ${DOCKER_ORG}/carma-lightbar-driver:${DOCKER_TAG}
     network_mode: host
     container_name: lightbar-driver
-    volumes_from:
+    volumes_from: 
       - container:carma-config:ro
     volumes:
       - /opt/carma/logs:/opt/carma/logs
@@ -105,7 +106,7 @@ services:
       - /opt/carma/logs:/opt/carma/logs
       - /opt/carma/.ros:/home/carma/.ros
     command: bash -c 'source /opt/carma/install/setup.bash && ros2 launch /opt/carma/vehicle/config/drivers.launch.py drivers:=dsrc_driver'
-
+  
   ssc_controller_driver:
     image: ${DOCKER_ORG}/carma-ssc-interface-wrapper:${DOCKER_TAG}
     container_name: ssc_controller_driver
@@ -143,7 +144,7 @@ services:
       - /opt/carma/logs:/opt/carma/logs
       - /opt/carma/.ros:/home/carma/.ros
     command: bash -c 'source /opt/carma/install/setup.bash && ros2 launch /opt/carma/vehicle/config/drivers.launch.py drivers:=velodyne_lidar_driver_wrapper'
-
+  
   # NOTE: This is a mock driver and not an actual camera
   # It is being used instead as camera input is currently not supported in the Autoware.Auto
   # system integrated in release carma-system-4.0
@@ -151,7 +152,7 @@ services:
     image: ${DOCKER_ORG}/carma-platform:${DOCKER_TAG}
     network_mode: host
     container_name: carma-mock-camera-driver
-    volumes_from:
+    volumes_from: 
       - container:carma-config:ro
     volumes:
       - /opt/carma/logs:/opt/carma/logs
@@ -160,6 +161,7 @@ services:
     environment:
       - ROS_IP=192.168.88.10
     command: bash -c 'export ROS_NAMESPACE=$${CARMA_INTR_NS} && wait-for-it.sh localhost:11311 -- roslaunch carma mock_drivers.launch mock_drivers:=camera'
+  
   # TODO DelphiESR Front Driver Node
   # TODO Delphi Srr2 Front Left Driver Node
   # TODO Delphi Srr2 Front Right Driver Node

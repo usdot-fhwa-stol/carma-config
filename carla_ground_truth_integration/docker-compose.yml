@@ -13,6 +13,7 @@
 #  the License.
 
 # Docker Compose Spec Version
+version: '2'
 
 services:
   roscore:

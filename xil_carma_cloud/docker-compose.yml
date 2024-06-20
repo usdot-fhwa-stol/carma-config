@@ -1,3 +1,4 @@
+version: "2"
 services:
   carma-simulation:
     privileged: true
@@ -17,11 +18,11 @@ services:
       resources:
         reservations:
           devices:
-            - capabilities: [ gpu ]
+            - capabilities: [gpu]
     command: bash -c "./mosaic.sh -s Town04"
 
-  ############################################################################
-  # carma vehicle 1
+############################################################################
+# carma vehicle 1
   roscore_1:
     image: usdotfhwastol/carma-base:carma-system-4.5.0
     networks:
@@ -82,7 +83,8 @@ services:
       - ./carma/inlanecruising_config/parameters.yaml:/opt/carma/install_ros2/inlanecruising_plugin/share/inlanecruising_plugin/config/parameters.yaml
       - ./carma/environment.launch.py:/opt/carma/install_ros2/carma/share/carma/launch/environment.launch.py
     command: >
-      bash -c 'export RMW_IMPLEMENTATION=${RMW_IMPLEMENTATION_OVERWRITE} && source /opt/carma/install_ros2/setup.bash && ros2 launch /opt/carma/vehicle/config/carma_docker.launch.py'
+      bash -c 'export RMW_IMPLEMENTATION=${RMW_IMPLEMENTATION_OVERWRITE} && source /opt/carma/install_ros2/setup.bash
+      && ros2 launch /opt/carma/vehicle/config/carma_docker.launch.py'
 
   ros1_bridge_1:
     image: usdotfhwastol/carma-msgs:carma-system-4.5.0
@@ -104,7 +106,9 @@ services:
       - /opt/carma/routes:/opt/carma/routes
       - /opt/carma/yolo:/opt/carma/yolo
     command: >
-      bash -c 'export RMW_IMPLEMENTATION=${RMW_IMPLEMENTATION_OVERWRITE} && wait-for-it.sh 172.3.0.2:11311 -- rosparam load /opt/carma/vehicle/config/bridge.yml && source ~/.base-image/workspace/install/setup.bash && ros2 run ros1_bridge dynamic_bridge --multi-threads'
+      bash -c 'export RMW_IMPLEMENTATION=${RMW_IMPLEMENTATION_OVERWRITE} && wait-for-it.sh 172.3.0.2:11311 -- rosparam load /opt/carma/vehicle/config/bridge.yml
+      && source ~/.base-image/workspace/install/setup.bash
+      && ros2 run ros1_bridge dynamic_bridge --multi-threads'
 
   carma-carla-integration_1:
     image: usdotfhwastol/carma-carla-integration:carma-system-4.5.0
@@ -160,11 +164,13 @@ services:
       - /opt/carma/yolo:/opt/carma/yolo
       - ./ns3_adapter/adapter_1/parameters.yaml:/opt/carma/install/ns3_adapter/share/ns3_adapter/config/parameters.yaml
     command: >
-      bash -c "wait-for-it.sh 172.3.0.2:11311 -- roslaunch ns3_adapter ns3_adapter.launch role_id:='carma_1' remap_ns:=/hardware_interface/comms"
-  #############################################################################
+      bash -c "wait-for-it.sh 172.3.0.2:11311 -- roslaunch ns3_adapter ns3_adapter.launch
+      role_id:='carma_1'
+      remap_ns:=/hardware_interface/comms"
+#############################################################################
 
-  #############################################################################
-  # carma_2 vehicle
+#############################################################################
+# carma_2 vehicle
   roscore_2:
     image: usdotfhwastol/carma-base:carma-system-4.5.0
     networks:
@@ -294,7 +300,7 @@ services:
       - /opt/carma/yolo:/opt/carma/yolo
       - ./ns3_adapter/adapter_2/parameters.yaml:/opt/carma/install/ns3_adapter/share/ns3_adapter/config/parameters.yaml
     command: bash -c "wait-for-it.sh 172.5.0.2:11311 -- roslaunch ns3_adapter ns3_adapter.launch role_id:='carma_2' remap_ns:=/hardware_interface/comms"
-  #############################################################################
+#############################################################################
 
   carma-cloud:
     image: ${DOCKER_ORG:-usdotfhwastoldev}/carma-cloud:${DOCKER_TAG:-develop}
@@ -329,16 +335,7 @@ services:
     # Health check to confirm kafka server is healthy (script is a client) and all topics
     # have been created (time_sync is last topic).
     healthcheck:
-      test:
-        [
-          "CMD",
-          "kafka-topics.sh",
-          "--describe",
-          "--bootstrap-server",
-          "172.4.0.3:9092",
-          "--topic",
-          "time_sync"
-        ]
+      test: ["CMD", "kafka-topics.sh", "--describe", "--bootstrap-server", "172.4.0.3:9092", "--topic", "time_sync"]
       interval: 2s
       timeout: 10s
       retries: 10
@@ -346,7 +343,19 @@ services:
       DOCKER_HOST_IP: 172.4.0.3
       KAFKA_ADVERTISED_HOST_NAME: 172.4.0.3
       KAFKA_ADVERTISED_PORT: 9092
-      KAFKA_CREATE_TOPICS: "v2xhub_scheduling_plan_sub:1:1,v2xhub_bsm_in:1:1,v2xhub_mobility_operation_in:1:1,v2xhub_mobility_path_in:1:1,vehicle_status_intent_output:1:1,v2xhub_map_msg_in:1:1,modified_spat:1:1,desired_phase_plan:1:1,tsc_config_state:1:1,v2xhub_sim_sensor_detected_object:1:1,v2xhub_sdsm_sub,time_sync:1:1"
+      KAFKA_CREATE_TOPICS: "\
+        v2xhub_scheduling_plan_sub:1:1,\
+        v2xhub_bsm_in:1:1,\
+        v2xhub_mobility_operation_in:1:1,\
+        v2xhub_mobility_path_in:1:1,\
+        vehicle_status_intent_output:1:1,\
+        v2xhub_map_msg_in:1:1,\
+        modified_spat:1:1,\
+        desired_phase_plan:1:1,\
+        tsc_config_state:1:1,\
+        v2xhub_sim_sensor_detected_object:1:1,\
+        v2xhub_sdsm_sub,\
+        time_sync:1:1"
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
       KAFKA_LOG_DIRS: "/kafka/kafka-logs"
     volumes:
@@ -453,7 +462,8 @@ services:
       - CARLA_EGG_DIR=/home/CarlaCDASimAdapter/
     volumes:
       - ./carla-sensor-lib/logs/:/home/CarlaCDASimAdapter/logs/
-    command: bash -c "sleep 15; python3 -u /home/CarlaCDASimAdapter/src/CarlaCDASimAdapter.py --carla-host 172.2.0.2 --xmlrpc-server-host 172.2.0.5  --sensor-config-file ./config/simulated_sensor_config.yaml --noise-model-config-file ./config/noise_model_config.yaml"
+    command: bash -c "sleep 15;
+      python3 -u /home/CarlaCDASimAdapter/src/CarlaCDASimAdapter.py --carla-host 172.2.0.2 --xmlrpc-server-host 172.2.0.5  --sensor-config-file ./config/simulated_sensor_config.yaml --noise-model-config-file ./config/noise_model_config.yaml"
 
   tsc_service:
     image: usdotfhwastol/tsc_service:carma-system-4.5.0
@@ -482,7 +492,8 @@ services:
       - ./tsc_client_service/manifest.json:/home/carma-streets/tsc_client_service/manifest.json
       - ./tsc_client_service/logs/:/home/carma-streets/tsc_client_service/logs/
     command: >
-      sh -c "/wait && /home/carma-streets/tsc_client_service/build/traffic_signal_controller_service"
+      sh -c "/wait
+      && /home/carma-streets/tsc_client_service/build/traffic_signal_controller_service"
 
   sensor_data_sharing_service:
     image: usdotfhwastol/sensor_data_sharing_service:carma-system-4.5.0
@@ -528,7 +539,10 @@ services:
     depends_on:
       - carma-simulation
     command: >
-      bash -c "sleep 10 && x-terminal-emulator -e python3.8 evc_sumo_bridge.py --asc3app-path '../evcfile/asc3app-application.zip' --traci-ip 172.2.0.2"
+      bash -c "sleep 10
+      && x-terminal-emulator -e python3.8 evc_sumo_bridge.py
+      --asc3app-path '../evcfile/asc3app-application.zip'
+      --traci-ip 172.2.0.2"
 
   scenario-runner:
     image: usdotfhwastol/scenario-runner:carma-system-4.5.0
@@ -544,7 +558,11 @@ services:
     # sleep is for mainly carma-platform's components to
     # activate and be ready before scenario starts
     entrypoint: >
-      bash -c "sleep 30 && python3 scenario_runner.py --scenario VulnerableRoadUserCollision_LeftTurn --record metrics/data/ --host 172.2.0.2"
+      bash -c "sleep 30
+      && python3 scenario_runner.py
+      --scenario VulnerableRoadUserCollision_LeftTurn
+      --record metrics/data/
+      --host 172.2.0.2"
 
 networks:
   carma_sim_net:
