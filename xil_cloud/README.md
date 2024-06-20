@@ -8,6 +8,8 @@ This **CARMA Config** includes the docker-compose and configuration file setup f
 
 This CARMA Configuration Image creates a **XIL** (Anything-In-the-Loop) scenario which includes **CARLA**, **SUMO** , **NS3**, a **Virtual Signal Controller** and **CARMA Platform**. The scenario configured is meant to show base basic CDASim functionality along with the new developed **CARMA Streets** integration. **CARMA Streets** is a component of CARMA ecosystem, which enables such a coordination among different transportation users. This component provides an interface for CDA participants to interact with the road infrastructure. **CARMA Streets** is also an edge-computing unit that improves the efficiency and performance of the Transportation Systems Management and Operations (TSMO) strategies.
 
+![Alt text](docs/Town04.png)
+
 ![Alt text](docs/vehicle_1_route.png)
 
 ![Alt text](docs/vehicle_2_route.png)
