@@ -1,6 +1,6 @@
 {
 	"version":"0.1",
-	"id":"00109ab6d542f12ca8942b436c9c9d8d",
+	"id":"0082c92f0aa9a8a6af93115ccdb2cfa5",
 	"updated":"1970-01-01 00:00:00",
 	"vtypes":
 	[
@@ -27,7 +27,7 @@
 	},
 	"regulatory":true,
 	"controltype":"maxspeed",
-	"controlvalue":"9",
+	"controlvalue":"36",
 	"proj":"epsg:3785",
 	"datum":"WGS84",
 	"label":"workzone",
