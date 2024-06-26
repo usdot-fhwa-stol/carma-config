@@ -82,8 +82,15 @@ services:
       - /opt/carma/yolo:/opt/carma/yolo
       - ./carma/inlanecruising_config/parameters.yaml:/opt/carma/install_ros2/inlanecruising_plugin/share/inlanecruising_plugin/config/parameters.yaml
       - ./carma/environment.launch.py:/opt/carma/install_ros2/carma/share/carma/launch/environment.launch.py
+      - ./carma/light_controlled_intersection_tactical_plugin/parameters.yaml:/opt/carma/install_ros2/light_controlled_intersection_tactical_plugin/share/light_controlled_intersection_tactical_plugin/config/parameters.yaml
+      - ./carma/lci_strategic_plugin/parameters.yaml:/opt/carma/install_ros2/lci_strategic_plugin/share/lci_strategic_plugin/config/parameters.yaml
+      - ./carma/plugins.launch.py:/opt/carma/install_ros2/carma/share/carma/launch/plugins.launch.py
+      - ./carma/system_controller/config.yaml:/opt/carma/install_ros2/system_controller/share/system_controller/config/config.yaml
     command: >
-      bash -c 'export RMW_IMPLEMENTATION=${RMW_IMPLEMENTATION_OVERWRITE} && source /opt/carma/install_ros2/setup.bash
+      bash -c 'export RMW_IMPLEMENTATION=${RMW_IMPLEMENTATION_OVERWRITE}
+      && echo "RMW_IMPLEMENTATION: ${RMW_IMPLEMENTATION}"
+      && echo "RMW_IMPLEMENTATION_OVERWRITE: ${RMW_IMPLEMENTATION_OVERWRITE}"
+      && source /opt/carma/install_ros2/setup.bash
       && ros2 launch /opt/carma/vehicle/config/carma_docker.launch.py'
 
   ros1_bridge_1:
@@ -227,6 +234,10 @@ services:
       - /opt/carma/yolo:/opt/carma/yolo
       - ./carma/inlanecruising_config/parameters.yaml:/opt/carma/install_ros2/inlanecruising_plugin/share/inlanecruising_plugin/config/parameters.yaml
       - ./carma/environment.launch.py:/opt/carma/install_ros2/carma/share/carma/launch/environment.launch.py
+      - ./carma/light_controlled_intersection_tactical_plugin/parameters.yaml:/opt/carma/install_ros2/light_controlled_intersection_tactical_plugin/share/light_controlled_intersection_tactical_plugin/config/parameters.yaml
+      - ./carma/lci_strategic_plugin/parameters.yaml:/opt/carma/install_ros2/lci_strategic_plugin/share/lci_strategic_plugin/config/parameters.yaml
+      - ./carma/system_controller/config.yaml:/opt/carma/install_ros2/system_controller/share/system_controller/config/config.yaml
+      - ./carma/plugins.launch.py:/opt/carma/install_ros2/carma/share/carma/launch/plugins.launch.py
     environment:
       RMW_IMPLEMENTATION_OVERWRITE: ${RMW_IMPLEMENTATION}
     command: bash -c 'export RMW_IMPLEMENTATION=${RMW_IMPLEMENTATION_OVERWRITE} && source /opt/carma/install_ros2/setup.bash && ros2 launch /opt/carma/vehicle/config/carma_docker.launch.py'
@@ -265,6 +276,7 @@ services:
     environment:
       ROS_IP: 172.5.0.6
       ROS_MASTER_URI: http://172.5.0.2:11311/
+      PYTHONUNBUFFERED: 1
     command: >
               bash -c "wait-for-it.sh 172.5.0.2:11311
               && export PYTHONPATH=$PYTHONPATH:~/PythonAPI/carla/dist/carla-0.9.10-py3.7-linux-x86_64.egg:/home/carma/carla-sensor-lib/src
