@@ -87,10 +87,7 @@ services:
       - ./carma/plugins.launch.py:/opt/carma/install_ros2/carma/share/carma/launch/plugins.launch.py
       - ./carma/system_controller/config.yaml:/opt/carma/install_ros2/system_controller/share/system_controller/config/config.yaml
     command: >
-      bash -c 'export RMW_IMPLEMENTATION=${RMW_IMPLEMENTATION_OVERWRITE}
-      && echo "RMW_IMPLEMENTATION: ${RMW_IMPLEMENTATION}"
-      && echo "RMW_IMPLEMENTATION_OVERWRITE: ${RMW_IMPLEMENTATION_OVERWRITE}"
-      && source /opt/carma/install_ros2/setup.bash
+      bash -c 'export RMW_IMPLEMENTATION=${RMW_IMPLEMENTATION_OVERWRITE} && source /opt/carma/install_ros2/setup.bash
       && ros2 launch /opt/carma/vehicle/config/carma_docker.launch.py'
 
   ros1_bridge_1:
