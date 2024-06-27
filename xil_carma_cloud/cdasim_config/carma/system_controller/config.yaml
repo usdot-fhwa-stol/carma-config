@@ -2,7 +2,7 @@
   ros__parameters:
     # Double: Delay period in seconds to wait before trying to configure system nodes
     # Units: seconds
-    signal_configure_delay : 15.0
+    signal_configure_delay : 15.0 # increased to allow multiple carma enough time to initialize
 
     # Long: Timeout for each service to be detected as available in milliseconds
     # Units: milliseconds
