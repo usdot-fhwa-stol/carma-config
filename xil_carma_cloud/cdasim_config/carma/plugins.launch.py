@@ -583,6 +583,7 @@ def generate_launch_description():
     )
 
     return LaunchDescription([
+        # Turning off plugins that are not tested in this release
         carma_inlanecruising_plugin_container,
         carma_route_following_plugin_container,
         #carma_approaching_emergency_vehicle_plugin_container,
@@ -598,5 +599,4 @@ def generate_launch_description():
         #platooning_strategic_plugin_container,
         #platooning_tactical_plugin_container,
         intersection_transit_maneuvering_container
-
     ])

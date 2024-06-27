@@ -1,6 +1,6 @@
-version: "2"
+version: '2'
 services:
-    web-ui:
+  web-ui:
     image: usdotfhwastol/carma-web-ui:carma-system-4.5.0
     container_name: web-ui
     network_mode: host
