@@ -38,8 +38,8 @@ lat_accel_multiplier: 0.50
 # Double: A buffer before of the stopping location which will still be considered a valid stop. Units in meters
 stop_line_buffer : 2.0
 
-# Double: Minimum allowable speed in m/s
-minimum_speed : 0.5
+# Double: Minimum allowable speed in m/s2.235
+minimum_speed : 0.894
 
 # Double: Distance from the nearest traffic light where the vehicle decides whether to run last successful trajectory or accept new one (in meters)
 algorithm_evaluation_distance : 35.0
