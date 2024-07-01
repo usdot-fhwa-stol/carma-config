@@ -409,7 +409,7 @@ services:
       - ./mysql:/docker-entrypoint-initdb.d
 
   php:
-    image: usdotfhwaops/php:7.6.0
+    image: ${OPS_DOCKER_ORG:-usdotfhwaops}/php:${OPS_DOCKER_TAG:-develop}
     container_name: php
     network_mode: service:db
     depends_on:
