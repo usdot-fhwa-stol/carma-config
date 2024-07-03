@@ -324,6 +324,8 @@ services:
     volumes:
       - ./carmacloudvol/logs:/opt/tomcat/logs
       - ./carmacloudvol/work:/opt/tomcat/work
+      - ./carmacloudvol/web.xml:/opt/tomcat/webapps/carmacloud/ROOT/WEB-INF/web.xml
+      - ./carmacloudvol/log4j2.properties:/opt/tomcat/webapps/carmacloud/WEB-INF/classes/log4j2.properties
     command: bash -c "/opt/tomcat/bin/catalina.sh run"
 
   zookeeper:
