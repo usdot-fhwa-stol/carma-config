@@ -1,4 +1,6 @@
 #!/bin/bash
+echo "Saving v2x log"
+docker logs v2xhub > v2xhub.log
 echo "Stopping simulation ..."
 carma stop all
 echo "Clearing CARMA Streets Kafka Message Volumes"
