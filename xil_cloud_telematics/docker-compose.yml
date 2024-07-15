@@ -283,7 +283,7 @@ services:
     tty: true
 
   v2xhub:
-    image: usdotfhwaops/v2xhubamd:${OPS_DOCKER_TAG}
+    image: usdotfhwaops/v2xhub:${OPS_DOCKER_TAG}
     container_name: v2xhub
     network_mode: service:db
     restart: always
@@ -340,7 +340,7 @@ services:
       python3 -u /home/CarlaCDASimAdapter/src/CarlaCDASimAdapter.py --carla-host 172.2.0.2 --xmlrpc-server-host 172.2.0.5  --sensor-config-file ./config/simulated_sensor_config.yaml --noise-model-config-file ./config/noise_model_config.yaml"
 
   tsc_service:
-    image: usdotfhwastol/tsc_service:$carma-system-4.5.0
+    image: usdotfhwastol/tsc_service:carma-system-4.5.0
     container_name: tsc_service
     restart: always
     network_mode: service:zookeeper
@@ -417,7 +417,7 @@ services:
       --traci-ip 172.2.0.2"
 
   scenario-runner:
-    image: $usdotfhwastol/scenario-runner:carma-system-4.5.0
+    image: usdotfhwastol/scenario-runner:carma-system-4.5.0
     container_name: scenario-runner
     networks:
       - carma_sim_net
