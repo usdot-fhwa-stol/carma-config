@@ -2,7 +2,7 @@
 services:
   carma-simulation:
     privileged: true
-    image: ${DOCKER_ORG}/cdasim:${DOCKER_TAG}
+    image: usdotfhwastol/cdasim:carma-system-4.5.0
     networks:
       carma_sim_net:
         ipv4_address: 172.2.0.2
@@ -24,7 +24,7 @@ services:
 
   ## carma_1 vehicle
   roscore_1:
-    image: ${DOCKER_ORG}/carma-base:${DOCKER_TAG}
+    image: usdotfhwastol/carma-base:carma-system-4.5.0
     networks:
       carma_net_1:
         ipv4_address: 172.3.0.2
@@ -41,7 +41,7 @@ services:
     command: roscore
 
   platform_1:
-    image: ${DOCKER_ORG}/carma-platform:${DOCKER_TAG}
+    image: usdotfhwastol/carma-platform:carma-system-4.5.0
     networks:
       carma_net_1:
         ipv4_address: 172.3.0.3
@@ -65,7 +65,7 @@ services:
       && wait-for-it.sh 172.3.0.2:11311 -- roslaunch /opt/carma/vehicle/config/carma_docker.launch'
 
   platform_ros2_1:
-    image: ${DOCKER_ORG}/carma-platform:${DOCKER_TAG}
+    image: usdotfhwastol/carma-platform:carma-system-4.5.0
     networks:
       carma_net_1:
         ipv4_address: 172.3.0.4
@@ -89,7 +89,7 @@ services:
       && ros2 launch /opt/carma/vehicle/config/carma_docker.launch.py'
 
   ros1_bridge_1:
-    image: ${DOCKER_ORG}/carma-msgs:${DOCKER_TAG}
+    image: usdotfhwastol/carma-msgs:carma-system-4.5.0
     networks:
       carma_net_1:
         ipv4_address: 172.3.0.5
@@ -113,7 +113,7 @@ services:
       && ros2 run ros1_bridge dynamic_bridge --multi-threads'
 
   carma-carla-integration_1:
-    image: ${DOCKER_ORG}/carma-carla-integration:${DOCKER_TAG}
+    image: usdotfhwastol/carma-carla-integration:carma-system-4.5.0
     networks:
       carma_net_1:
         ipv4_address: 172.3.0.6
@@ -164,7 +164,7 @@ services:
     command:  bash -c 'source /ws/install/setup.bash && ros2 launch ros2_nats_bridge ros2_nats_bridge_launch.py'
 
   ns3_adapter_1:
-    image: ${DOCKER_ORG}/carma-ns3-adapter:${DOCKER_TAG}
+    image: usdotfhwastol/carma-ns3-adapter:carma-system-4.5.0
     networks:
       carma_net_1:
         ipv4_address: 172.3.0.7
@@ -309,7 +309,7 @@ services:
       - ./sensor_configurations:/home/V2X-Hub/sensor_configurations/
 
   intersection_model:
-    image: ${DOCKER_ORG}/intersection_model:${DOCKER_TAG}
+    image: usdotfhwastol/intersection_model:carma-system-4.5.0
     container_name: intersection_model
     restart: always
     network_mode: service:zookeeper
@@ -324,7 +324,7 @@ services:
       - ./MAP:/home/carma-streets/intersection_model/MAP
 
   carla-sensor-lib:
-    image: ${DOCKER_ORG}/carla-sensor-lib:${DOCKER_TAG}
+    image: usdotfhwastol/carla-sensor-lib:carma-system-4.5.0
     networks:
       carma_sim_net:
         ipv4_address: 172.2.0.5
@@ -340,7 +340,7 @@ services:
       python3 -u /home/CarlaCDASimAdapter/src/CarlaCDASimAdapter.py --carla-host 172.2.0.2 --xmlrpc-server-host 172.2.0.5  --sensor-config-file ./config/simulated_sensor_config.yaml --noise-model-config-file ./config/noise_model_config.yaml"
 
   tsc_service:
-    image: ${DOCKER_ORG}/tsc_service:${DOCKER_TAG}
+    image: usdotfhwastol/tsc_service:$carma-system-4.5.0
     container_name: tsc_service
     restart: always
     network_mode: service:zookeeper
@@ -369,7 +369,7 @@ services:
       sh -c "/wait
       && /home/carma-streets/tsc_client_service/build/traffic_signal_controller_service"
   sensor_data_sharing_service:
-    image: ${DOCKER_ORG}/sensor_data_sharing_service:${DOCKER_TAG}
+    image: usdotfhwastol/sensor_data_sharing_service:carma-system-4.5.0
     build:
       context: .
       dockerfile: sensor_data_sharing_service/Dockerfile
@@ -395,7 +395,7 @@ services:
       - /etc/localtime:/etc/localtime:ro
       - /etc/timezone:/etc/timezone:ro
   econolite-virtual-controller:
-    image: ${DOCKER_ORG}/econolite-virtual-controller:${DOCKER_TAG}
+    image: usdotfhwastol/econolite-virtual-controller:carma-system-4.5.0
     container_name: evc
     restart: always
     networks:
@@ -417,7 +417,7 @@ services:
       --traci-ip 172.2.0.2"
 
   scenario-runner:
-    image: ${DOCKER_ORG}/scenario-runner:${DOCKER_TAG}
+    image: $usdotfhwastol/scenario-runner:carma-system-4.5.0
     container_name: scenario-runner
     networks:
       - carma_sim_net
