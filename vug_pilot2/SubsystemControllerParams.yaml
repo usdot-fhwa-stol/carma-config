@@ -1,0 +1,106 @@
+# This file contains configurations for the subsystem_controllers which manage the lifecycle of each individual subsystem
+# For brevity the parameter descriptions are not provided here. The descriptions can be found in the default parameter files located
+# in the subsystem_controllers parameter directory here: https://github.com/usdot-fhwa-stol/carma-platform/tree/develop/subsystem_controllers/config
+# The parameters specified in this file override the parameters in the default parameter files.
+# NOTE: Due to a limitation in ROS2 empty arrays in this file should be denoted with ['']
+environment:
+  environment_perception_controller:
+    ros__parameters:
+      subsystem_namespace: /environment
+      required_subsystem_nodes: ['']
+      unmanaged_required_nodes:
+        - /hardware_interface/velodyne_lidar_driver_wrapper_node
+      full_subsystem_required: true
+      call_timeout_ms : 150000
+      service_timeout_ms : 20000
+
+hardware_interface:
+  drivers_controller:
+    ros__parameters:
+      subsystem_namespace: /hardware_interface
+      required_subsystem_nodes: ['']
+      unmanaged_required_nodes: ['']
+      excluded_namespace_nodes:
+        - /hardware_interface/carla_lidar_driver
+        - /hardware_interface/carla_gnss_driver
+      ros1_required_drivers:
+        - /hardware_interface/carla_driver
+      ros1_camera_drivers:
+        - /hardware_interface/carla_camera_driver
+      full_subsystem_required: false
+      startup_duration: 60
+      required_driver_timeout: 30000.0 #ROS1 bridge dropping message depending on computer
+      call_timeout_ms : 150000
+      service_timeout_ms : 20000
+
+message:
+  v2x_controller:
+    ros__parameters:
+      subsystem_namespace: /message
+      required_subsystem_nodes: ['']
+      unmanaged_required_nodes:
+        - /hardware_interface/dsrc_driver_node
+      full_subsystem_required: true
+      call_timeout_ms : 150000
+      service_timeout_ms : 20000
+
+guidance:
+  guidance_controller:
+    ros__parameters:
+      subsystem_namespace: /guidance
+      required_subsystem_nodes: ['']
+      unmanaged_required_nodes: [''] # TODO add the controller driver once it is integrated with ROS2
+      full_subsystem_required: true
+      required_plugins:
+        - /guidance/plugins/route_following_plugin
+        - /guidance/plugins/pure_pursuit_wrapper
+        - /guidance/plugins/inlanecruising_plugin
+      auto_activated_plugins:
+        - /guidance/plugins/lci_strategic_plugin
+        - /guidance/plugins/intersection_transit_maneuvering
+        - /guidance/plugins/light_controlled_intersection_tactical_plugin
+        - /guidance/plugins/stop_and_wait_plugin
+        - /guidance/plugins/sci_strategic_plugin
+        - /guidance/plugins/stop_controlled_intersection_tactical_plugin
+        - /guidance/plugins/platoon_control_ihp
+        - /guidance/plugins/platoon_strategic_ihp_node
+        - /guidance/plugins/platooning_tactical_plugin_node
+        - /guidance/plugins/yield_plugin
+      ros2_initial_plugins:
+        - /guidance/plugins/inlanecruising_plugin
+        - /guidance/plugins/platoon_strategic_ihp_node
+        - /guidance/plugins/stop_and_wait_plugin
+        - /guidance/plugins/route_following_plugin
+        - /guidance/plugins/platooning_tactical_plugin_node
+        - /guidance/plugins/cooperative_lanechange
+        - /guidance/plugins/light_controlled_intersection_tactical_plugin
+        - /guidance/plugins/sci_strategic_plugin
+        - /guidance/plugins/stop_controlled_intersection_tactical_plugin
+        - /guidance/plugins/yield_plugin
+        - /guidance/plugins/pure_pursuit_wrapper
+        - /guidance/plugins/lci_strategic_plugin
+        - /guidance/plugins/intersection_transit_maneuvering
+      call_timeout_ms : 150000
+      service_timeout_ms : 20000
+
+
+localization:
+  localization_controller:
+    ros__parameters:
+      subsystem_namespace: /localization
+      required_subsystem_nodes: ['']
+      unmanaged_required_nodes: ['']
+      full_subsystem_required: true
+      sensor_nodes:
+        - /hardware_interface/velodyne_lidar_driver_wrapper_node
+      # TODO update the fault map once ros2 gps is integrated
+      sensor_fault_map: '
+        {
+          "sensor_fault_map":
+          [
+            [0,0]
+          ]
+        }
+        '
+      call_timeout_ms : 150000
+      service_timeout_ms : 20000
