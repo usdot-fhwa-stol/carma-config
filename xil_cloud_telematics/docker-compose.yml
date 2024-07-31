@@ -149,7 +149,7 @@ services:
     image: ${DOCKER_ORG}/carma_vehicle_nats_bridge:${DOCKER_TAG}
     logging:
         options:
-          max-size: "10m"
+          max-size: "2g"
           max-file: "1"
     networks:
         carma_net_1:
@@ -443,7 +443,7 @@ services:
     image: ${DOCKER_ORG}/carma_street_nats_bridge:${DOCKER_TAG}
     logging:
         options:
-          max-size: "10m"
+          max-size: "2g"
           max-file: "1"
     networks:
       carma_streets_net_1:
