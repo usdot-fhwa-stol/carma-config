@@ -204,6 +204,10 @@
             <logger name="org.eclipse.mosaic.fed.carma" additivity="false" level="TRACE">
                 <appender-ref ref="CarmaLog"/>
             </logger>
+            <logger name="gov.dot.fhwa.saxton" additivity="false" level="DEBUG">
+                <appender-ref ref="CarmaLog"/>
+            </logger>
+
 
             <logger name="org.eclipse.mosaic.fed.infrastructure" additivity="false" level="TRACE">
                 <appender-ref ref="InfrastructureLog"/>
@@ -213,9 +217,9 @@
                 <appender-ref ref="MosaicLog"/>
             </logger>
 
-            <!--logger name="activities" additivity="false" level="TRACE">
+            <logger name="activities" additivity="false" level="WARN">
                 <appender-ref ref="ActivityLog"/>
-            </logger-->
+            </logger>
 
             <logger name="org.eclipse.mosaic.fed.ns3.ambassador.Ns3AmbassadorOutput" additivity="false" level="INFO">
                 <appender-ref ref="CommunicationDetailsLog"/>
