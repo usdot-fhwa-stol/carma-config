@@ -117,16 +117,6 @@ def generate_launch_description():
         ]
     )
 
-    lidar_fusion_group = GroupAction(
-        condition=IfCondition(PythonExpression(["'lidar_fusion' in '", drivers, "'.split()"])),
-        actions=[
-            PushRosNamespace(EnvironmentVariable('CARMA_INTR_NS', default_value='hardware_interface')),
-            IncludeLaunchDescription(
-                PythonLaunchDescriptionSource([ FindPackageShare('point_cloud_fusion_nodes'), '/launch/point_cloud_fusion.launch.py']),
-            ),
-        ]
-    )
-
     gnss_ins_group = GroupAction(
         condition=IfCondition(PythonExpression(["'carma_novatel_driver_wrapper' in '", drivers, "'.split()"])),
         actions=[
@@ -166,7 +156,6 @@ def generate_launch_description():
         driver_shutdown_group,
         dsrc_group,
         lidar_group,
-        lidar_fusion_group,
         gnss_ins_group,
         lightbar_driver_group
     ])
