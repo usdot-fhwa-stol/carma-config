@@ -72,7 +72,7 @@
 	<joint name="radar_fc" type="fixed" >
 		<parent link="base_link" />
 		<child link="radar_fc" />
-		<origin xyz="4 0 0.57" rpy="0 0 0" />
+		<origin xyz="2.25 0 0.57" rpy="0 0 0" />
 	</joint>
 
 	<!-- Front Left Radar -->
