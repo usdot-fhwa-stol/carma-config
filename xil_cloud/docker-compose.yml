@@ -3,7 +3,7 @@ services:
 
   carma-simulation:
     privileged: true
-    image: usdotfhwastol/cdasim:carma-system-4.5.0
+    image: ${DOCKER_ORG}/cdasim:${DOCKER_TAG}
     networks:
       carma_sim_net:
         ipv4_address: 172.2.0.2
@@ -23,7 +23,7 @@ services:
 
 ## carma_1 vehicle
   roscore_1:
-    image: usdotfhwastol/carma-base:carma-system-4.5.0
+    image: ${DOCKER_ORG}/carma-base:${DOCKER_TAG}
     networks:
       carma_net_1:
         ipv4_address: 172.3.0.2
@@ -40,7 +40,7 @@ services:
     command: roscore
 
   platform_1:
-    image: usdotfhwastol/carma-platform:carma-system-4.5.0
+    image: ${DOCKER_ORG}/carma-platform:${DOCKER_TAG}
     networks:
       carma_net_1:
         ipv4_address: 172.3.0.3
@@ -62,7 +62,7 @@ services:
     command: bash -c 'wait-for-it.sh 172.3.0.2:11311 -- roslaunch /opt/carma/vehicle/config/carma_docker.launch'
 
   platform_ros2_1:
-    image: usdotfhwastol/carma-platform:carma-system-4.5.0
+    image: ${DOCKER_ORG}/carma-platform:${DOCKER_TAG}
     networks:
       carma_net_1:
         ipv4_address: 172.3.0.4
@@ -80,7 +80,7 @@ services:
     command: bash -c 'source /opt/carma/install_ros2/setup.bash && ros2 launch /opt/carma/vehicle/config/carma_docker.launch.py'
 
   ros1_bridge_1:
-    image: usdotfhwastol/carma-msgs:carma-system-4.5.0
+    image: ${DOCKER_ORG}/carma-msgs:${DOCKER_TAG}
     networks:
       carma_net_1:
         ipv4_address: 172.3.0.5
@@ -100,7 +100,7 @@ services:
     command: bash -c 'wait-for-it.sh 172.3.0.2:11311 -- rosparam load /opt/carma/vehicle/config/bridge.yml && source ~/.base-image/workspace/install/setup.bash && ros2 run ros1_bridge dynamic_bridge --multi-threads'
 
   carma-carla-integration_1:
-    image: usdotfhwastol/carma-carla-integration:carma-system-4.5.0
+    image: ${DOCKER_ORG}/carma-carla-integration:${DOCKER_TAG}
     networks:
       carma_net_1:
         ipv4_address: 172.3.0.6
@@ -126,7 +126,7 @@ services:
                                                                            spawn_point:='151.2,-305.9,0,0,0,0'"
 
   ns3_adapter_1:
-    image: usdotfhwastol/carma-ns3-adapter:carma-system-4.5.0
+    image: ${DOCKER_ORG}/carma-ns3-adapter:${DOCKER_TAG}
     networks:
       carma_net_1:
         ipv4_address: 172.3.0.7
@@ -152,7 +152,7 @@ services:
 # carma_2 vehicle
 
   # roscore_2:
-  #   image: usdotfhwastol/carma-base:carma-system-4.5.0
+  #   image: ${DOCKER_ORG}/carma-base:${DOCKER_TAG}
   #   networks:
   #     carma_net_2:
   #       ipv4_address: 172.5.0.2
@@ -169,7 +169,7 @@ services:
   #   command: roscore
 
   # platform_2:
-  #   image: usdotfhwastol/carma-platform:carma-system-4.5.0
+  #   image: ${DOCKER_ORG}/carma-platform:${DOCKER_TAG}
   #   networks:
   #     carma_net_2:
   #       ipv4_address: 172.5.0.3
@@ -191,7 +191,7 @@ services:
   #   command: bash -c 'wait-for-it.sh 172.3.0.2:11311 -- roslaunch /opt/carma/vehicle/config/carma_docker.launch'
 
   # platform_ros2_2:
-  #   image: usdotfhwastol/carma-platform:carma-system-4.5.0
+  #   image: ${DOCKER_ORG}/carma-platform:${DOCKER_TAG}
   #   networks:
   #     carma_net_2:
   #       ipv4_address: 172.5.0.4
@@ -209,7 +209,7 @@ services:
   #   command: bash -c 'source /opt/carma/install_ros2/setup.bash && ros2 launch /opt/carma/vehicle/config/carma_docker.launch.py'
 
   # ros1_bridge_2:
-  #   image: usdotfhwastol/carma-msgs:carma-system-4.5.0
+  #   image: ${DOCKER_ORG}/carma-msgs:${DOCKER_TAG}
   #   networks:
   #     carma_net_2:
   #       ipv4_address: 172.5.0.5
@@ -229,7 +229,7 @@ services:
   #   command: bash -c 'wait-for-it.sh 172.5.0.2:11311 -- rosparam load /opt/carma/vehicle/config/bridge.yml && source ~/.base-image/workspace/install/setup.bash && ros2 run ros1_bridge dynamic_bridge --multi-threads'
 
   # carma-carla-integration_2:
-  #   image: usdotfhwastol/carma-carla-integration:carma-system-4.5.0
+  #   image: ${DOCKER_ORG}/carma-carla-integration:${DOCKER_TAG}
   #   networks:
   #     carma_net_2:
   #       ipv4_address: 172.5.0.6
@@ -251,7 +251,7 @@ services:
   #                                                                          spawn_point:='201.4,-291.5,0,0,0,-90'"
 
   # ns3_adapter_2:
-  #   image: usdotfhwastol/carma-ns3-adapter:carma-system-4.5.0
+  #   image: ${DOCKER_ORG}/carma-ns3-adapter:${DOCKER_TAG}
   #   networks:
   #     carma_net_2:
   #       ipv4_address: 172.5.0.7
@@ -336,7 +336,7 @@ services:
       - ./secrets:/secrets
       - ./mysql:/docker-entrypoint-initdb.d
   php:
-    image: usdotfhwaops/php:7.6.0
+    image: usdotfhwaops/php:${OPS_DOCKER_TAG}
     container_name: php
     network_mode: service:db
     depends_on:
@@ -344,7 +344,7 @@ services:
     stdin_open: true
     tty: true
   v2xhub:
-    image: usdotfhwaops/v2xhubamd:7.6.0
+    image: usdotfhwaops/v2xhubamd:${OPS_DOCKER_TAG}
     container_name: v2xhub
     network_mode: service:db
     restart: always
@@ -370,7 +370,7 @@ services:
       - ./sensor_configurations:/home/V2X-Hub/sensor_configurations/
 
   intersection_model:
-    image: usdotfhwastol/intersection_model:carma-system-4.5.0
+    image: ${DOCKER_ORG}/intersection_model:${DOCKER_TAG}
     container_name: intersection_model
     restart: always
     network_mode: service:zookeeper
@@ -385,7 +385,7 @@ services:
       - ./MAP:/home/carma-streets/intersection_model/MAP
 
   carla-sensor-lib:
-    image: usdotfhwastol/carla-sensor-lib:carma-system-4.5.0
+    image: ${DOCKER_ORG}/carla-sensor-lib:${DOCKER_TAG}
     networks:
       carma_sim_net:
         ipv4_address: 172.2.0.5
@@ -399,7 +399,7 @@ services:
                       python3 -u /home/CarlaCDASimAdapter/src/CarlaCDASimAdapter.py --carla-host 172.2.0.2 --xmlrpc-server-host 172.2.0.5  --sensor-config-file ./config/simulated_sensor_config.yaml --noise-model-config-file ./config/noise_model_config.yaml"
 
   tsc_service:
-    image: usdotfhwastol/tsc_service:carma-system-4.5.0
+    image: ${DOCKER_ORG}/tsc_service:${DOCKER_TAG}
     command: sh -c "/wait && /home/carma-streets/tsc_client_service/build/traffic_signal_controller_service"
     container_name: tsc_service
     restart: always
@@ -421,7 +421,7 @@ services:
       - ./tsc_client_service/manifest.json:/home/carma-streets/tsc_client_service/manifest.json
       - ./tsc_client_service/logs/:/home/carma-streets/tsc_client_service/logs/
   econolite-virtual-controller:
-    image: usdotfhwastol/econolite-virtual-controller:latest
+    image: ${DOCKER_ORG}/econolite-virtual-controller:latest
     container_name: evc
     restart: always
     networks:
@@ -439,7 +439,7 @@ services:
     command: bash -c "sleep 10;x-terminal-emulator -e python3.8 evc_sumo_bridge.py --asc3app-path '../evcfile/asc3app-application.zip' --traci-ip 172.2.0.2"
 
   # scenario-runner:
-  #   image: usdotfhwastol/scenario-runner:carma-system-4.5.0
+  #   image: ${DOCKER_ORG}/scenario-runner:${DOCKER_TAG}
   #   container_name: scenario-runner
   #   networks:
   #     - carma_sim_net

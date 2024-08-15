@@ -6,5 +6,12 @@ vehicle_color: 'YELLOW'
 # String: Host vehicle’s Unique ID that will be used in mobility messages.
 vehicle_id: 'DEV-VEH'
 
+#BSM Message ID for Simulation Testing
+#The value will be converted to a 4 element array of uint8_t where each byte of the parameter becomes one element of the array.
+bsm_message_id: 11111111
+
+#Enable/disable rotation of BSM ID during vehicle operations
+bsm_id_rotation_enabled: true
+
 # Double: Approximation of delay in vehicle acceleration response to changes in speed command
-vehicle_response_lag: 0.2
+vehicle_response_lag: 1.0
