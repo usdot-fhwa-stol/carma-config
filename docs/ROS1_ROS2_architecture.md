@@ -5,12 +5,16 @@
 Currently CARMA Platform's ROS2 (foxy) migration from ROS1 (noetic) is almost complete (and upgrade from foxy to humble is underway).
     However, as it can inspected from the configurations in this repository, some machines still require ROS1 components to run (hence ros1_bridge to bridge between the two versions).
 
-Due this reason, typical docker image structure for each machine looks as follows:
-- carma-base image to run `roscore`
+Currently CARMA Platform and CARMA Messenger are running ROS1 and ROS2 hybrid approach. Therefore, typical docker image structure for each machine looks as follows:
+```
+docker-compose.yml:
+
+- carma-base image running roscore
 - carma-platform image running ros1 non-driver components
 - carma-platform image running ros2 non-driver components
 - carma-msgs image running ros1_bridge
 - ... other ros1 or ros2 drivers and services
+```
 
 This document outlines the reasoning behind such requirements. Following table shows a quick overview of what machines are capable of running which ROS version as their drivers and components. By utilizing docker containerization, each components can run different versions of ROS:
 
