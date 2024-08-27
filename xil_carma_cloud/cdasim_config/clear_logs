@@ -11,3 +11,5 @@ rm -r carla-recorder/*
 echo "Clearing CARMA Platform logs ..."
 rm -r /opt/carma/logs/carma_1/*
 rm -r /opt/carma/logs/carma_2/*
+echo "Clearing CARMA Cloud logs ..."
+rm -r carmacloudvol/logs/*
