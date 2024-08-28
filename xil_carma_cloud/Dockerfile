@@ -38,4 +38,4 @@ VOLUME /opt/carma/vehicle/config
 RUN mkdir -p /opt/carma/vehicle/config
 RUN cp -a /root/vehicle/config/.env /opt/carma/vehicle/config/
 
-CMD  cp /root/vehicle/config/* /opt/carma/vehicle/config
+CMD cp /root/vehicle/config/* /opt/carma/vehicle/config
