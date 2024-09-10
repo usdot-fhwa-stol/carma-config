@@ -21,8 +21,8 @@ The current CARMA Platform system operates as a hybrid of ROS 1 Noetic and ROS 2
 
 With regards to the primary [carma-platform](https://github.com/usdot-fhwa-stol/carma-platform) repository, the following ROS 1 Noetic content still exists:
 - The `rosbag_mock_drivers` and `mock_lightbar_driver` packages, which serve as mock hardware drivers to support local integration testing. These are expected to be upgraded to ROS 2 Foxy in the near future.
-- The `carma_record` package, which enables ROS 1 rosbags to be recorded. This package is being preserved to enable legacy data analysis scripts to be used for system evaluation.
-- The ROS 1 rviz configuration in the `carma` package, which enables rviz to be run natively when CARMA Platform is deployed on a PC with a ROS 1 Noetic installed to its desktop. This is planned be removed after all ROS 2 Foxy packages are upgraded to ROS 2 Humble.
+- The `carma_record` package, which enables ROS 1 rosbags to be recorded. This package is being preserved to enable legacy data analysis scripts to be used for system evaluation. Note that ROS 2 rosbag recording is also supported by the CARMA Platform system.
+- The ROS 1 rviz configuration in the `carma` package, which enables rviz to be run natively when CARMA Platform is deployed on a PC with a ROS 1 Noetic installed to its desktop. This is planned be removed after all ROS 2 Foxy packages are upgraded to ROS 2 Humble. Note that the ROS 2 rviz2 is also supported by the CARMA Platform system.
 
 Additionally, the [carma-ssc-interface-wrapper](https://github.com/usdot-fhwa-stol/carma-ssc-interface-wrapper) repository contains the drive-by-wire driver and SSC packages that are used for CARMA Platform-supported vehicle classes. The packages for several vehicle classes (Chrysler Pacifica, Ford Fusion, and Freightliner Cascadia) are only available for ROS 1 Noetic. These packages are closed source, and the external company providing them does not plan to upgrade them to ROS 2.
 
