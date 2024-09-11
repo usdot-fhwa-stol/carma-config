@@ -45,38 +45,16 @@ If not using simulated drivers they are activated if the respective mock argumen
 
 
   <!-- Specific Drivers -->
-  <arg name="drivers" default="ssc_interface_wrapper lightbar_driver avt_vimba_camera"
+  <arg name="drivers" default="ssc_interface_wrapper lightbar_driver"
     doc="Desired real drivers to launch specified by package name. Mock drivers will take precedence"/>
 
   <arg name="ssc_interface_wrapper"         value="$(eval ('ssc_interface_wrapper' in arg('drivers').split()) and not arg('mock_controller'))"/>
   <arg name="lightbar_driver"               value="$(eval ('lightbar_driver' in arg('drivers').split()) and not arg('mock_lightbar'))"/>
-  <arg name="avt_vimba_camera"              value="$(eval ('avt_vimba_camera' in arg('drivers').split()) and not arg('mock_camera'))"/>
 
   <!-- PACMOD Controller Driver Node -->
   <include if="$(arg ssc_interface_wrapper)" file="$(find ssc_interface_wrapper)/launch/ssc_ne_pacifica_driver.launch">
     <arg name="ssc_param_dir" value="$(arg vehicle_calibration_dir)/ssc_ne_pacifica"/>
   </include>
-
-  <!-- AVT Vimba Camera Left Driver Node -->
-  <remap from="camera/camera_info" to="dummy_camera_info"/>
-  <include if="$(arg avt_vimba_camera)" file="$(find avt_vimba_camera)/launch/mono_camera.launch">
-	<arg name="guid" default=""/>
- 	<arg name="ip" default="192.168.30.10"/>
-    <arg name="camera_info_url" value="file://$(arg vehicle_calibration_dir)/avt_vimba_camera/camera_fl_intrinsics.yaml"/>
- 	<arg name="frame_id" default="left_optical"/>
-	<arg name="trig_timestamp_topic" default=""/>
-	<arg name="show_debug_prints" default="false"/>
-  </include>
-  
-  <!-- AVT Vimba Camera Right Driver Node 
-    <include if="$(arg avt_vimba_camera)" ns="camera_right" file="$(find avt_vimba_camera)/launch/mono_camera.launch">
-	<arg name="guid" default=""/>
- 	<arg name="ip" default="192.168.40.10"/>
-  <arg name="camera_info_url" default="file://$(find vehicle_calibration_dir)/avt_vimba_camera/calibration_50-0536911040.yaml"/>
- 	<arg name="frame_id" default="right_optical"/>
-	<arg name="trig_timestamp_topic" default=""/>
-	<arg name="show_debug_prints" default="true"/>
-  </include>-->
 
   <!-- TODO DelphiESR Front Driver Node -->
   <!-- TODO Delphi Srr2 Front Left Driver Node -->
