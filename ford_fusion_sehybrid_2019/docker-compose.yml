@@ -158,23 +158,6 @@ services:
       - /opt/carma/vehicle/calibration:/opt/carma/vehicle/calibration
     command: bash -c 'source /opt/carma/install/setup.bash && ros2 launch /opt/carma/vehicle/config/drivers.launch.py drivers:=velodyne_lidar_driver_wrapper'
   
-  # NOTE: This is a mock driver and not an actual camera
-  # It is being used instead as camera input is currently not supported in the Autoware.Auto
-  # system integrated in release carma-system-4.0
-  mock-camera-driver:
-    image: ${DOCKER_ORG}/carma-platform:${DOCKER_TAG}
-    network_mode: host
-    container_name: carma-mock-camera-driver
-    volumes_from: 
-      - container:carma-config:ro
-    volumes:
-      - /opt/carma/logs:/opt/carma/logs
-      - /opt/carma/.ros:/home/carma/.ros
-      - /opt/carma/data:/opt/carma/data
-    environment:
-      - ROS_IP=192.168.88.10
-    command: bash -c 'export ROS_NAMESPACE=$${CARMA_INTR_NS} && wait-for-it.sh localhost:11311 -- roslaunch carma mock_drivers.launch mock_drivers:=camera'
-  
   # TODO DelphiESR Front Driver Node
   # TODO Delphi Srr2 Front Left Driver Node
   # TODO Delphi Srr2 Front Right Driver Node
