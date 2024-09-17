@@ -1,6 +1,6 @@
 {
     "service_name": "snmp_client",
-    "loglevel": "info",
+    "loglevel": "debug",
     "configurations": [
         {
 
@@ -86,7 +86,7 @@
         },
         {
             "name": "spat_projection_mode",
-            "value": 2,
+            "value": 1,
             "description": "Enumeration configuring SPat projection. 1 == DPP projection. 2 == Fixed Timing projection. Any other value will result in no projection of future",
             "type": "INTEGER"
         },

@@ -544,6 +544,7 @@ def generate_launch_description():
     )
 
     return LaunchDescription([
+        # Turning off plugins that are not tested in this release
         declare_vehicle_characteristics_param_file_arg,
         declare_vehicle_config_param_file_arg,
         declare_use_sim_time_arg,

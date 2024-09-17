@@ -1,6 +1,6 @@
 {
     "service_name": "sensor_data_sharing_service",
-    "loglevel": "info",
+    "loglevel": "debug",
     "configurations": [
         {
             "name": "sdsm_producer_topic",
