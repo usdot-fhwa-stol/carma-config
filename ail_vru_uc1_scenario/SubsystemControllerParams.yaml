@@ -21,10 +21,7 @@ hardware_interface:
       excluded_namespace_nodes:
         - /hardware_interface/carla_lidar_driver
         - /hardware_interface/carla_gnss_driver
-      ros1_required_drivers:
-        - /hardware_interface/carla_driver
-      ros1_camera_drivers:
-        - /hardware_interface/carla_camera_driver
+      ros1_ssc_driver_name: /hardware_interface/carla_driver
       full_subsystem_required: false
       startup_duration: 60
       required_driver_timeout: 30000.0 #ROS1 bridge dropping message depending on computer
