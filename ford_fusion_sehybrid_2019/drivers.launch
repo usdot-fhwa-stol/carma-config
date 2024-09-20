@@ -33,14 +33,7 @@ If not using simulated drivers they are activated if the respective mock argumen
   <!-- Mock Drivers -->
   <arg name="mock_drivers"        default="" doc="List of driver node base names which will be launched as mock drivers"/>
 
-  <arg name="mock_can"            value="$(eval 'can' in arg('mock_drivers').split())"/>
   <arg name="mock_controller"     value="$(eval 'controller' in arg('mock_drivers').split())"/>
-  <arg name="mock_gnss"           value="$(eval 'gnss' in arg('mock_drivers').split())"/>
-  <arg name="mock_radar"          value="$(eval 'radar' in arg('mock_drivers').split())"/>
-  <arg name="mock_imu"            value="$(eval 'imu' in arg('mock_drivers').split())"/>
-  <arg name="mock_camera"         value="$(eval 'camera' in arg('mock_drivers').split())"/>
-  <arg name="mock_roadway_sensor" value="$(eval 'roadway_sensor' in arg('mock_drivers').split())"/>
-  <arg name="mock_lightbar"       value="$(eval 'lightbar' in arg('mock_drivers').split())"/>
 
   <!-- Specific Drivers -->
   <arg name="drivers" default="ssc_interface_wrapper"

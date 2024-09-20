@@ -17,7 +17,6 @@
 -->
 
 <launch>
-    <arg name="vehicle_calibration_dir" default="/opt/carma/vehicle/calibration" doc="Folder containing vehicle calibration directories"/>
 
     <!-- Mock Drivers -->
     <arg name="mock_drivers" default="" doc="List of driver node base names which will be launched as mock drivers"/>
