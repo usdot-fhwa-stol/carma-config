@@ -45,13 +45,12 @@ If not using simulated drivers they are activated if the respective mock argumen
   <arg name="mock_lightbar" 	    value="$(eval 'lightbar' in arg('mock_drivers').split())"/>
 
   <!-- Specific Drivers -->
-  <arg name="drivers" default="ssc_interface_wrapper velodyne_lidar_driver_wrapper lidar_lite_trailer_angle_driver lightbar_driver"
+  <arg name="drivers" default="ssc_interface_wrapper velodyne_lidar_driver_wrapper lidar_lite_trailer_angle_driver"
     doc="Desired real drivers to launch specified by package name. Mock drivers will take precedence"/>
 
   <arg name="ssc_interface_wrapper"           value="$(eval ('ssc_interface_wrapper' in arg('drivers').split()) and not arg('mock_controller'))"/>
   <arg name="velodyne_lidar_driver_wrapper"   value="$(eval ('velodyne_lidar_driver_wrapper' in arg('drivers').split()) and not arg('mock_lidar'))"/>
   <arg name="lidar_lite_trailer_angle_driver" value="$(eval ('lidar_lite_trailer_angle_driver' in arg('drivers').split()) and not arg('mock_trailer_angle'))"/>
-  <arg name="lightbar_driver"                 value="$(eval ('lightbar_driver' in arg('drivers').split()) and not arg('mock_lightbar'))"/>
 
   <!-- PACMOD Controller Driver Node -->
   <include if="$(arg ssc_interface_wrapper)" file="$(find ssc_interface_wrapper)/launch/ssc_pm_cascadia_dot_10003_driver.launch">
@@ -66,11 +65,5 @@ If not using simulated drivers they are activated if the respective mock argumen
     <arg name="baud1" default="57600" />
     <arg name="vehicle_calibration_params_file" default="$(arg vehicle_calibration_dir)/lidar_lite_v3hp/calibration.yaml"/>
   </include>
-
-  <!-- TODO DelphiESR Front Driver Node -->
-  <!-- TODO Delphi Srr2 Front Left Driver Node -->
-  <!-- TODO Delphi Srr2 Front Right Driver Node -->
-  <!-- TODO Delphi Srr2 Rear Left Driver Node -->
-  <!-- TODO Delphi Srr2 Rear Right Driver Node -->
 
 </launch>

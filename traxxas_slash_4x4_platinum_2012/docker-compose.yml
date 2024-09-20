@@ -19,7 +19,6 @@ services:
         image: ${DOCKER_ORG}/carma-base:noetic-f1tenth-develop
         network_mode: host
         container_name: roscore
-        runtime: nvidia
         volumes_from: 
             - container:carma-config:ro
         environment: 
@@ -34,7 +33,6 @@ services:
         image: ${DOCKER_ORG}/carma-platform:noetic-f1tenth-develop
         network_mode: host
         container_name: platform
-        runtime: nvidia
         volumes_from: 
             - container:carma-config:ro
         environment: 
@@ -86,7 +84,6 @@ services:
         image: ${DOCKER_ORG}/c1t-vesc-driver:noetic-f1tenth-develop
         network_mode: host
         container_name: c1t-vesc-driver
-        runtime: nvidia
         volumes_from: 
             - container:carma-config:ro
         devices: 
@@ -102,7 +99,6 @@ services:
         image: ${DOCKER_ORG}/c1t-razor-imu-m0-driver:noetic-f1tenth-develop
         network_mode: host
         container_name: c1t-razor-imu-m0-driver
-        runtime: nvidia
         volumes_from: 
             - container:carma-config:ro
         devices: 
@@ -118,7 +114,6 @@ services:
         image: ${DOCKER_ORG}/c1t-rplidar-driver:noetic-f1tenth-develop
         network_mode: host
         container_name: c1t-rplidar-driver
-        runtime: nvidia
         volumes_from: 
             - container:carma-config:ro
         devices: 
@@ -134,7 +129,6 @@ services:
         image: ${DOCKER_ORG}/c1t-zed-driver:noetic-f1tenth-develop
         network_mode: host
         container_name: c1t-zed-driver
-        runtime: nvidia
         volumes_from: 
             - container:carma-config:ro
         privileged: true  # Makes passing camera easier than listing all necessary device files

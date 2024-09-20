@@ -43,19 +43,11 @@ If not using simulated drivers they are activated if the respective mock argumen
   <arg name="mock_lightbar" 	    value="$(eval 'lightbar' in arg('mock_drivers').split())"/>
 
   <!-- Specific Drivers -->
-  <arg name="drivers" default="ssc_interface_wrapper lightbar_driver"
+  <arg name="drivers" default="ssc_interface_wrapper"
     doc="Desired real drivers to launch specified by package name. Mock drivers will take precedence"/>
 
-  <arg name="lightbar_driver"               value="$(eval ('lightbar_driver' in arg('drivers').split()) and not arg('mock_lightbar'))"/>
 
- <node pkg="rostopic" type="rostopic" name="controller_mock_status_pub"
-        args="pub -r 2 /hardware_interface/driver_discovery cav_msgs/DriverStatus '{ name: '/hardware_interface/ssc_interface_wrapper', status: 1, can: false, radar: false, gnss: false, lidar: false, roadway_sensor: false, comms: false, controller: true, camera: false, imu: false, trailer_angle_sensor: false, lightbar: false}'"/>
-</group>
+  <node pkg="rostopic" type="rostopic" name="controller_mock_status_pub"
+    args="pub -r 2 /hardware_interface/driver_discovery cav_msgs/DriverStatus '{ name: '/hardware_interface/ssc_interface_wrapper', status: 1, can: false, radar: false, gnss: false, lidar: false, roadway_sensor: false, comms: false, controller: true, camera: false, imu: false, trailer_angle_sensor: false, lightbar: false}'"/>
   
-  <!-- TODO DelphiESR Front Driver Node -->
-  <!-- TODO Delphi Srr2 Front Left Driver Node -->
-  <!-- TODO Delphi Srr2 Front Right Driver Node -->
-  <!-- TODO Delphi Srr2 Rear Left Driver Node -->
-  <!-- TODO Delphi Srr2 Rear Right Driver Node -->
-
 </launch>

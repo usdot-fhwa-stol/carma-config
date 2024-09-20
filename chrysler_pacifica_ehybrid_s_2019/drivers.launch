@@ -31,7 +31,6 @@ If not using simulated drivers they are activated if the respective mock argumen
   <arg name="vehicle_calibration_dir" default="/opt/carma/vehicle/calibration" doc="Folder containing vehicle calibration directories"/>
   
   <!-- Simulation Usage -->
-  <!-- Simulation Usage -->
   <arg name="mock_drivers"        default="" doc="List of driver node base names which will be launched as mock drivers"/>
 
   <arg name="mock_can"            value="$(eval 'can' in arg('mock_drivers').split())"/>
@@ -45,21 +44,14 @@ If not using simulated drivers they are activated if the respective mock argumen
 
 
   <!-- Specific Drivers -->
-  <arg name="drivers" default="ssc_interface_wrapper lightbar_driver"
+  <arg name="drivers" default="ssc_interface_wrapper"
     doc="Desired real drivers to launch specified by package name. Mock drivers will take precedence"/>
 
   <arg name="ssc_interface_wrapper"         value="$(eval ('ssc_interface_wrapper' in arg('drivers').split()) and not arg('mock_controller'))"/>
-  <arg name="lightbar_driver"               value="$(eval ('lightbar_driver' in arg('drivers').split()) and not arg('mock_lightbar'))"/>
 
   <!-- PACMOD Controller Driver Node -->
   <include if="$(arg ssc_interface_wrapper)" file="$(find ssc_interface_wrapper)/launch/ssc_ne_pacifica_driver.launch">
     <arg name="ssc_param_dir" value="$(arg vehicle_calibration_dir)/ssc_ne_pacifica"/>
   </include>
-
-  <!-- TODO DelphiESR Front Driver Node -->
-  <!-- TODO Delphi Srr2 Front Left Driver Node -->
-  <!-- TODO Delphi Srr2 Front Right Driver Node -->
-  <!-- TODO Delphi Srr2 Rear Left Driver Node -->
-  <!-- TODO Delphi Srr2 Rear Right Driver Node -->
 
 </launch>
