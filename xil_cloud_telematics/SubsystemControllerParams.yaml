@@ -24,7 +24,7 @@ hardware_interface:
       ros1_ssc_driver_name: /hardware_interface/carla_driver
       full_subsystem_required: false
       startup_duration: 60
-      required_driver_timeout: 30000.0 #ROS1 bridge dropping message depending on computer
+      ros1_ssc_driver_timeout: 30000.0 #ROS1 bridge dropping message depending on computer
 
 message:
   v2x_controller:
