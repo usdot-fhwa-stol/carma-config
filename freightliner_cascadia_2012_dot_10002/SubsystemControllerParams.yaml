@@ -22,10 +22,7 @@ hardware_interface:
         - /hardware_interface/velodyne_1/velodyne_lidar_driver_wrapper
         - /hardware_interface/velodyne_2/velodyne_lidar_driver_wrapper
         - /hardware_interface/carma_novatel_driver_wrapper_node
-      ros1_required_drivers:
-        - /hardware_interface/ssc_interface_wrapper
-      ros1_camera_drivers:
-      - /hardware_interface/camera
+      ros1_ssc_driver_name: /hardware_interface/ssc_interface_wrapper
       full_subsystem_required: false
 
 message:
