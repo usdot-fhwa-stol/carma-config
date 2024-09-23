@@ -194,20 +194,6 @@ services:
       - ROS_IP=127.0.0.1
     command: bash -c 'export ROS_NAMESPACE=$${CARMA_INTR_NS} && wait-for-it.sh localhost:11311 -- roslaunch carma mock_drivers.launch mock_drivers:=lidar'
 
-  mock-camera-driver:
-    image: ${DOCKER_ORG}/carma-platform:${DOCKER_TAG}
-    network_mode: host
-    container_name: carma-mock-camera-driver
-    volumes_from: 
-      - container:carma-config:ro
-    volumes:
-      - /opt/carma/logs:/opt/carma/logs
-      - /opt/carma/.ros:/home/carma/.ros
-      - /opt/carma/data:/opt/carma/data
-    environment:
-      - ROS_IP=127.0.0.1
-    command: bash -c 'export ROS_NAMESPACE=$${CARMA_INTR_NS} && wait-for-it.sh localhost:11311 -- roslaunch carma mock_drivers.launch mock_drivers:=camera'
-    
   mock-roadway-sensor-driver:
     image: ${DOCKER_ORG}/carma-platform:${DOCKER_TAG}
     network_mode: host
