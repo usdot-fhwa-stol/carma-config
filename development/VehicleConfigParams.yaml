@@ -45,7 +45,7 @@ vehicle_tire_radius: 0.39
 # NOTE: It is highly desirable to maintain a timeout of 100 ms or less, but trajectory generation success cannot be guaranteed with this duration
 #       for tactical plugins (primarily cooperative_lanechange) in all test scenarios at this time.
 # Units: Milliseconds
-tactical_plugin_service_call_timeout: 100
+tactical_plugin_service_call_timeout: 300
 
 # Activates object avoidance logics in trajectory planning plugins
 # Units: Boolean
@@ -97,7 +97,7 @@ vehicle_participant_type: "vehicle:car"
 
 # Parameter to enable configurable speed limit
 # Value type: Desired
-config_speed_limit: 0.0
+config_speed_limit: 35.0
 
 # Parameters to enable either ROS 1 or ROS 2 (or both) rosbag logging
 use_ros1_rosbag: true
