@@ -19,7 +19,7 @@ hardware_interface:
       unmanaged_required_nodes:
         - /hardware_interface/mock_controller_driver
       excluded_namespace_nodes: ['']
-      ros1_ssc_driver_name: ['']
+      ros1_ssc_driver_name: ''
       full_subsystem_required: false
 
 message:

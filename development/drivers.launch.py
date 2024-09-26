@@ -73,7 +73,7 @@ def generate_launch_description():
         actions=[
             PushRosNamespace(EnvironmentVariable('CARMA_INTR_NS', default_value='hardware_interface')),
             IncludeLaunchDescription(
-                PythonLaunchDescriptionSource([ FindPackageShare('mock_controller_driver'), '/launch/mock_controller_driver.py']),
+                PythonLaunchDescriptionSource([ FindPackageShare('mock_controller_driver'), '/launch/mock_controller_driver.launch.py']),
                 launch_arguments = {
                     'log_level' : GetLogLevel('mock_controller_driver', env_log_levels),
                     }.items()
