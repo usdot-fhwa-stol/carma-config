@@ -1,4 +1,4 @@
-# Copyright (C) 2022 LEIDOS.
+# Copyright (C) 2024 LEIDOS.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -37,18 +37,6 @@ def generate_launch_description():
 
     env_log_levels = EnvironmentVariable('CARMA_ROS_LOGGING_CONFIG', default_value='{ "default_level" : "WARN" }')
 
-    # Declare the vehicle_calibration_dir launch argument
-    vehicle_calibration_dir = LaunchConfiguration('vehicle_calibration_dir')
-    declare_vehicle_calibration_dir_arg = DeclareLaunchArgument(
-        name = 'vehicle_calibration_dir', default_value = '/opt/carma/vehicle/calibration', description = "Path to vehicle calibration directory"
-    )
-
-    # Declare the vehicle_config_dir launch argument
-    vehicle_config_dir = LaunchConfiguration('vehicle_config_dir')
-    declare_vehicle_config_dir_arg = DeclareLaunchArgument(
-        name = 'vehicle_config_dir', default_value = '/opt/carma/vehicle/config', description = "Path to vehicle configuration directory"
-    )
-
     drivers = LaunchConfiguration('drivers')
     declare_drivers_arg = DeclareLaunchArgument(
         name = 'drivers', default_value = 'mock_controller_driver', description = "Desired mock drivers to launch specified by package name."
@@ -84,8 +72,6 @@ def generate_launch_description():
 
     return LaunchDescription([
         declare_drivers_arg,
-        declare_vehicle_calibration_dir_arg,
-        declare_vehicle_config_dir_arg,
         driver_shutdown_group,
         mock_controller_group
     ])
