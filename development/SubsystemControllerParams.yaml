@@ -8,7 +8,7 @@ environment:
     ros__parameters:
       subsystem_namespace: /environment
       required_subsystem_nodes: ['']
-      unmanaged_required_nodes: [''] # TODO add mock once ported
+      unmanaged_required_nodes: ['']
       full_subsystem_required: true
 
 hardware_interface:
@@ -16,9 +16,10 @@ hardware_interface:
     ros__parameters:
       subsystem_namespace: /hardware_interface
       required_subsystem_nodes: ['']
-      unmanaged_required_nodes: ['']
+      unmanaged_required_nodes:
+        - /hardware_interface/mock_controller_driver
       excluded_namespace_nodes: ['']
-      ros1_ssc_driver_name: /hardware_interface/controller
+      ros1_ssc_driver_name: ''
       full_subsystem_required: false
 
 message:
@@ -26,7 +27,7 @@ message:
     ros__parameters:
       subsystem_namespace: /message
       required_subsystem_nodes: ['']
-      unmanaged_required_nodes: [''] # TODO add mock once ported
+      unmanaged_required_nodes: ['']
       full_subsystem_required: true
 
 guidance:
@@ -34,7 +35,7 @@ guidance:
     ros__parameters:
       subsystem_namespace: /guidance
       required_subsystem_nodes: ['']
-      unmanaged_required_nodes: [''] # TODO add mock once ported
+      unmanaged_required_nodes: ['']
       full_subsystem_required: true
       required_plugins:
         - /guidance/plugins/route_following_plugin
@@ -61,4 +62,4 @@ localization:
       unmanaged_required_nodes: ['']
       full_subsystem_required: true
       sensor_nodes: ['']
-      sensor_fault_map: '' # TODO add mock once ported
+      sensor_fault_map: ''
