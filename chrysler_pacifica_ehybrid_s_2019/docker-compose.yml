@@ -34,7 +34,6 @@ services:
     image: ${DOCKER_ORG}/carma-platform:${DOCKER_TAG}
     network_mode: host
     container_name: platform
-    runtime: nvidia
     volumes_from:
       - container:carma-config:ro
     environment:
@@ -53,6 +52,7 @@ services:
     image: ${DOCKER_ORG}/carma-platform:${DOCKER_TAG}
     network_mode: host
     container_name: platform_ros2
+    runtime: nvidia
     volumes_from:
       - container:carma-config:ro
     volumes:
@@ -94,7 +94,7 @@ services:
       - /opt/carma/vehicle/calibration:/opt/carma/vehicle/calibration
     environment:
       - ROS_IP=192.168.88.10
-    command: bash -c 'export ROS_NAMESPACE=$${CARMA_INTR_NS} && wait-for-it.sh localhost:11311 -- roslaunch /opt/carma/vehicle/config/drivers.launch drivers:=lightbar_driver'
+    command: bash -c 'export ROS_NAMESPACE=$${CARMA_INTR_NS} && wait-for-it.sh localhost:11311 -- ros2 launch /opt/carma/vehicle/config/drivers.launch.py drivers:=lightbar_driver'
 
   cohda_dsrc_driver:
     image: ${DOCKER_ORG}/carma-cohda-dsrc-driver:${DOCKER_TAG}
@@ -144,9 +144,3 @@ services:
       - /opt/carma/logs:/opt/carma/logs
       - /opt/carma/.ros:/home/carma/.ros
     command: bash -c 'source /opt/carma/install/setup.bash && ros2 launch /opt/carma/vehicle/config/drivers.launch.py drivers:=velodyne_lidar_driver_wrapper'
-
-  # TODO DelphiESR Front Driver Node
-  # TODO Delphi Srr2 Front Left Driver Node
-  # TODO Delphi Srr2 Front Right Driver Node
-  # TODO Delphi Srr2 Rear Left Driver Node
-  # TODO Delphi Srr2 Rear Right Driver Node

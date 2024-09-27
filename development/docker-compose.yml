@@ -84,8 +84,6 @@ services:
   mock-controller-driver:
     image: ${DOCKER_ORG}/carma-platform:${DOCKER_TAG}
     network_mode: host
-    container_name: carma-mock-controller-driver
-    volumes_from:
       - container:carma-config:ro
     volumes:
       - /opt/carma/logs:/opt/carma/logs
