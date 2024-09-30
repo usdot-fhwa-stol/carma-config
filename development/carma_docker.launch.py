@@ -100,6 +100,13 @@ def generate_launch_description():
         description='List of String: Guidance Control Plugins that will be validated by the Guidance Plugin Validator Node if enabled'
     )
 
+    enable_basic_travel_simulator = LaunchConfiguration('enable_basic_travel_simulator')
+    declare_enable_basic_travel_simulator = DeclareLaunchArgument(
+        name = 'enable_basic_travel_simulator',
+        default_value = 'true',
+        description = 'Flag to enable or disable the basic travel simulator'
+    )
+
     # Declare enable_opening_tunnels
     enable_opening_tunnels = LaunchConfiguration('enable_opening_tunnels')
     declare_enable_opening_tunnels = DeclareLaunchArgument(
@@ -132,7 +139,8 @@ def generate_launch_description():
             'single_pcd_path' : single_pcd_path,
             'area' : area,
             'arealist_path' : arealist_path,
-            'vector_map_file' : vector_map_file
+            'vector_map_file' : vector_map_file,
+            'enable_basic_travel_simulator' : enable_basic_travel_simulator
             }.items()
     )
 
@@ -152,5 +160,6 @@ def generate_launch_description():
         declare_arealist_path,
         declare_vector_map_file,
         declare_is_ros2_tracing_enabled,
+        declare_enable_basic_travel_simulator,
         carma_src_launch
     ])
