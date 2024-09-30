@@ -10,6 +10,8 @@ environment:
       required_subsystem_nodes: ['']
       unmanaged_required_nodes: ['']
       full_subsystem_required: true
+      service_timeout_ms: 2000
+      call_timeout_ms: 10000
 
 hardware_interface:
   drivers_controller:
@@ -21,6 +23,10 @@ hardware_interface:
       excluded_namespace_nodes: ['']
       ros1_ssc_driver_name: ''
       full_subsystem_required: false
+      service_timeout_ms: 2000
+      call_timeout_ms: 10000
+      startup_duration: 60
+
 
 message:
   v2x_controller:
@@ -29,6 +35,8 @@ message:
       required_subsystem_nodes: ['']
       unmanaged_required_nodes: ['']
       full_subsystem_required: true
+      service_timeout_ms: 2000
+      call_timeout_ms: 10000
 
 guidance:
   guidance_controller:
@@ -37,6 +45,8 @@ guidance:
       required_subsystem_nodes: ['']
       unmanaged_required_nodes: ['']
       full_subsystem_required: true
+      service_timeout_ms: 2000
+      call_timeout_ms: 10000
       required_plugins:
         - /guidance/plugins/route_following_plugin
         - /guidance/plugins/pure_pursuit_wrapper
@@ -58,6 +68,8 @@ localization:
   localization_controller:
     ros__parameters:
       subsystem_namespace: /localization
+      service_timeout_ms: 2000
+      call_timeout_ms: 10000
       required_subsystem_nodes: ['']
       unmanaged_required_nodes: ['']
       full_subsystem_required: true

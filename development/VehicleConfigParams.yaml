@@ -95,9 +95,9 @@ vehicle_model_steer_tau : 0.3
 # Used for interpreting traffic rules in world model instances
 vehicle_participant_type: "vehicle:car"
 
-# Parameter to enable configurable speed limit
+# Parameter to enable configurable speed limit (mph)
 # Value type: Desired
-config_speed_limit: 0.0
+config_speed_limit: 35.0
 
 # Parameters to enable either ROS 1 or ROS 2 (or both) rosbag logging
 use_ros1_rosbag: true
