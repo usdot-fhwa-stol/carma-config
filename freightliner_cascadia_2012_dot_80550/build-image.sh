@@ -54,7 +54,6 @@ echo "Building docker image for CARMA Configuration version: $TAG"
 echo "Final image name: $USERNAME/$IMAGE:$TAG"
 
 if [[ $TAG = "develop-$CONFIG_NAME" ]]; then
-
     sed -i "s|usdotfhwastoldev/|$USERNAME/|g; s|usdotfhwastol/|$USERNAME/|g; s|:[0-9]*\.[0-9]*\.[0-9]*|:develop|g; s|:CARMASystem_[0-9]*\.[0-9]*\.[0-9]*|:develop|g;" \
         docker-compose.yml
     sed -i "s|usdotfhwastoldev/|$USERNAME/|g; s|usdotfhwastol/|$USERNAME/|g; s|:[0-9]*\.[0-9]*\.[0-9]*|:develop|g; s|:CARMASystem_[0-9]*\.[0-9]*\.[0-9]*|:develop|g;" \
@@ -64,14 +63,13 @@ if [[ $TAG = "develop-$CONFIG_NAME" ]]; then
     --build-arg VCS_REF=`git rev-parse --short HEAD` \
     --build-arg CONFIG_NAME="carma-config:$CONFIG_NAME" \
     --build-arg BUILD_DATE=`date -u +”%Y-%m-%dT%H:%M:%SZ”` .
-else
+fi
 
-    docker build --no-cache -t $USERNAME/$IMAGE:$TAG \
+docker build --no-cache -t $USERNAME/$IMAGE:$TAG \
     --build-arg VERSION="$TAG" \
     --build-arg VCS_REF=`git rev-parse --short HEAD` \
     --build-arg CONFIG_NAME="carma-config:$CONFIG_NAME" \
     --build-arg BUILD_DATE=`date -u +”%Y-%m-%dT%H:%M:%SZ”` .
-fi
 
 echo ""
 echo "##### CARMA $CONFIG_NAME Docker Image Build Done! #####"
