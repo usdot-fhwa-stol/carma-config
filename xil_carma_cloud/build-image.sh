@@ -1,13 +1,13 @@
 #!/bin/bash
 
 #  Copyright (C) 2018-2021 LEIDOS.
-# 
+#
 #  Licensed under the Apache License, Version 2.0 (the "License"); you may not
 #  use this file except in compliance with the License. You may obtain a copy of
 #  the License at
-# 
+#
 #  http://www.apache.org/licenses/LICENSE-2.0
-# 
+#
 #  Unless required by applicable law or agreed to in writing, software
 #  distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
 #  WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
@@ -58,18 +58,13 @@ if [[ $TAG = "develop-$CONFIG_NAME" ]]; then
         docker-compose.yml
     sed -i "s|usdotfhwastoldev/|$USERNAME/|g; s|usdotfhwastol/|$USERNAME/|g; s|:[0-9]*\.[0-9]*\.[0-9]*|:develop|g; s|:CARMASystem_[0-9]*\.[0-9]*\.[0-9]*|:develop|g;" \
         docker-compose-background.yml
-    docker build --no-cache -t $USERNAME/$IMAGE:$TAG \
-    --build-arg VERSION="$TAG" \
-    --build-arg VCS_REF=`git rev-parse --short HEAD` \
-    --build-arg CONFIG_NAME="carma-config:$CONFIG_NAME" \
-    --build-arg BUILD_DATE=`date -u +”%Y-%m-%dT%H:%M:%SZ”` .
-else
-    docker build --no-cache -t $USERNAME/$IMAGE:$TAG \
-    --build-arg VERSION="$TAG" \
-    --build-arg VCS_REF=`git rev-parse --short HEAD` \
-    --build-arg CONFIG_NAME="carma-config:$CONFIG_NAME" \
-    --build-arg BUILD_DATE=`date -u +”%Y-%m-%dT%H:%M:%SZ”` .
 fi
+
+docker build --no-cache -t $USERNAME/$IMAGE:$TAG \
+    --build-arg VERSION="$TAG" \
+    --build-arg VCS_REF=`git rev-parse --short HEAD` \
+    --build-arg CONFIG_NAME="carma-config:$CONFIG_NAME" \
+    --build-arg BUILD_DATE=`date -u +”%Y-%m-%dT%H:%M:%SZ”` .
 
 echo ""
 echo "##### CARMA $CONFIG_NAME Docker Image Build Done! #####"
