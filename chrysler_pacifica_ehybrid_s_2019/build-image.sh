@@ -61,10 +61,10 @@ if [[ $TAG = "develop-$CONFIG_NAME" ]]; then
 fi
 
 docker build --no-cache -t $USERNAME/$IMAGE:$TAG \
---build-arg VERSION="$TAG" \
---build-arg VCS_REF=`git rev-parse --short HEAD` \
---build-arg CONFIG_NAME="carma-config:$CONFIG_NAME" \
---build-arg BUILD_DATE=`date -u +”%Y-%m-%dT%H:%M:%SZ”` .
+    --build-arg VERSION="$TAG" \
+    --build-arg VCS_REF=`git rev-parse --short HEAD` \
+    --build-arg CONFIG_NAME="carma-config:$CONFIG_NAME" \
+    --build-arg BUILD_DATE=`date -u +”%Y-%m-%dT%H:%M:%SZ”` .
 
 echo ""
 echo "##### CARMA $CONFIG_NAME Docker Image Build Done! #####"
