@@ -1,6 +1,5 @@
 #!/bin/bash
-
-#  Copyright (C) 2018-2021 LEIDOS.
+#  Copyright (C) 2018-2024 LEIDOS.
 #
 #  Licensed under the Apache License, Version 2.0 (the "License"); you may not
 #  use this file except in compliance with the License. You may obtain a copy of
@@ -65,8 +64,6 @@ docker build --no-cache -t $USERNAME/$IMAGE:$TAG \
     --build-arg VCS_REF=`git rev-parse --short HEAD` \
     --build-arg CONFIG_NAME="carma-config:$CONFIG_NAME" \
     --build-arg BUILD_DATE=`date -u +”%Y-%m-%dT%H:%M:%SZ”` .
-
-# restore docker-compose.yml in case edited by if statement
 
 echo ""
 echo "##### CARMA $CONFIG_NAME Docker Image Build Done! #####"
