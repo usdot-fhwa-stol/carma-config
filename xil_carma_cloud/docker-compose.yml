@@ -314,7 +314,7 @@ services:
 #############################################################################
 
   carma-cloud:
-    image: ${DOCKER_ORG:-usdotfhwastoldev}/carma-cloud:${DOCKER_TAG:-develop}
+    image: ${DOCKER_ORG:-usdotfhwastoldev}/carma-cloud:carma-system-4.6.1
     networks:
       carma_cloud_1:
         ipv4_address: 172.6.0.47
