@@ -90,6 +90,4 @@ services:
       - /opt/carma/logs:/opt/carma/logs
       - /opt/carma/.ros:/home/carma/.ros
       - /opt/carma/data:/opt/carma/data
-    environment:
-      - ROS_IP=127.0.0.1
     command: bash -c 'source /opt/carma/install_ros2/setup.bash && ros2 launch /opt/carma/vehicle/config/drivers.launch.py drivers:=mock_controller_driver'
