@@ -6,7 +6,7 @@ This **CARMA Config** includes the docker-compose and configuration file setup f
 
 ## Scenario Description
 
-This CARMA Configuration Image creates a **AIL** (Anything-In-the-Loop) scenario which includes **CARLA**, **SUMO** , **NS3** (CV2X Model), a **Virtual Signal Controller**, **CARMA Streets** and **CARMA Platform**. The scenario configured in this CARMA Config image is meant to highlight the benefits of **Cooperative Perception**  or **VRU** (Vulnerable Road User) safety. In this use case, infrastructure sensor infromation is shared with CDA (Cooperative Driving Automation) vehicles via the **SDSM**(J3224 Sensor Data Sharing Message). The scenario takes place in an intersection in **CARLA Town 4** and spawns 1 **CARMA Platform Vehicle** and 1 **CARMA Streets** instance deployed at an intesection. The vehicle attempts to take a left turn while a pedestrian, spawned by **CARLA ScenarioRunner** attempts to cross the street at a signalized intersection. Three large trucks obscure the  pedestrian from vehicle's lidar sensor vision. An Infrastructure lidar sensor has an unobscructed view of the pedestrian and shares information with the vehicle via V2X message (SDSM). Using the shared information the vehicle is able to safely avoid the pedestrian.
+This CARMA Configuration Image creates a **XIL** (Anything-In-the-Loop) scenario which includes **CARLA**, **SUMO** , **NS3** (CV2X Model), a **Virtual Signal Controller**, **CARMA Streets** and **CARMA Platform**. The scenario configured in this CARMA Config image is meant to highlight the benefits of **Cooperative Perception**  or **VRU** (Vulnerable Road User) safety. In this use case, infrastructure sensor infromation is shared with CDA (Cooperative Driving Automation) vehicles via the **SDSM**(J3224 Sensor Data Sharing Message). The scenario takes place in an intersection in **CARLA Town 4** and spawns 1 **CARMA Platform Vehicle** and 1 **CARMA Streets** instance deployed at an intesection. The vehicle attempts to take a left turn while a pedestrian, spawned by **CARLA ScenarioRunner** attempts to cross the street at a signalized intersection. Three large trucks obscure the  pedestrian from vehicle's lidar sensor vision. An Infrastructure lidar sensor has an unobscructed view of the pedestrian and shares information with the vehicle via V2X message (SDSM). Using the shared information the vehicle is able to safely avoid the pedestrian.
 
 ### Traffic Signal Controller configuration
 | Phases | Min Green (s) | Min Green Recall |
@@ -26,8 +26,8 @@ This CARMA Configuration Image creates a **AIL** (Anything-In-the-Loop) scenario
 
 ## Deployment Instructions
 ### Deployment Steps
-1) Copy all files in the `ail_vru_uc1_scenario/cdasimconfig/route_config/` directory to `/opt/carma/routes/`
-2) Navigate to `ail_vru_uc1_scenario` and `./build_image.sh` to build CARMA Config image. (Optional if remote image exists)
+1) Copy all files in the `xil_vru_uc1_scenario/cdasimconfig/route_config/` directory to `/opt/carma/routes/`
+2) Navigate to `xil_vru_uc1_scenario` and `./build_image.sh` to build CARMA Config image. (Optional if remote image exists)
    1) `./build_image/sh` should print resulting image name
 3) Run `carma config set <carma-config-image-name>`
 4) Navigate to the `cdasim_config/` directory.
