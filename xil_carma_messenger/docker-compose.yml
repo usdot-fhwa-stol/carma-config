@@ -172,55 +172,21 @@ services:
       role_id:='carma_1'
       remap_ns:=/hardware_interface/comms"
 
-  roscore_messenger_1:
-    image: ${DOCKER_ORG}/carma-base:${DOCKER_TAG}
-    networks:
-      carma_messenger_net_1:
-        ipv4_address: 172.7.0.2
-    container_name: roscore_messenger_1
-    volumes_from:
-      - container:carma-config:ro
-    volumes:
-      - /opt/messenger/messenger_1/.ros:/home/carma/.ros
-      - /opt/messenger/messenger_1/logs/carma_1:/opt/carma/logs
-    restart: always
-    environment:
-      - ROS_IP=172.7.0.2
-      - ROS_MASTER_URI=http://172.7.0.2:11311/
-    command: roscore
-
-  messenger_1:
-    image: ${DOCKER_ORG}/carma-messenger-core:${DOCKER_TAG}
-    networks:
-      carma_messenger_net_1:
-        ipv4_address: 172.7.0.3
-    container_name: messenger_1
-    volumes_from:
-      - container:carma-config:ro
-    volumes:
-      - /opt/carma-messenger/messenger_1/logs:/opt/carma/logs
-      - /opt/carma-messenger/messenger_1/.ros:/opt/carma/.ros
-      - /opt/carma-messenger/messenger_1/vehicle:/opt/carma/vehicle
-    environment:
-      - ROS_IP=172.7.0.3
-      - ROS_MASTER_URI=htt://172.7.0.2:/11311/
-    command: >
-      bash -c 'wait-for-it 172.7.0.2:11311 -- roslaunch /opt/carma/vehicle/config/carma-messenger-docker.launch'
 
   messenger_ros2_1:
     image: ${DOCKER_ORG}/carma-messenger-core:${DOCKER_TAG}
     networks:
       carma_messenger_net_1:
-        ipv4_address: 172.7.0.4
+        ipv4_address: 172.7.0.2
     container_name: messenger_ros2_1
     environment:
       RMW_IMPLEMENTATION_OVERWRITE: ${RMW_IMPLEMENTATION}
     volumes_from:
       - container:carma-config:ro
     volumes:
-      - /opt/carma-messenger/messenger/messenger_1/logs:/opt/carma/logs
-      - /opt/carma-messenger/messenger/messenger_1/.ros:/home/carma/.ros
-      - /opt/carma-messenger/messenger/messenger_1/vehicle:/opt/carma/vehicle
+      - /opt/carma-messenger/messenger_1/logs:/opt/carma/logs
+      - /opt/carma-messenger/messenger_1/.ros:/home/carma/.ros
+      - /opt/carma-messenger/messenger_1/vehicle:/opt/carma/vehicle
     command: >
       bash -c 'export RMW_IMPLEMENTATION=${RMW_IMPLEMENTATION_OVERWRITE} && source /opt/carma/install_ros2/setup.bash
       && ros2 launch /opt/carma/vehicle/config/carma-messenger-docker.launch.py'
