@@ -2,7 +2,7 @@
 services:
   carma-simulation:
     privileged: true
-    image: usdotfhwastol/cdasim:carma-system-4.6.0
+    image: ${DOCKER_ORG}/cdasim:${DOCKER_TAG}
     networks:
       carma_sim_net:
         ipv4_address: 172.2.0.2
@@ -193,7 +193,7 @@ services:
 #############################################################################
 
   carma-cloud:
-    image: ${DOCKER_ORG:-usdotfhwastoldev}/carma-cloud:${DOCKER_TAG:-develop}
+    image: usdotfhwastol/carma-cloud:carma-system-4.6.1
     networks:
       carma_cloud_1:
         ipv4_address: 172.6.0.47
@@ -292,7 +292,7 @@ services:
       - ./mysql:/docker-entrypoint-initdb.d
 
   php:
-    image: ${OPS_DOCKER_ORG:-usdotfhwaops}/php:${OPS_DOCKER_TAG:-develop}
+    image: usdotfhwaops/php:7.7.0
     container_name: php
     network_mode: service:db
     depends_on:
@@ -301,7 +301,7 @@ services:
     tty: true
 
   v2xhub:
-    image: ${OPS_DOCKER_ORG:-usdotfhwaops}/v2xhub:${OPS_DOCKER_TAG:-develop}
+    image: usdotfhwaops/v2xhub:7.7.0
     container_name: v2xhub
     network_mode: service:db
     restart: always

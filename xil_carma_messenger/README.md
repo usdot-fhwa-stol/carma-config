@@ -22,7 +22,7 @@ This CARMA Configuration Image creates a **XIL** (Anything-In-the-Loop) scenario
 
 ## Deployment Instructions
 
-1) Copy all files in the `cdasim_config/route_config` directory to  directory to `/opt/carma/routes/` and to `/opt/carma-messenger/messenger_1/`
+1) Copy all files in the `cdasim_config/route_config` directory to  directory to `/opt/carma/routes/` and to `/opt/carma-messenger/messenger_1/routes/`
 2) Copy the osm map in `cdasim_config/carma/` directory to `/opt/carma/maps/` and create a symbolic link to it named `vector_map.osm`
 
 3) Build Virtual Signal Controller image locally (see instructions in [Setup CARMA Config](https://usdot-carma.atlassian.net/wiki/spaces/CRMSIM/pages/2526937089/Setup+Instructions+Documentation+CARMA-Streets+Integration) step 1 )
