@@ -157,7 +157,6 @@ excluded_default_topics:
   - /hardware_interface/module_states
   - /hardware_interface/speed_model_config
   - /hardware_interface/speed_pedals
-  - /hardware_interface/steering_command_echo
   - /hardware_interface/steering_model_config
   - /hardware_interface/throttle_command_echo
   - /hardware_interface/turn_signal_command
@@ -165,7 +164,6 @@ excluded_default_topics:
   - /hardware_interface/veh_interface_config
   - /hardware_interface/vehicle/engage
   - /hardware_interface/vehicle_platform
-  - /hardware_interface/vehicle_status
   - /localization/config/random_filter
   - /localization/config/voxel_grid_filter
   - /localization/current_pose_with_covariance

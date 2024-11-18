@@ -158,7 +158,6 @@ excluded_default_topics:
   - /hardware_interface/pacmod/as_rx/accel_cmd
   - /hardware_interface/pacmod/as_rx/brake_cmd
   - /hardware_interface/pacmod/as_rx/shift_cmd
-  - /hardware_interface/pacmod/as_rx/steer_cmd
   - /hardware_interface/pacmod/as_rx/turn_cmd
   - /hardware_interface/pacmod/as_tx/all_system_statuses
   - /hardware_interface/pacmod/as_tx/enabled
@@ -187,7 +186,6 @@ excluded_default_topics:
   - /hardware_interface/pacmod/parsed_tx/shift_rpt
   - /hardware_interface/pacmod/parsed_tx/sprayer_rpt
   - /hardware_interface/pacmod/parsed_tx/steer_aux_rpt
-  - /hardware_interface/pacmod/parsed_tx/steer_rpt
   - /hardware_interface/pacmod/parsed_tx/steer_rpt_detail_1
   - /hardware_interface/pacmod/parsed_tx/steer_rpt_detail_2
   - /hardware_interface/pacmod/parsed_tx/steer_rpt_detail_3
@@ -208,7 +206,6 @@ excluded_default_topics:
   - /hardware_interface/veh_interface_config
   - /hardware_interface/vehicle/engage
   - /hardware_interface/vehicle_platform
-  - /hardware_interface/vehicle_status
   - /localization/config/random_filter
   - /localization/config/voxel_grid_filter
   - /localization/current_pose_with_covariance
