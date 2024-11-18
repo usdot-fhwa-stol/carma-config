@@ -208,7 +208,6 @@ excluded_default_topics:
   - /hardware_interface/veh_interface_config
   - /hardware_interface/vehicle/engage
   - /hardware_interface/vehicle_platform
-  - /hardware_interface/
   - /localization/config/random_filter
   - /localization/config/voxel_grid_filter
   - /localization/current_pose_with_covariance
