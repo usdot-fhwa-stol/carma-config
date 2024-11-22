@@ -28,7 +28,7 @@ def generate_launch_description():
     route_file_folder = LaunchConfiguration('route_file_folder')
     declare_route_file_folder = DeclareLaunchArgument(
         name = 'route_file_folder',
-        default_value='/opt/messenger/messenger_1/routes/',
+        default_value='/opt/carma/routes/',
         description = 'Path of folder on host PC containing route CSV file(s) that can be accessed by plugins'
     )
 
