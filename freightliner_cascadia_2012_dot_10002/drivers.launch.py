@@ -151,8 +151,6 @@ def generate_launch_description():
                 PythonLaunchDescriptionSource([ FindPackageShare('lightbar_driver'), '/launch/lightbar_driver_node_launch.py']),
                 launch_arguments = {
                     'log_level' : GetLogLevel('lightbar_driver', env_log_levels),
-                    'ip_addr' : '192.168.88.28',
-                    'port' : '80',
                     'vehicle_calibration_dir' : vehicle_calibration_dir,
                     }.items()
             ),
