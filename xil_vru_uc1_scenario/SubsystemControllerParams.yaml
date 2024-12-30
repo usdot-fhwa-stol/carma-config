@@ -11,6 +11,8 @@ environment:
       unmanaged_required_nodes:
         - /hardware_interface/velodyne_lidar_driver_wrapper_node
       full_subsystem_required: true
+      service_timeout_ms: 2000
+      call_timeout_ms: 10000
 
 hardware_interface:
   drivers_controller:
@@ -28,6 +30,13 @@ hardware_interface:
       full_subsystem_required: false
       startup_duration: 60
       required_driver_timeout: 30000.0 #ROS1 bridge dropping message depending on computer
+      # Long: Timeout for each service to be detected as available in milliseconds
+      # Units: milliseconds
+      service_timeout_ms: 2000
+  
+      # Long: Timeout for each service call in milliseconds
+      # Units: milliseconds
+      call_timeout_ms: 10000
 
 message:
   v2x_controller:
@@ -37,6 +46,13 @@ message:
       unmanaged_required_nodes:
         - /hardware_interface/dsrc_driver_node
       full_subsystem_required: true
+      # Long: Timeout for each service to be detected as available in milliseconds
+      # Units: milliseconds
+      service_timeout_ms: 2000
+  
+      # Long: Timeout for each service call in milliseconds
+      # Units: milliseconds
+      call_timeout_ms: 10000
 
 guidance:
   guidance_controller:
@@ -45,6 +61,13 @@ guidance:
       required_subsystem_nodes: ['']
       unmanaged_required_nodes: [''] # TODO add the controller driver once it is integrated with ROS2
       full_subsystem_required: true
+      # Long: Timeout for each service to be detected as available in milliseconds
+      # Units: milliseconds
+      service_timeout_ms: 2000
+  
+      # Long: Timeout for each service call in milliseconds
+      # Units: milliseconds
+      call_timeout_ms: 10000
       required_plugins:
         - /guidance/plugins/route_following_plugin
         - /guidance/plugins/pure_pursuit_wrapper
@@ -83,6 +106,13 @@ localization:
       required_subsystem_nodes: ['']
       unmanaged_required_nodes: ['']
       full_subsystem_required: true
+      # Long: Timeout for each service to be detected as available in milliseconds
+      # Units: milliseconds
+      service_timeout_ms: 2000
+  
+      # Long: Timeout for each service call in milliseconds
+      # Units: milliseconds
+      call_timeout_ms: 10000
       sensor_nodes:
         - /hardware_interface/velodyne_lidar_driver_wrapper_node
       # TODO update the fault map once ros2 gps is integrated
