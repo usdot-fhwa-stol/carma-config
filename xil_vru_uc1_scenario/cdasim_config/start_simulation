@@ -10,6 +10,7 @@ bash -c 'sleep 35 && rviz -d ~/carma_ws/src/carma-platform/carma/rviz/carma_defa
 
 docker volume rm \
   carma_kafka-datavolume \
-  carma_zookeeper-datavolume
+  carma_zookeeper-datavolume \
+  carma_mysql-datavolume
 
 carma start all

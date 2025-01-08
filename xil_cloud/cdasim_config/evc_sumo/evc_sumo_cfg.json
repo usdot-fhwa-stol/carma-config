@@ -1,0 +1,21 @@
+{
+    "controllers": [
+      {
+        "controllerId": 1,
+        "controllerCfgPath": "resources/test_4.cfg",
+        "start_time": null,
+        "https_port": 0,
+        "web_port": 0,
+        "snmp_port": 5050,
+        "harness_port": 0,
+        "controller_speed": null,
+        "sumoTlId": 916,
+        "enableWebPanel": true,
+        "evcPhases": [{"evcPhaseId": 2, "sumoTlStateIndex":[4,10,11]},
+                      {"evcPhaseId": 6, "sumoTlStateIndex":[0,2,6]},
+                      {"evcPhaseId": 4, "sumoTlStateIndex":[1,3,8]},
+                      {"evcPhaseId": 8, "sumoTlStateIndex":[5,7,9]}]
+      }
+    ]
+  }
+  
