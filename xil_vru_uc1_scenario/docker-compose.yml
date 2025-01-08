@@ -2,7 +2,7 @@
 services:
   carma-simulation:
     privileged: true
-    image: ${DOCKER_ORG}/cdasim:${DOCKER_TAG}
+    image: usdotfhwastoldev/cdasim:develop
     networks:
       carma_sim_net:
         ipv4_address: 172.2.0.2
@@ -39,30 +39,6 @@ services:
       - ROS_IP=172.3.0.2
       - ROS_MASTER_URI=http://172.3.0.2:11311/
     command: roscore
-
-  platform_1:
-    image: usdotfhwastoldev/carma-platform:develop
-    networks:
-      carma_net_1:
-        ipv4_address: 172.3.0.3
-    container_name: platform_1
-    volumes_from:
-      - container:carma-config:ro
-    volumes:
-      - /opt/carma/logs/carma_1:/opt/carma/logs
-      - /opt/carma/.ros:/home/carma/.ros
-      - /opt/carma/vehicle/calibration:/opt/carma/vehicle/calibration
-      - /opt/carma/yolo:/opt/carma/yolo
-      - /opt/carma/maps:/opt/carma/maps
-      - /opt/carma/routes:/opt/carma/routes
-      - /opt/carma/data:/opt/carma/data
-      - /opt/carma/simulation:/opt/carma/simulation
-    environment:
-      - ROS_IP=172.3.0.3
-      - ROS_MASTER_URI=http://172.3.0.2:11311/
-    command: >
-      bash -c 'export RMW_IMPLEMENTATION=rmw_fastrtps_cpp
-      && wait-for-it 172.3.0.2:11311 -- roslaunch /opt/carma/vehicle/config/carma_docker.launch'
 
   platform_ros2_1:
     image: local/carma-platform:latest
