@@ -11,8 +11,6 @@ environment:
       unmanaged_required_nodes:
         - /hardware_interface/velodyne_lidar_driver_wrapper_node
       full_subsystem_required: true
-      service_timeout_ms : 2000
-      call_timeout_ms : 100000
 
 hardware_interface:
   drivers_controller:
@@ -20,8 +18,6 @@ hardware_interface:
       subsystem_namespace: /hardware_interface
       required_subsystem_nodes: ['']
       unmanaged_required_nodes: ['']
-      service_timeout_ms : 2000
-      call_timeout_ms : 10000
       excluded_namespace_nodes:
         - /hardware_interface/carla_lidar_driver
         - /hardware_interface/carla_gnss_driver
@@ -38,11 +34,9 @@ message:
     ros__parameters:
       subsystem_namespace: /message
       required_subsystem_nodes: ['']
-      service_timeout_ms : 2000
-      call_timeout_ms : 10000
-      unmanaged_required_nodes: ['']
-      #  - /hardware_interface/dsrc_driver_node
-      full_subsystem_required: false
+      unmanaged_required_nodes:
+        - /hardware_interface/dsrc_driver_node
+      full_subsystem_required: true
 
 guidance:
   guidance_controller:
@@ -51,8 +45,6 @@ guidance:
       required_subsystem_nodes: ['']
       unmanaged_required_nodes: [''] # TODO add the controller driver once it is integrated with ROS2
       full_subsystem_required: true
-      service_timeout_ms : 2000
-      call_timeout_ms : 10000
       required_plugins:
         - /guidance/plugins/route_following_plugin
         - /guidance/plugins/pure_pursuit_wrapper
@@ -90,8 +82,6 @@ localization:
       subsystem_namespace: /localization
       required_subsystem_nodes: ['']
       unmanaged_required_nodes: ['']
-      service_timeout_ms : 2000
-      call_timeout_ms : 10000
       full_subsystem_required: true
       sensor_nodes:
         - /hardware_interface/velodyne_lidar_driver_wrapper_node
