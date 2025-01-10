@@ -40,10 +40,10 @@ services:
     command: roscore
 
   platform_1:
-    image: ${DOCKER_ORG}/carma-platform:${DOCKER_TAG}
+    image: ${DOCKER_ORG}/carma-platform:${DOCKER_TAG}-humble
     networks:
       carma_net_1:
-        ipv4_address: 172.3.0.3
+        ipv4_address: 172.3.0.4
     container_name: platform_1
     volumes_from:
       - container:carma-config:ro
@@ -51,36 +51,14 @@ services:
       - /opt/carma/logs/carma_1:/opt/carma/logs
       - /opt/carma/.ros:/home/carma/.ros
       - /opt/carma/vehicle/calibration:/opt/carma/vehicle/calibration
-      - /opt/carma/yolo:/opt/carma/yolo
-      - /opt/carma/maps:/opt/carma/maps
-      - /opt/carma/routes:/opt/carma/routes
-      - /opt/carma/data:/opt/carma/data
-      - /opt/carma/simulation:/opt/carma/simulation
-    environment:
-      - ROS_IP=172.3.0.3
-      - ROS_MASTER_URI=http://172.3.0.2:11311/
-    command: bash -c 'wait-for-it 172.3.0.2:11311 -- roslaunch /opt/carma/vehicle/config/carma_docker.launch'
-
-  platform_ros2_1:
-    image: ${DOCKER_ORG}/carma-platform:${DOCKER_TAG}
-    networks:
-      carma_net_1:
-        ipv4_address: 172.3.0.4
-    container_name: platform_ros2_1
-    volumes_from:
-      - container:carma-config:ro
-    volumes:
-      - /opt/carma/logs/carma_1:/opt/carma/logs
-      - /opt/carma/.ros:/home/carma/.ros
-      - /opt/carma/vehicle/calibration:/opt/carma/vehicle/calibration
       - /opt/carma/maps:/opt/carma/maps
       - /opt/carma/routes:/opt/carma/routes
       - /opt/carma/yolo:/opt/carma/yolo
-      - ./inlanecruising_config/parameters.yaml:/opt/carma/install_ros2/inlanecruising_plugin/share/inlanecruising_plugin/config/parameters.yaml
-    command: bash -c 'source /opt/carma/install_ros2/setup.bash && ros2 launch /opt/carma/vehicle/config/carma_docker.launch.py'
+      - ./inlanecruising_config/parameters.yaml:/opt/carma/install/inlanecruising_plugin/share/inlanecruising_plugin/config/parameters.yaml
+    command: bash -c 'source /opt/carma/install/setup.bash && ros2 launch /opt/carma/vehicle/config/carma_docker.launch.py'
 
   ros1_bridge_1:
-    image: ${DOCKER_ORG}/carma-msgs:${DOCKER_TAG}
+    image: ${DOCKER_ORG}/carma-msgs:${DOCKER_TAG}-humble
     networks:
       carma_net_1:
         ipv4_address: 172.3.0.5
@@ -97,7 +75,7 @@ services:
       - /opt/carma/maps:/opt/carma/maps
       - /opt/carma/routes:/opt/carma/routes
       - /opt/carma/yolo:/opt/carma/yolo
-    command: bash -c 'wait-for-it 172.3.0.2:11311 -- rosparam load /opt/carma/vehicle/config/bridge.yml && source ~/.base-image/workspace/install/setup.bash && ros2 run ros1_bridge dynamic_bridge --multi-threads'
+    command: bash -c 'wait-for-it 172.3.0.2:11311 -- rosparam load /opt/carma/vehicle/config/bridge.yml && source /home/carma/.base-image/workspace/install/setup.bash && ros2 run ros1_bridge dynamic_bridge --multi-threads'
 
   carma-carla-integration_1:
     image: ${DOCKER_ORG}/carma-carla-integration:${DOCKER_TAG}
@@ -169,33 +147,11 @@ services:
   #   command: roscore
 
   # platform_2:
-  #   image: ${DOCKER_ORG}/carma-platform:${DOCKER_TAG}
-  #   networks:
-  #     carma_net_2:
-  #       ipv4_address: 172.5.0.3
-  #   container_name: platform_2
-  #   volumes_from:
-  #     - container:carma-config:ro
-  #   volumes:
-  #     - /opt/carma/logs/carma_2:/opt/carma/logs
-  #     - /opt/carma/.ros:/home/carma/.ros
-  #     - /opt/carma/vehicle/calibration:/opt/carma/vehicle/calibration
-  #     - /opt/carma/yolo:/opt/carma/yolo
-  #     - /opt/carma/maps:/opt/carma/maps
-  #     - /opt/carma/routes:/opt/carma/routes
-  #     - /opt/carma/data:/opt/carma/data
-  #     - /opt/carma/simulation:/opt/carma/simulation
-  #   environment:
-  #     - ROS_IP=172.5.0.3
-  #     - ROS_MASTER_URI=http://172.5.0.2:11311/
-  #   command: bash -c 'wait-for-it 172.3.0.2:11311 -- roslaunch /opt/carma/vehicle/config/carma_docker.launch'
-
-  # platform_ros2_2:
-  #   image: ${DOCKER_ORG}/carma-platform:${DOCKER_TAG}
+  #   image: ${DOCKER_ORG}/carma-platform:${DOCKER_TAG}-humble
   #   networks:
   #     carma_net_2:
   #       ipv4_address: 172.5.0.4
-  #   container_name: platform_ros2_2
+  #   container_name: platform_2
   #   volumes_from:
   #     - container:carma-config:ro
   #   volumes:
@@ -206,10 +162,10 @@ services:
   #     - /opt/carma/routes:/opt/carma/routes
   #     - /opt/carma/yolo:/opt/carma/yolo
   #     - ./inlanecruising_config/parameters.yaml:/opt/carma/install/inlanecruising_plugin/share/inlanecruising_plugin/config/parameters.yaml
-  #   command: bash -c 'source /opt/carma/install_ros2/setup.bash && ros2 launch /opt/carma/vehicle/config/carma_docker.launch.py'
+  #   command: bash -c 'source /opt/carma/install/setup.bash && ros2 launch /opt/carma/vehicle/config/carma_docker.launch.py'
 
   # ros1_bridge_2:
-  #   image: ${DOCKER_ORG}/carma-msgs:${DOCKER_TAG}
+  #   image: ${DOCKER_ORG}/carma-msgs:${DOCKER_TAG}-humble
   #   networks:
   #     carma_net_2:
   #       ipv4_address: 172.5.0.5
@@ -226,7 +182,7 @@ services:
   #     - /opt/carma/maps:/opt/carma/maps
   #     - /opt/carma/routes:/opt/carma/routes3
   #     - /opt/carma/yolo:/opt/carma/yolo
-  #   command: bash -c 'wait-for-it 172.5.0.2:11311 -- rosparam load /opt/carma/vehicle/config/bridge.yml && source ~/.base-image/workspace/install/setup.bash && ros2 run ros1_bridge dynamic_bridge --multi-threads'
+  #   command: bash -c 'wait-for-it 172.5.0.2:11311 -- rosparam load /opt/carma/vehicle/config/bridge.yml && source /home/carma/.base-image/workspace/install/setup.bash && ros2 run ros1_bridge dynamic_bridge --multi-threads'
 
   # carma-carla-integration_2:
   #   image: ${DOCKER_ORG}/carma-carla-integration:${DOCKER_TAG}
@@ -318,7 +274,7 @@ services:
     volumes:
       - ./kowl:/etc/kowl/
   db:
-    image: mysql:5.7
+    image: mysql:8.0
     container_name: mysql
     restart: always
     environment:
@@ -421,7 +377,7 @@ services:
       - ./tsc_client_service/manifest.json:/home/carma-streets/tsc_client_service/manifest.json
       - ./tsc_client_service/logs/:/home/carma-streets/tsc_client_service/logs/
   econolite-virtual-controller:
-    image: ${DOCKER_ORG}/econolite-virtual-controller:latest
+    image: usdotfhwastol/econolite-virtual-controller:latest
     container_name: evc
     restart: always
     networks:
