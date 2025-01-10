@@ -21,6 +21,8 @@ The current CARMA Platform system operates as a hybrid of ROS 1 Noetic and ROS 2
 
 With regards to the primary [carma-platform](https://github.com/usdot-fhwa-stol/carma-platform) repository, all of the components are in ROS2 Humble.
 
+Depending on the xil use case, however, some may run ROS2 foxy versions such as xil_cloud_telematics and xil_carma_messenger as their core components such as telematics and carma-messenger-bridge are not fully tested in humble yet.
+
 Additionally, the [carma-ssc-interface-wrapper](https://github.com/usdot-fhwa-stol/carma-ssc-interface-wrapper) repository contains the drive-by-wire driver and SSC packages that are used for CARMA Platform-supported vehicle classes. The packages for several vehicle classes (Chrysler Pacifica, Ford Fusion, and Freightliner Cascadia) are only available for ROS 1 Noetic. These packages are closed source, and the external company providing them does not plan to upgrade them to ROS 2.
 
 Finally, the [carma-carla-integration](https://github.com/usdot-fhwa-stol/carma-carla-integration) and [carma-ns3-adapter](https://github.com/usdot-fhwa-stol/carma-ns3-adapter) repositories contain packages that are required for simulation deployments. These packages are all built for ROS 1 Noetic due to a dependency on on CARLA 0.9.10, which only exposes a networking bridge for ROS 1. In the future, when simulation-related repositories are upgraded to support a newer version of CARLA, these packages will be upgraded to ROS 2.
