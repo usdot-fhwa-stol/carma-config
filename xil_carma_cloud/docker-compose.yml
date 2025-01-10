@@ -2,7 +2,7 @@
 services:
   carma-simulation:
     privileged: true
-    image: ${DOCKER_ORG:-usdotfhwastoldev}/cdasim:${DOCKER_TAG:-develop}
+    image: ${DOCKER_ORG}/cdasim:${DOCKER_TAG}
     networks:
       carma_sim_net:
         ipv4_address: 172.2.0.2
@@ -25,7 +25,7 @@ services:
 ############################################################################
 # carma vehicle 1
   roscore_1:
-    image: usdotfhwastol/carma-base:carma-system-4.5.0
+    image: ${DOCKER_ORG}/carma-base:${DOCKER_TAG}
     networks:
       carma_net_1:
         ipv4_address: 172.3.0.2
@@ -42,34 +42,11 @@ services:
     command: roscore
 
   platform_1:
-    image: usdotfhwastol/carma-platform:carma-system-4.5.0
-    networks:
-      carma_net_1:
-        ipv4_address: 172.3.0.3
-    container_name: platform_1
-    volumes_from:
-      - container:carma-config:ro
-    volumes:
-      - /opt/carma/logs/carma_1:/opt/carma/logs
-      - /opt/carma/.ros:/home/carma/.ros
-      - /opt/carma/vehicle/calibration:/opt/carma/vehicle/calibration
-      - /opt/carma/yolo:/opt/carma/yolo
-      - /opt/carma/maps:/opt/carma/maps
-      - /opt/carma/routes:/opt/carma/routes
-      - /opt/carma/data:/opt/carma/data
-      - /opt/carma/simulation:/opt/carma/simulation
-    environment:
-      ROS_IP: 172.3.0.3
-      ROS_MASTER_URI: http://172.3.0.2:11311/
-    command: >
-      bash -c 'wait-for-it 172.3.0.2:11311 -- roslaunch /opt/carma/vehicle/config/carma_docker.launch'
-
-  platform_ros2_1:
-    image: usdotfhwastol/carma-platform:carma-system-4.5.0
+    image: ${DOCKER_ORG}/carma-platform:${DOCKER_TAG}-humble
     networks:
       carma_net_1:
         ipv4_address: 172.3.0.4
-    container_name: platform_ros2_1
+    container_name: platform_1
     environment:
       RMW_IMPLEMENTATION_OVERWRITE: ${RMW_IMPLEMENTATION}
     volumes_from:
@@ -82,18 +59,18 @@ services:
       - /opt/carma/routes:/opt/carma/routes
       - /opt/carma/yolo:/opt/carma/yolo
       # ILC tuning for carma-cloud workzone (carma_2) is breaking k900 normal lanefolow regression testing, so using different tuning
-      - ./carma/inlanecruising_config/parameters1.yaml:/opt/carma/install_ros2/inlanecruising_plugin/share/inlanecruising_plugin/config/parameters.yaml
-      - ./carma/environment.launch.py:/opt/carma/install_ros2/carma/share/carma/launch/environment.launch.py
-      - ./carma/light_controlled_intersection_tactical_plugin/parameters.yaml:/opt/carma/install_ros2/light_controlled_intersection_tactical_plugin/share/light_controlled_intersection_tactical_plugin/config/parameters.yaml
-      - ./carma/lci_strategic_plugin/parameters.yaml:/opt/carma/install_ros2/lci_strategic_plugin/share/lci_strategic_plugin/config/parameters.yaml
-      - ./carma/plugins.launch.py:/opt/carma/install_ros2/carma/share/carma/launch/plugins.launch.py
-      - ./carma/system_controller/config.yaml:/opt/carma/install_ros2/system_controller/share/system_controller/config/config.yaml
+      - ./carma/inlanecruising_config/parameters1.yaml:/opt/carma/install/inlanecruising_plugin/share/inlanecruising_plugin/config/parameters.yaml
+      - ./carma/environment.launch.py:/opt/carma/install/carma/share/carma/launch/environment.launch.py
+      - ./carma/light_controlled_intersection_tactical_plugin/parameters.yaml:/opt/carma/install/light_controlled_intersection_tactical_plugin/share/light_controlled_intersection_tactical_plugin/config/parameters.yaml
+      - ./carma/lci_strategic_plugin/parameters.yaml:/opt/carma/install/lci_strategic_plugin/share/lci_strategic_plugin/config/parameters.yaml
+      - ./carma/plugins.launch.py:/opt/carma/install/carma/share/carma/launch/plugins.launch.py
+      - ./carma/system_controller/config.yaml:/opt/carma/install/system_controller/share/system_controller/config/config.yaml
     command: >
-      bash -c 'export RMW_IMPLEMENTATION=${RMW_IMPLEMENTATION_OVERWRITE} && source /opt/carma/install_ros2/setup.bash
+      bash -c 'export RMW_IMPLEMENTATION=${RMW_IMPLEMENTATION_OVERWRITE} && source /opt/carma/install/setup.bash
       && ros2 launch /opt/carma/vehicle/config/carma_docker.launch.py'
 
   ros1_bridge_1:
-    image: usdotfhwastol/carma-msgs:carma-system-4.5.0
+    image: ${DOCKER_ORG}/carma-msgs:${DOCKER_TAG}-humble
     networks:
       carma_net_1:
         ipv4_address: 172.3.0.5
@@ -112,12 +89,13 @@ services:
       - /opt/carma/routes:/opt/carma/routes
       - /opt/carma/yolo:/opt/carma/yolo
     command: >
-      bash -c 'export RMW_IMPLEMENTATION=${RMW_IMPLEMENTATION_OVERWRITE} && wait-for-it 172.3.0.2:11311 -- rosparam load /opt/carma/vehicle/config/bridge.yml
-      && source ~/.base-image/workspace/install/setup.bash
+      bash -c 'export RMW_IMPLEMENTATION=${RMW_IMPLEMENTATION_OVERWRITE} 
+      && wait-for-it 172.3.0.2:11311 -- rosparam load /opt/carma/vehicle/config/bridge.yml
+      && source /home/carma/.base-image/workspace/install/setup.bash
       && ros2 run ros1_bridge dynamic_bridge --multi-threads'
 
   carma-carla-integration_1:
-    image: usdotfhwastol/carma-carla-integration:carma-system-4.5.0
+    image: ${DOCKER_ORG}/carma-carla-integration:${DOCKER_TAG}
     networks:
       carma_net_1:
         ipv4_address: 172.3.0.6
@@ -145,10 +123,8 @@ services:
       start_delay_in_seconds:=${VEHICLE_ENGAGE_DELAY}
       spawn_point:='151.2,-305.9,0,0,0,0'"
 
-
-
   ns3_adapter_1:
-    image: usdotfhwastol/carma-ns3-adapter:carma-system-4.5.0
+    image: ${DOCKER_ORG}/carma-ns3-adapter:${DOCKER_TAG}
     networks:
       carma_net_1:
         ipv4_address: 172.3.0.7
@@ -178,7 +154,7 @@ services:
 #############################################################################
 # carma_2 vehicle
   roscore_2:
-    image: usdotfhwastol/carma-base:carma-system-4.5.0
+    image: ${DOCKER_ORG}/carma-base:${DOCKER_TAG}
     networks:
       carma_net_2:
         ipv4_address: 172.5.0.2
@@ -195,10 +171,10 @@ services:
     command: roscore
 
   platform_2:
-    image: usdotfhwastol/carma-platform:carma-system-4.5.0
+    image: ${DOCKER_ORG}/carma-platform:${DOCKER_TAG}-humble
     networks:
       carma_net_2:
-        ipv4_address: 172.5.0.3
+        ipv4_address: 172.5.0.4
     container_name: platform_2
     volumes_from:
       - container:carma-config:ro
@@ -206,43 +182,21 @@ services:
       - /opt/carma/logs/carma_2:/opt/carma/logs
       - /opt/carma/.ros:/home/carma/.ros
       - /opt/carma/vehicle/calibration:/opt/carma/vehicle/calibration
-      - /opt/carma/yolo:/opt/carma/yolo
-      - /opt/carma/maps:/opt/carma/maps
-      - /opt/carma/routes:/opt/carma/routes
-      - /opt/carma/data:/opt/carma/data
-      - /opt/carma/simulation:/opt/carma/simulation
-    environment:
-      - ROS_IP=172.5.0.3
-      - ROS_MASTER_URI=http://172.5.0.2:11311/
-    command: bash -c 'wait-for-it 172.5.0.2:11311 -- roslaunch /opt/carma/vehicle/config/carma_docker.launch'
-
-  platform_ros2_2:
-    image: usdotfhwastol/carma-platform:carma-system-4.5.0
-    networks:
-      carma_net_2:
-        ipv4_address: 172.5.0.4
-    container_name: platform_ros2_2
-    volumes_from:
-      - container:carma-config:ro
-    volumes:
-      - /opt/carma/logs/carma_2:/opt/carma/logs
-      - /opt/carma/.ros:/home/carma/.ros
-      - /opt/carma/vehicle/calibration:/opt/carma/vehicle/calibration
       - /opt/carma/maps:/opt/carma/maps
       - /opt/carma/routes:/opt/carma/routes
       - /opt/carma/yolo:/opt/carma/yolo
-      - ./carma/inlanecruising_config/parameters.yaml:/opt/carma/install_ros2/inlanecruising_plugin/share/inlanecruising_plugin/config/parameters.yaml
-      - ./carma/environment.launch.py:/opt/carma/install_ros2/carma/share/carma/launch/environment.launch.py
-      - ./carma/light_controlled_intersection_tactical_plugin/parameters.yaml:/opt/carma/install_ros2/light_controlled_intersection_tactical_plugin/share/light_controlled_intersection_tactical_plugin/config/parameters.yaml
-      - ./carma/lci_strategic_plugin/parameters.yaml:/opt/carma/install_ros2/lci_strategic_plugin/share/lci_strategic_plugin/config/parameters.yaml
-      - ./carma/system_controller/config.yaml:/opt/carma/install_ros2/system_controller/share/system_controller/config/config.yaml
-      - ./carma/plugins.launch.py:/opt/carma/install_ros2/carma/share/carma/launch/plugins.launch.py
+      - ./carma/inlanecruising_config/parameters.yaml:/opt/carma/install/inlanecruising_plugin/share/inlanecruising_plugin/config/parameters.yaml
+      - ./carma/environment.launch.py:/opt/carma/install/carma/share/carma/launch/environment.launch.py
+      - ./carma/light_controlled_intersection_tactical_plugin/parameters.yaml:/opt/carma/install/light_controlled_intersection_tactical_plugin/share/light_controlled_intersection_tactical_plugin/config/parameters.yaml
+      - ./carma/lci_strategic_plugin/parameters.yaml:/opt/carma/install/lci_strategic_plugin/share/lci_strategic_plugin/config/parameters.yaml
+      - ./carma/system_controller/config.yaml:/opt/carma/install/system_controller/share/system_controller/config/config.yaml
+      - ./carma/plugins.launch.py:/opt/carma/install/carma/share/carma/launch/plugins.launch.py
     environment:
       RMW_IMPLEMENTATION_OVERWRITE: ${RMW_IMPLEMENTATION}
-    command: bash -c 'export RMW_IMPLEMENTATION=${RMW_IMPLEMENTATION_OVERWRITE} && source /opt/carma/install_ros2/setup.bash && ros2 launch /opt/carma/vehicle/config/carma_docker.launch.py'
+    command: bash -c 'export RMW_IMPLEMENTATION=${RMW_IMPLEMENTATION_OVERWRITE} && source /opt/carma/install/setup.bash && ros2 launch /opt/carma/vehicle/config/carma_docker.launch.py'
 
   ros1_bridge_2:
-    image: usdotfhwastol/carma-msgs:carma-system-4.5.0
+    image: ${DOCKER_ORG}/carma-msgs:${DOCKER_TAG}-humble
     networks:
       carma_net_2:
         ipv4_address: 172.5.0.5
@@ -260,10 +214,14 @@ services:
       - /opt/carma/maps:/opt/carma/maps
       - /opt/carma/routes:/opt/carma/routes3
       - /opt/carma/yolo:/opt/carma/yolo
-    command: bash -c 'export RMW_IMPLEMENTATION=${RMW_IMPLEMENTATION_OVERWRITE} && wait-for-it 172.5.0.2:11311 -- rosparam load /opt/carma/vehicle/config/bridge.yml && source ~/.base-image/workspace/install/setup.bash && ros2 run ros1_bridge dynamic_bridge --multi-threads'
+    command: >
+      bash -c 'export RMW_IMPLEMENTATION=${RMW_IMPLEMENTATION_OVERWRITE} 
+      && wait-for-it 172.5.0.2:11311 -- rosparam load /opt/carma/vehicle/config/bridge.yml
+      && source /home/carma/.base-image/workspace/install/setup.bash
+      && ros2 run ros1_bridge dynamic_bridge --multi-threads'
 
   carma-carla-integration_2:
-    image: usdotfhwastol/carma-carla-integration:carma-system-4.5.0
+    image: ${DOCKER_ORG}/carma-carla-integration:${DOCKER_TAG}
     networks:
       carma_net_2:
         ipv4_address: 172.5.0.6
@@ -289,7 +247,7 @@ services:
               spawn_point:='148.12,-170,0,0,0,0'"
 
   ns3_adapter_2:
-    image: usdotfhwastol/carma-ns3-adapter:carma-system-4.5.0
+    image: ${DOCKER_ORG}/carma-ns3-adapter:${DOCKER_TAG}
     networks:
       carma_net_2:
         ipv4_address: 172.5.0.7
@@ -314,7 +272,7 @@ services:
 #############################################################################
 
   carma-cloud:
-    image: ${DOCKER_ORG:-usdotfhwastoldev}/carma-cloud:${DOCKER_TAG:-develop}
+    image: ${DOCKER_ORG}/carma-cloud:${DOCKER_TAG}
     networks:
       carma_cloud_1:
         ipv4_address: 172.6.0.47
@@ -413,7 +371,7 @@ services:
       - ./mysql:/docker-entrypoint-initdb.d
 
   php:
-    image: ${OPS_DOCKER_ORG:-usdotfhwaops}/php:${OPS_DOCKER_TAG:-develop}
+    image: ${OPS_DOCKER_ORG}/php:${OPS_DOCKER_TAG}
     container_name: php
     network_mode: service:db
     depends_on:
@@ -422,7 +380,7 @@ services:
     tty: true
 
   v2xhub:
-    image: ${OPS_DOCKER_ORG:-usdotfhwaops}/v2xhub:${OPS_DOCKER_TAG:-develop}
+    image: ${OPS_DOCKER_ORG}/v2xhub:${OPS_DOCKER_TAG}
     container_name: v2xhub
     network_mode: service:db
     restart: always
@@ -448,7 +406,7 @@ services:
       - ./sensor_configurations:/home/V2X-Hub/sensor_configurations/
 
   intersection_model:
-    image: usdotfhwastol/intersection_model:carma-system-4.5.0
+    image: ${DOCKER_ORG}/intersection_model:${DOCKER_TAG}
     container_name: intersection_model
     restart: always
     network_mode: service:zookeeper
@@ -463,7 +421,7 @@ services:
       - ./MAP:/home/carma-streets/intersection_model/MAP
 
   carla-sensor-lib:
-    image: usdotfhwastol/carla-sensor-lib:carma-system-4.5.0
+    image: ${DOCKER_ORG}/carla-sensor-lib:${DOCKER_TAG}
     networks:
       carma_sim_net:
         ipv4_address: 172.2.0.5
@@ -479,7 +437,7 @@ services:
       python3 -u /home/CarlaCDASimAdapter/src/CarlaCDASimAdapter.py --carla-host 172.2.0.2 --xmlrpc-server-host 172.2.0.5  --sensor-config-file ./config/simulated_sensor_config.yaml --noise-model-config-file ./config/noise_model_config.yaml"
 
   tsc_service:
-    image: usdotfhwastol/tsc_service:carma-system-4.5.1
+    image: ${DOCKER_ORG}/tsc_service:${DOCKER_TAG}
     container_name: tsc_service
     restart: always
     network_mode: service:zookeeper
@@ -509,7 +467,7 @@ services:
       && /home/carma-streets/tsc_client_service/build/traffic_signal_controller_service"
 
   sensor_data_sharing_service:
-    image: usdotfhwastol/sensor_data_sharing_service:carma-system-4.5.0
+    image: ${DOCKER_ORG}/sensor_data_sharing_service:${DOCKER_TAG}
     build:
       context: .
       dockerfile: sensor_data_sharing_service/Dockerfile
@@ -558,7 +516,7 @@ services:
       --traci-ip 172.2.0.2"
 
   scenario-runner:
-    image: usdotfhwastol/scenario-runner:carma-system-4.5.0
+    image: ${DOCKER_ORG}/scenario-runner:${DOCKER_TAG}
     container_name: scenario-runner
     networks:
       - carma_sim_net
