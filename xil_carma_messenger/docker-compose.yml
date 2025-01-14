@@ -247,7 +247,7 @@ services:
 
   # CARMA Messenger-MOSAIC Bridge
   carma_messenger_bridge_1:
-    image: usdotfhwastol/carma-messenger-bridge:latest
+    image: ${DOCKER_ORG}/carma-messenger-bridge:${DOCKER_TAG}
     networks:
       carma_messenger_net_1:
         ipv4_address: 172.7.0.5
