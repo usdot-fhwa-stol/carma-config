@@ -117,12 +117,13 @@ excluded_default_topics:
   - /environment/base_map
   - /environment/external_object_predictions
   - /environment/external_objects_viz
-  - /environment/lanelet2_map_viz
-  - /environment/map_update
+  - /environment/map_filtered_points
   - /environment/points_no_ground
+  - /environment/points_in_base_link
+  - /environment/points_clustered
+  - /environment/points_in_map
+  - /environment/points_ground
   - /environment/roadway_objects
-  - /environment/semantic_map
-  - /environment/tcm_visualizer
   - /environment/tcr_bounding_points
   - /guidance/angular_gravity
   - /guidance/deviation_of_current_position
@@ -132,11 +133,8 @@ excluded_default_topics:
   - /guidance/platoon_info
   - /guidance/platooning_info
   - /guidance/plugin_discovery
-  - /guidance/route_marker
   - /guidance/search_circle_mark
   - /guidance/trajectory_circle_mark
-  - /guidance/trajectory_visualizer
-  - /guidance/twist_cmd
   - /guidance/twist_filter/limitation_debug/ctrl/lateral_accel
   - /guidance/twist_filter/limitation_debug/ctrl/lateral_jerk
   - /guidance/twist_filter/limitation_debug/twist/lateral_accel
@@ -145,11 +143,7 @@ excluded_default_topics:
   - /guidance/twist_filter/result/ctrl/lateral_jerk
   - /guidance/twist_filter/result/twist/lateral_accel
   - /guidance/twist_filter/result/twist/lateral_jerk
-  - /guidance/twist_raw
-  - /guidance/upcoming_lane_change_status
   - /hardware_interface/brake_command_echo
-  - /hardware_interface/comms/inbound_binary_msg
-  - /hardware_interface/comms/outbound_binary_msg
   - /hardware_interface/curvature_feedback
   - /hardware_interface/dbw_enabled_feedback
   - /hardware_interface/gear_command_echo
@@ -221,7 +215,6 @@ excluded_default_topics:
   - /localization/estimated_vel_kmph
   - /localization/estimated_vel_mps
   - /localization/filtered_points
-  - /localization/gnss_pose
   - /localization/initialpose
   - /localization/localizer_pose
   - /localization/managed_initialpose
@@ -230,6 +223,7 @@ excluded_default_topics:
   - /localization/ndt_stat
   - /localization/node_status
   - /localization/pmap_stat
+  - /localization/points_map
   - /localization/points_downsampler_info
   - /localization/predict_pose
   - /localization/predict_pose_imu
@@ -239,8 +233,6 @@ excluded_default_topics:
   - /localization/selected_pose
   - /localization/time_ndt_matching
   - /localization/vehicle/odom
-  - /tf
-  - /tf_static
   - /ui/client_count
   - /ui/connected_clients
 
@@ -250,6 +242,7 @@ excluded_lidar_topics:
   - /detection/lidar_detector/objects_markers
   - /hardware_interface/lidar/points_raw
   - /hardware_interface/camera/projection_matrix/detection/lidar_detector/cloud_clusters
+  - /hardware_interface/velodyne_packets
   - /environment/range_vision_fusion_01/detection/lidar_detector/objects
   - /environment/detection/fusion_tools/objects
   - /environment/detection/fusion_tools/objects_markers

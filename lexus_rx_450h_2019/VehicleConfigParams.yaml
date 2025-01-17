@@ -54,17 +54,17 @@ enable_object_avoidance: false
 # Acceleration limit
 # Value type: Desired
 # Units: m/s^2
-vehicle_acceleration_limit: 1.0
-lowpass_gain_linear_x: 0.5
+vehicle_acceleration_limit: 2.0
+
 # Deceleration limit
 # Value type: Desired
 # Units: m/s^2
-vehicle_deceleration_limit: 1.0
+vehicle_deceleration_limit: 2.0
 
 # Lateral Acceleration Limit
 # Value type: Desired
 # Units: m/s^2
-vehicle_lateral_accel_limit: 2.0
+vehicle_lateral_accel_limit: 2.5
 
 # Lateral Jerk Limit
 # Value type: Desired
@@ -98,7 +98,7 @@ vehicle_participant_type: "vehicle:car"
 # Maximum speed of the vehicle while engaged
 # Value type: Desired
 # Units: mph
-config_speed_limit: 20.0
+config_speed_limit: 15.0
 
 # Parameters to enable either ROS 1 or ROS 2 (or both) rosbag logging
 use_ros1_rosbag: false
@@ -148,7 +148,7 @@ excluded_default_topics:
   - /hardware_interface/gear_select
   - /hardware_interface/lightbar/light_bar_status
   - /hardware_interface/lightbar_manager/indicator_control
-  - /hardware_interface/module_states
+  - /hardware_interface/as/module_states
   - /hardware_interface/as/pacmod/as_rx/accel_cmd
   - /hardware_interface/as/pacmod/as_rx/brake_cmd
   - /hardware_interface/as/pacmod/as_rx/shift_cmd
@@ -236,7 +236,6 @@ excluded_default_topics:
 
 exclude_lidar: true
 excluded_lidar_topics:
-  - /hardware_interface/as/module_states
   - /detection/lidar_detector/objects
   - /detection/lidar_detector/objects_markers
   - /hardware_interface/lidar/points_raw
