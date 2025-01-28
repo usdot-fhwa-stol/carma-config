@@ -72,7 +72,7 @@ services:
     command: bash -c 'export RMW_IMPLEMENTATION=rmw_fastrtps_cpp && source /opt/carma/install_ros2/setup.bash && ros2 launch /opt/carma/vehicle/config/carma_docker.launch.py'
 
   ros1_bridge:
-    image: usdotfhwastoldev/carma-msgs:develop
+    image: usdotfhwastoldev/carma-msgs:carma-system-4.5.0
     networks:
       carma_net:
         ipv4_address: 172.3.0.5
