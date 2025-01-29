@@ -549,13 +549,14 @@ services:
     volumes:
       - /tmp/.X11-unix:/tmp/.X11-unix
       - ./evc_sumo/:/home/carma/src/resources/
+      - ./PyEOS:/home/carma/PyEOS                 #For PyEOS bundle
+      - pyeos_data:/home/carma/shared_data        #For PyEOS login token
     depends_on:
       - carma-simulation
     command: >
       bash -c "sleep 10
-      && x-terminal-emulator -e python3.8 evc_sumo_bridge.py
-      --asc3app-path '../evcfile/asc3app-application.zip'
-      --traci-ip 172.2.0.2"
+      && ./start_evc.sh --traci-ip 172.2.0.2"
+      
 
   scenario-runner:
     image: usdotfhwastol/scenario-runner:carma-system-4.5.0
@@ -607,3 +608,4 @@ volumes:
   mysql-datavolume:
   kafka-datavolume:
   zookeeper-datavolume:
+  pyeos_data:
