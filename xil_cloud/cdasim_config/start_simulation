@@ -2,6 +2,10 @@
 # Script to start simulation
 # Launches RViz
 # Prunes all previous Kafka volumes
+
+## Allow X Server Access to docker for EVC
+xhost +local:
+
 carma stop all
 
 export ROS_MASTER_URI=http://172.3.0.2:11311/

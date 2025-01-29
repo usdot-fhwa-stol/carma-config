@@ -1,4 +1,8 @@
 #!/bin/bash
+
+## Allow X Server Access to docker for EVC
+xhost +local:
+
 carma stop all
 docker volume rm carma_kafka-datavolume carma_zookeeper-datavolume carma_mysql-datavolume
 carma start all
