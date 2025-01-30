@@ -121,7 +121,7 @@ services:
                       export PYTHONPATH=$PYTHONPATH:~/PythonAPI/carla/dist/carla-0.9.10-py3.7-linux-x86_64.egg &&
                       source ~/carma_carla_ws/devel/setup.bash &&
                       roslaunch carma_carla_agent carma_carla_agent.launch role_name:='carma_1'
-                                                                           host:=${CARLA_HOST_IP}
+                                                                           host:='172.2.0.2'
                                                                            selected_route:=${ROUTE_1}
                                                                            start_delay_in_seconds:=${START_DELAY_IN_SECONDS_1}
                                                                            spawn_point:=${SPAWN_POINT_1}"
@@ -223,7 +223,7 @@ services:
                       export PYTHONPATH=$PYTHONPATH:~/PythonAPI/carla/dist/carla-0.9.10-py3.7-linux-x86_64.egg &&
                       source ~/carma_carla_ws/devel/setup.bash &&
                       roslaunch carma_carla_agent carma_carla_agent.launch role_name:='carma_2'
-                                                                           host:=${CARLA_HOST_IP}
+                                                                           host:='172.2.0.2'
                                                                            selected_route:=${ROUTE_2}
                                                                            start_delay_in_seconds:=${START_DELAY_IN_SECONDS_2}
                                                                            spawn_point:=${SPAWN_POINT_2}"
