@@ -2,7 +2,7 @@
     "controllers": [
       {
         "controllerId": 1,
-        "controllerCfgPath": "resources/20g_3y_fixed_sig_grp_2_4_6_8.cfg",
+        "controllerCfgPath": "/home/carma/src/resources/20g_3y_fixed_sig_grp_2_4_6_8.cfg",
         "moe_dir": null,
         "start_time": null,
         "bind_ip": null,

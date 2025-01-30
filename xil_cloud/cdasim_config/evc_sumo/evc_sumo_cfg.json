@@ -2,7 +2,7 @@
     "controllers": [
       {
         "controllerId": 1,
-        "controllerCfgPath": "resources/test_4.cfg",
+        "controllerCfgPath": "/home/carma/src/resources/test_4.cfg",
         "moe_dir": null,
         "start_time": null,
         "bind_ip": null,
