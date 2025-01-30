@@ -549,7 +549,7 @@ services:
       - carma-simulation
     command: >
       bash -c "sleep 10
-      && ./start_evc.sh --traci-ip 172.2.0.2"
+      && /home/carma/docker/start_evc.sh --traci-ip 172.2.0.2"
       
 
 networks:
