@@ -68,9 +68,15 @@ services:
       carma_net_1:
         ipv4_address: 172.3.0.4
     container_name: platform_ros2_1
+    runtime: nvidia
+    environment:
+      - DISPLAY=${DISPLAY}
+      - QT_X11_NO_MITSHM=1
+      - NVIDIA_VISIBLE_DEVICES=all
     volumes_from:
       - container:carma-config:ro
     volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix
       - /opt/carma/logs/carma_1:/opt/carma/logs
       - /opt/carma/.ros:/home/carma/.ros
       - /opt/carma/vehicle/calibration:/opt/carma/vehicle/calibration
@@ -174,9 +180,15 @@ services:
       carma_net_2:
         ipv4_address: 172.5.0.4
     container_name: platform_ros2_2
+    runtime: nvidia
+    environment:
+      - DISPLAY=${DISPLAY}
+      - QT_X11_NO_MITSHM=1
+      - NVIDIA_VISIBLE_DEVICES=all
     volumes_from:
       - container:carma-config:ro
     volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix
       - /opt/carma/logs/carma_2:/opt/carma/logs
       - /opt/carma/.ros:/home/carma/.ros
       - /opt/carma/vehicle/calibration:/opt/carma/vehicle/calibration
