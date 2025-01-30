@@ -41,7 +41,7 @@ CarmaJS.registerNamespace("CarmaJS.Config");
 
 CarmaJS.Config = (function () {
     //Private variables
-    var ip = '172.5.0.4'; // carma_net_2
+    var ip = '172.3.0.4'; // carma_net_1
     var refresh_interval = 30; //30 seconds
     var ros_connect_wait = 5000; //5 miliseconds to wait for platform to launch and ros to connect.
     var ros_connect_retry = 24; //# of times to wait. Total 2 minutes
