@@ -1,0 +1,8 @@
+#!/bin/bash
+echo "Clearing CDASim logs ..."
+rm -r logs/*
+rm -r /opt/carma-simulation/logs/*
+rm -r cdasim_rtf_data_*
+echo "Clearing CARMA Platform logs ..."
+rm -r /opt/carma/logs/carma_1/*
+rm -r /opt/carma/logs/carma_2/*
