@@ -1,0 +1,7 @@
+wave_cfg_file: "config/wave.json"
+ns3_address: "172.2.0.2"
+host_ip: "172.2.0.11"
+ns3_registration_port: 1515
+ns3_v2x_listening_port: 2500
+ns3_time_listening_port: 2501
+ns3_broadcasting_port: 1516
