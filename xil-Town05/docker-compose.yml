@@ -288,22 +288,7 @@ services:
       - ./logs:/var/log/tmx
       - ./MAP:/var/www/plugins/MAP
       - ./secrets:/home/V2X-Hub/secrets
-      - ./sensor_configurations:/home/V2X-Hub/sensor_configurations/
 
-  # intersection_model:
-  #   image: ${DOCKER_ORG}/intersection_model:${DOCKER_TAG}
-  #   container_name: intersection_model
-  #   restart: always
-  #   network_mode: service:zookeeper
-  #   depends_on:
-  #     kafka:
-  #       condition: service_healthy
-  #   environment:
-  #     DOCKER_HOST_IP: 172.4.0.3
-  #   volumes:
-  #     - ./intersection_model/manifest.json:/home/carma-streets/intersection_model/manifest.json
-  #     - ./intersection_model/logs:/home/carma-streets/intersection_model/logs
-  #     - ./MAP:/home/carma-streets/intersection_model/MAP
 
   carla-sensor-lib:
     image: ${DOCKER_ORG}/carla-sensor-lib:${DOCKER_TAG}
@@ -321,61 +306,6 @@ services:
     command: bash -c "sleep 15;
       python3 -u /home/CarlaCDASimAdapter/src/CarlaCDASimAdapter.py --carla-host 172.2.0.2 --xmlrpc-server-host 172.2.0.5  --sensor-config-file ./config/simulated_sensor_config.yaml --noise-model-config-file ./config/noise_model_config.yaml"
 
-  # tsc_service:
-  #   image: ${DOCKER_ORG}/tsc_service:${DOCKER_TAG}
-  #   container_name: tsc_service
-  #   restart: always
-  #   network_mode: service:zookeeper
-  #   depends_on:
-  #     kafka:
-  #       condition: service_healthy
-  #     # Every dependency describe with this notation needs a condition
-  #     # Condition service_started is the default for - notation
-  #     # TODO: Replace docker-compose-wait with intersection_model health check
-  #     intersection_model:
-  #       condition: service_started
-  #   environment:
-  #     DOCKER_HOST_IP: 172.4.0.3
-  #     WAIT_HOSTS: 127.0.0.1:8080
-  #     WAIT_HOSTS_TIMEOUT: 300
-  #     WAIT_SLEEP_INTERVAL: 10
-  #     WAIT_HOST_CONNECT_TIMEOUT: 30
-  #     SIMULATION_MODE: ${SIMULATION_MODE}
-  #     TIME_SYNC_TOPIC: time_sync
-  #     CONFIG_FILE_PATH: /home/carma-streets/tsc_client_service/manifest.json
-  #     LOGS_DIRECTORY: /home/carma-streets/tsc_client_service/logs/
-  #   volumes:
-  #     - ./tsc_client_service/manifest.json:/home/carma-streets/tsc_client_service/manifest.json
-  #     - ./tsc_client_service/logs/:/home/carma-streets/tsc_client_service/logs/
-  #   command: >
-  #     sh -c "/wait
-  #     && /home/carma-streets/tsc_client_service/build/traffic_signal_controller_service"
-  # sensor_data_sharing_service:
-  #   image: ${DOCKER_ORG}/sensor_data_sharing_service:${DOCKER_TAG}
-  #   build:
-  #     context: .
-  #     dockerfile: sensor_data_sharing_service/Dockerfile
-  #   container_name: sensor_data_sharing_service
-  #   restart: always
-  #   network_mode: service:zookeeper
-  #   depends_on:
-  #     kafka:
-  #       condition: service_healthy
-  #   environment:
-  #     SIMULATION_MODE: ${SIMULATION_MODE}
-  #     CONFIG_FILE_PATH: /home/carma-streets/sensor_data_sharing_service/manifest.json
-  #     TIME_SYNC_TOPIC: ${TIME_SYNC_TOPIC}
-  #     LOGS_DIRECTORY: /home/carma-streets/sensor_data_sharing_service/logs/
-  #     LANELET2_MAP: /home/carma-streets/MAP/Town04_vector_map.osm
-  #     INFRASTRUCTURE_ID: ${INFRASTRUCTURE_ID}
-  #     SENSOR_JSON_FILE_PATH: /home/carma-streets/sensor_configurations/sensors.json
-  #   volumes:
-  #     - ./sensor_data_sharing_service/manifest.json:/home/carma-streets/sensor_data_sharing_service/manifest.json
-  #     - ./sensor_data_sharing_service/logs/:/home/carma-streets/sensor_data_sharing_service/logs/
-  #     - ./MAP/:/home/carma-streets/MAP/
-  #     - ./sensor_configurations/:/home/carma-streets/sensor_configurations/
-  #     - /etc/localtime:/etc/localtime:ro
-  #     - /etc/timezone:/etc/timezone:ro
   econolite-virtual-controller:
     image: usdotfhwastol/econolite-virtual-controller:latest
     container_name: evc
@@ -398,28 +328,6 @@ services:
       --asc3app-path '../evcfile/asc3app-application.zip'
       --traci-ip 172.2.0.2"
 
-  # scenario-runner:
-  #   image: ${DOCKER_ORG}/scenario-runner:${DOCKER_TAG}
-  #   container_name: scenario-runner
-  #   networks:
-  #     - carma_sim_net
-  #   depends_on:
-  #     - carma-simulation
-  #   environment:
-  #     SIMULATION_SCENARIO: ${SIMULATION_SCENARIO}
-  #   volumes:
-  #     - ./scenario-runner/vru_collision.py:/app/scenario_runner/srunner/scenarios/vru_collision.py
-  #     - ./scenario-runner/vru_collision.xml:/app/scenario_runner/srunner/examples/vru_collision.xml
-  #     - ./carla-recorder/:/app/scenario_runner/metrics/data/
-  #   # sleep is for mainly carma-platform's components to
-  #   # activate and be ready before scenario starts
-  #   entrypoint: >
-  #     bash -c "sleep 30
-  #     && python3 scenario_runner.py
-  #     --scenario ${SIMULATION_SCENARIO}
-  #     --record metrics/data/
-  #     --host 172.2.0.2"
-
 networks:
   carma_sim_net:
     ipam:
@@ -430,11 +338,6 @@ networks:
     ipam:
       config:
         - subnet: 172.3.0.0/16
-
-  # carma_net_2:
-  #   ipam:
-  #     config:
-  #       - subnet: 172.5.0.0/16
 
   carma_streets_net_1:
     ipam:
