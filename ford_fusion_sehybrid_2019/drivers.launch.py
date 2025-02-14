@@ -67,7 +67,7 @@ def generate_launch_description():
         ]
     )
 
-    dsrc_group = GroupAction(
+    v2x_driver_group = GroupAction(
         condition=IfCondition(PythonExpression(["'v2x_ros_driver' in '", drivers, "'.split()"])),
         actions=[
             PushRosNamespace(EnvironmentVariable('CARMA_INTR_NS', default_value='hardware_interface')),
@@ -129,7 +129,7 @@ def generate_launch_description():
         declare_vehicle_calibration_dir_arg,
         declare_vehicle_config_dir_arg,
         driver_shutdown_group,
-        dsrc_group,
+        v2x_driver_group,
         lidar_group,
         gnss_ins_group,
         lightbar_driver_group

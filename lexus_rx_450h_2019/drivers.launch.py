@@ -51,7 +51,7 @@ def generate_launch_description():
 
     drivers = LaunchConfiguration('drivers')
     declare_drivers_arg = DeclareLaunchArgument(
-        name = 'drivers', default_value = 'dsrc_driver velodyne_lidar_driver_wrapper carma_novatel_driver_wrapper', description = "Desired drivers to launch specified by package name."
+        name = 'drivers', default_value = 'v2x_ros_driver velodyne_lidar_driver_wrapper carma_novatel_driver_wrapper', description = "Desired drivers to launch specified by package name."
     )
 
     # Launch shutdown node which will ensure the launch file gets closed on system shutdown even if in a separate container
@@ -68,14 +68,14 @@ def generate_launch_description():
         ]
     )
 
-    dsrc_group = GroupAction(
-        condition=IfCondition(PythonExpression(["'dsrc_driver' in '", drivers, "'.split()"])),
+    v2x_driver_group = GroupAction(
+        condition=IfCondition(PythonExpression(["'v2x_ros_driver' in '", drivers, "'.split()"])),
         actions=[
             PushRosNamespace(EnvironmentVariable('CARMA_INTR_NS', default_value='hardware_interface')),
             IncludeLaunchDescription(
-                PythonLaunchDescriptionSource([ FindPackageShare('dsrc_driver'), '/launch/dsrc_driver.py']),
+                PythonLaunchDescriptionSource([ FindPackageShare('v2x_ros_driver'), '/launch/dsrc_driver.launch.py']),
                 launch_arguments = {
-                    'log_level' : GetLogLevel('dsrc_driver', env_log_levels),
+                    'log_level' : GetLogLevel('v2x_ros_driver', env_log_levels),
                     }.items()
             ),
         ]
@@ -147,7 +147,7 @@ def generate_launch_description():
         declare_vehicle_calibration_dir_arg,
         declare_vehicle_config_dir_arg,
         driver_shutdown_group,
-        dsrc_group,
+        v2x_driver_group,
         ssc_group,
         lidar_group,
         gnss_ins_group,
