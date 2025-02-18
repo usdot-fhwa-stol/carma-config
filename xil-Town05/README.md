@@ -23,7 +23,6 @@ This CARMA Configuration Image creates a **XIL** (Anything-In-the-Loop) scenario
 ![Alt text](docs/clearance.png)
 ![Alt text](docs/minGreen.png)
 ![Alt text](docs/passage.png)
-![Alt text](docs/Recall.png)
 
 The configuration shows above will apply to 421.cfg, 685.cfg and 965.cfg
 
