@@ -30,7 +30,7 @@
   <!-- connecting default info  -->
   <arg name='host' default='127.0.0.1'/>
   <arg name='port' default='2000'/>
-  <arg name='town' default='Town04'/>
+  <arg name='town' default='Town05'/>
 
   <!-- set synchronous_mode to 'true' when carma-carla-integration not running with co-simulation tool -->
   <arg name='synchronous_mode' default='false' />

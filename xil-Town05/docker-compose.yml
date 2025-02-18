@@ -141,9 +141,9 @@ services:
       && roslaunch carma_carla_agent carma_carla_agent.launch
       role_name:='carma_1'
       host:='172.2.0.2'
-      selected_route:='move_over_law_carma_1_route'
+      selected_route:='timtsp_route'
       start_delay_in_seconds:='30'
-      spawn_point:='0,0,0,0,0,0'"
+      spawn_point:='-255.7,7,0,0,0,0'"
 
   ns3_adapter_1:
     image: ${DOCKER_ORG}/carma-ns3-adapter:${DOCKER_TAG}
