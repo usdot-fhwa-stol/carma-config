@@ -30,7 +30,7 @@ message:
       subsystem_namespace: /message
       required_subsystem_nodes: ['']
       unmanaged_required_nodes:
-        - /hardware_interface/v2x_driver_node
+        - /hardware_interface/v2x_ros_driver_node
       full_subsystem_required: true
 
 guidance:

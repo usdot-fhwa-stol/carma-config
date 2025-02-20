@@ -73,7 +73,7 @@ def generate_launch_description():
         actions=[
             PushRosNamespace(EnvironmentVariable('CARMA_INTR_NS', default_value='hardware_interface')),
             IncludeLaunchDescription(
-                PythonLaunchDescriptionSource([ FindPackageShare('v2x_ros_driver'), '/launch/dsrc_driver.launch.py']),
+                PythonLaunchDescriptionSource([ FindPackageShare('v2x_ros_driver'), '/launch/v2x_ros_driver.launch.py']),
                 launch_arguments = {
                     'log_level' : GetLogLevel('v2x_ros_driver', env_log_levels),
                     }.items()
