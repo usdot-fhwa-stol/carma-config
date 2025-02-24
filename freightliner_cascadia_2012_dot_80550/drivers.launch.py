@@ -161,7 +161,7 @@ def generate_launch_description():
         declare_vehicle_calibration_dir_arg,
         declare_vehicle_config_dir_arg,
         driver_shutdown_group,
-        v2x_driver_driver,
+        v2x_driver_group,
         lidar_group,
         lidar_fusion_group,
         gnss_ins_group,
