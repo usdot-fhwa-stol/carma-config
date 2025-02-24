@@ -3,6 +3,10 @@
 # NOTE: A custom dynamic_bridge is used in CARMA Platform which will automatically connect topics and services, but 
 #       this file allows for certain topics to be pre-configured with specified QoS settings. 
 topics:
+  - topic: /hardware_interface/steering_report
+    type: raptor_dbw_msgs/msg/SteeringReport
+    queue_size: 1
+    direction: 1to2
   -
     topic: /environment/lanelet2_map_viz
     type: visualization_msgs/msg/MarkerArray
