@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+
+	<input>
+		<taz-files value="Taz.xml"/>
+		<od-matrix-files value="OD_file.od"/>
+	</input>	
+</configuration>
