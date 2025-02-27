@@ -17,7 +17,7 @@
 
 services:
   web-ui:
-    image: ${DOCKER_ORG}/carma-web-ui:${DOCKER_TAG}-humble
+    image: ${DOCKER_ORG}/carma-web-ui:${DOCKER_TAG}
     network_mode: host
     container_name: web-ui
     environment:
