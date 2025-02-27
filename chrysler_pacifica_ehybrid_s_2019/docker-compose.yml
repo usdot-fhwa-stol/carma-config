@@ -101,7 +101,7 @@ services:
       - /opt/carma/logs:/opt/carma/logs
       - /opt/carma/.ros:/home/carma/.ros
       - /opt/carma/vehicle/calibration:/opt/carma/vehicle/calibration
-    command: bash -c 'export ROS_NAMESPACE=$${CARMA_INTR_NS} && wait-for-it localhost:11311 -- roslaunch /opt/carma/vehicle/config/drivers.launch drivers:=ssc_interface_wrapper'
+    command: bash -c 'export ROS_NAMESPACE=$${CARMA_INTR_NS} && wait-for-it localhost:11311 -- roslaunch /opt/carma/vehicle/config/drivers.launch drivers:=ssc_interface_wrapper enable_ros1_record:=true'
 
   novatel_gnss_imu_driver:
     image: ${DOCKER_ORG}/carma-novatel-oem7-driver-wrapper:${DOCKER_TAG}-noetic
