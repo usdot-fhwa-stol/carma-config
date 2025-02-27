@@ -15,9 +15,6 @@ environment:
 hardware_interface:
   drivers_controller:
     ros__parameters:
-      startup_duration: 45
-      service_timeout_ms: 20000
-      call_timeout_ms: 10000
       subsystem_namespace: /hardware_interface
       required_subsystem_nodes:
         - /hardware_interface/carma_novatel_driver_wrapper_node
@@ -65,8 +62,6 @@ localization:
   localization_controller:
     ros__parameters:
       subsystem_namespace: /localization
-      service_timeout_ms: 20000
-      call_timeout_ms: 10000
       required_subsystem_nodes:
         - /hardware_interface/carma_novatel_driver_wrapper_node
       unmanaged_required_nodes: ['']
