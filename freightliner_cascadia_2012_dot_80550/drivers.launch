@@ -17,17 +17,17 @@
 <!--
 	drivers.launch
 
-This file is used for vehicle configurations. The arguments from carma.launch should pass on to carma_src.launch, which should then pass those arguments to this file. The arguments in the carma.launch file will override all of the default values of the arguments being passed, so you should be making changes to the carma.launch to configure it to your vehicle. 
+This file is used for vehicle configurations. The arguments from carma.launch should pass on to carma_src.launch, which should then pass those arguments to this file. The arguments in the carma.launch file will override all of the default values of the arguments being passed, so you should be making changes to the carma.launch to configure it to your vehicle.
 
 If not using simulated drivers they are activated if the respective mock arguments being passed in are false. These lines below activate the respective actual driver if the respective mock argument being passed is false.
 
 -->
 
 <launch>
-  
+
   <!-- Shutdown node to shutsdown driver node with fatal message -->
   <node pkg="driver_shutdown" type="driver_shutdown" name="$(anon driver_shutdown)" required="true"/>
-  
+
   <arg name="vehicle_calibration_dir" default="/opt/carma/vehicle/calibration" doc="Folder containing vehicle calibration directories"/>
 
   <!-- Mock Drivers -->
@@ -48,6 +48,7 @@ If not using simulated drivers they are activated if the respective mock argumen
   <!-- PACMOD Controller Driver Node -->
   <include if="$(arg ssc_interface_wrapper)" file="$(find ssc_interface_wrapper)/launch/ssc_pm_cascadia_dot_80550_driver.launch">
     <arg name="ssc_param_dir" value="$(arg vehicle_calibration_dir)/ssc_pm_cascadia"/>
+    <arg name="enable_ros1_record" value="true"/>
   </include>
 
   <!-- Trailer Angle Sensor Driver -->

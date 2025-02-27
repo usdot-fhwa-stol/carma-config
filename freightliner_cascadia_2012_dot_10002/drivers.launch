@@ -48,6 +48,7 @@ If not using simulated drivers they are activated if the respective mock argumen
   <!-- PACMOD Controller Driver Node -->
   <include if="$(arg ssc_interface_wrapper)" file="$(find ssc_interface_wrapper)/launch/ssc_pm_cascadia_dot_10002_driver.launch">
     <arg name="ssc_param_dir" value="$(arg vehicle_calibration_dir)/ssc_pm_cascadia"/>
+    <arg name="enable_ros1_record" value="true"/>
   </include>
 
   <!-- Trailer Angle Sensor Driver -->

@@ -12,12 +12,9 @@
 #  License for the specific language governing permissions and limitations under
 #  the License.
 
-
-
-
 services:
   web-ui:
-    image: ${DOCKER_ORG}/carma-web-ui:${DOCKER_TAG}
+    image: ${DOCKER_ORG}/carma-web-ui:${DOCKER_TAG}-humble
     network_mode: host
     container_name: web-ui
     environment:
