@@ -1,7 +1,7 @@
 
 #      ros__parameters:
-      service_timeout_ms: 200
-      call_timeout_ms: 1000
+      service_timeout_ms: 500
+      call_timeout_ms: 5000
     control_rate: 30.0
     delay_compensation_time: 0.17
 

@@ -6,8 +6,8 @@
 environment:
   environment_perception_controller:
     ros__parameters:
-      service_timeout_ms: 200
-      call_timeout_ms: 1000
+      service_timeout_ms: 500
+      call_timeout_ms: 5000
       subsystem_namespace: /environment
       required_subsystem_nodes: ['']
       unmanaged_required_nodes:
@@ -18,8 +18,8 @@ hardware_interface:
   drivers_controller:
     ros__parameters:
       startup_duration: 30
-      service_timeout_ms: 200
-      call_timeout_ms: 1000
+      service_timeout_ms: 500
+      call_timeout_ms: 5000
       subsystem_namespace: /hardware_interface
       required_subsystem_nodes: ['']
       unmanaged_required_nodes: ['']
@@ -33,8 +33,8 @@ hardware_interface:
 message:
   v2x_controller:
     ros__parameters:
-      service_timeout_ms: 200
-      call_timeout_ms: 1000
+      service_timeout_ms: 500
+      call_timeout_ms: 5000
       subsystem_namespace: /message
       required_subsystem_nodes: ['']
       unmanaged_required_nodes:
@@ -44,8 +44,8 @@ message:
 guidance:
   guidance_controller:
     ros__parameters:
-      service_timeout_ms: 200
-      call_timeout_ms: 1000
+      service_timeout_ms: 500
+      call_timeout_ms: 5000
       subsystem_namespace: /guidance
       required_subsystem_nodes: ['']
       unmanaged_required_nodes: [''] # TODO add the controller driver once it is integrated with ROS2
@@ -70,8 +70,8 @@ guidance:
 localization:
   localization_controller:
     ros__parameters:
-      service_timeout_ms: 200
-      call_timeout_ms: 1000
+      service_timeout_ms: 500
+      call_timeout_ms: 5000
       subsystem_namespace: /localization
       required_subsystem_nodes: ['']
       unmanaged_required_nodes: ['']
