@@ -327,7 +327,7 @@ services:
     depends_on:
       - carma-simulation
     command: >
-      bash -c "cd docker && ./start_evc.sh"
+      bash -c "cd docker && ./start_evc.sh --traci-ip 172.2.0.2"
 
 networks:
   carma_sim_net:
