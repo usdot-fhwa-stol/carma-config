@@ -322,13 +322,12 @@ services:
     volumes:
       - /tmp/.X11-unix:/tmp/.X11-unix
       - ./evc_sumo/:/home/carma/src/resources/
+      - ./PyEOS/:/home/carma/PyEOS
+      - pyeos_data:/home/carma/shared_data
     depends_on:
       - carma-simulation
     command: >
-      bash -c "sleep 10
-      && x-terminal-emulator -e python3.8 evc_sumo_bridge.py
-      --asc3app-path '../evcfile/asc3app-application.zip'
-      --traci-ip 172.2.0.2"
+      bash -c "cd docker && ./start_evc.sh"
 
 networks:
   carma_sim_net:
@@ -350,3 +349,4 @@ volumes:
   mysql-datavolume:
   kafka-datavolume:
   zookeeper-datavolume:
+  pyeos_data:
