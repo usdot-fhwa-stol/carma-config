@@ -98,7 +98,7 @@ services:
     network_mode: host
     privileged: true # Grant access to usb for can data
     devices: # Data speed can tool at bus 1 device 2
-      /dev/bus/usb/001/002:/dev/bus/usb/001/002
+      - /dev/bus/usb/001/002:/dev/bus/usb/001/002
     volumes_from:
       - container:carma-config:ro
     environment:
