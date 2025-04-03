@@ -14,7 +14,7 @@
 
 services:
   web-ui:
-    image: ${DOCKER_ORG}/carma-web-ui:${DOCKER_TAG}
+    image: usdotfhwastol/carma-web-ui:latest
     network_mode: host
     container_name: web-ui
     environment:
