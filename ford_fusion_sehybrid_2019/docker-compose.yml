@@ -33,8 +33,6 @@ services:
     container_name: platform
     volumes_from:
       - container:carma-config:ro
-    environment:
-      - CYCLONEDDS_URI=${CYCLONEDDS_URI}
     runtime: nvidia
     volumes:
       - /opt/carma/logs:/opt/carma/logs
@@ -54,7 +52,6 @@ services:
     environment:
       - ROS_IP=192.168.88.10
       - ROS_MASTER_URI=http://localhost:11311
-      - CYCLONEDDS_URI=${CYCLONEDDS_URI}
     volumes:
       - /opt/carma/logs:/opt/carma/logs
       - /opt/carma/.ros:/home/carma/.ros
@@ -83,9 +80,6 @@ services:
     container_name: v2x-ros-driver
     network_mode: host
     volumes_from:
-      - container:carma-config:ro
-    environment:
-      - CYCLONEDDS_URI=${CYCLONEDDS_URI}
     volumes:
       - /opt/carma/logs:/opt/carma/logs
       - /opt/carma/.ros:/home/carma/.ros
@@ -115,8 +109,6 @@ services:
     network_mode: host
     volumes_from:
       - container:carma-config:ro
-    environment:
-      - CYCLONEDDS_URI=${CYCLONEDDS_URI}
     volumes:
       - /opt/carma/logs:/opt/carma/logs
       - /opt/carma/.ros:/home/carma/.ros
@@ -129,8 +121,6 @@ services:
     network_mode: host
     volumes_from:
       - container:carma-config:ro
-    environment:
-      - CYCLONEDDS_URI=${CYCLONEDDS_URI}
     volumes:
       - /opt/carma/logs:/opt/carma/logs
       - /opt/carma/.ros:/home/carma/.ros

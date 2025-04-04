@@ -35,7 +35,6 @@ services:
     environment:
       - ROS_IP=192.168.0.100
       - NVIDIA_VISIBLE_DEVICES=all
-      - CYCLONEDDS_URI=${CYCLONEDDS_URI}
     runtime: nvidia
     volumes:
       - /opt/carma/logs:/opt/carma/logs
@@ -55,7 +54,6 @@ services:
     environment:
       - ROS_IP=192.168.0.100
       - ROS_MASTER_URI=http://localhost:11311
-      - CYCLONEDDS_URI=${CYCLONEDDS_URI}
     volumes:
       - /opt/carma/logs:/opt/carma/logs
       - /opt/carma/.ros:/home/carma/.ros
@@ -74,7 +72,6 @@ services:
     volumes:
       - /opt/carma/logs:/opt/carma/logs
       - /opt/carma/.ros:/home/carma/.ros
-      - /opt/carma/vehicle/calibration:/opt/carma/vehicle/calibration
     environment:
       - ROS_IP=192.168.0.100
     command: bash -c 'export ROS_NAMESPACE=$${CARMA_INTR_NS} && wait-for-it localhost:11311 -- ros2 launch /opt/carma/vehicle/config/drivers.launch.py drivers:=lightbar_driver'
@@ -85,12 +82,9 @@ services:
     network_mode: host
     volumes_from:
       - container:carma-config:ro
-    environment:
-      - CYCLONEDDS_URI=${CYCLONEDDS_URI}
     volumes:
       - /opt/carma/logs:/opt/carma/logs
       - /opt/carma/.ros:/home/carma/.ros
-      - /opt/carma/vehicle/calibration:/opt/carma/vehicle/calibration
     command: bash -c 'source /opt/carma/install/setup.bash && ros2 launch /opt/carma/vehicle/config/drivers.launch.py drivers:=v2x_ros_driver'
 
   ssc_controller_driver:
@@ -102,7 +96,6 @@ services:
       - container:carma-config:ro
     environment:
       - ROS_IP=192.168.0.100
-      - CYCLONEDDS_URI=${CYCLONEDDS_URI}
     volumes:
       - /opt/carma/logs:/opt/carma/logs
       - /opt/carma/.ros:/home/carma/.ros
@@ -115,8 +108,6 @@ services:
     network_mode: host
     volumes_from:
       - container:carma-config:ro
-    environment:
-      - CYCLONEDDS_URI=${CYCLONEDDS_URI}
     volumes:
       - /opt/carma/logs:/opt/carma/logs
       - /opt/carma/.ros:/home/carma/.ros
@@ -129,10 +120,7 @@ services:
     network_mode: host
     volumes_from:
       - container:carma-config:ro
-    environment:
-      - CYCLONEDDS_URI=${CYCLONEDDS_URI}
     volumes:
       - /opt/carma/logs:/opt/carma/logs
       - /opt/carma/.ros:/home/carma/.ros
-      - /opt/carma/vehicle/calibration:/opt/carma/vehicle/calibration
     command: bash -c 'source /opt/carma/install/setup.bash && ros2 launch /opt/carma/vehicle/config/drivers.launch.py drivers:=velodyne_lidar_driver_wrapper'
