@@ -27,9 +27,9 @@ def generate_launch_description():
     """
     Launch CARMA System.
     """
-    
+
     # Parse the log config file and convert it to an environment variable
-    config_file_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'carma_rosconsole.conf') 
+    config_file_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'carma_rosconsole.conf')
     logging_env_var = SetEnvironmentVariable('CARMA_ROS_LOGGING_CONFIG', generate_log_levels(config_file_path))
 
     # Declare the vehicle_calibration_dir launch argument
@@ -71,8 +71,8 @@ def generate_launch_description():
     # Declare enable_guidance_plugin_validate
     enable_guidance_plugin_validator = LaunchConfiguration('enable_guidance_plugin_validator')
     declare_enable_guidance_plugin_validator = DeclareLaunchArgument(
-        name = 'enable_guidance_plugin_validator', 
-        default_value='true', 
+        name = 'enable_guidance_plugin_validator',
+        default_value='true',
         description='Flag indicating whether the Guidance Plugin Validator node will actively validate guidance strategic, tactical, and control plugins'
     )
 
@@ -103,9 +103,18 @@ def generate_launch_description():
     # Declare is_ros2_tracing_enabled
     is_ros2_tracing_enabled = LaunchConfiguration('is_ros2_tracing_enabled')
     declare_is_ros2_tracing_enabled = DeclareLaunchArgument(
-        name='is_ros2_tracing_enabled', 
-        default_value = 'False', 
+        name='is_ros2_tracing_enabled',
+        default_value = 'False',
         description = 'True if user wants ROS 2 Tracing logs to be generated from CARMA Platform'
+    )
+
+    # When enabled, the vehicle fuses incoming SDSM with its own sensor data to create a more accurate representation of the environment
+    # When turned off, topics get remapped to solely rely on its own sensor data
+    is_cp_mot_enabled = LaunchConfiguration('is_cp_mot_enabled')
+    declare_is_cp_mot_enabled = DeclareLaunchArgument(
+        name='is_cp_mot_enabled',
+        default_value = 'False',
+        description = 'True if user wants Cooperative Perception capability using Multiple Object Tracking to be enabled'
     )
 
     # Launch the core carma launch file
@@ -123,7 +132,8 @@ def generate_launch_description():
             'single_pcd_path' : single_pcd_path,
             'area' : area,
             'arealist_path' : arealist_path,
-            'vector_map_file' : vector_map_file
+            'vector_map_file' : vector_map_file,
+            'is_cp_mot_enabled' : is_cp_mot_enabled
             }.items()
     )
 
@@ -151,5 +161,6 @@ def generate_launch_description():
         declare_arealist_path,
         declare_vector_map_file,
         declare_is_ros2_tracing_enabled,
+        declare_is_cp_mot_enabled,
         carma_src_launch
     ])
