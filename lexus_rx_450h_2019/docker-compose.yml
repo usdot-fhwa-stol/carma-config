@@ -27,7 +27,7 @@ services:
     command: roscore
 
   platform:
-    image: ${DOCKER_ORG}/carma-platform:${DOCKER_TAG}
+    image: local/carma-platform:latest
     network_mode: host
     container_name: platform
     volumes_from:
@@ -43,6 +43,11 @@ services:
       - /opt/carma/maps:/opt/carma/maps
       - /opt/carma/routes:/opt/carma/routes
       - /opt/carma/yolo:/opt/carma/yolo
+      - /home/carma/carma_ws/src/carma-platform/carma/launch/environment.launch.py:/opt/carma/install/carma/share/carma/launch/environment.launch.py
+      - /home/carma/carma_ws/src/carma-platform/localization_manager/config:/opt/carma/install/localization_manager/share/localization_manager/config
+      - /home/carma/carma_ws/src/carma-platform/object_visualizer/config:/opt/carma/install/object_visualizer/share/object_visualizer/config
+      - /home/carma/carma_ws/src/carma-platform/carma_cooperative_perception/config:/opt/carma/install/carma_cooperative_perception/share/carma_cooperative_perception/config
+      - /home/carma/carma_ws/src/carma-platform/motion_computation/config:/opt/carma/install/motion_computation/share/motion_computation/config
     command: bash -c 'source /opt/carma/install/setup.bash && ros2 launch /opt/carma/vehicle/config/carma_docker.launch.py'
 
   ros1_bridge:
@@ -78,7 +83,7 @@ services:
     command: bash -c 'export ROS_NAMESPACE=$${CARMA_INTR_NS} && wait-for-it localhost:11311 -- ros2 launch /opt/carma/vehicle/config/drivers.launch.py drivers:=lightbar_driver'
 
   v2x_ros_driver:
-    image: ${DOCKER_ORG}/v2x-ros-driver:${DOCKER_TAG}
+    image: usdotfhwastol/carma-cohda-dsrc-driver:carma-system-4.5.0
     container_name: v2x-ros-driver
     network_mode: host
     volumes_from:
@@ -86,6 +91,9 @@ services:
     volumes:
       - /opt/carma/logs:/opt/carma/logs
       - /opt/carma/.ros:/home/carma/.ros
+      - /opt/carma/vehicle/calibration:/opt/carma/vehicle/calibration
+        #- /home/carma/carma_ws/src/v2x-ros-driver/v2x_ros_driver/config/wave.json:/opt/carma/install/dsrc_driver/share/dsrc_driver/config/wave.json
+        #- /home/carma/carma_ws/src/v2x-ros-driver/v2x_ros_driver/etc/wave.json:/opt/carma/install/dsrc_driver/share/dsrc_driver/etc/wave.json
     command: bash -c 'source /opt/carma/install/setup.bash && ros2 launch /opt/carma/vehicle/config/drivers.launch.py drivers:=v2x_ros_driver'
 
   ssc_controller_driver:
