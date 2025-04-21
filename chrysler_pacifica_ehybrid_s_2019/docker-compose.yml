@@ -28,7 +28,7 @@ services:
     command: roscore
 
   platform:
-    image: local/carma-platform:latest
+    image: ${DOCKER_ORG}/carma-platform:${DOCKER_TAG}
     network_mode: host
     container_name: platform
     runtime: nvidia
@@ -47,7 +47,7 @@ services:
       - ~/carma_ws/src/carma-platform/motion_computation/config:/opt/carma/install/motion_computation/share/motion_computation/config
       - ~/carma_ws/src/carma-platform/cooperative_lanechange/config:/opt/carma/install/cooperative_lanechange/share/cooperative_lanechange/config
     command: bash -c 'source /opt/carma/install/setup.bash && ros2 launch /opt/carma/vehicle/config/carma_docker.launch.py'
-  
+
   pedestrian_publisher:
     image: usdotfhwastoldev/carma-platform:develop-ped-publisher
     network_mode: host
@@ -64,7 +64,7 @@ services:
       - /home/carma/carma_ws/src/carma-developer-tools/pedestrian_publisher/config/pedestrian_params.yaml:/home/carma/workspace/install/pedestrian_publisher/share/pedestrian_publisher/config/pedestrian_params.yaml
       - /home/carma/carma_ws/src/carma-developer-tools/pedestrian_publisher/launch/pedestrian_publisher_launch.py:/home/carma/workspace/install/pedestrian_publisher/share/pedestrian_publisher/launch/pedestrian_publisher_launch.py
       - /home/carma/carma_ws/src/carma-developer-tools/pedestrian_publisher/pedestrian_publisher/pedestrian_publisher.py:/home/carma/workspace/install/pedestrian_publisher/lib/python3.10/site-packages/pedestrian_publisher/pedestrian_publisher.py
-    command: bash -c 'source /opt/carma/install/setup.bash && 
+    command: bash -c 'source /opt/carma/install/setup.bash &&
       source /home/carma/workspace/install/setup.bash &&
       ros2 launch pedestrian_publisher pedestrian_publisher_launch.py'
   ros1_bridge:
