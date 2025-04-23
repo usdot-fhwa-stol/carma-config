@@ -101,8 +101,8 @@ vehicle_participant_type: "vehicle:car"
 config_speed_limit: 20.0
 
 # Parameters to enable either ROS 1 or ROS 2 (or both) rosbag logging
-use_ros1_rosbag: true
-use_ros2_rosbag: true
+use_ros1_rosbag: false
+use_ros2_rosbag: false
 
 # Topics to exclude from rosbag recording
 exclude_default: true
