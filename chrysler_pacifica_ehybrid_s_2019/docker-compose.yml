@@ -41,6 +41,8 @@ services:
       - /opt/carma/maps:/opt/carma/maps
       - /opt/carma/routes:/opt/carma/routes
       - /opt/carma/yolo:/opt/carma/yolo
+      - /home/carma/carma_ws/src/carma-platform/motion_computation/config:/opt/carma/install/motion_computation/share/motion_computation/config
+      - /home/carma/carma_ws/src/carma-platform/localization_manager/config:/opt/carma/install/localization_manager/share/localization_manager/config
     command: bash -c 'source /opt/carma/install/setup.bash && ros2 launch /opt/carma/vehicle/config/carma_docker.launch.py'
   
   pedestrian_publisher:
@@ -91,7 +93,7 @@ services:
       - /opt/carma/.ros:/home/carma/.ros
       - /opt/carma/vehicle/calibration:/opt/carma/vehicle/calibration
     environment:
-      - ROS_IP=192.168.0.100
+      - ROS_IP=192.168.88.10
     command: bash -c 'export ROS_NAMESPACE=$${CARMA_INTR_NS} && wait-for-it localhost:11311 -- ros2 launch /opt/carma/vehicle/config/drivers.launch.py drivers:=lightbar_driver'
 
   v2x_ros_driver:
