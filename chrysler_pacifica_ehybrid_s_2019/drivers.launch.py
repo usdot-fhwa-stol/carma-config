@@ -50,7 +50,7 @@ def generate_launch_description():
 
     drivers = LaunchConfiguration('drivers')
     declare_drivers_arg = DeclareLaunchArgument(
-        name = 'drivers', default_value = 'v2x_ros_driver velodyne_lidar_driver_wrapper', description = "Desired drivers to launch specified by package name."
+        name = 'drivers', default_value = 'dsrc_driver v2x_ros_driver velodyne_lidar_driver_wrapper', description = "Desired drivers to launch specified by package name."
     )
 
     # Launch shutdown node which will ensure the launch file gets closed on system shutdown even if in a separate container

@@ -43,11 +43,6 @@ services:
       - /opt/carma/maps:/opt/carma/maps
       - /opt/carma/routes:/opt/carma/routes
       - /opt/carma/yolo:/opt/carma/yolo
-      - /home/carma/carma_ws/src/carma-platform/carma/launch/environment.launch.py:/opt/carma/install/carma/share/carma/launch/environment.launch.py
-      - /home/carma/carma_ws/src/carma-platform/localization_manager/config:/opt/carma/install/localization_manager/share/localization_manager/config
-      - /home/carma/carma_ws/src/carma-platform/object_visualizer/config:/opt/carma/install/object_visualizer/share/object_visualizer/config
-      - /home/carma/carma_ws/src/carma-platform/carma_cooperative_perception/config:/opt/carma/install/carma_cooperative_perception/share/carma_cooperative_perception/config
-      - /home/carma/carma_ws/src/carma-platform/motion_computation/config:/opt/carma/install/motion_computation/share/motion_computation/config
     command: bash -c 'source /opt/carma/install/setup.bash && ros2 launch /opt/carma/vehicle/config/carma_docker.launch.py'
 
   ros1_bridge:
