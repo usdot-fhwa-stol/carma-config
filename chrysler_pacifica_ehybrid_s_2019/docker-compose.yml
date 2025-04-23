@@ -28,7 +28,7 @@ services:
     command: roscore
 
   platform:
-    image: local/carma-platform:latest
+    image: usdotfhwastolcandidate/carma-platform:vip-demo
     network_mode: host
     container_name: platform
     runtime: nvidia

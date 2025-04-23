@@ -27,7 +27,7 @@ services:
     command: roscore
 
   platform:
-    image: local/carma-platform:latest
+    image: usdotfhwastolcandidate/carma-platform:vip-demo
     network_mode: host
     container_name: platform
     volumes_from:
@@ -44,6 +44,26 @@ services:
       - /opt/carma/routes:/opt/carma/routes
       - /opt/carma/yolo:/opt/carma/yolo
     command: bash -c 'source /opt/carma/install/setup.bash && ros2 launch /opt/carma/vehicle/config/carma_docker.launch.py'
+
+  pedestrian_publisher:
+    image: usdotfhwastoldev/carma-platform:develop-ped-publisher
+    network_mode: host
+    container_name: pedestrian_publisher
+    volumes_from:
+      - container:carma-config:ro
+    volumes:
+      - /opt/carma/logs:/opt/carma/logs
+      - /opt/carma/.ros:/home/carma/.ros
+      - /opt/carma/vehicle/calibration:/opt/carma/vehicle/calibration
+      - /opt/carma/maps:/opt/carma/maps
+      - /opt/carma/routes:/opt/carma/routes
+      - /opt/carma/yolo:/opt/carma/yolo
+      - /home/carma/carma_ws/src/carma-developer-tools/pedestrian_publisher/config/pedestrian_params.yaml:/home/carma/workspace/install/pedestrian_publisher/share/pedestrian_publisher/config/pedestrian_params.yaml
+      - /home/carma/carma_ws/src/carma-developer-tools/pedestrian_publisher/launch/pedestrian_publisher_launch.py:/home/carma/workspace/install/pedestrian_publisher/share/pedestrian_publisher/launch/pedestrian_publisher_launch.py
+      - /home/carma/carma_ws/src/carma-developer-tools/pedestrian_publisher/pedestrian_publisher/pedestrian_publisher.py:/home/carma/workspace/install/pedestrian_publisher/lib/python3.10/site-packages/pedestrian_publisher/pedestrian_publisher.py
+    command: bash -c 'source /opt/carma/install/setup.bash && 
+      source /home/carma/workspace/install/setup.bash &&
+      ros2 launch pedestrian_publisher pedestrian_publisher_launch.py'
 
   ros1_bridge:
     image: ${DOCKER_ORG}/carma-msgs:${DOCKER_TAG}
