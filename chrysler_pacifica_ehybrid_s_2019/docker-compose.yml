@@ -41,8 +41,6 @@ services:
       - /opt/carma/maps:/opt/carma/maps
       - /opt/carma/routes:/opt/carma/routes
       - /opt/carma/yolo:/opt/carma/yolo
-      - /home/carma/carma_ws/src/carma-platform/motion_computation/config:/opt/carma/install/motion_computation/share/motion_computation/config
-      - /home/carma/carma_ws/src/carma-platform/localization_manager/config:/opt/carma/install/localization_manager/share/localization_manager/config
     command: bash -c 'source /opt/carma/install/setup.bash && ros2 launch /opt/carma/vehicle/config/carma_docker.launch.py'
   
   pedestrian_publisher:
