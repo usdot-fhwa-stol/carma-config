@@ -26,20 +26,10 @@ services:
       - /opt/carma/logs:/opt/carma/logs
     restart: always
     command: roscore
-  
-  velodyne_lidar_driver:
-    image: ${DOCKER_ORG}/carma-velodyne-lidar-driver:${DOCKER_TAG}
-    container_name: velodyne-lidar-driver
-    network_mode: host
-    volumes_from:
-      - container:carma-config:ro
-    volumes:
-      - /opt/carma/logs:/opt/carma/logs
-      - /opt/carma/.ros:/home/carma/.ros
-    command: bash -c 'source /opt/carma/install/setup.bash && ros2 launch /opt/carma/vehicle/config/drivers.launch.py drivers:=velodyne_lidar_driver_wrapper'
 
+  # Note: need branch mish-local/cp-test-latest on ~/carma_ws/src/carma-platform/
   platform:
-    image: local/carma-platform:latest
+    image: usdotfhwastoldev/carma-platform:develop-sdsm-heading
     network_mode: host
     container_name: platform
     runtime: nvidia
@@ -58,7 +48,8 @@ services:
       - ~/carma_ws/src/carma-platform/carma_cooperative_perception/config:/opt/carma/install/carma_cooperative_perception/share/carma_cooperative_perception/config
       - ~/carma_ws/src/carma-platform/object_visualizer/config:/opt/carma/install/object_visualizer/share/object_visualizer/config
     command: bash -c 'source /opt/carma/install/setup.bash && ros2 launch /opt/carma/vehicle/config/carma_docker.launch.py'
-  
+
+  # Note: Need branch develop on ~/carma_ws/src/carma-developer-tools/
   pedestrian_publisher:
     image: usdotfhwastoldev/carma-platform:develop-ped-publisher
     network_mode: host
@@ -75,7 +66,7 @@ services:
       - /home/carma/carma_ws/src/carma-developer-tools/pedestrian_publisher/config/pedestrian_params.yaml:/home/carma/workspace/install/pedestrian_publisher/share/pedestrian_publisher/config/pedestrian_params.yaml
       - /home/carma/carma_ws/src/carma-developer-tools/pedestrian_publisher/launch/pedestrian_publisher_launch.py:/home/carma/workspace/install/pedestrian_publisher/share/pedestrian_publisher/launch/pedestrian_publisher_launch.py
       - /home/carma/carma_ws/src/carma-developer-tools/pedestrian_publisher/pedestrian_publisher/pedestrian_publisher.py:/home/carma/workspace/install/pedestrian_publisher/lib/python3.10/site-packages/pedestrian_publisher/pedestrian_publisher.py
-    command: bash -c 'source /opt/carma/install/setup.bash && 
+    command: bash -c 'source /opt/carma/install/setup.bash &&
       source /home/carma/workspace/install/setup.bash &&
       ros2 launch pedestrian_publisher pedestrian_publisher_launch.py'
   ros1_bridge:
