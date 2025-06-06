@@ -115,8 +115,6 @@ excluded_default_topics:
   - (.*)/scan
   - (.*)/compressed(.*)
   - /environment/base_map
-  - /environment/external_object_predictions
-  - /environment/external_objects_viz
   - /environment/map_filtered_points
   - /environment/points_no_ground
   - /environment/points_in_base_link
