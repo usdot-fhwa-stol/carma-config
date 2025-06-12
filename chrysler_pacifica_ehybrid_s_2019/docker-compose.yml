@@ -57,7 +57,7 @@ services:
       - /opt/carma/routes:/opt/carma/routes
       - /opt/carma/yolo:/opt/carma/yolo
     command: bash -c 'source /opt/carma/install/setup.bash &&
-      source /home/carma/workspace/install/setup.bash &&
+      source /opt/carma/install/setup.bash &&
       ros2 launch pedestrian_publisher pedestrian_publisher_launch.py'
   ros1_bridge:
     image: ${DOCKER_ORG}/carma-msgs:${DOCKER_TAG}
