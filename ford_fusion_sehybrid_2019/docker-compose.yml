@@ -44,7 +44,7 @@ services:
     command: bash -c 'source /opt/carma/install/setup.bash && ros2 launch /opt/carma/vehicle/config/carma_docker.launch.py'
 
   pedestrian_publisher:
-    image: ${DOCKER_ORG}/carma-developer-tools:${DOCKER_TAG}
+    image: ${DOCKER_ORG}/carma-platform:${DOCKER_TAG}
     network_mode: host
     container_name: pedestrian_publisher
     volumes_from:
