@@ -25,7 +25,6 @@ hardware_interface:
         - /hardware_interface/carma_novatel_driver_wrapper_node
       unmanaged_required_nodes: ['']
       excluded_namespace_nodes:
-        - /hardware_interface/velodyne_lidar_driver_wrapper
         - /hardware_interface/carma_novatel_driver_wrapper_node
       ros1_ssc_driver_name: /hardware_interface/ssc_interface_wrapper
       full_subsystem_required: false
@@ -78,7 +77,6 @@ localization:
       full_subsystem_required: true
       sensor_nodes:
         - /hardware_interface/carma_novatel_driver_wrapper_node
-        - /hardware_interface/velodyne_lidar_driver_wrapper_node
       sensor_fault_map: '
         {
           "sensor_fault_map":
