@@ -49,7 +49,7 @@ tactical_plugin_service_call_timeout: 100
 
 # Activates object avoidance logics in trajectory planning plugins
 # Units: Boolean
-enable_object_avoidance: false
+enable_object_avoidance: true
 
 # Acceleration limit
 # Value type: Desired
