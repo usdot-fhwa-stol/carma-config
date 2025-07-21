@@ -28,7 +28,7 @@ services:
     command: roscore
 
   platform:
-    image: usdotfhwastolcandidate/carma-platform:tempest
+    image: local/carma-platform:latest
     network_mode: host
     container_name: platform
     runtime: nvidia
@@ -43,15 +43,10 @@ services:
       - /opt/carma/yolo:/opt/carma/yolo
       - /etc/timezone:/etc/timezone:ro
       - /etc/localtime:/etc/localtime:ro
-      - ~/carma_ws/src/carma-platform/yield_plugin/config:/opt/carma/install/yield_plugin/share/yield_plugin/config
-      - /home/carma/carma_ws/src/carma-platform/localization_manager/config:/opt/carma/install/localization_manager/share/localization_manager/config
-      - ~/carma_ws/src/carma-platform/carma_cooperative_perception/config:/opt/carma/install/carma_cooperative_perception/share/carma_cooperative_perception/config
-#      - ~/carma_ws/src/carma-platform/motion_computation/config:/opt/carma/install/motion_computation/share/motion_computation/config
-      - ~/carma_ws/src/carma-platform/route_following/config:/opt/carma/install/route_following/share/route_following/config
       - /home/carma/carma_ws/src/carma-platform/carma/launch/message.launch.py:/opt/carma/install/carma/share/carma/launch/message.launch.py
-#      - /home/carma/carma_ws/src/carma-platform/object_visualizer/config/parameters.yaml:/opt/carma/install/object_visualizer/share/object_visualizer/config/parameters.yaml
-      - /home/carma/carma_ws/src/carma-platform/inlanecruising_plugin/config/parameters.yaml:/opt/carma/install/inlanecruising_plugin/share/inlanecruising_plugin/config/parameters.yaml
-      - /home/carma/carma_ws/src/carma-platform/cooperative_lanechange/config/parameters.yaml:/opt/carma/install/cooperative_lanechange/share/cooperative_lanechange/config/parameters.yaml
+      - /home/carma/carma_ws/src/carma-platform/localization_manager/config:/opt/carma/install/localization_manager/share/localization_manager/config
+      - /home/carma/carma_ws/src/carma-platform/carma_cooperative_perception/config:/opt/carma/install/carma_cooperative_perception/share/carma_cooperative_perception/config
+      - ~/carma_ws/src/carma-platform/yield_plugin/config:/opt/carma/install/yield_plugin/share/yield_plugin/config
     command: bash -c 'source /opt/carma/install/setup.bash && ros2 launch /opt/carma/vehicle/config/carma_docker.launch.py'
 
   ros1_bridge:
