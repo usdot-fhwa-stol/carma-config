@@ -18,7 +18,7 @@ version: '2'
 services:
 
   platform:
-    image: ${DOCKER_ORG}/carma-platform:tempest
+    image: ${DOCKER_ORG}/carma-platform:tempest-summit-pt-cp
     network_mode: host
     container_name: platform
     volumes_from:
@@ -35,7 +35,7 @@ services:
     command: bash -c 'source /opt/carma/install/setup.bash && ros2 launch /opt/carma/vehicle/config/carma_docker.launch.py'
 
   mock-controller-driver:
-    image: ${DOCKER_ORG}/carma-platform:tempest
+    image: ${DOCKER_ORG}/carma-platform:tempest-summit-pt-cp
     network_mode: host
     volumes_from:
       - container:carma-config:ro

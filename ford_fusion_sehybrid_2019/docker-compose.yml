@@ -28,7 +28,7 @@ services:
     command: roscore
 
   platform:
-    image: ${DOCKER_ORG}/carma-platform:tempest
+    image: ${DOCKER_ORG}/carma-platform:tempest-summit-pt-cp
     network_mode: host
     container_name: platform
     volumes_from:
