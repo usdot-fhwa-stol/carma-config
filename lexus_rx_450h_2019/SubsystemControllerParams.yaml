@@ -25,7 +25,6 @@ hardware_interface:
         - /hardware_interface/carma_novatel_driver_wrapper_node
       unmanaged_required_nodes: ['']
       excluded_namespace_nodes: # Lidar and GPS drivers are handled by the localization subsystem
-        - /hardware_interface/velodyne_lidar_driver_wrapper_node
         - /hardware_interface/carma_novatel_driver_wrapper_node
       ros1_ssc_driver_name: ''
       full_subsystem_required: false
@@ -77,7 +76,6 @@ localization:
       unmanaged_required_nodes: ['']
       full_subsystem_required: true
       sensor_nodes:
-        - /hardware_interface/velodyne_lidar_driver_wrapper_node
         - /hardware_interface/carma_novatel_driver_wrapper_node
       sensor_fault_map: '
         {
