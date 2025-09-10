@@ -7,36 +7,36 @@
 # use the default values in the respective package's yaml files
 # NOTE: Be sure to include the node name here, which may not be same as the package name
 # NOTE: SubsystemControllers has its own override file for easier organization
-# localization:
-#   localization_manager:
-#     ros__parameters:
-#       localization_mode: 4
-#       x_offset: 0.0
-#       y_offset: 0.0
+localization:
+  localization_manager:
+    ros__parameters:
+      localization_mode: 4
+      x_offset: 0.0
+      y_offset: 0.0
 
-# guidance:
-#   inlanecruising_plugin:
-#     ros__parameters:
-#       default_downsample_ratio: 4
-#       turn_downsample_ratio: 4
-#       minimum_speed: 5.0
+guidance:
+  inlanecruising_plugin:
+    ros__parameters:
+      default_downsample_ratio: 4
+      turn_downsample_ratio: 4
+      minimum_speed: 5.0
 
-# # Nested namespace example for plugins
-# guidance:
-#   plugins:
-#     lci_strategic_plugin:
-#       ros__parameters:
-#         min_approach_distance: 20.0
-#         trajectory_smoothing_activation_distance: 40.0
-#         minimum_speed: 5.0
-#         algo_minimum_speed: 0.894
+# Nested namespace example for plugins
+guidance:
+  plugins:
+    lci_strategic_plugin:
+      ros__parameters:
+        min_approach_distance: 20.0
+        trajectory_smoothing_activation_distance: 40.0
+        minimum_speed: 5.0
+        algo_minimum_speed: 0.894
 
-# # System controller doesn't have a namespace like others
-# system_controller:
-#   ros__parameters:
-#     signal_configure_delay: 15.0
-#     service_timeout_ms: 500
-#     call_timeout_ms: 10000
+# System controller doesn't have a namespace like others
+system_controller:
+  ros__parameters:
+    signal_configure_delay: 15.0
+    service_timeout_ms: 500
+    call_timeout_ms: 10000
 
 
 
