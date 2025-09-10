@@ -49,6 +49,12 @@ def generate_launch_description():
         name = 'vehicle_config_dir', default_value = '/opt/carma/vehicle/config', description = "Path to vehicle configuration directory"
     )
 
+    # Declare the vehicle_config_dir launch argument
+    vehicle_config_dir = LaunchConfiguration('vehicle_config_dir')
+    declare_vehicle_config_dir_arg = DeclareLaunchArgument(
+        name = 'vehicle_config_dir', default_value = '/opt/carma/vehicle/config', description = "Path to vehicle configuration directory"
+    )
+
     # Declare the global_params_override_file launch argument
     # Parameters in this file will override any parameters loaded in their respective packages
     global_params_override_file = LaunchConfiguration('global_params_override_file')
