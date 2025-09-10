@@ -157,6 +157,7 @@ def generate_launch_description():
 
     return LaunchDescription([
         logging_env_var, # Environment variables must be placed before included files
+        declare_vehicle_config_dir_arg,
         declare_global_params_override_file_arg,
         declare_vehicle_calibration_dir_arg,
         declare_vehicle_config_dir_arg,
