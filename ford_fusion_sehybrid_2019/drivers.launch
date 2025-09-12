@@ -29,6 +29,12 @@ If not using simulated drivers they are activated if the respective mock argumen
   <node pkg="driver_shutdown" type="driver_shutdown" name="$(anon driver_shutdown)" required="true"/>
 
   <arg name="vehicle_calibration_dir" default="/opt/carma/vehicle/calibration" doc="Folder containing vehicle calibration directories"/>
+  <!-- Global parameters file path -->
+  <!-- Parameters in this file will override any parameters loaded in their respective packages -->
+  <arg name="global_params_file"
+    default="/opt/carma/vehicle/config/GlobalParamsOverride.yaml"
+    doc="Path to global vehicle configuration parameters file"
+  />
 
   <!-- Mock Drivers -->
   <arg name="mock_drivers"        default="" doc="List of driver node base names which will be launched as mock drivers"/>
@@ -45,6 +51,7 @@ If not using simulated drivers they are activated if the respective mock argumen
   <include if="$(arg ssc_interface_wrapper)" file="$(find ssc_interface_wrapper)/launch/ssc_ds_fusion_driver.launch">
     <arg name="ssc_param_dir" value="$(arg vehicle_calibration_dir)/ssc_ds_fusion"/>
     <arg name="enable_ros1_record" value="true"/>
+    <arg name="global_params_file" value="$(arg global_params_file)"/>
   </include>
 
 </launch>
