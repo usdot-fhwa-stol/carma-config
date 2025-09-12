@@ -78,6 +78,7 @@ def generate_launch_description():
                 PythonLaunchDescriptionSource([ FindPackageShare('mock_controller_driver'), '/launch/mock_controller_driver.launch.py']),
                 launch_arguments = {
                     'log_level' : GetLogLevel('mock_controller_driver', env_log_levels),
+                    'global_params_override_file' : global_params_override_file,
                     }.items()
             ),
         ]
