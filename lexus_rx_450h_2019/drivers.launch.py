@@ -85,6 +85,7 @@ def generate_launch_description():
                 PythonLaunchDescriptionSource([ FindPackageShare('v2x_ros_driver'), '/launch/v2x_ros_driver.launch.py']),
                 launch_arguments = {
                     'log_level' : GetLogLevel('v2x_ros_driver', env_log_levels),
+                    'global_params_override_file' : global_params_override_file,
                     }.items()
             ),
         ]
@@ -101,7 +102,8 @@ def generate_launch_description():
                     'log_level' : GetLogLevel('ssc_interface_wrapper_ros2', env_log_levels),
                     'vehicle_calibration_dir' : vehicle_calibration_dir,
                     'ssc_package_name' : 'ssc_pm_lexus',
-                    'vehicle_config_dir' : vehicle_config_dir
+                    'vehicle_config_dir' : vehicle_config_dir,
+                    'global_params_override_file' : global_params_override_file,
                 }.items()
             ),
         ]
@@ -116,7 +118,8 @@ def generate_launch_description():
                 launch_arguments = {
                     'log_level' : GetLogLevel('velodyne_lidar_driver_wrapper', env_log_levels),
                     'device_ip' : '192.168.1.201',
-                    'port' : '2368'
+                    'port' : '2368',
+                    'global_params_override_file' : global_params_override_file,
                     }.items()
             ),
         ]
@@ -133,6 +136,7 @@ def generate_launch_description():
                     'ip_addr' : '192.168.74.10',
                     'port' : '2000',
                     'vehicle_calibration_dir' : vehicle_calibration_dir,
+                    'global_params_override_file' : global_params_override_file,
                     }.items()
             ),
         ]
@@ -146,6 +150,7 @@ def generate_launch_description():
                 PythonLaunchDescriptionSource([ FindPackageShare('lightbar_driver'), '/launch/lightbar_driver_node_launch.py']),
                 launch_arguments = {
                     'log_level' : GetLogLevel('lightbar_driver', env_log_levels),
+                    'global_params_override_file' : global_params_override_file,
                     }.items()
             ),
         ]
