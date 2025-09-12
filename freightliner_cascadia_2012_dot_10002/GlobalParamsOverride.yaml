@@ -14,13 +14,11 @@
 #       x_offset: 0.0
 #       y_offset: 0.0
 
+# # Nested namespace example for guidance and plugins
 # guidance:
 #   plan_delegator:
 #     ros__parameters:
 #       max_traj_generation_reattempt: 50
-
-# # Nested namespace example for plugins
-# guidance:
 #   plugins:
 #     lci_strategic_plugin:
 #       ros__parameters:
