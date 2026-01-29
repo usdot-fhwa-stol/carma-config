@@ -57,14 +57,11 @@ jobs:
           push: true
           tags: ${{ needs.determine_docker_org_and_tag.outputs.docker_organization }}/carma-config:${{ needs.determine_docker_org_and_tag.outputs.docker_image_tag }}-ford-fusion-sehybrid-2019
           build-args: |
-            GIT_BRANCH=${{ github.ref_name }}
-            DOCKER_TAG=${{ needs.determine_docker_org_and_tag.outputs.docker_image_tag }}
-            DOCKER_ORG=${{ needs.determine_docker_org_and_tag.outputs.docker_organization }}
             BUILD_DATE=${{ steps.docker-image-metadata.outputs.build_date }}
             VCS_REF=${{ steps.docker-image-metadata.outputs.vcs_ref }}
             VERSION=${{ steps.docker-image-metadata.outputs.version }}
 
-      - name: Build and Push lexus_rx_450h_2019
+      - name: Build and Push lexus_rx_450h_2019 Docker Image
         uses: docker/build-push-action@v5
         with:
           context: ./lexus_rx_450h_2019/
@@ -76,7 +73,7 @@ jobs:
             VERSION=${{ steps.docker-image-metadata.outputs.version }}
 
 
-      - name: Build and chrysler_pacifica_ehybrid_s_2019 Docker Image
+      - name: Build and Push chrysler_pacifica_ehybrid_s_2019 Docker Image
         uses: docker/build-push-action@v5
         with:
           context: ./chrysler_pacifica_ehybrid_s_2019/
