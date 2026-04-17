@@ -43,6 +43,7 @@ The `GlobalParamsOverride.yaml` sets several non-default values required for thi
 - Localization mode set to `5` with position offsets (`x: 2.2`, `y: -2.1`)
 - Plan delegator `max_traj_generation_reattempt` increased to `1000`
 - LCI strategic plugin buffers adjusted for intersection approach behavior
+- `trajectory_time_length`in InlaneCruising is set to 12.0 to allow for long trajectories.
 
 ## Installation
 
