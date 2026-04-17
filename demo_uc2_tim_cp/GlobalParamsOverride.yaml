@@ -29,11 +29,9 @@ guidance:
         stopping_location_buffer: 7.0
         green_light_time_buffer : 1.0
         desired_distance_to_stop_buffer : 15.0
-#     inlanecruising_plugin:
-#       ros__parameters:
-#         default_downsample_ratio: 4
-#         turn_downsample_ratio: 4
-#         minimum_speed: 5.0
+    inlanecruising_plugin:
+      ros__parameters:
+        trajectory_time_length: 12.0
 
 # # System controller doesn't have a namespace like others
 # system_controller:
