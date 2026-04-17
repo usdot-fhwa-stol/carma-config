@@ -44,6 +44,23 @@ The `GlobalParamsOverride.yaml` sets several non-default values required for thi
 - Plan delegator `max_traj_generation_reattempt` increased to `1000`
 - LCI strategic plugin buffers adjusted for intersection approach behavior
 
-## Installing the Config Image
+## Installation
 
-TODO
+The config image can either be built locally or pulled from DockerHub.
+
+Once the config image is available, follow the standard CARMA config workflow:
+
+1. Download all required images:
+```bash
+   carma config install <image_name>
+```
+
+2. Set the active configuration:
+```bash
+   carma config set <image_name>
+```
+
+3. Start the platform:
+```bash
+   carma start all
+```
