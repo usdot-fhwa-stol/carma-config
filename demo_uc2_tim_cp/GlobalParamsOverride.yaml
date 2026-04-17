@@ -32,9 +32,6 @@ guidance:
     inlanecruising_plugin:
       ros__parameters:
         trajectory_time_length: 12.0
-#         default_downsample_ratio: 4
-#         turn_downsample_ratio: 4
-#         minimum_speed: 5.0
 
 # # System controller doesn't have a namespace like others
 # system_controller:
