@@ -127,3 +127,14 @@ jobs:
             BUILD_DATE=${{ steps.docker-image-metadata.outputs.build_date }}
             VCS_REF=${{ steps.docker-image-metadata.outputs.vcs_ref }}
             VERSION=${{ steps.docker-image-metadata.outputs.version }}
+        
+      - name: Build and Push demo_uc2_tim_cp Docker Image
+        uses: docker/build-push-action@v5
+        with:
+          context: ./demo_uc2_tim_cp/
+          push: true
+          tags: ${{ needs.determine_docker_org_and_tag.outputs.docker_organization }}/carma-config:${{ needs.determine_docker_org_and_tag.outputs.docker_image_tag }}-demo_uc2_tim_cp
+          build-args: |
+            BUILD_DATE=${{ steps.docker-image-metadata.outputs.build_date }}
+            VCS_REF=${{ steps.docker-image-metadata.outputs.vcs_ref }}
+            VERSION=${{ steps.docker-image-metadata.outputs.version }}
