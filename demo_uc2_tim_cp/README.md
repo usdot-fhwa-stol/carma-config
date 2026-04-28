@@ -15,7 +15,7 @@ This configuration is built for the **2019 Chrysler Pacifica**. It can be adapte
 The platform service uses a custom CARMA Platform image:
 
 ```
-usdotfhwastol/carma-platform:demo_uc2_tm_cp
+usdotfhwastoldev/carma-platform:demo_uc2_tm_cp
 ```
 
 All other services use the standard `carma-system-4.11.0` release images, as defined in the `.env` file:

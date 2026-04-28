@@ -28,7 +28,7 @@ services:
     command: roscore
 
   platform:
-    image: ${DOCKER_ORG}/carma-platform:demo_uc2_tm_cp
+    image: usdotfhwastoldev/carma-platform:demo_uc2_tm_cp
     network_mode: host
     container_name: platform
     runtime: nvidia
