@@ -45,11 +45,6 @@ services:
       - /opt/carma/yolo:/opt/carma/yolo
       - /etc/timezone:/etc/timezone:ro
       - /etc/localtime:/etc/localtime:ro
-    deploy:
-      resources:
-        reservations:
-          devices:
-            - capabilities: [gpu]
     command: bash -c 'source /opt/carma/install/setup.bash && ros2 launch /opt/carma/vehicle/config/carma_docker.launch.py'
 
   ros1_bridge:
