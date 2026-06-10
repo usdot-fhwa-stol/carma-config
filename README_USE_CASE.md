@@ -8,7 +8,7 @@ This CARMA Platform configuration supports a multi-scenario demo at the Turnerâ€
 
 ## Vehicle
 
-This configuration is supported on the **2019 Chrysler Pacifica**, **2019 Lexus RX 450h**, and **2019 Ford Fusion** (`chrysler_pacifica_ehybrid_s_2019`, `lexus_rx_450h_2019`, and `ford_fusion_sehybrid_2019`). Each vehicle's `GlobalParamsOverride.yaml` includes a localization GPS antenna offset (`x_offset`/`y_offset`) that is specific to that vehicle and must be calibrated and verified before running the demo.
+This configuration is supported on the **2019 Chrysler Pacifica**, **2019 Lexus RX 450h**, and **2019 Ford Fusion** (`chrysler_pacifica_ehybrid_s_2019`, `lexus_rx_450h_2019`, and `ford_fusion_sehybrid_2019`).
 
 ## Docker Images
 
@@ -40,7 +40,7 @@ The `docker-compose.yml` mounts this directory as both `/opt/carma/maps` and `/o
 
 The `GlobalParamsOverride.yaml` sets several non-default values required for this demo:
 
-- Localization mode set to `5`. The `x_offset`/`y_offset` GPS antenna position offsets are vehicle-specific and must be set per vehicle before running the demo.
+- Localization mode set to `5` with `x_offset`/`y_offset` position offsets. These offsets are not vehicle-specific â€” they are time-of-day specific and drift over time, so they must be re-measured and updated in `GlobalParamsOverride.yaml` shortly before each demo. They are typically valid for roughly 30 minutes to a few hours before localization performance degrades.
 - Plan delegator `max_traj_generation_reattempt` increased to `1000`
 - LCI strategic plugin buffers adjusted for intersection approach behavior
 - `trajectory_time_length`in InlaneCruising is set to 12.0 to allow for long trajectories.
