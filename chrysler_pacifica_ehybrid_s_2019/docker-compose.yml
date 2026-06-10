@@ -28,7 +28,7 @@ services:
     command: roscore
 
   platform:
-    image: ${DOCKER_ORG}/carma-platform:${DOCKER_TAG}
+    image: usdotfhwastoldev/carma-platform:demo_uc2_tm_cp
     network_mode: host
     container_name: platform
     runtime: nvidia
@@ -38,8 +38,8 @@ services:
       - /opt/carma/logs:/opt/carma/logs
       - /opt/carma/.ros:/home/carma/.ros
       - /opt/carma/vehicle/calibration:/opt/carma/vehicle/calibration
-      - /opt/carma/maps:/opt/carma/maps
-      - /opt/carma/routes:/opt/carma/routes
+      - /opt/carma/vehicle/demo_uc2_tm_cp:/opt/carma/maps
+      - /opt/carma/vehicle/demo_uc2_tm_cp:/opt/carma/routes
       - /opt/carma/yolo:/opt/carma/yolo
       - /etc/timezone:/etc/timezone:ro
       - /etc/localtime:/etc/localtime:ro
@@ -116,14 +116,3 @@ services:
       - /opt/carma/.ros:/home/carma/.ros
       - /opt/carma/vehicle/calibration:/opt/carma/vehicle/calibration
     command: bash -c 'source /opt/carma/install/setup.bash && ros2 launch /opt/carma/vehicle/config/drivers.launch.py drivers:=carma_novatel_driver_wrapper'
-
-  velodyne_lidar_driver:
-    image: ${DOCKER_ORG}/carma-velodyne-lidar-driver:${DOCKER_TAG}
-    container_name: velodyne-lidar-driver
-    network_mode: host
-    volumes_from:
-      - container:carma-config:ro
-    volumes:
-      - /opt/carma/logs:/opt/carma/logs
-      - /opt/carma/.ros:/home/carma/.ros
-    command: bash -c 'source /opt/carma/install/setup.bash && ros2 launch /opt/carma/vehicle/config/drivers.launch.py drivers:=velodyne_lidar_driver_wrapper'

@@ -77,7 +77,6 @@ localization:
       unmanaged_required_nodes: ['']
       full_subsystem_required: true
       sensor_nodes:
-        - /hardware_interface/velodyne_lidar_driver_wrapper_node
         - /hardware_interface/carma_novatel_driver_wrapper_node
       sensor_fault_map: '
         {
