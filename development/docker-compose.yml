@@ -18,7 +18,7 @@ version: '2'
 services:
 
   platform:
-    image: ${DOCKER_ORG}/carma-platform:${DOCKER_TAG}
+    image: local/carma-platform:latest
     network_mode: host
     container_name: platform
     volumes_from:
@@ -34,8 +34,21 @@ services:
       - /etc/localtime:/etc/localtime:ro
     command: bash -c 'source /opt/carma/install/setup.bash && ros2 launch /opt/carma/vehicle/config/carma_docker.launch.py'
 
+  basic-travel-driver:
+    image: local/carma-platform:latest
+    network_mode: host
+    volumes_from:
+      - container:carma-config:ro
+    volumes:
+      - /opt/carma/logs:/opt/carma/logs
+      - /opt/carma/.ros:/home/carma/.ros
+      - /opt/carma/data:/opt/carma/data
+    environment:
+      - ROS_IP=127.0.0.1
+    command: bash -c 'source /opt/carma/install/setup.bash && ros2 launch basic_travel_simulator basic_travel_simulator.launch.py'
+
   mock-controller-driver:
-    image: ${DOCKER_ORG}/carma-platform:${DOCKER_TAG}
+    image: local/carma-platform:latest
     network_mode: host
     volumes_from:
       - container:carma-config:ro
@@ -46,3 +59,17 @@ services:
     environment:
       - ROS_IP=127.0.0.1
     command: bash -c 'source /opt/carma/install/setup.bash && ros2 launch /opt/carma/vehicle/config/drivers.launch.py drivers:=mock_controller_driver'
+
+  car-publisher:
+    image: local/carma-platform:latest
+    network_mode: host
+    volumes_from:
+      - container:carma-config:ro
+    volumes:
+      - /opt/carma/logs:/opt/carma/logs
+      - /opt/carma/.ros:/home/carma/.ros
+      - /opt/carma/data:/opt/carma/data
+      - ~/carma_ws/src/carma-platform/trajectory_replayer/config:/opt/carma/install/trajectory_replayer/share/trajectory_replayer/config
+    environment:
+      - ROS_IP=127.0.0.1
+    command: bash -c 'source /opt/carma/install/setup.bash && ros2 launch trajectory_replayer trajectory_replayer_launch.py'
