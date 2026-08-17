@@ -7,12 +7,12 @@
 # use the default values in the respective package's yaml files
 # NOTE: Be sure to include the node name here, which may not be same as the package name
 # NOTE: SubsystemControllers has its own override file for easier organization
-# localization:
-#   localization_manager:
-#     ros__parameters:
-#       localization_mode: 4
-#       x_offset: 0.0
-#       y_offset: 0.0
+localization:
+  localization_manager:
+    ros__parameters:
+      localization_mode: 4
+      x_offset: 0.0
+      y_offset: 0.0
 
 # # Nested namespace example for guidance and plugins
 # guidance:
