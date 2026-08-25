@@ -38,8 +38,8 @@ services:
       - /opt/carma/logs:/opt/carma/logs
       - /opt/carma/.ros:/home/carma/.ros
       - /opt/carma/vehicle/calibration:/opt/carma/vehicle/calibration
-      - /opt/carma/demo_tfhrc_uc2_tm_cp:/opt/carma/maps
-      - /opt/carma/demo_tfhrc_uc2_tm_cp:/opt/carma/routes
+      - /opt/carma/demo_tfhrc_uc2_tim_cp:/opt/carma/maps
+      - /opt/carma/demo_tfhrc_uc2_tim_cp:/opt/carma/routes
       - /opt/carma/yolo:/opt/carma/yolo
       - /etc/timezone:/etc/timezone:ro
       - /etc/localtime:/etc/localtime:ro

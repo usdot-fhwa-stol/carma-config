@@ -30,10 +30,10 @@ DOCKER_TAG=carma-system-4.11.0
 The route and map files for this demo are located on the vehicle at:
 
 ```
-/opt/carma/demo_tfhrc_uc2_tm_cp
+/opt/carma/demo_tfhrc_uc2_tim_cp
 ```
 NOTE: If not, this symlink should be created from the vehicle-calibration repo by:
-`sudo ln -s /opt/carma/ ~/carma_ws/src/carma-vehicle-calibration/demo_tfhrc_uc2_tm_cp`
+`sudo ln -s /opt/carma/ ~/carma_ws/src/carma-vehicle-calibration/demo_tfhrc_uc2_tim_cp`
 
 
 The `docker-compose.yml` mounts this directory as both `/opt/carma/maps` and `/opt/carma/routes` inside the platform container.
