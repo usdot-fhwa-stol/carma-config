@@ -30,6 +30,15 @@ The table below helps visualize this described breakdown of ROS 1 Noetic and ROS
 ## CDASim Config
 For configuration files intended for simulation that used to be here until release `carma-system-4.7.1` please refer to https://github.com/usdot-fhwa-stol/cdasim-config repository.
 
+## Demo Configurations
+Configuration for specific demos is captured in tags rather than in branches. Demo tags follow the naming convention:
+
+```text
+carma-system-<VERSION_NUMBER>-demo-<location><descriptive-name>
+```
+
+For example, `carma-system-4.11.0-demo-tfhrc-uc2-tim-cp` is the demo configuration built on top of the `carma-system-4.11.0` release for the TFHRC location, use case 2, TIM/CP demo. To find configuration for a specific demo, look for a tag matching this pattern in the repository's tag list.
+
 # CARMAPlatform
 The primary CARMA Platform repository can be found [here](https://github.com/usdot-fhwa-stol/carma-platform) and is part of the [USDOT FHWA STOL](https://github.com/usdot-fhwa-stol/)
 github organization. Documentation on how the CARMA Platform functions, how it will evolve over time, and how you can contribute can be found at the above links as well.
