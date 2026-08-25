@@ -14,7 +14,7 @@ localization:
       x_offset: 2.2
       y_offset: -2.1
 
-# # Nested namespace example for guidance and plugins
+# Nested namespace example for guidance and plugins
 guidance:
   plan_delegator:
     ros__parameters:
@@ -33,9 +33,9 @@ guidance:
       ros__parameters:
         trajectory_time_length: 12.0
 
-# # System controller doesn't have a namespace like others
-# system_controller:
-#   ros__parameters:
-#     signal_configure_delay: 15.0
-#     service_timeout_ms: 500
-#     call_timeout_ms: 10000
+# System controller doesn't have a namespace like others
+system_controller:
+  ros__parameters:
+    signal_configure_delay: 10.0
+    service_timeout_ms: 500
+    call_timeout_ms: 10000
