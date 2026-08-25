@@ -15,7 +15,7 @@ This configuration is supported on the **2019 Chrysler Pacifica**, **2019 Lexus 
 The platform service uses a custom CARMA Platform image:
 
 ```
-usdotfhwastoldev/carma-platform:carma-system-4.11.0-demo_uc2_tim_cp
+usdotfhwastol/carma-platform:carma-system-4.11.0-demo_uc2_tim_cp
 ```
 
 All other services use the standard `carma-system-4.11.0` release images, as defined in the `.env` file:
