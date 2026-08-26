@@ -23,7 +23,7 @@ guidance:
     yield_plugin:
       ros__parameters:
         intervehicle_collision_distance_in_m: 12.0    # Make collision detection reliable
-        time_horizon_until_collision_to_commit_to_stop_in_s: 5.0 # Commits to stopping longer before chaning mind
+        time_horizon_until_collision_to_commit_to_stop_in_s: 5.0 # Commits to stopping longer before changing mind
         minimum_safety_gap_in_meters: 13.0  # Try to stop more far away from pedestrian
     lci_strategic_plugin:
       ros__parameters:
@@ -47,5 +47,5 @@ environment:
 system_controller:
   ros__parameters:
     signal_configure_delay: 10.0
-    service_timeout_ms: 5000
+    service_timeout_ms: 500000
     call_timeout_ms: 100000
