@@ -20,7 +20,6 @@ guidance:
     ros__parameters:
       max_traj_generation_reattempt: 1000
   plugins:
-#
     yield_plugin:
       ros__parameters:
         intervehicle_collision_distance_in_m: 12.0    # Make collision detection reliable
@@ -28,10 +27,6 @@ guidance:
         minimum_safety_gap_in_meters: 13.0  # Try to stop more far away from pedestrian
     lci_strategic_plugin:
       ros__parameters:
-#         min_approach_distance: 20.0
-#         trajectory_smoothing_activation_distance: 40.0
-#         minimum_speed: 5.0
-#         algo_minimum_speed: 0.894
         stopping_location_buffer: 7.0
         green_light_time_buffer : 1.0
         desired_distance_to_stop_buffer : 15.0
