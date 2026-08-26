@@ -11,7 +11,7 @@ localization:
   localization_manager:
     ros__parameters:
       localization_mode: 5
-      x_offset: 2.2
+      x_offset: 1.8
       y_offset: -2.1
 
 # Nested namespace example for guidance and plugins
@@ -20,6 +20,12 @@ guidance:
     ros__parameters:
       max_traj_generation_reattempt: 1000
   plugins:
+#
+    yield_plugin:
+      ros__parameters:
+        intervehicle_collision_distance_in_m: 12.0    # Make collision detection reliable
+        time_horizon_until_collision_to_commit_to_stop_in_s: 5.0 # Commits to stopping longer before chaning mind
+        minimum_safety_gap_in_meters: 13.0  # Try to stop more far away from pedestrian
     lci_strategic_plugin:
       ros__parameters:
 #         min_approach_distance: 20.0
@@ -33,9 +39,18 @@ guidance:
       ros__parameters:
         trajectory_time_length: 12.0
 
+environment:
+  cp_sdsm_to_detection_list_node:
+    ros__parameters:
+      adjust_pose: True
+      y_offset: -2.0
+  cp_multiple_object_tracker_node:
+    ros__parameters:
+      track_removal_threshold: 20 # Some RSU known to lose 1.5s data worst case scenario
+
 # System controller doesn't have a namespace like others
 system_controller:
   ros__parameters:
     signal_configure_delay: 10.0
-    service_timeout_ms: 500
-    call_timeout_ms: 10000
+    service_timeout_ms: 5000
+    call_timeout_ms: 100000
