@@ -15,6 +15,9 @@ supplies the external simulation and vehicle-private network names, Docker
 hostnames, runtime image versions, vehicle settings, and instance-specific V2X
 Driver parameters.
 
+It also includes the Town10 simulation parameter overrides for the
+in-lane-cruising, system-controller, and cooperative-lane-change components.
+
 The Compose file uses Docker DNS names instead of fixed container IP addresses.
 Run `./build-image.sh` for a release build or `./build-image.sh --develop` for a
 development build.

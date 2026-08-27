@@ -31,6 +31,7 @@ COPY SubsystemControllerParams.yaml /root/vehicle/config/SubsystemControllerPara
 COPY carma.config.js /root/vehicle/config/carma.config.js
 COPY carma.env /root/vehicle/config/carma.env
 COPY carma_rosconsole.conf /root/vehicle/config/carma_rosconsole.conf
+COPY carma /root/vehicle/config/carma
 
 VOLUME /opt/carma/vehicle/config
 RUN mkdir -p /opt/carma/vehicle/config
