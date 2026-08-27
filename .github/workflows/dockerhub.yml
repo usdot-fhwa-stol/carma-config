@@ -72,6 +72,27 @@ jobs:
             VCS_REF=${{ steps.docker-image-metadata.outputs.vcs_ref }}
             VERSION=${{ steps.docker-image-metadata.outputs.version }}
 
+      - name: Build and Push basic_simulation_messenger_vehicle Docker Image
+        uses: docker/build-push-action@v5
+        with:
+          context: ./basic_simulation_messenger_vehicle/
+          push: true
+          tags: ${{ needs.determine_docker_org_and_tag.outputs.docker_organization }}/carma-config:${{ needs.determine_docker_org_and_tag.outputs.docker_image_tag }}-chrysler-pacifica-ehybrid-s-2019
+          build-args: |
+            BUILD_DATE=${{ steps.docker-image-metadata.outputs.build_date }}
+            VCS_REF=${{ steps.docker-image-metadata.outputs.vcs_ref }}
+            VERSION=${{ steps.docker-image-metadata.outputs.version }}
+
+      - name: Build and Push basic_simulation_platform_vehicle Docker Image
+        uses: docker/build-push-action@v5
+        with:
+          context: ./basic_simulation_platform_vehicle/
+          push: true
+          tags: ${{ needs.determine_docker_org_and_tag.outputs.docker_organization }}/carma-config:${{ needs.determine_docker_org_and_tag.outputs.docker_image_tag }}-chrysler-pacifica-ehybrid-s-2019
+          build-args: |
+            BUILD_DATE=${{ steps.docker-image-metadata.outputs.build_date }}
+            VCS_REF=${{ steps.docker-image-metadata.outputs.vcs_ref }}
+            VERSION=${{ steps.docker-image-metadata.outputs.version }}
 
       - name: Build and Push chrysler_pacifica_ehybrid_s_2019 Docker Image
         uses: docker/build-push-action@v5
