@@ -34,10 +34,10 @@ For configuration files intended for simulation that used to be here until relea
 Configuration for specific demos is captured in tags rather than in branches. Demo tags follow the naming convention:
 
 ```text
-carma-system-<VERSION_NUMBER>-demo-<location><descriptive-name>
+carma-system-<VERSION_NUMBER>-demo_<location>_<descriptive_name_with_underscore>
 ```
 
-For example, `carma-system-4.11.0-demo-tfhrc-uc2-tim-cp` is the demo configuration built on top of the `carma-system-4.11.0` release for the TFHRC location, use case 2, TIM/CP demo. To find configuration for a specific demo, look for a tag matching this pattern in the repository's tag list.
+For example, `carma-system-4.11.0-demo_tfhrc_uc2_tim_cp` is the demo configuration built on top of the `carma-system-4.11.0` release for the TFHRC location, use case 2, TIM/CP demo. To find configuration for a specific demo, look for a tag matching this pattern in the repository's tag list.
 
 # CARMAPlatform
 The primary CARMA Platform repository can be found [here](https://github.com/usdot-fhwa-stol/carma-platform) and is part of the [USDOT FHWA STOL](https://github.com/usdot-fhwa-stol/)
