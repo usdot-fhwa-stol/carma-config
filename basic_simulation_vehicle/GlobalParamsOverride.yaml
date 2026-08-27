@@ -38,7 +38,7 @@ environment:
   cp_sdsm_to_detection_list_node:
     ros__parameters:
       adjust_pose: True
-      y_offset: -2.0
+      y_offset: -2.0  # Currently, it is to account for poor FLIR camera calibration 08/27/2026
   cp_multiple_object_tracker_node:
     ros__parameters:
       track_removal_threshold: 20 # Some RSU known to lose 1.5s data worst case scenario
