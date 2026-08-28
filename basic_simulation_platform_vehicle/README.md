@@ -5,10 +5,10 @@ one ROS 2 CARMA Platform vehicle in a CDASim scenario.
 
 It provides these services:
 
-- `platform_ros2`
+- `platform-ros2`
 - `carma-carla-integration`
-- `vehicle_registration_service`
-- `v2x_ros_driver`
+- `vehicle-registration-service`
+- `v2x-ros-driver`
 
 The configuration is stored at `/opt/carma/vehicle/config`. Scenario Runner
 supplies the external simulation and vehicle-private network names, Docker

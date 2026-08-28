@@ -1,7 +1,6 @@
 services:
-  messenger_ros2:
+  messenger-ros2:
     image: "${CARMA_MESSENGER_CORE_IMAGE}"
-    container_name: "${PROJECT_NAME}-messenger-ros2"
     networks:
       - messenger_private
     volumes_from:
@@ -19,13 +18,12 @@ services:
       && source /opt/carma/install/setup.bash
       && ros2 launch /opt/carma/vehicle/config/carma-messenger-docker.launch.py"
 
-  carma_messenger_bridge:
+  carma-messenger-bridge:
     image: "${CARMA_MESSENGER_BRIDGE_IMAGE}"
-    container_name: "${PROJECT_NAME}-messenger-bridge"
     networks:
       messenger_private:
         aliases:
-          - "${PROJECT_NAME}-bridge"
+          - "${MESSENGER_BRIDGE_HOST:-carma-messenger-bridge}"
     environment:
       RMW_IMPLEMENTATION: "${RMW_IMPLEMENTATION:-rmw_cyclonedds_cpp}"
     volumes:
@@ -35,17 +33,16 @@ services:
       && source /home/carma/install/setup.bash
       && ros2 launch msger_mosaic_bridge mosaic_adapter_launch.py
       role_id:=${VEHICLE_ID}
-      messenger_ip_address:=messenger_ros2
+      messenger_ip_address:=messenger-ros2
       cdasim_ip_address:=${CDASIM_HOST:-cdasim}
-      host_ip_address:=${PROJECT_NAME}-bridge"
+      host_ip_address:=${MESSENGER_BRIDGE_HOST:-carma-messenger-bridge}"
 
-  messenger_v2x_ros_driver:
+  messenger-v2x-ros-driver:
     image: "${V2X_ROS_DRIVER_IMAGE}"
-    container_name: "${PROJECT_NAME}-messenger-v2x-ros-driver"
     networks:
       messenger_private:
         aliases:
-          - "${PROJECT_NAME}-v2x"
+          - "${MESSENGER_V2X_ROS_DRIVER_HOST:-messenger-v2x-ros-driver}"
     volumes_from:
       - "container:${CONFIG_CONTAINER_NAME}:ro"
     environment:
@@ -59,9 +56,8 @@ services:
       && source /opt/carma/install/setup.bash
       && ros2 launch /opt/carma/vehicle/config/msger_drivers.launch.py log_level:=DEBUG"
 
-  messenger_vehicle_registration_service:
+  messenger-vehicle-registration-service:
     image: "${VEHICLE_REGISTRATION_IMAGE}"
-    container_name: "${PROJECT_NAME}-messenger-vehicle-registration"
     networks:
       - messenger_private
     volumes_from:
@@ -70,7 +66,7 @@ services:
       python3 /opt/carma/vehicle-registration-module/src/vehicleRegistration.py
       --vehicleId "${VEHICLE_ID}"
       --roleId "${VEHICLE_ID}"
-      --rxMessageIpAddress "${PROJECT_NAME}-v2x"
+      --rxMessageIpAddress "${MESSENGER_V2X_ROS_DRIVER_HOST:-messenger-v2x-ros-driver}"
       --rxMessagePort 3501
       --rxTimeSyncPort 3500
       --receiverPort 3600
@@ -78,7 +74,6 @@ services:
 
   carma-messenger-vehicle-plugin:
     image: "${MESSENGER_VEHICLE_PLUGIN_IMAGE}"
-    container_name: "${PROJECT_NAME}-messenger-vehicle-plugin"
     networks:
       - sim_external
     volumes:
@@ -93,7 +88,7 @@ services:
 networks:
   messenger_private:
     external: true
-    name: "${PRIVATE_NETWORK_NAME}"
+    name: "${PRIVATE_NETWORK_NAME:-xil_messenger_1_net}"
   sim_external:
     external: true
-    name: "${SIM_NETWORK_NAME}"
+    name: "${SIM_NETWORK_NAME:-xil_sim_net}"

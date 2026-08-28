@@ -5,10 +5,10 @@ one ROS 2 CARMA Messenger vehicle in a CDASim scenario.
 
 It provides these services:
 
-- `messenger_ros2`
-- `carma_messenger_bridge`
-- `messenger_v2x_ros_driver`
-- `messenger_vehicle_registration_service`
+- `messenger-ros2`
+- `carma-messenger-bridge`
+- `messenger-v2x-ros-driver`
+- `messenger-vehicle-registration-service`
 - `carma-messenger-vehicle-plugin`
 
 The configuration is stored at `/opt/carma/vehicle/config`, which is the path

@@ -1,7 +1,6 @@
 services:
-  platform_ros2:
+  platform-ros2:
     image: "${CARMA_PLATFORM_IMAGE}"
-    container_name: "${PROJECT_NAME}-platform-ros2"
     runtime: nvidia
     networks:
       - vehicle_private
@@ -31,7 +30,6 @@ services:
 
   carma-carla-integration:
     image: "${CARMA_CARLA_INTEGRATION_IMAGE}"
-    container_name: "${PROJECT_NAME}-carla-integration"
     networks:
       - vehicle_private
       - simulation
@@ -56,9 +54,8 @@ services:
       passive:=True
       spawn_point:=${SPAWN_POINT}"
 
-  vehicle_registration_service:
+  vehicle-registration-service:
     image: "${VEHICLE_REGISTRATION_IMAGE}"
-    container_name: "${PROJECT_NAME}-vehicle-registration"
     networks:
       - vehicle_private
     volumes_from:
@@ -67,19 +64,18 @@ services:
       python3 /opt/carma/vehicle-registration-module/src/vehicleRegistration.py
       --vehicleId "${VEHICLE_ID}"
       --roleId "${VEHICLE_ID}"
-      --rxMessageIpAddress "${V2X_ROS_DRIVER_HOST}"
+      --rxMessageIpAddress "${V2X_ROS_DRIVER_HOST:-v2x-ros-driver}"
       --rxMessagePort 2500
       --rxTimeSyncPort 2501
       --receiverPort 1515
-      --receiverIpAddress "${CDASIM_VEHICLE_HOST}"
+      --receiverIpAddress cdasim
 
-  v2x_ros_driver:
+  v2x-ros-driver:
     image: "${V2X_ROS_DRIVER_IMAGE}"
-    container_name: "${PROJECT_NAME}-v2x-ros-driver"
     networks:
       vehicle_private:
         aliases:
-          - "${V2X_ROS_DRIVER_HOST}"
+          - "${V2X_ROS_DRIVER_HOST:-v2x-ros-driver}"
     volumes_from:
       - "container:${CONFIG_CONTAINER_NAME}:ro"
     environment:
@@ -96,7 +92,7 @@ services:
 networks:
   vehicle_private:
     external: true
-    name: "${PRIVATE_NETWORK_NAME}"
+    name: "${PRIVATE_NETWORK_NAME:-xil_carma_1_net}"
   simulation:
     external: true
-    name: "${SIM_NETWORK_NAME}"
+    name: "${SIM_NETWORK_NAME:-xil_sim_net}"
