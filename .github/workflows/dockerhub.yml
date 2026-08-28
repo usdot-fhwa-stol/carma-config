@@ -77,7 +77,7 @@ jobs:
         with:
           context: ./basic_simulation_messenger_vehicle/
           push: true
-          tags: ${{ needs.determine_docker_org_and_tag.outputs.docker_organization }}/carma-config:${{ needs.determine_docker_org_and_tag.outputs.docker_image_tag }}-chrysler-pacifica-ehybrid-s-2019
+          tags: ${{ needs.determine_docker_org_and_tag.outputs.docker_organization }}/carma-config:${{ needs.determine_docker_org_and_tag.outputs.docker_image_tag }}-basic_simulation_messenger_vehicle
           build-args: |
             BUILD_DATE=${{ steps.docker-image-metadata.outputs.build_date }}
             VCS_REF=${{ steps.docker-image-metadata.outputs.vcs_ref }}
@@ -88,7 +88,7 @@ jobs:
         with:
           context: ./basic_simulation_platform_vehicle/
           push: true
-          tags: ${{ needs.determine_docker_org_and_tag.outputs.docker_organization }}/carma-config:${{ needs.determine_docker_org_and_tag.outputs.docker_image_tag }}-chrysler-pacifica-ehybrid-s-2019
+          tags: ${{ needs.determine_docker_org_and_tag.outputs.docker_organization }}/carma-config:${{ needs.determine_docker_org_and_tag.outputs.docker_image_tag }}-basic_simulation_platform_vehicle
           build-args: |
             BUILD_DATE=${{ steps.docker-image-metadata.outputs.build_date }}
             VCS_REF=${{ steps.docker-image-metadata.outputs.vcs_ref }}
