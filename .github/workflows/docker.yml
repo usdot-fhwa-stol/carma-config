@@ -82,9 +82,3 @@ jobs:
         with:
           context: ./freightliner_cascadia_2012_dot_80550/
           push: false
-
-      - name: Build demo_uc2_tim_cp image
-        uses: docker/build-push-action@v5
-        with:
-          context: ./demo_uc2_tim_cp/
-          push: false
