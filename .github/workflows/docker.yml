@@ -41,6 +41,18 @@ jobs:
           context: ./lexus_rx_450h_2019/
           push: false
 
+      - name: Build basic_simulation_messenger_vehicle image
+        uses: docker/build-push-action@v5
+        with:
+          context: ./basic_simulation_messenger_vehicle/
+          push: false      
+
+      - name: Build basic_simulation_platform_vehicle image
+        uses: docker/build-push-action@v5
+        with:
+          context: ./basic_simulation_platform_vehicle/
+          push: false   
+
       - name: Build chrysler_pacifica_ehybrid_s_2019 image
         uses: docker/build-push-action@v5
         with:
