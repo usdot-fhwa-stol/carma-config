@@ -32,7 +32,7 @@ services:
     image: "${CARMA_CARLA_INTEGRATION_IMAGE}"
     networks:
       - vehicle_private
-      - simulation
+      - carma_sim_net
     volumes_from:
       - "container:${CONFIG_CONTAINER_NAME}:ro"
     environment:
@@ -93,6 +93,6 @@ networks:
   vehicle_private:
     external: true
     name: "${PRIVATE_NETWORK_NAME:-xil_carma_1_net}"
-  simulation:
+  carma_sim_net:
     external: true
     name: "${SIM_NETWORK_NAME:-xil_sim_net}"

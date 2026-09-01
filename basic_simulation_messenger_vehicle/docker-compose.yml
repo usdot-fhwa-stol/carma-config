@@ -75,7 +75,7 @@ services:
   carma-messenger-vehicle-plugin:
     image: "${MESSENGER_VEHICLE_PLUGIN_IMAGE}"
     networks:
-      - sim_external
+      - carma_sim_net
     volumes:
       - "${MESSENGER_LOG_ROOT}/vehicle-plugin:/home/carma/src/carma_messenger_vehicle_plugin/logs"
       - ./carma_messenger/resources:/home/carma/src/carma_messenger_vehicle_plugin/src/resources:ro
@@ -89,6 +89,6 @@ networks:
   messenger_private:
     external: true
     name: "${PRIVATE_NETWORK_NAME:-xil_messenger_1_net}"
-  sim_external:
+  carma_sim_net:
     external: true
     name: "${SIM_NETWORK_NAME:-xil_sim_net}"
