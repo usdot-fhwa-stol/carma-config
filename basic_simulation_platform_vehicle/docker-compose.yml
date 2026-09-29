@@ -1,0 +1,98 @@
+services:
+  platform-ros2:
+    image: "${CARMA_PLATFORM_IMAGE}"
+    runtime: nvidia
+    networks:
+      - vehicle_private
+    volumes_from:
+      - "container:${CONFIG_CONTAINER_NAME}:ro"
+    environment:
+      DISPLAY: "${DISPLAY}"
+      QT_X11_NO_MITSHM: "1"
+      RMW_IMPLEMENTATION: "${RMW_IMPLEMENTATION:-rmw_cyclonedds_cpp}"
+      ROS_DOMAIN_ID: "${ROS_DOMAIN_ID:-0}"
+      ROS_LOCALHOST_ONLY: "0"
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix
+      - "${CARMA_LOG_ROOT}/${VEHICLE_ID}:/opt/carma/logs"
+      - /opt/carma/.ros:/home/carma/.ros
+      - /opt/carma/vehicle/calibration:/opt/carma/vehicle/calibration
+      - /opt/carma/maps:/opt/carma/maps
+      - /opt/carma/routes:/opt/carma/routes
+      - /opt/carma/yolo:/opt/carma/yolo
+      - ./carma/inlanecruising_config/parameters.yaml:/opt/carma/install/inlanecruising_plugin/share/inlanecruising_plugin/config/parameters.yaml:ro
+      - ./carma/system_controller/config.yaml:/opt/carma/install/system_controller/share/system_controller/config/config.yaml:ro
+      - ./carma/cooperative_lanechange/parameters.yaml:/opt/carma/install/cooperative_lanechange/share/cooperative_lanechange/config/parameters.yaml:ro
+    command: >-
+      bash -c "export RMW_IMPLEMENTATION=${RMW_IMPLEMENTATION:-rmw_cyclonedds_cpp}
+      && source /opt/carma/install/setup.bash
+      && ros2 launch /opt/carma/vehicle/config/carma_docker.launch.py"
+
+  carma-carla-integration:
+    image: "${CARMA_CARLA_INTEGRATION_IMAGE}"
+    networks:
+      - vehicle_private
+      - carma_sim_net
+    volumes_from:
+      - "container:${CONFIG_CONTAINER_NAME}:ro"
+    environment:
+      RMW_IMPLEMENTATION: "${RMW_IMPLEMENTATION:-rmw_cyclonedds_cpp}"
+      ROS_DOMAIN_ID: "${ROS_DOMAIN_ID:-0}"
+      ROS_LOCALHOST_ONLY: "0"
+    command: >-
+      bash -c "export RMW_IMPLEMENTATION=${RMW_IMPLEMENTATION:-rmw_cyclonedds_cpp}
+      && source /home/carma/carma-carla-integration/install/setup.bash
+      && python3 /home/carma/carma-carla-integration/carla-health-poll/src/wait_for_carla.py
+      --carla-host=${CARLA_HOST:-carla-server}
+      && ros2 launch carma_carla_bridge carma_carla_bridge.launch.py
+      role_name:=${VEHICLE_ID}
+      host:=${CARLA_HOST:-carla-server}
+      synchronous_mode:=True
+      selected_route:=${SELECTED_ROUTE}
+      start_delay_in_seconds:=${START_DELAY_IN_SECONDS:-0}
+      fixed_delay_seconds:=0.1
+      passive:=True
+      spawn_point:=${SPAWN_POINT}"
+
+  vehicle-registration-service:
+    image: "${VEHICLE_REGISTRATION_IMAGE}"
+    networks:
+      - vehicle_private
+    volumes_from:
+      - "container:${CONFIG_CONTAINER_NAME}:ro"
+    command: >-
+      python3 /opt/carma/vehicle-registration-module/src/vehicleRegistration.py
+      --vehicleId "${VEHICLE_ID}"
+      --roleId "${VEHICLE_ID}"
+      --rxMessageIpAddress "${V2X_ROS_DRIVER_HOST:-v2x-ros-driver}"
+      --rxMessagePort 2500
+      --rxTimeSyncPort 2501
+      --receiverPort 1515
+      --receiverIpAddress cdasim
+
+  v2x-ros-driver:
+    image: "${V2X_ROS_DRIVER_IMAGE}"
+    networks:
+      vehicle_private:
+        aliases:
+          - "${V2X_ROS_DRIVER_HOST:-v2x-ros-driver}"
+    volumes_from:
+      - "container:${CONFIG_CONTAINER_NAME}:ro"
+    environment:
+      RMW_IMPLEMENTATION: "${RMW_IMPLEMENTATION:-rmw_cyclonedds_cpp}"
+    volumes:
+      - "${CARMA_LOG_ROOT}/${VEHICLE_ID}:/opt/carma/logs"
+      - /opt/carma/.ros:/home/carma/.ros
+    command: >-
+      bash -c "export RMW_IMPLEMENTATION=${RMW_IMPLEMENTATION:-rmw_cyclonedds_cpp}
+      && source /opt/carma/install/setup.bash
+      && ros2 launch /opt/carma/vehicle/config/drivers.launch.py
+      drivers:=v2x_ros_driver log_level:=DEBUG"
+
+networks:
+  vehicle_private:
+    external: true
+    name: "${PRIVATE_NETWORK_NAME:-xil_carma_1_net}"
+  carma_sim_net:
+    external: true
+    name: "${SIM_NETWORK_NAME:-xil_sim_net}"

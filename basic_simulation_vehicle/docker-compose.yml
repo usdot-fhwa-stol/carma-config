@@ -1,0 +1,140 @@
+
+services:
+
+  ## carma vehicle
+  roscore:
+    image: ${DOCKER_ORG}/carma-base:${DOCKER_TAG}-noetic
+    networks:
+      carma_net_1:
+        ipv4_address: 172.3.0.2
+    container_name: roscore
+    volumes_from:
+      - container:carma-config:ro
+    volumes:
+      - /opt/carma/.ros:/home/carma/.ros
+      - /opt/carma/logs/carma_1:/opt/carma/logs
+    restart: always
+    environment:
+      - ROS_IP=172.3.0.2
+      - ROS_MASTER_URI=http://172.3.0.2:11311/
+    command: roscore
+
+  platform_ros2:
+    image: ${DOCKER_ORG}/carma-platform:${DOCKER_TAG}
+    networks:
+      carma_net_1:
+        ipv4_address: 172.3.0.4
+    container_name: platform_ros2
+    runtime: nvidia
+    volumes_from:
+      - container:carma-config:ro
+    volumes:
+      - /opt/carma/logs/carma_1:/opt/carma/logs
+      - /opt/carma/.ros:/home/carma/.ros
+      - /opt/carma/vehicle/calibration:/opt/carma/vehicle/calibration
+      - /opt/carma/maps:/opt/carma/maps
+      - /opt/carma/routes:/opt/carma/routes
+      - /opt/carma/yolo:/opt/carma/yolo
+      #commenting out the following lines will use default parameters from the plugins because of ros2 migration
+      #- ./carma-platform/inlanecruising_plugin/parameters.yaml:/opt/carma/install/inlanecruising_plugin/share/inlanecruising_plugin/config/parameters.yaml
+      #- ./carma-platform/yield_plugin/parameters.yaml:/opt/carma/install/yield_plugin/share/yield_plugin/config/parameters.yaml
+      #- ./carma-platform/lci_strategic_plugin/parameters.yaml:/opt/carma/install/lci_strategic_plugin/share/lci_strategic_plugin/config/parameters.yaml
+      #- ./carma-platform/motion_computation/parameters.yaml:/opt/carma/install/motion_computation/share/motion_computation/config/parameters.yaml
+    command: >
+      bash -c 'export RMW_IMPLEMENTATION=rmw_fastrtps_cpp
+      && source /opt/carma/install/setup.bash
+      && ros2 launch /opt/carma/vehicle/config/carma_docker.launch.py'
+
+  ros1_bridge:
+    image: ${DOCKER_ORG}/carma-msgs:${DOCKER_TAG}
+    networks:
+      carma_net_1:
+        ipv4_address: 172.3.0.5
+    container_name: ros1_bridge
+    volumes_from:
+      - container:carma-config:ro
+    environment:
+      - ROS_IP=172.3.0.5
+      - ROS_MASTER_URI=http://172.3.0.2:11311/
+    volumes:
+      - /opt/carma/logs/carma_1:/opt/carma/logs
+      - /opt/carma/.ros:/home/carma/.ros
+      - /opt/carma/vehicle/calibration:/opt/carma/vehicle/calibration
+      - /opt/carma/maps:/opt/carma/maps
+      - /opt/carma/routes:/opt/carma/routes
+      - /opt/carma/yolo:/opt/carma/yolo
+    command: >
+      bash -c 'export RMW_IMPLEMENTATION=rmw_fastrtps_cpp
+      && wait-for-it 172.3.0.2:11311 -- rosparam load /opt/carma/vehicle/config/bridge.yml
+      && source /home/carma/.base-image/workspace/install/setup.bash
+      && ros2 run ros1_bridge dynamic_bridge --multi-threads'
+
+  carma-carla-integration:
+    image: ${DOCKER_ORG}/carma-carla-integration:${DOCKER_TAG}
+    networks:
+      carma_net_1:
+        ipv4_address: 172.3.0.6
+      ${PROJECT_NAME}_carma_sim_net:
+        ipv4_address: 172.2.0.6
+    container_name: carma-carla-integration
+    volumes:
+      - ./carma-carla-integration/carma_carla_agent.launch:/home/carma/carma-carla-integration/carma-carla-agent/launch/carma_carla_agent.launch
+    volumes_from:
+      - container:carma-config:ro
+    environment:
+      ROS_IP: 172.3.0.6
+      ROS_MASTER_URI: http://172.3.0.2:11311/
+      PYTHONUNBUFFERED: 1
+
+    # sleep is for carla simulator to become available
+    # start_delay_in_seconds is carla game time seconds to adjust when to engage for the scenario
+    # and account for delay required for world model to fully update after route is selected
+    command: >
+      bash -c "export RMW_IMPLEMENTATION=rmw_fastrtps_cpp
+      && wait-for-it 172.3.0.2:11311
+      && export PYTHONPATH=$PYTHONPATH:~/PythonAPI/carla/dist/carla-0.9.10-py3.7-linux-x86_64.egg:/home/carma/carla-sensor-lib/src
+      && source ~/carma_carla_ws/devel/setup.bash
+      && python3 /home/carma/carma-carla-integration/carla-health-poll/src/wait_for_carla.py
+      && roslaunch carma_carla_agent carma_carla_agent.launch
+      role_name:='carma_1'
+      host:='172.2.0.2'
+      selected_route:='move_over_law_carma_1_route'
+      start_delay_in_seconds:='10'
+      spawn_point:='11.2,-200.8,0,0,0,90'"
+
+  # This node also records rosbag
+  ns3_adapter:
+    image: ${DOCKER_ORG}/carma-ns3-adapter:${DOCKER_TAG}-noetic
+    networks:
+      carma_net_1:
+        ipv4_address: 172.3.0.7
+      ${PROJECT_NAME}_carma_sim_net:
+        ipv4_address: 172.2.0.7
+    container_name: ns3_adapter
+    volumes_from:
+      - container:carma-config:ro
+    environment:
+      - ROS_IP=172.3.0.7
+      - ROS_MASTER_URI=http://172.3.0.2:11311/
+      - NVIDIA_VISIBLE_DEVICES=all
+    volumes:
+      - /opt/carma/logs/carma_1:/opt/carma/logs
+      - /opt/carma/.ros:/home/carma/.ros
+      - /opt/carma/vehicle/calibration:/opt/carma/vehicle/calibration
+      - /opt/carma/maps:/opt/carma/maps
+      - /opt/carma/routes:/opt/carma/routes
+      - /opt/carma/yolo:/opt/carma/yolo
+      - ./ns3_adapter/adapter_1/parameters.yaml:/opt/carma/install/ns3_adapter/share/ns3_adapter/config/parameters.yaml
+    command: >
+      bash -c "export RMW_IMPLEMENTATION=rmw_fastrtps_cpp
+      && wait-for-it 172.3.0.2:11311 -- roslaunch ns3_adapter ns3_adapter.launch enable_ros1_record:=true
+      role_id:='carma_1'
+      remap_ns:=/hardware_interface/comms"
+
+networks:
+  ${PROJECT_NAME}_carma_sim_net:
+    external: true
+  carma_net_1:
+    ipam:
+      config:
+        - subnet: 172.3.0.0/16

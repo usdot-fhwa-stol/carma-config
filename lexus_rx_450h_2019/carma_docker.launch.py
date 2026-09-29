@@ -44,6 +44,15 @@ def generate_launch_description():
         name = 'vehicle_config_dir', default_value = '/opt/carma/vehicle/config', description = "Path to vehicle configuration directory"
     )
 
+    # Declare the global_params_override_file launch argument
+    # Parameters in this file will override any parameters loaded in their respective packages
+    global_params_override_file = LaunchConfiguration('global_params_override_file')
+    declare_global_params_override_file_arg = DeclareLaunchArgument(
+        name = 'global_params_override_file',
+        default_value = [vehicle_config_dir, "/GlobalParamsOverride.yaml"],
+        description = "Path to global file containing the parameters overwrite"
+    )
+
     # Declare launch arguments for points_map_loader
     load_type = LaunchConfiguration('load_type')
     declare_load_type= DeclareLaunchArgument(name = 'load_type', default_value = "noupdate")
@@ -131,6 +140,7 @@ def generate_launch_description():
         launch_arguments = {
             'vehicle_calibration_dir' : vehicle_calibration_dir,
             'vehicle_config_dir' : vehicle_config_dir,
+            'global_params_override_file' : global_params_override_file,
             'route_file_folder' : route_file_folder,
             'enable_guidance_plugin_validator' : enable_guidance_plugin_validator,
             'strategic_plugins_to_validate' : strategic_plugins_to_validate,
@@ -147,8 +157,9 @@ def generate_launch_description():
 
     return LaunchDescription([
         logging_env_var, # Environment variables must be placed before included files
-        declare_vehicle_calibration_dir_arg,
         declare_vehicle_config_dir_arg,
+        declare_global_params_override_file_arg,
+        declare_vehicle_calibration_dir_arg,
         declare_route_file_folder,
         declare_enable_guidance_plugin_validator,
         declare_strategic_plugins_to_validate,

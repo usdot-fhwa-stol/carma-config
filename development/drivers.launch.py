@@ -42,6 +42,20 @@ def generate_launch_description():
         name = 'drivers', default_value = 'mock_controller_driver', description = "Desired mock drivers to launch specified by package name."
     )
 
+    # Declare the vehicle_config_dir launch argument
+    vehicle_config_dir = LaunchConfiguration('vehicle_config_dir')
+    declare_vehicle_config_dir_arg = DeclareLaunchArgument(
+        name = 'vehicle_config_dir', default_value = '/opt/carma/vehicle/config', description = "Path to vehicle configuration directory"
+    )
+
+    # Declare the global_params_override_file launch argument
+    # Parameters in this file will override any parameters loaded in their respective packages
+    global_params_override_file = LaunchConfiguration('global_params_override_file')
+    declare_global_params_override_file_arg = DeclareLaunchArgument(
+        name = 'global_params_override_file',
+        default_value = [vehicle_config_dir, "/GlobalParamsOverride.yaml"],
+        description = "Path to global file containing the parameters overwrite"
+    )
     # Launch shutdown node which will ensure the launch file gets closed on system shutdown even if in a separate container
     driver_shutdown_group = GroupAction(
         actions=[
@@ -64,6 +78,7 @@ def generate_launch_description():
                 PythonLaunchDescriptionSource([ FindPackageShare('mock_controller_driver'), '/launch/mock_controller_driver.launch.py']),
                 launch_arguments = {
                     'log_level' : GetLogLevel('mock_controller_driver', env_log_levels),
+                    'global_params_override_file' : global_params_override_file,
                     }.items()
             ),
         ]
@@ -72,6 +87,8 @@ def generate_launch_description():
 
     return LaunchDescription([
         declare_drivers_arg,
+        declare_vehicle_config_dir_arg,
+        declare_global_params_override_file_arg,
         driver_shutdown_group,
         mock_controller_group
     ])

@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <!--
-  Copyright (C) 2018-2024 LEIDOS.
+  Copyright (C) 2018-2026 LEIDOS.
 
   Licensed under the Apache License, Version 2.0 (the "License"); you may not
   use this file except in compliance with the License. You may obtain a copy of
@@ -20,7 +20,14 @@
 <robot name="vehicle_platform">
 
 	<!-- Frames -->
-	<link name="base_link" />
+	<link name="base_link">
+		<visual>
+			<geometry>
+				<mesh filename="file:///opt/carma/vehicle/calibration/visualization_meshes/VehicleMesh.obj" scale="0.001 0.001 0.001"/>
+			</geometry>
+			<origin xyz="0.83 0 0.31" rpy="0 0 1.570796"/>
+		</visual>
+	</link>
 	<link name="velodyne" />
 	<link name="mobileye" />
 	<link name="radar_fl" />
@@ -35,7 +42,7 @@
 	<link name="ned_heading" />
 
   <!-- Reference Frame Transforms -->
-  
+
   <!-- base_link -> host_vehicle Transform TODO this transform needs to be updated-->
   <joint name="base_link_to_host_vehicle" type="fixed">
     <parent link="base_link" />

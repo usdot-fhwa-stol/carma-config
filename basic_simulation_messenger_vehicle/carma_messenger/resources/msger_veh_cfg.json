@@ -1,0 +1,13 @@
+{
+    "msgerVehs":
+    [
+        {
+            "id": "msger_1",
+            "route": [ "10"],
+            "speed": 10,
+            "departureTime": 5,
+            "lcm" : 0,
+            "cfm" : "MoveOverLaw"
+        }
+    ]
+}
