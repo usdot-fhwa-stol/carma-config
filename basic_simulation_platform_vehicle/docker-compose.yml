@@ -39,6 +39,10 @@ services:
       RMW_IMPLEMENTATION: "${RMW_IMPLEMENTATION:-rmw_cyclonedds_cpp}"
       ROS_DOMAIN_ID: "${ROS_DOMAIN_ID:-0}"
       ROS_LOCALHOST_ONLY: "0"
+      CYCLONEDDS_URI: >-
+        <CycloneDDS><Domain id="any"><General><Interfaces>
+        <NetworkInterface address="${CARLA_BRIDGE_ROS_HOST:-carma-carla-integration}"/>
+        </Interfaces></General></Domain></CycloneDDS>
     command: >-
       bash -c "export RMW_IMPLEMENTATION=${RMW_IMPLEMENTATION:-rmw_cyclonedds_cpp}
       && source /home/carma/carma-carla-integration/install/setup.bash
