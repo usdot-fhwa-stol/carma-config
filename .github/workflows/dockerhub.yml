@@ -87,6 +87,8 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           context: ./basic_simulation_platform_vehicle/
+          build-contexts: |
+            calibration=./example_calibration_folder/vehicle/calibration
           push: true
           tags: ${{ needs.determine_docker_org_and_tag.outputs.docker_organization }}/carma-config:${{ needs.determine_docker_org_and_tag.outputs.docker_image_tag }}-basic-simulation-platform-vehicle
           build-args: |
