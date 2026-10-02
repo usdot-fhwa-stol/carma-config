@@ -36,7 +36,8 @@ fi
 
 echo "Building $USERNAME/$IMAGE:$TAG"
 
-docker build --no-cache -t "$USERNAME/$IMAGE:$TAG" \
+docker buildx build --load --no-cache -t "$USERNAME/$IMAGE:$TAG" \
+    --build-context calibration=../example_calibration_folder/vehicle/calibration \
     --build-arg VERSION="$TAG" \
     --build-arg VCS_REF="$(git rev-parse --short HEAD)" \
     --build-arg CONFIG_NAME="carma-config:$CONFIG_NAME" \
