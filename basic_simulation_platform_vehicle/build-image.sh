@@ -34,13 +34,18 @@ else
     TAG="$TAG-$CONFIG_NAME"
 fi
 
+if ! docker buildx version > /dev/null 2>&1; then
+    echo "docker buildx is required (install the docker-buildx package)" >&2
+    exit 1
+fi
+
 echo "Building $USERNAME/$IMAGE:$TAG"
 
-docker buildx build --load --no-cache -t "$USERNAME/$IMAGE:$TAG" \
+docker build --no-cache -t "$USERNAME/$IMAGE:$TAG" \
     --build-context calibration=../example_calibration_folder/vehicle/calibration \
     --build-arg VERSION="$TAG" \
     --build-arg VCS_REF="$(git rev-parse --short HEAD)" \
     --build-arg CONFIG_NAME="carma-config:$CONFIG_NAME" \
-    --build-arg BUILD_DATE="$(date -u +'%Y-%m-%dT%H:%M:%SZ')" .
+    --build-arg BUILD_DATE="$(date -u +'%Y-%m-%dT%H:%M:%SZ')" . || exit 1
 
 echo "Built $USERNAME/$IMAGE:$TAG"
