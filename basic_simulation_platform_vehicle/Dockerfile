@@ -28,6 +28,7 @@ COPY carma_docker.launch.py /root/vehicle/config/carma_docker.launch.py
 COPY drivers.launch.py /root/vehicle/config/drivers.launch.py
 COPY VehicleConfigParams.yaml /root/vehicle/config/VehicleConfigParams.yaml
 COPY SubsystemControllerParams.yaml /root/vehicle/config/SubsystemControllerParams.yaml
+COPY ../example_calibration_folder/vehicle/calibration /root/vehicle/calibration
 COPY carma.config.js /root/vehicle/config/carma.config.js
 COPY carma.env /root/vehicle/config/carma.env
 COPY carma_rosconsole.conf /root/vehicle/config/carma_rosconsole.conf
