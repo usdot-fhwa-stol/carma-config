@@ -27,7 +27,6 @@ COPY docker-compose.yml /root/vehicle/config/docker-compose.yml
 COPY carma_docker.launch.py /root/vehicle/config/carma_docker.launch.py
 COPY drivers.launch.py /root/vehicle/config/drivers.launch.py
 COPY VehicleConfigParams.yaml /root/vehicle/config/VehicleConfigParams.yaml
-COPY GlobalParamsOverride.yaml /root/vehicle/config/GlobalParamsOverride.yaml
 COPY SubsystemControllerParams.yaml /root/vehicle/config/SubsystemControllerParams.yaml
 COPY --from=calibration . /root/vehicle/config/calibration
 COPY carma.config.js /root/vehicle/config/carma.config.js
