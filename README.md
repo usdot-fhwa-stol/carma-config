@@ -7,6 +7,27 @@
 # CARMAConfig
 The CARMAConfig repository stores the deployment-specific and vehicle-class specific configuration files (such as Docker Compose manifests, network configuration files, system parameters) for use with the different deployment environments (i.e. local development, passenger or truck vehicles, etc.) that CARMA Platform supports. A detailed breakdown of how CARMA Platform treats vehicle configuration can be found on the Confluence page: https://usdot-carma.atlassian.net/wiki/spaces/CRMPLT/pages/886276097/Parameter+and+Launch+Design+for+Different+Vehicle+Configurations
 
+## Demo Configurations
+Configuration for specific demos is captured in tags rather than in branches. Demo tags follow the naming convention:
+
+```text
+carma-system-<VERSION_NUMBER>-demo_<location>_<descriptive_name_with_underscore>
+```
+
+For example, `carma-system-4.11.0-demo_tfhrc_uc2_tim_cp` is the demo configuration built on top of the `carma-system-4.11.0` release for the TFHRC location, use case 2, TIM/CP demo. To find configuration for a specific demo, look for a tag matching this pattern in the repository's tag list.
+
+### DT Work Zone Phase 1 Demonstration (`carma-system-4.14.0-demo_tfhrc_dt_wz_p1`)
+Highway work zones are temporary, dynamic environments that can change rapidly, making it difficult for connected and automated vehicles to accurately identify work zone locations and lane impacts in advance. The Distributed Testing (DT) Work Zone Phase 1 Demonstration at TFHRC in McLean, VA, highlights the value of distributed testing for realistic, safe, and cost-effective evaluation of technologies that can improve work zone awareness and ultimately help save lives.
+
+This Phase 1 demonstration will examine how cooperative perception can improve a connected and automated vehicle's situational awareness in a work zone, thereby increasing safety for workers in the work zone. A full end-to-end test of this technology with real hardware and live participants can be expensive and potentially unsafe; however, by leveraging distributed testing, two separate test sites can be network-connected using TENA to operate as a distributed test environment:
+
+- **Primary Test Site (Vehicle and Work Zone):** A live connected and automated vehicle operating on a roadway with a mock work zone.
+- **Secondary Test Site (Pedestrian):** A live infrastructure perception system detecting a pedestrian.
+
+For this demo, the platform container mounts its maps and routes from `/opt/carma/demo_tfhrc_uc2_tim_cp` on the host.
+
+For more information, see [2026 DT WZ Demo: Yield to Remote Pedestrian](https://usdot-carma.atlassian.net/wiki/spaces/CRMPLT/pages/4867653634/2026+DT+WZ+Demo+Yield+to+Remote+Pedestrian).
+
 ## Vehicle Configuration Folders
 Folders containing the name of a specific vehicle class (such as 'lexus_rx_450h_2019') contain vehicle configuration data that is specific to that class of vehicle and sensor suite (for example, the launch file for the sensors used on that vehicle). These folders also contain the Docker Compose files that will launch CARMA Platform with the appropriate configuration. These folders do not contain calibration information that is specific to an individual vehicle.
 
@@ -29,15 +50,6 @@ The table below helps visualize this described breakdown of ROS 1 Noetic and ROS
 
 ## CDASim Config
 For configuration files intended for simulation that used to be here until release `carma-system-4.7.1` please refer to https://github.com/usdot-fhwa-stol/cdasim-config repository.
-
-## Demo Configurations
-Configuration for specific demos is captured in tags rather than in branches. Demo tags follow the naming convention:
-
-```text
-carma-system-<VERSION_NUMBER>-demo_<location>_<descriptive_name_with_underscore>
-```
-
-For example, `carma-system-4.11.0-demo_tfhrc_uc2_tim_cp` is the demo configuration built on top of the `carma-system-4.11.0` release for the TFHRC location, use case 2, TIM/CP demo. To find configuration for a specific demo, look for a tag matching this pattern in the repository's tag list.
 
 # CARMAPlatform
 The primary CARMA Platform repository can be found [here](https://github.com/usdot-fhwa-stol/carma-platform) and is part of the [USDOT FHWA STOL](https://github.com/usdot-fhwa-stol/)
