@@ -60,6 +60,9 @@ services:
 
   vehicle-registration-service:
     image: "${VEHICLE_REGISTRATION_IMAGE}"
+    depends_on:
+      v2x-ros-driver:
+        condition: service_started
     networks:
       - vehicle_private
     volumes_from:
