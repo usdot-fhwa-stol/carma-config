@@ -21,3 +21,7 @@ in-lane-cruising, system-controller, and cooperative-lane-change components.
 The Compose file uses Docker DNS names instead of fixed container IP addresses.
 Run `./build-image.sh` for a release build or `./build-image.sh --develop` for a
 development build.
+
+The image copies its calibration files from the repository's
+`example_calibration_folder`, so building requires Docker Buildx
+(`sudo apt install docker-buildx` on Ubuntu).

@@ -51,7 +51,9 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           context: ./basic_simulation_platform_vehicle/
-          push: false   
+          build-contexts: |
+            calibration=./example_calibration_folder/vehicle/calibration
+          push: false
 
       - name: Build chrysler_pacifica_ehybrid_s_2019 image
         uses: docker/build-push-action@v5
