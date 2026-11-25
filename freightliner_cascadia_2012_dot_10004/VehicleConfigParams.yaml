@@ -48,11 +48,11 @@ vehicle_tire_radius: 0.5715
 # NOTE: It is highly desirable to maintain a timeout of 100 ms or less, but trajectory generation success cannot be guaranteed with this duration
 #       for tactical plugins (primarily cooperative_lanechange) in all test scenarios at this time.
 # Units: Milliseconds
-tactical_plugin_service_call_timeout: 100
+tactical_plugin_service_call_timeout: 300
 
 # Activates object avoidance logics in trajectory planning plugins
 # Units: Boolean
-enable_object_avoidance: false
+enable_object_avoidance: true
 
 # Acceleration limit
 # Value type: Desired
@@ -115,8 +115,6 @@ excluded_default_topics:
   - (.*)/scan
   - (.*)/compressed(.*)
   - /environment/base_map
-  - /environment/external_object_predictions
-  - /environment/external_objects_viz
   - /environment/map_filtered_points
   - /environment/points_no_ground
   - /environment/points_in_base_link

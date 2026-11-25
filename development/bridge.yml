@@ -3,8 +3,6 @@
 # NOTE: A custom dynamic_bridge is used in CARMA Platform which will automatically connect topics and services, but
 #       this file allows for certain topics to be pre-configured with specified QoS settings.
 topics:
-
-
   -
     topic: /system_alert
     type: carma_msgs/msg/SystemAlert

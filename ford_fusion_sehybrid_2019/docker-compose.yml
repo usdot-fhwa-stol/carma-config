@@ -35,8 +35,6 @@ services:
       - "8765:8765"  # For Foxglove Bridge
     volumes_from:
       - container:carma-config:ro
-    environment:
-      - CYCLONEDDS_URI=${CYCLONEDDS_URI}
     runtime: nvidia
     volumes:
       - /opt/carma/logs:/opt/carma/logs
@@ -45,6 +43,8 @@ services:
       - /opt/carma/maps:/opt/carma/maps
       - /opt/carma/routes:/opt/carma/routes
       - /opt/carma/yolo:/opt/carma/yolo
+      - /etc/timezone:/etc/timezone:ro
+      - /etc/localtime:/etc/localtime:ro
     command: bash -c 'source /opt/carma/install/setup.bash && ros2 launch /opt/carma/vehicle/config/carma_docker.launch.py'
 
   ros1_bridge:
@@ -56,7 +56,6 @@ services:
     environment:
       - ROS_IP=192.168.88.10
       - ROS_MASTER_URI=http://localhost:11311
-      - CYCLONEDDS_URI=${CYCLONEDDS_URI}
     volumes:
       - /opt/carma/logs:/opt/carma/logs
       - /opt/carma/.ros:/home/carma/.ros
@@ -64,6 +63,8 @@ services:
       - /opt/carma/maps:/opt/carma/maps
       - /opt/carma/routes:/opt/carma/routes
       - /opt/carma/yolo:/opt/carma/yolo
+      - /etc/timezone:/etc/timezone:ro
+      - /etc/localtime:/etc/localtime:ro
     command: bash -c 'wait-for-it localhost:11311 -- rosparam load /opt/carma/vehicle/config/bridge.yml && source /home/carma/.base-image/workspace/install/setup.bash && ros2 run ros1_bridge dynamic_bridge --multi-threads'
 
   lightbar-driver:
@@ -86,12 +87,9 @@ services:
     network_mode: host
     volumes_from:
       - container:carma-config:ro
-    environment:
-      - CYCLONEDDS_URI=${CYCLONEDDS_URI}
     volumes:
       - /opt/carma/logs:/opt/carma/logs
       - /opt/carma/.ros:/home/carma/.ros
-      - /opt/carma/vehicle/calibration:/opt/carma/vehicle/calibration
     command: bash -c 'source /opt/carma/install/setup.bash && ros2 launch /opt/carma/vehicle/config/drivers.launch.py drivers:=v2x_ros_driver'
 
   ssc_controller_driver:
@@ -99,8 +97,8 @@ services:
     container_name: ssc_controller_driver
     network_mode: host
     privileged: true # Grant access to usb for can data
-    devices: # Data speed can tool at bus 1 device 3
-      - /dev/bus/usb/001/003:/dev/bus/usb/001/003
+    devices: # Data speed can tool at bus 1 device 2
+      - /dev/bus/usb/001/002:/dev/bus/usb/001/002
     volumes_from:
       - container:carma-config:ro
     environment:
@@ -117,8 +115,6 @@ services:
     network_mode: host
     volumes_from:
       - container:carma-config:ro
-    environment:
-      - CYCLONEDDS_URI=${CYCLONEDDS_URI}
     volumes:
       - /opt/carma/logs:/opt/carma/logs
       - /opt/carma/.ros:/home/carma/.ros
@@ -131,10 +127,7 @@ services:
     network_mode: host
     volumes_from:
       - container:carma-config:ro
-    environment:
-      - CYCLONEDDS_URI=${CYCLONEDDS_URI}
     volumes:
       - /opt/carma/logs:/opt/carma/logs
       - /opt/carma/.ros:/home/carma/.ros
-      - /opt/carma/vehicle/calibration:/opt/carma/vehicle/calibration
     command: bash -c 'source /opt/carma/install/setup.bash && ros2 launch /opt/carma/vehicle/config/drivers.launch.py drivers:=velodyne_lidar_driver_wrapper'

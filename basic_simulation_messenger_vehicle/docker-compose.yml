@@ -1,0 +1,94 @@
+services:
+  messenger-ros2:
+    image: "${CARMA_MESSENGER_CORE_IMAGE}"
+    networks:
+      - messenger_private
+    volumes_from:
+      - "container:${CONFIG_CONTAINER_NAME}:ro"
+    environment:
+      RMW_IMPLEMENTATION: "${RMW_IMPLEMENTATION:-rmw_cyclonedds_cpp}"
+    volumes:
+      - "${MESSENGER_LOG_ROOT}:/opt/carma/logs"
+      - "${MESSENGER_ROS_ROOT}:/home/carma/.ros"
+      - "${MESSENGER_ROUTE_ROOT}:/opt/carma/routes"
+      - ./carma_messenger/vehicle/calibration:/opt/carma/vehicle/calibration:ro
+      - ./carma_messenger/traffic_incident/config:/opt/carma/install/traffic_incident/share/traffic_incident/config:ro
+    command: >-
+      bash -c "export RMW_IMPLEMENTATION=${RMW_IMPLEMENTATION:-rmw_cyclonedds_cpp}
+      && source /opt/carma/install/setup.bash
+      && ros2 launch /opt/carma/vehicle/config/carma-messenger-docker.launch.py"
+
+  carma-messenger-bridge:
+    image: "${CARMA_MESSENGER_BRIDGE_IMAGE}"
+    networks:
+      messenger_private:
+        aliases:
+          - "${MESSENGER_BRIDGE_HOST:-carma-messenger-bridge}"
+    environment:
+      RMW_IMPLEMENTATION: "${RMW_IMPLEMENTATION:-rmw_cyclonedds_cpp}"
+    volumes:
+      - ./carma_messenger:/opt/mockns3
+    command: >-
+      bash -c "export RMW_IMPLEMENTATION=${RMW_IMPLEMENTATION:-rmw_cyclonedds_cpp}
+      && source /home/carma/install/setup.bash
+      && ros2 launch msger_mosaic_bridge mosaic_adapter_launch.py
+      role_id:=${VEHICLE_ID}
+      messenger_ip_address:=messenger-ros2
+      cdasim_ip_address:=${CDASIM_HOST:-cdasim}
+      host_ip_address:=${MESSENGER_BRIDGE_HOST:-carma-messenger-bridge}"
+
+  messenger-v2x-ros-driver:
+    image: "${V2X_ROS_DRIVER_IMAGE}"
+    networks:
+      messenger_private:
+        aliases:
+          - "${MESSENGER_V2X_ROS_DRIVER_HOST:-messenger-v2x-ros-driver}"
+    volumes_from:
+      - "container:${CONFIG_CONTAINER_NAME}:ro"
+    environment:
+      RMW_IMPLEMENTATION: "${RMW_IMPLEMENTATION:-rmw_cyclonedds_cpp}"
+    volumes:
+      - "${MESSENGER_LOG_ROOT}:/opt/carma/logs"
+      - "${MESSENGER_ROS_ROOT}:/home/carma/.ros"
+      - ./carma_messenger/v2x_ros_driver/params.yaml:/opt/carma/install/v2x_ros_driver/share/v2x_ros_driver/config/params.yaml:ro
+    command: >-
+      bash -c "export RMW_IMPLEMENTATION=${RMW_IMPLEMENTATION:-rmw_cyclonedds_cpp}
+      && source /opt/carma/install/setup.bash
+      && ros2 launch /opt/carma/vehicle/config/msger_drivers.launch.py log_level:=DEBUG"
+
+  messenger-vehicle-registration-service:
+    image: "${VEHICLE_REGISTRATION_IMAGE}"
+    networks:
+      - messenger_private
+    volumes_from:
+      - "container:${CONFIG_CONTAINER_NAME}:ro"
+    command: >-
+      python3 /opt/carma/vehicle-registration-module/src/vehicleRegistration.py
+      --vehicleId "${VEHICLE_ID}"
+      --roleId "${VEHICLE_ID}"
+      --rxMessageIpAddress "${MESSENGER_V2X_ROS_DRIVER_HOST:-messenger-v2x-ros-driver}"
+      --rxMessagePort 3501
+      --rxTimeSyncPort 3500
+      --receiverPort 3600
+      --receiverIpAddress "${CDASIM_HOST:-cdasim}"
+
+  carma-messenger-vehicle-plugin:
+    image: "${MESSENGER_VEHICLE_PLUGIN_IMAGE}"
+    networks:
+      - carma_sim_net
+    volumes:
+      - "${MESSENGER_LOG_ROOT}/vehicle-plugin:/home/carma/src/carma_messenger_vehicle_plugin/logs"
+      - ./carma_messenger/resources:/home/carma/src/carma_messenger_vehicle_plugin/src/resources:ro
+    command: >-
+      bash -c "cd /home/carma/src/carma_messenger_vehicle_plugin/src
+      && python3 msger_veh_wrapper.py
+      --traci-ip ${CDASIM_HOST:-cdasim}
+      --traci-order-num ${TRACI_ORDER_NUM:-3}"
+
+networks:
+  messenger_private:
+    external: true
+    name: "${PRIVATE_NETWORK_NAME:-xil_messenger_1_net}"
+  carma_sim_net:
+    external: true
+    name: "${SIM_NETWORK_NAME:-xil_sim_net}"
