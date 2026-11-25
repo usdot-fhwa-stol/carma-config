@@ -125,6 +125,16 @@ def generate_launch_description():
         description = 'True if user wants ROS 2 Tracing logs to be generated from CARMA Platform'
     )
 
+    # When enabled, the Foxglove Bridge node will be started
+    # By default, port 8765 needs to be exposed from carma-platform container to host machine
+    # then start foxglove studio and select "Open Connect" to use Foxglove Websocket with port 8765
+    use_foxglove = LaunchConfiguration('use_foxglove')
+    declare_use_foxglove_arg = DeclareLaunchArgument(
+        name='use_foxglove',
+        default_value = 'False',
+        description = 'True if user wants real-time foxglove studio support'
+    )
+
     # When enabled, the vehicle fuses incoming SDSM with its own sensor data to create a more accurate representation of the environment
     # When turned off, topics get remapped to solely rely on its own sensor data
     is_cp_mot_enabled = LaunchConfiguration('is_cp_mot_enabled')
@@ -151,7 +161,8 @@ def generate_launch_description():
             'single_pcd_path' : single_pcd_path,
             'area' : area,
             'arealist_path' : arealist_path,
-            'vector_map_file' : vector_map_file
+            'vector_map_file' : vector_map_file,
+            'use_foxglove' : use_foxglove,
             }.items()
     )
 
@@ -173,5 +184,6 @@ def generate_launch_description():
         declare_arealist_path,
         declare_vector_map_file,
         declare_is_ros2_tracing_enabled,
+        declare_use_foxglove_arg,
         carma_src_launch
     ])

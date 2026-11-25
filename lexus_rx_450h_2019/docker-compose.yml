@@ -30,6 +30,8 @@ services:
     image: ${DOCKER_ORG}/carma-platform:${DOCKER_TAG}
     network_mode: host
     container_name: platform
+    ports:
+      - "8765:8765"  # For Foxglove Bridge
     volumes_from:
       - container:carma-config:ro
     environment:
